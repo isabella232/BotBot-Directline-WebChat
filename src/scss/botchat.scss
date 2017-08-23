@@ -51,7 +51,7 @@
     }
 
     .wc-time {
-        color: $c_textLight;
+        color: $c_secondary_text;
         margin-bottom: 10px;
     }
 
@@ -166,7 +166,7 @@
     }
 
     .wc-console {
-        border: 5px solid $c_chrome;
+        border-top: 1px solid $c_console_divider;
         bottom: 0;
         box-sizing: border-box;
         height: $consoleHeight;
@@ -212,7 +212,7 @@
     }
 
     .wc-message {
-        position: relative;
+        max-width: 85%;
     }
 
     .wc-message-wrapper.carousel .wc-message {
@@ -220,17 +220,9 @@
         padding-right: 8px;
     }
 
-    .wc-message svg.wc-message-callout {
-        height: 22px;
-        position: absolute;
-        stroke: none;
-        top: 12px;
-        width: 6px;
-    }
-
     .wc-message-content {
         border-radius: 2px;
-        box-shadow: 0px 1px 1px 0px $c_shadow;
+        // box-shadow: 0px 1px 1px 0px $c_shadow;
         padding: 8px;
         word-break: break-word;
       }
@@ -262,9 +254,10 @@
 
     .wc-message-from {
         clear: both;
-        color: $c_textLight;
-        font-size: 11px;
-        margin-top: 5px;
+        color:$c_message_meta;
+        font-size: 13px;
+        font-weight: 300;
+        padding-top: 5px;
     }
 
 /* cards */
@@ -272,6 +265,7 @@
     .wc-card {
 
         background-color: $c01;
+        font-size: 13px;
 
         .non-adaptive-content {
             margin: $card_padding $card_padding 0 $card_padding;
@@ -297,6 +291,50 @@
             color: $c01;
         }
 
+
+        h1 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        h2 {
+            color: $c_card_heading;
+            font-size: inherit;
+            font-weight: normal;
+            margin-bottom: 8px;
+        }
+
+        p {
+            padding-bottom: 10px;
+        }
+
+        h1, h2, p {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+
+        p h2 {
+            /* don't double indent */
+            margin-left: 0;
+        }
+
+        ul.wc-card-buttons {
+            clear: both;
+            display: table;
+        }
+
+        ul.wc-card-buttons li {
+            list-style-type: none;
+            text-align: center;
+            float: left;
+            margin: 2px;
+        }
+
+        &.hero img {
+            display: block;
+            margin-bottom: 11px;
+        }
+
         &.receipt table {
             border-collapse: collapse;
             width: 100%;
@@ -312,7 +350,7 @@
         }
 
         &.receipt th {
-            color: $c_textHeading;
+            color: $c_card_heading;
             font-size: inherit;
             font-weight: normal;
             line-height: 1.75;
@@ -518,52 +556,28 @@
 
     .wc-message-from-me {
         float: right;
-        margin-right: 6px;
+        border-right: $messageBorderWidth solid $c_message_user_bubble;
+        padding-right: 15px;
     }
 
-    .wc-message-from-me.wc-message-from {
+    .wc-message-from-me.wc-message-meta {
         text-align: right;
     }
 
     .wc-message-from-me .wc-message-content {
-        background-color: $c_messageFromMe;
-        color: $c01;
-    }
-
-    .wc-message-from-me svg.wc-message-callout path {
-        fill: $c_messageFromMe;
-    }
-
-    .wc-message-from-me svg.wc-message-callout path.point-left {
-        display: none;
-    }
-
-    .wc-message-from-me svg.wc-message-callout {
-        right: -6px;
+        color: $c_message_text;
     }
 
 /* from bot */
 
     .wc-message-from-bot {
         float: left;
-        margin-left: 8px;
+        border-left: $messageBorderWidth solid $c_message_bot_bubble;
+        padding-left: 15px;
     }
 
     .wc-message-from-bot .wc-message-content {
-        background-color: $c_messageFromThem;
-        color: $c00;
-    }
-
-    .wc-message-from-bot svg.wc-message-callout path {
-        fill: $c_messageFromThem;
-    }
-
-    .wc-message-from-bot svg.wc-message-callout path.point-right {
-        display: none;
-    }
-
-    .wc-message-from-bot svg.wc-message-callout {
-        left: -6px;
+        color: $c_message_text;
     }
 
 /* console */
@@ -702,6 +716,6 @@
     }
 
     .wc-app ::-webkit-scrollbar-thumb {
-        background-color: $c_chrome;
+        background-color: $c_scrollbar;
     }
     

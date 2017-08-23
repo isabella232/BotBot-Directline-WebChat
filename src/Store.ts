@@ -600,6 +600,7 @@ const sendTyping: Epic<ChatActions, ChatState> = (action$, store) =>
 
 import { Store, createStore as reduxCreateStore, combineReducers } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export const createStore = () =>
     reduxCreateStore(
@@ -610,20 +611,22 @@ export const createStore = () =>
             connection,
             history
         }),
-        applyMiddleware(createEpicMiddleware(combineEpics(
-            updateSelectedActivity,
-            sendMessage,
-            trySendMessage,
-            retrySendMessage,
-            showTyping,
-            sendTyping,
-            speakSSML,
-            speakOnMessageReceived,
-            startListening,
-            stopListening,
-            stopSpeaking,
-            listeningSilenceTimeout,
-        )))
+        composeWithDevTools(
+            applyMiddleware(createEpicMiddleware(combineEpics(
+                updateSelectedActivity,
+                sendMessage,
+                trySendMessage,
+                retrySendMessage,
+                showTyping,
+                sendTyping,
+                speakSSML,
+                speakOnMessageReceived,
+                startListening,
+                stopListening,
+                stopSpeaking,
+                listeningSilenceTimeout,
+            )))
+        )
     );
 
 export type ChatStore = Store<ChatState>;

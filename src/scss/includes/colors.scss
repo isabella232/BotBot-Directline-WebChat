@@ -13,11 +13,75 @@ $c10: #dbdee1;
 $c11: #d2dde5;
 $c12: #ffa333;
 
-$c_brand: $c07;
-$c_shadow: $c02;
-$c_chrome: $c10;
-$c_textHeading: $c08;
-$c_textLight: $c04;
+// $c_brand: $c07;
+// $c_shadow: $c02;
+// $c_chrome: $c10;
+// $c_textHeading: $c08;
+// $c_textLight: $c04;
 
 $c_messageFromMe: $c07;
 $c_messageFromThem: $c09;
+
+// Francis Colors Descripton
+$c_peacock_blue: #006f91;
+$c_water_blue: #1997cc;
+$c_bright_sky_blue: #00b4ff;
+$c_black: #000000;
+$c_purple_brown: #231f20;
+$c_biege: #faf9f4;
+$c_biege_two: #f5f2e9;
+$c_biege_two_lighten: #fbf8ef;
+$c_biege_two_darken: #e8e5dc;
+$c_blue_grey: #7ba1ab;
+$c_grey: #d1d1d1;
+$c_light_grey: #e5e5e5;
+
+
+// Colors Palette
+$c_brand: $c_peacock_blue;
+$c_brand_two: $c_bright_sky_blue;
+$c_light_accent: $c_grey;
+$c_dark_accent: $c_water_blue;
+$c_primary_text: $c_purple_brown;
+$c_secondary_text: $c_blue_grey;
+$c_light_background: $c_biege;
+$c_dark_background: $c_biege_two;
+$c_dark_background_lighten: $c_biege_two_lighten;
+$c_dark_background_darken: $c_biege_two_darken;
+$c_shadow: $c_black;
+$c_subtle: $c_light_grey;
+
+// Application Colors (Uses Color Palettte)
+// General
+$c_scrollbar: $c_subtle;
+
+// Header
+$c_header_bg: $c_light_background;
+$c_header_text: $c_peacock_blue;
+$c_header_date: $c_secondary_text;
+
+// History
+$c_message_bot_bubble: $c_brand;
+$c_message_user_bubble: $c_brand_two;
+$c_message_text: $c_primary_text;
+$c_card_heading: $c_secondary_text;
+$c_card_divider: $c_subtle;
+$c_carousel_scroll_bg: $c_light_accent;
+$c_carousel_scroll_bg_highlight: $c_subtle;
+// Different type of button: card_buttons, action_buttons, submit_buttons
+$c_button_background: $c_dark_background;
+$c_button_background_highlight: $c_dark_background_lighten;
+$c_button_background_onpress: $c_dark_background_darken;
+$c_button_text: $c_dark_accent;
+$c_message_meta: $c_secondary_text;
+
+// Console
+$c_console_text:  $c_primary_text;
+$c_console_divider: $c_subtle;
+$c_console_send_icon: $c_dark_accent;
+
+// Form Elements
+$c_input_label: $c_brand;
+$c_input_bg: $c_dark_background;
+$c_input_text: $c_primary_text;
+$c_input_label_msg: $c_primary_text;
