@@ -19,7 +19,7 @@ interface LocalizedStrings {
 
 const localizedStrings: LocalizedStrings = {
     'en-us': {
-        title: "Chat",
+        title: "Botbot.AI",
         send: "Send",
         unknownFile: "[File of type '%1']",
         unknownCard: "[Unknown Card '%1']",
@@ -33,7 +33,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Listening..."
     },
     'de-de': {
-        title: "Chat",
+        title: "Botbot.AI",
         send: "Senden",
         unknownFile: "[Datei vom Typ '%1']",
         unknownCard: "[Unbekannte Card '%1']",
@@ -47,7 +47,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Hören..."
     },
     'pl-pl': {
-        title: "Chat",
+        title: "Botbot.AI",
         send: "Wyślij",
         unknownFile: "[Plik typu '%1']",
         unknownCard: "[Nieznana karta '%1']",
@@ -61,7 +61,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Słuchający..."
     },
     'ru-ru': {
-        title: "Чат",
+        title: "Botbot.AI",
         send: "Отправить",
         unknownFile: "[Неизвестный тип '%1']",
         unknownCard: "[Неизвестная карта '%1']",
@@ -75,7 +75,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "прослушивание..."
     },
     'nl-nl': {
-        title: "Chat",
+        title: "Botbot.AI",
         send: "Verstuur",
         unknownFile: "[Bestand van het type '%1']",
         unknownCard: "[Onbekende kaart '%1']",
@@ -89,7 +89,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "het luisteren..."
     },
     'lv-lv': {
-        title: "Tērzēšana",
+        title: "Botbot.AI",
         send: "Sūtīt",
         unknownFile: "[Nezināms tips '%1']",
         unknownCard: "[Nezināma kartīte '%1']",
@@ -103,7 +103,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Klausoties..."
     },
     'pt-br': {
-        title: "Bate-papo",
+        title: "Botbot.AI",
         send: "Enviar",
         unknownFile: "[Arquivo do tipo '%1']",
         unknownCard: "[Cartão desconhecido '%1']",
@@ -117,7 +117,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Ouvindo..."
     },
     'fr-fr': {
-        title: "Chat",
+        title: "Botbot.AI",
         send: "Envoyer",
         unknownFile: "[Fichier de type '%1']",
         unknownCard: "[Carte inconnue '%1']",
@@ -131,7 +131,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Écoute..."
     },
     'es-es': {
-        title: "Chat",
+        title: "Botbot.AI",
         send: "Enviar",
         unknownFile: "[Archivo de tipo '%1']",
         unknownCard: "[Tarjeta desconocida '%1']",
@@ -145,7 +145,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Escuchando..."
     },
     'el-gr': {
-        title: "Συνομιλία",
+        title: "Botbot.AI",
         send: "Αποστολή",
         unknownFile: "[Αρχείο τύπου '%1']",
         unknownCard: "[Αγνωστη Κάρτα '%1']",
@@ -159,7 +159,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Ακούγοντας..."
     },
     'it-it': {
-        title: "Chat",
+        title: "Botbot.AI",
         send: "Invia",
         unknownFile: "[File di tipo '%1']",
         unknownCard: "[Card sconosciuta '%1']",
@@ -173,7 +173,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "Ascoltando..."
     },
     'zh-hans': {
-        title: "聊天",
+        title: "Botbot.AI",
         send: "发送",
         unknownFile: "[类型为'%1'的文件]",
         unknownCard: "[未知的'%1'卡片]",
@@ -187,7 +187,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "正在倾听..."
     },
     'zh-hant': {
-        title: "聊天",
+        title: "Botbot.AI",
         send: "發送",
         unknownFile: "[類型為'%1'的文件]",
         unknownCard: "[未知的'%1'卡片]",
@@ -201,7 +201,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "正在聆聽..."
     },
     'zh-yue': {
-        title: "傾偈",
+        title: "Botbot.AI",
         send: "傳送",
         unknownFile: "[類型係'%1'嘅文件]",
         unknownCard: "[唔知'%1'係咩卡片]",
@@ -215,7 +215,7 @@ const localizedStrings: LocalizedStrings = {
         listeningIndicator: "聽緊你講嘢..."
     },
     'cs-cz': {
-        title: "Chat",
+        title: "Botbot.AI",
         send: "Odeslat",
         unknownFile: "[Soubor typu '%1']",
         unknownCard: "[Neznámá karta '%1']",
