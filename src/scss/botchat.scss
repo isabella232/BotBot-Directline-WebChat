@@ -223,7 +223,7 @@
     .wc-message-content {
         border-radius: 2px;
         // box-shadow: 0px 1px 1px 0px $c_shadow;
-        padding: 8px;
+        // padding: 8px;
         word-break: break-word;
       }
 
@@ -316,18 +316,6 @@
         p h2 {
             /* don't double indent */
             margin-left: 0;
-        }
-
-        ul.wc-card-buttons {
-            clear: both;
-            display: table;
-        }
-
-        ul.wc-card-buttons li {
-            list-style-type: none;
-            text-align: center;
-            float: left;
-            margin: 2px;
         }
 
         &.hero img {
@@ -433,6 +421,54 @@
         }
     }
 
+    /* styling for Hero Card */
+    
+    .wc-card.hero {
+        
+        p {
+            // font-size: 15px;
+            margin-left: 0px;
+            margin-right: 0px;
+            margin-bottom: 10px;
+            color: $c_card_heading;
+            font-weight: 300;
+        }
+        
+        .ac-container > div > div > div {
+            button {
+                &:first-child {
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                }
+                &:last-child {
+                    border-bottom-left-radius: 10px;
+                    border-bottom-right-radius: 10px;
+                }
+            }
+        }
+        
+        // styling of the button is done here
+        button {
+            background-color: $c_button_background;
+            border: 0px;
+            color: $c_button_text;
+            font-weight:500;
+            line-height: 1.29;
+            text-align: left;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            
+            &:hover {
+                background-color: $c_button_background_highlight;
+            }
+            
+            &:focus {
+                background-color: $c_button_background_onpress;
+            }        
+        }
+        
+    }
+
 /* alternate chat sizes */
 
     .wc-message {
@@ -497,7 +533,8 @@
         position: relative;
 
         button.scroll {
-            background-color: $c11;
+            background-color: $c_carousel_scroll_bg;
+            border: 0px;
             height: 28px;
             overflow: hidden;
             padding: 0;
@@ -511,7 +548,7 @@
         }
 
         button.scroll:hover {
-            background-color:  $c08;
+            background-color:  $c_carousel_scroll_bg_highlight;
         }
 
         button.scroll svg {
@@ -531,11 +568,15 @@
         }
 
         .wc-hscroll > ul > li {
-            padding: 0 4px;
+            padding-left: 4px;
+            padding-right: 15px;
+            margin-right: 11px;
+            border-right: 2px solid $c_card_divider;
         }
 
         .wc-hscroll > ul > li:last-child {
             padding-right: 0;
+            border-right: 0px;
         }
 
         li {

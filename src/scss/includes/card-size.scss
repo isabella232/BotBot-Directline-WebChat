@@ -1,13 +1,22 @@
+$card_narrow: 240px;
+$card_normal: 340px;
+$card_wide: 416px;
+
+$card_borderWidth: 1px;
+$card_padding: 8px;
 
 @mixin card-size($cardWidth) {
 
     .wc-card {
         border: $card_borderWidth solid #d2dde5;
+        padding: $card_padding;
         width: $cardWidth - 2 * ($card_padding + $card_borderWidth);
     }
-
-    .wc-adaptive-card {
-        width: $cardWidth - 2 * $card_borderWidth;
+    
+    .wc-card.hero {
+        border: 0px;
+        padding: 0px;
+        width: $cardWidth;
     }
     
 }

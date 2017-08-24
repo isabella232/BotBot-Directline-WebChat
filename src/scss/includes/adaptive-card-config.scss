@@ -18,8 +18,8 @@ $hostConfig: (
   ),
   fontWeights: (
     lighter: 200,
-    normal: 400,
-    bolder: 700
+    normal: 300,
+    bolder: 400
   ),
   colors: (
     dark: (
@@ -62,7 +62,7 @@ $hostConfig: (
     showCard: (
       actionMode: "inlineEdgeToEdge",
       inlineTopMargin: 16px,
-      backgroundColor: "#00000000",   //using 8 digit hex Adaptive Card color format for transparent ("Transparent" will not be recognized)
+      backgroundColor: "#00FFFFFF",   //using 8 digit hex Adaptive Card color format for transparent ("Transparent" will not be recognized)
       padding: (
         top: $separation,
         right: $separation,
@@ -74,7 +74,7 @@ $hostConfig: (
     actionAlignment: "left"
   ),
   adaptiveCard: (
-    backgroundColor: "#00000000",   //using 8 digit hex Adaptive Card color format for transparent ("Transparent" will not be recognized)
+    backgroundColor: "#00FFFFFF",   //using 8 digit hex Adaptive Card color format for transparent ("Transparent" will not be recognized)
     padding: (
       left: $card_padding,
       top: $card_padding,
