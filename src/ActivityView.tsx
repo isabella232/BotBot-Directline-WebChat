@@ -5,6 +5,7 @@ import { Carousel } from './Carousel';
 import { FormattedText } from './FormattedText';
 import { FormatState, SizeState } from './Store';
 import { IDoCardAction } from './Chat';
+import { Form } from './FormView';
 
 const Attachments = (props: {
     attachments: Attachment[],
@@ -62,6 +63,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
 
     render() {
         const { activity, ... props } = this.props;
+
         switch (activity.type) {
             case 'message':
                 return (
@@ -79,6 +81,14 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                             onImageLoad={ props.onImageLoad }
                             size={ props.size }
                         />
+                        {activity.channelData && activity.channelData.form &&
+                            <Form 
+                                activityId={ activity.id }
+                                action={ activity.channelData.form.action } 
+                                inputs={ activity.channelData.form.inputs }
+                                submitDisabled= { activity.channelData.form.submitDisabled }
+                            />
+                        }
                     </div>
                 );
 
