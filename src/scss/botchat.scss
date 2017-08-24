@@ -637,16 +637,22 @@
 
     .wc-console svg {
         fill: $c03;
-        margin: 11px;
+        margin: 16px;
     }
 
     .wc-console textarea, .wc-console input[type=text] {
+        color: $c_console_text;
         border: none;
         height: 100%;
         outline: none;
         padding: 0;
         resize: none;
         width: 100%;
+    }
+    
+    .wc-console input[type=text]::placeholder {
+        color: $c_console_text;
+        opacity: 0.16;
     }
 
     .wc-send svg {
@@ -655,6 +661,7 @@
     }
 
     .wc-upload svg {
+        fill: $c_console_send_icon;
         height: 18px;
         width: 26px;
     }
@@ -671,6 +678,11 @@
 
     .wc-send {
         right: 0;
+    }
+
+    .wc-send svg {
+        fill: $c_console_send_icon;
+        fill-opacity: 0.4;
     }
     
     .wc-send.hidden {
@@ -694,7 +706,7 @@
     }
 
     .wc-console.has-text .wc-send svg {
-        fill: $c07; 
+        fill-opacity: 1;
     }
 
 /* animation */
