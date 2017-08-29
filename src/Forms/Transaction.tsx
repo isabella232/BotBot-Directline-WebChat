@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { GS_CURR_ABBR } from './mockData';
+import { CURRENCIES, NOSTRO } from './mockData';
+import moment, { Moment } from 'moment';
+import DateTime from 'react-datetime';
 
 class Transaction extends Component {
     constructor() {
@@ -18,6 +20,15 @@ class Transaction extends Component {
         });
     }
 
+    handleDateChange(elemName: string, value: any) {
+        this.setState({
+            ...this.state,
+            [elemName]: value,
+            [`${elemName}-valid`]: (typeof(value) === 'string'),
+            [`${elemName}-error`]: "Date is invalid",
+        })
+    }
+
     getControlClass(validity: ValidityState, ...className: string[]) {
         return `${className.join(' ')} ${validity.valid ? 'valid' : 'invalid'}`
     }
@@ -34,30 +45,26 @@ class Transaction extends Component {
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        {GS_CURR_ABBR.map(currency => <option>{currency}</option>)}
+                        {CURRENCIES.map(currency => <option>{currency}</option>)}
                     </select>
                     <div className="error">{this.state['currency-error']}</div>
                 </div>
                 <div className="form-group row">
                     <div className="form-group">
                         <label htmlFor="fromVD">From V/D</label>
-                        <input 
-                            type="text" 
-                            name="fromVD"
+                        <DateTime
                             className={this.getControlClass(this.state['fromVD-valid'], "form-control")}
-                            onChange={(e) => this.handleChange(e)}
-                            required
+                            onChange={(value) => this.handleDateChange('fromVD', value)}
+                            timeFormat={false}
                         />
                         <div className="error">{this.state['fromVD-error']}</div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="toVD">To V/D</label>
-                        <input
-                            name="toVD"
-                            type="text" 
+                        <DateTime
                             className={this.getControlClass(this.state['toVD-valid'], "form-control")}
-                            onChange={(e) => this.handleChange(e)}
-                            required
+                            onChange={(value) => this.handleDateChange('toVD', value)}
+                            timeFormat={false}
                         />
                         <div className="error">{this.state['toVD-error']}</div>
                     </div>
@@ -92,9 +99,50 @@ class Transaction extends Component {
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        <option>Account</option>
+                        <option selected>Account</option>
                     </select>
                     <div className="error">{this.state['type-error']}</div>
+                </div>
+
+                <h1>Transaction</h1>
+                <div className="form-group">
+                    <label htmlFor="accountOrPortfolio">Account / Portfolio</label>
+                    <select
+                        name="accountOrPortfolio"
+                        className={this.getControlClass(this.state['accountOrPortfolio-valid'], "form-control")}
+                        onChange={(e) => this.handleChange(e)}
+                        required
+                    >
+                        <option selected>B</option>
+                        <option selected>C</option>
+                        <option selected>H</option>
+                    </select>
+                    <div className="error">{this.state['accountOrPortfolio-error']}</div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="nostro">Nostro Bank / Nostro AC / Bank Name</label>
+                    <select
+                        name="nostro"
+                        className={this.getControlClass(this.state['nostro-valid'], "form-control")}
+                        onChange={(e) => this.handleChange(e)}
+                        required
+                    >
+                        {NOSTRO.map((nostro) => <option>{nostro}</option>)}
+                    </select>
+                    <div className="error">{this.state['nostro-error']}</div>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="amount">Amount</label>
+                    <input 
+                        name="amount"
+                        type="text" 
+                        className={this.getControlClass(this.state['amount-valid'], "form-control")}
+                        onChange={(e) => this.handleChange(e)}
+                        required 
+                    />
+                    <div className="error">{this.state['amount-error']}</div>
                 </div>
 
                 <input type="submit" value="Enter" />
