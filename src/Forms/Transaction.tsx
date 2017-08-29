@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { CURRENCIES, NOSTRO } from './mockData';
 import moment, { Moment } from 'moment';
 import DateTime from 'react-datetime';
+import _uniq from 'lodash/uniq';
 
-class Transaction extends Component {
+class Transaction extends Component<{}, any> {
     constructor() {
         super();
         this.state = {}
@@ -113,9 +114,10 @@ class Transaction extends Component {
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        <option selected>B</option>
-                        <option selected>C</option>
-                        <option selected>H</option>
+                    {_uniq(NOSTRO
+                            .filter((nostro) => nostro.GS_CURR_ABBR === this.state.currency)
+                            .map((nostro) => nostro.GS_ACCNT_GROUP)
+                    )}
                     </select>
                     <div className="error">{this.state['accountOrPortfolio-error']}</div>
                 </div>
@@ -128,7 +130,11 @@ class Transaction extends Component {
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        {NOSTRO.map((nostro) => <option>{nostro}</option>)}
+                        {_uniq(NOSTRO
+                            .filter((nostro) => nostro.GS_CURR_ABBR === this.state.currency
+                                             && nostro.GS_ACCNT_GROUP === this.state.accountOrPortfolio)
+                            .map((nostro) => nostro.GS_CPARTY_DES)
+                        )}
                     </select>
                     <div className="error">{this.state['nostro-error']}</div>
                 </div>

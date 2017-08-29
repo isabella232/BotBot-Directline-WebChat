@@ -1,3 +1,5 @@
+import _uniq from 'lodash/uniq';
+
 export const GS_CURR_ABBR: string[] = [
     "EEP", 
     "MDE", 
@@ -540,340 +542,2889 @@ export const COUNTRIES = [
     {name: 'Zimbabwe', code: 'ZW'} 
   ]
 
-  export const CURRENCIES = [
-    "ADP",
-    "AED",
-    "AFN",
-    "ALL",
-    "AMD",
-    "ANG",
-    "AOA",
-    "ARS",
-    "ATS",
-    "AUD",
-    "AUD",
-    "AWG",
-    "AZM",
-    "AZN",
-    "BAM",
-    "BBD",
-    "BDT",
-    "BEF",
-    "BGL",
-    "BGN",
-    "BHD",
-    "BIF",
-    "BMD",
-    "BND",
-    "BOB",
-    "BRI",
-    "BRL",
-    "BSD",
-    "BTN",
-    "BWP",
-    "BWP",
-    "BYN",
-    "BYR",
-    "BZD",
-    "CAD",
-    "CAD",
-    "CDF",
-    "CHF",
-    "CHF",
-    "CLF",
-    "CLP",
-    "CNH",
-    "CNT",
-    "CNY",
-    "COP",
-    "COU",
-    "CRC",
-    "CUP",
-    "CVE",
-    "CYP",
-    "CZK",
-    "DEM",
-    "DJF",
-    "DKK",
-    "DOP",
-    "DZD",
-    "EAS",
-    "EBF",
-    "ECS",
-    "EDG",
-    "EDM",
-    "EEC",
-    "EEK",
-    "EES",
-    "EFM",
-    "EFR",
-    "EGD",
-    "EGP",
-    "EIL",
-    "EIP",
-    "ELF",
-    "EPE",
-    "ERN",
-    "ESP",
-    "ETB",
-    "EUR",
-    "EUR",
-    "EURAS",
-    "EURBF",
-    "EURDG",
-    "EURDM",
-    "EURES",
-    "EURFR",
-    "EURGD",
-    "FIM",
-    "FJD",
-    "FKP",
-    "FRF",
-    "GBP",
-    "GBP",
-    "GEL",
-    "GHC",
-    "GHS",
-    "GIP",
-    "GMD",
-    "GNF",
-    "GRD",
-    "GTQ",
-    "GWP",
-    "GYD",
-    "HKD",
-    "HNL",
-    "HRK",
-    "HTG",
-    "HUF",
-    "IDR",
-    "IEP",
-    "IEP",
-    "ILS",
-    "ILS",
-    "INR",
-    "IQD",
-    "IRR",
-    "ISK",
-    "ITL",
-    "JEP",
-    "JMD",
-    "JOD",
-    "JPY",
-    "KES",
-    "KGS",
-    "KHR",
-    "KMF",
-    "KPW",
-    "KRW",
-    "KWD",
-    "KWD",
-    "KYD",
-    "KZT",
-    "LAK",
-    "LBP",
-    "LKR",
-    "LRD",
-    "LSL",
-    "LTL",
-    "LUF",
-    "LVL",
-    "LYD",
-    "MAD",
-    "MDL",
-    "MGA",
-    "MGF",
-    "MKD",
-    "MLF",
-    "MMK",
-    "MNT",
-    "MOP",
-    "MRO",
-    "MTL",
-    "MUR",
-    "MVR",
-    "MWK",
-    "MWK",
-    "MXN",
-    "MYR",
-    "MYR",
-    "MZM",
-    "MZN",
-    "NAD",
-    "NAD",
-    "NGN",
-    "NIO",
-    "NLG",
-    "NOK",
-    "NPR",
-    "NZD",
-    "OMR",
-    "PAB",
-    "PEN",
-    "PGK",
-    "PHP",
-    "PKR",
-    "PLN",
-    "PTE",
-    "PYG",
-    "QAR",
-    "ROL",
-    "RON",
-    "RSD",
-    "RUB",
-    "RUR",
-    "RWF",
-    "SAR",
-    "SBD",
-    "SCR",
-    "SDD",
-    "SDG",
-    "SDP",
-    "SDR",
-    "SEK",
-    "SGD",
-    "SGD",
-    "SHP",
-    "SIT",
-    "SKK",
-    "SLL",
-    "SOS",
-    "SPL",
-    "SRG",
-    "STD",
-    "SVC",
-    "SYP",
-    "SZL",
-    "SZL",
-    "THB",
-    "TJR",
-    "TMM",
-    "TMT",
-    "TND",
-    "TOF",
-    "TOP",
-    "TPE",
-    "TRL",
-    "TRY",
-    "TTD",
-    "TWD",
-    "TZS",
-    "UAH",
-    "UDI",
-    "UGX",
-    "USD",
-    "USD",
-    "UYI",
-    "UYU",
-    "UZS",
-    "VEB",
-    "VEF",
-    "VND",
-    "VUV",
-    "WST",
-    "XAF",
-    "XAU",
-    "XCD",
-    "XDR",
-    "XEU",
-    "XOF",
-    "XPD",
-    "XPF",
-    "XPT",
-    "YER",
-    "YUM",
-    "YUN",
-    "ZAR",
-    "ZAR",
-    "ZMK",
-    "ZMK",
-    "ZMW",
-    "ZWD",
-    "ZWD",
-    "ZWL",
-    "ZWN",
-    "ZWR",    
+  export const REASONS = [
+    "(+) Buy Trade Cancellation not entered/approved",
+    "(+) Payment Cancellation not entered/approved",
+    "(+) Receipt not entered/approved",
+    "(+) Redemption proceeds not entered/approved",
+    "(+) Sell Trade not entered/approved",
+    "(-) Buy Trade not entered/approved",
+    "(-) Deposit for IPO/Placement not entered/approved",
+    "(-) IEO (Institutional Entitlement Offer), payment not entered/approved",
+    "(-) Payment not entered/approved",
+    "(-) Pre-Funding Purchase/Payment - Holidays",
+    "(-) Receipt Cancellation not entered/approved",
+    "(-) Redemption Proceeds/Receipt/Income not confirmed, do not utilise",
+    "(-) Sell Trade Cancellation not entered/approved",
+    "(-) Sell Trade Pending Settlement, do not utilise",    
   ]
 
   export const NOSTRO = [
-    "BANCO DE CHILE, SANTIAGO",
-    "BANK OF CHINA LIMITED, SHANGHAI",
-    "BANK OF COMMUNICATIONS CO. LTD, SHANGHAI",
-    "BANK OF ENGLAND, LONDON",
-    "BANK OF NEW YORK MELLON (ENHANCED INFLATION LINKED BONDS), BRUSSELS",
-    "BANK OF NEW YORK MELLON, NEW YORK",
-    "BANQUE DE FRANCE, PARIS",
-    "CHINA INTERNATIONAL CAPITAL CORPORATION LIMITED, SHAHGHAI",
-    "CITIBANK NA, AUCKLAND",
-    "CITIBANK NA, BANGKOK",
-    "CITIBANK NA, HONG KONG",
-    "CITIBANK NA, SINGAPORE",
-    "CITIBANK NA, SINGAPORE (VNEQ)",
-    "CITIBANK NA,SINGAPORE(EQ)",
-    "CITIBANK TAIWAN LIMITED, TAIPEI",
-    "CITIBANK TAIWAN LIMITED, TAIPEI-FIA",
-    "CITIGROUP PTY LIMITED, MELBOURNE",
-    "DEUTSCHE BANK AG, FRANKFURT",
-    "DEUTSCHE BANK AG, MUMBAI (FCCB)",
-    "DEUTSCHE BANK AG,MUMBAI",
-    "DEUTSCHE BANK AG,MUMBAI (FDI)",
-    "DEUTSCHE BANK AG,MUMBAI-GR",
-    "DEUTSCHE BUNDESBANK, FRANKFURT (FIXED DEPOSITS)",
-    "EUROCLEAR BANK SA/NV, BRUSSELS",
-    "JOINT STOCK COMPANY COMMERCIAL BANK CITIBANK,MOSCOW",
-    "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
-    "JPMORGAN CHASE BANK, LONDON",
-    "JPMORGAN CHASE BANK, N.A. , LONDON",
-    "MANUAL INPUT",
-    "MORGAN STANLEY + CO. INTERNATIONAL ",
-    "NORTHERN TRUST COMPANY (CHICAGO) - SPARKLE STAR PTE LTD",
-    "NORTHERN TRUST COMPANY (CHICAGO) GAMSTAR (US) PTE LTD",
-    "NORTHERN TRUST COMPANY (CHICAGO) GAMVEST",
-    "NORTHERN TRUST COMPANY (CHICAGO)-EIDOLON INVESTMENT PTE LTD",
-    "NORTHERN TRUST COMPANY (CHICAGO)-GLOIRE INVESTMENT PTE LTD",
-    "NORTHERN TRUST COMPANY (CHICAGO), DELTASTAR (US) INVESTMENTS PTE LTD",
-    "NORTHERN TRUST COMPANY (CHICAGO), DELTASTAR INVESTMENTS PTE LTD",
-    "NORTHERN TRUST COMPANY (CHICAGO), GAMSTAR PTE LTD",
-    "NORTHERN TRUST COMPANY (LONDON) - SPARKLE STAR PTE LTD",
-    "NORTHERN TRUST COMPANY (LONDON)-EIDOLON INVESTMENT PTE LTD",
-    "NORTHERN TRUST COMPANY (LONDON)-GLOIRE INVESTMENT PTE LTD",
-    "NORTHERN TRUST COMPANY (LONDON), DELTASTAR (US) INVESTMENTS PTE LTD",
-    "NORTHERN TRUST COMPANY (LONDON), DELTASTAR INVESTMENTS PTE LTD",
-    "NORTHERN TRUST COMPANY (LONDON), GAMSTAR (US) PTE LTD",
-    "NORTHERN TRUST COMPANY (LONDON), GAMSTAR PTE LTD",
-    "NORTHERN TRUST COMPANY (LONDON), GAMVEST PTE LTD",
-    "NORTHERN TRUST COMPANY (SINGAPORE)-EIDOLON INVESTMENT PTE LTD",
-    "NORTHERN TRUST COMPANY (SINGAPORE)-GLOIRE INVESTMENT PTE LTD",
-    "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
-    "NORTHERN TRUST COMPANY, (LONDON) OPPSTAR PTE LTD",
-    "NORTHERN TRUST COMPANY,CHICAGO - GAMNAT PTE LTD",
-    "NTC (CG)-BRIGHTLIGHT PSL 2016-1 LTD",
-    "NTC (CHG) INTERNAL ASSETS",
-    "PSEUDO-STAND CHART BK,SHANGHAI",
-    "STANDARD CHARTERED BANK , DOHA",
-    "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH",
-    "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - QFIICIBM",
-    "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - RQFII",
-    "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - RQFIICIBM",
-    "STANDARD CHARTERED BANK (HONG KONG) LIMITED, HONG KONG",
-    "STANDARD CHARTERED BANK (THAI) PUBLIC COMPANY LIMITED,BANGKOK",
-    "STANDARD CHARTERED BANK KOREA LIMITED,SEOUL",
-    "STANDARD CHARTERED BANK MALAYSIA BERHAD,KL",
-    "STANDARD CHARTERED BANK, JAKARTA BRANCH",
-    "STANDARD CHARTERED BANK, MANILA",
-    "STANDARD CHARTERED BANK, SINGAPORE",
-    "STATE STREET BANK N TRUST CO, TOR",
-    "THE BANK OF NEW YORK MELLON , NY",
-    "THE BANK OF NEW YORK MELLON, NY",
-    "THE BANK OF NEW YORK MELLON,BRUSSELS",
-    "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
-    "THE BANK OF TOKYO-MITSUBISHI UFJ, LTD, TOKYO",
-    "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
-    "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG (FX)",
-    "THE NORTHERN TRUST CO (AVFC) , LONDON",
-    "THE NORTHERN TRUST CO (AVFC), LDN",
-    "THE NORTHERN TRUST CO (AVFC),LONDON",
-    "THE NORTHERN TRUST COMPANY, CHICAGO - OPPSTAR PTE LTD",
-    "THE PEOPLES BANK OF CHINA, SHANGHAI",
-    "UBS AG, LONDON",    
-  ]
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "EUROCLEAR BANK SA/NV, BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON,BRUSSELS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON,BRUSSELS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON,BRUSSELS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON,BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON,BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON,BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON, NY",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON, NY",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON, NY",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF TOKYO-MITSUBISHI UFJ, LTD, TOKYO",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF TOKYO-MITSUBISHI UFJ, LTD, TOKYO",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF TOKYO-MITSUBISHI UFJ, LTD, TOKYO",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF ENGLAND, LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, BANGKOK",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, BANGKOK",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, BANGKOK",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK TAIWAN LIMITED, TAIPEI-FIA",
+      "GS_CURR_ABBR": "TWD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "LKR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "KES",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "LKR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "PKR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "PKR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "SGD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "SGD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, SINGAPORE",
+      "GS_CURR_ABBR": "SGD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, JAKARTA BRANCH",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, JAKARTA BRANCH",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, JAKARTA BRANCH",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (HONG KONG) LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (HONG KONG) LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (HONG KONG) LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (HONG KONG) LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (HONG KONG) LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (HONG KONG) LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK MALAYSIA BERHAD,KL",
+      "GS_CURR_ABBR": "MYR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK MALAYSIA BERHAD,KL",
+      "GS_CURR_ABBR": "MYR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK MALAYSIA BERHAD,KL",
+      "GS_CURR_ABBR": "MYR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "UBS AG, LONDON",
+      "GS_CURR_ABBR": "XAU",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, N.A. , LONDON",
+      "GS_CURR_ABBR": "XAU",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, N.A. , LONDON",
+      "GS_CURR_ABBR": "XAU",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, N.A. , LONDON",
+      "GS_CURR_ABBR": "XAU",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "CLP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "CLP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "CLP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "COP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "COP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "TWD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "SAR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "SAR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "SAR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "MYR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "TWD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "MYR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "MYR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "TWD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "RUB",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "RUB",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, HONG KONG",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK TAIWAN LIMITED, TAIPEI",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK TAIWAN LIMITED, TAIPEI",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK TAIWAN LIMITED, TAIPEI",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK TAIWAN LIMITED, TAIPEI",
+      "GS_CURR_ABBR": "TWD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK TAIWAN LIMITED, TAIPEI",
+      "GS_CURR_ABBR": "TWD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK TAIWAN LIMITED, TAIPEI",
+      "GS_CURR_ABBR": "TWD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "MANUAL INPUT",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MANUAL INPUT",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MANUAL INPUT",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MANUAL INPUT",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MANUAL INPUT",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, AUCKLAND",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, AUCKLAND",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, AUCKLAND",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "RSD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC), LDN",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, MANILA",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, MANILA",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, MANILA",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK, MANILA",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "SGD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "SGD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "SGD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON, NEW YORK",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI-GR",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI-GR",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (THAI) PUBLIC COMPANY LIMITED,BANGKOK",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (THAI) PUBLIC COMPANY LIMITED,BANGKOK",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "JOINT STOCK COMPANY COMMERCIAL BANK CITIBANK,MOSCOW",
+      "GS_CURR_ABBR": "RUB",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JOINT STOCK COMPANY COMMERCIAL BANK CITIBANK,MOSCOW",
+      "GS_CURR_ABBR": "RUB",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "JOINT STOCK COMPANY COMMERCIAL BANK CITIBANK,MOSCOW",
+      "GS_CURR_ABBR": "RUB",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "PSEUDO-STAND CHART BK,SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "PSEUDO-STAND CHART BK,SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "PSEUDO-STAND CHART BK,SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, LONDON",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, LONDON",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "JPMORGAN CHASE BANK, LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "MORGAN STANLEY + CO. INTERNATIONAL ",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANCO DE CHILE, SANTIAGO",
+      "GS_CURR_ABBR": "CLP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANCO DE CHILE, SANTIAGO",
+      "GS_CURR_ABBR": "CLP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANCO DE CHILE, SANTIAGO",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANCO DE CHILE, SANTIAGO",
+      "GS_CURR_ABBR": "CLP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANCO DE CHILE, SANTIAGO",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANCO DE CHILE, SANTIAGO",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "ARS",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "ARS",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "RON",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "RUB",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "RUB",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "JP MORGAN CHASE BANK N.A. (GLOBAL FI CUSTODIAN), LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "RON",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "RUB",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "ARS",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON(GLOBAL FI CUSTODIAN), BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (CHICAGO) GAMVEST",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK KOREA LIMITED,SEOUL",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK KOREA LIMITED,SEOUL",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK KOREA LIMITED,SEOUL",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK KOREA LIMITED,SEOUL",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK KOREA LIMITED,SEOUL",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK KOREA LIMITED,SEOUL",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STATE STREET BANK N TRUST CO, TOR",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STATE STREET BANK N TRUST CO, TOR",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STATE STREET BANK N TRUST CO, TOR",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STATE STREET BANK N TRUST CO, TOR",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STATE STREET BANK N TRUST CO, TOR",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STATE STREET BANK N TRUST CO, TOR",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG, FRANKFURT",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG, FRANKFURT",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "ARS",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "ARS",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "COP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "COP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "VND",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "VND",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "PEN",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA,SINGAPORE(EQ)",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "EGP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "QAR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "QAR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "EGP",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "KWD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "AED",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "AED",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "KWD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NTC (CHG) INTERNAL ASSETS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NTC (CHG) INTERNAL ASSETS",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "NTC (CHG) INTERNAL ASSETS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "NTC (CHG) INTERNAL ASSETS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NTC (CHG) INTERNAL ASSETS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "CITIGROUP PTY LIMITED, MELBOURNE",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIGROUP PTY LIMITED, MELBOURNE",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIGROUP PTY LIMITED, MELBOURNE",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "ARS",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "CNH",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "TRY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "ILS",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "MYR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "IDR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "TWD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "PHP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "CZK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "PLN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "THB",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "MXN",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "NZD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "ZAR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "CAD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "HUF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "SEK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "NOK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "DKK",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "CHF",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY TRANSITION ACCOUNT,LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON , NY",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON , NY",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE BANK OF NEW YORK MELLON , NY",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANQUE DE FRANCE, PARIS",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANQUE DE FRANCE, PARIS",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANQUE DE FRANCE, PARIS",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "KRW",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC),LONDON",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI (FDI)",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG,MUMBAI (FDI)",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF NEW YORK MELLON (ENHANCED INFLATION LINKED BONDS), BRUSSELS",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE (VNEQ)",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE (VNEQ)",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE (VNEQ)",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CITIBANK NA, SINGAPORE (VNEQ)",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), GAMSTAR (US) PTE LTD",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), GAMSTAR (US) PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (CHICAGO), GAMSTAR PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY,CHICAGO - GAMNAT PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BUNDESBANK, FRANKFURT (FIXED DEPOSITS)",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BUNDESBANK, FRANKFURT (FIXED DEPOSITS)",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BUNDESBANK, FRANKFURT (FIXED DEPOSITS)",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), GAMSTAR PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), GAMSTAR PTE LTD",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (CHICAGO) GAMSTAR (US) PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK , DOHA",
+      "GS_CURR_ABBR": "QAR",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK , DOHA",
+      "GS_CURR_ABBR": "QAR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK , DOHA",
+      "GS_CURR_ABBR": "QAR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE PEOPLES BANK OF CHINA, SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE PEOPLES BANK OF CHINA, SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "THE PEOPLES BANK OF CHINA, SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), GAMVEST PTE LTD",
+      "GS_CURR_ABBR": "VND",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), GAMVEST PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG (FX)",
+      "GS_CURR_ABBR": "KWD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE HONGKONG AND SHANGHAI BANKING CORPORATION LIMITED, HONG KONG (FX)",
+      "GS_CURR_ABBR": "KWD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST COMPANY, CHICAGO - OPPSTAR PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - RQFIICIBM",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - RQFIICIBM",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "NTC (CG)-BRIGHTLIGHT PSL 2016-1 LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (CHICAGO), DELTASTAR (US) INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - QFIICIBM",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - QFIICIBM",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), DELTASTAR INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), DELTASTAR INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), DELTASTAR INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), DELTASTAR INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), DELTASTAR INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (CHICAGO)-EIDOLON INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (CHICAGO)-GLOIRE INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), DELTASTAR (US) INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON), DELTASTAR (US) INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - RQFII",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - RQFII",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - RQFII",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "STANDARD CHARTERED BANK (CHINA) LIMITED, SHANGHAI BRANCH - RQFII",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (SINGAPORE)-EIDOLON INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (SINGAPORE)-EIDOLON INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (SINGAPORE)-EIDOLON INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (SINGAPORE)-GLOIRE INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (SINGAPORE)-GLOIRE INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (SINGAPORE)-GLOIRE INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC) , LONDON",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "THE NORTHERN TRUST CO (AVFC) , LONDON",
+      "GS_CURR_ABBR": "BRL",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY, (LONDON) OPPSTAR PTE LTD",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY, (LONDON) OPPSTAR PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY, (LONDON) OPPSTAR PTE LTD",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY, (LONDON) OPPSTAR PTE LTD",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY, (LONDON) OPPSTAR PTE LTD",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF CHINA LIMITED, SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF CHINA LIMITED, SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "B"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF CHINA LIMITED, SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG, MUMBAI (FCCB)",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "DEUTSCHE BANK AG, MUMBAI (FCCB)",
+      "GS_CURR_ABBR": "INR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "CHINA INTERNATIONAL CAPITAL CORPORATION LIMITED, SHAHGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "CHINA INTERNATIONAL CAPITAL CORPORATION LIMITED, SHAHGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (CHICAGO) - SPARKLE STAR PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON) - SPARKLE STAR PTE LTD",
+      "GS_CURR_ABBR": "AUD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON) - SPARKLE STAR PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON) - SPARKLE STAR PTE LTD",
+      "GS_CURR_ABBR": "JPY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON) - SPARKLE STAR PTE LTD",
+      "GS_CURR_ABBR": "HKD",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON) - SPARKLE STAR PTE LTD",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF COMMUNICATIONS CO. LTD, SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "H"
+    },
+    {
+      "GS_CPARTY_DES": "BANK OF COMMUNICATIONS CO. LTD, SHANGHAI",
+      "GS_CURR_ABBR": "CNY",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON)-EIDOLON INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON)-EIDOLON INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON)-GLOIRE INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "GBP",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (LONDON)-GLOIRE INVESTMENT PTE LTD",
+      "GS_CURR_ABBR": "EUR",
+      "GS_ACCNT_GROUP": "C"
+    },
+    {
+      "GS_CPARTY_DES": "NORTHERN TRUST COMPANY (CHICAGO), DELTASTAR INVESTMENTS PTE LTD",
+      "GS_CURR_ABBR": "USD",
+      "GS_ACCNT_GROUP": "C"
+    }
+   ]
+
+   export const CURRENCIES = _uniq(NOSTRO.map(nostroObj => nostroObj.GS_CURR_ABBR))
