@@ -83,10 +83,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                         />
                         {activity.channelData && activity.channelData.form &&
                             <Form 
-                                activityId={ activity.id }
-                                action={ activity.channelData.form.action } 
-                                inputs={ activity.channelData.form.inputs }
-                                submitDisabled= { activity.channelData.form.submitDisabled }
+                                formType={ activity.channelData.form.formType }
                             />
                         }
                     </div>

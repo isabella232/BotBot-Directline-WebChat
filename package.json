@@ -35,6 +35,7 @@
     "microsoft-adaptivecards": "0.6.0",
     "microsoft-speech-browser-sdk": "0.0.1",
     "react": "15.6.1",
+    "react-datetime": "^2.10.1",
     "react-dom": "15.6.1",
     "react-redux": "5.0.5",
     "redux": "3.7.2",

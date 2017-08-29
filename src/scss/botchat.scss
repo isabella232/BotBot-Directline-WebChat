@@ -772,3 +772,113 @@
         background-color: $c_scrollbar;
     }
     
+
+/* custom form */
+
+.form-container {
+    h1 {
+        color: $c_input_label;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    form {
+        label, input {
+            display: block;
+        }
+        
+        label {
+            color: $c_input_label;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            height: 40px;
+            font-weight: 500;
+            color: $c_input_text;
+            background-color: $c_input_bg;
+            border: 0px;
+            padding-left: 18px;
+            padding-right: 18px;
+            margin-bottom: 10px;
+
+            &.active:valid {
+                box-shadow: 0 0 5px 1px green;
+            }
+
+            &.active:invalid {
+                box-shadow: 0 0 5px 1px red;
+            }
+        
+            &::placeholder {
+                opacity: 0.4;
+            }
+            
+            &[type=file] {
+                background: none;
+                height: 20px;
+                margin-top: 12px;
+                margin-bottom: 18px;
+                font-size: 13px;
+            }
+            
+            // Styling for button
+            &[type=submit] {
+                width: 102px;
+                border-radius: 10px;
+                color: $c_button_text;
+                font-size: 17px;
+                font-weight: 800;
+                margin-top: 10px;
+                
+                &.disabled {
+                    opacity: 0.4;
+                    // important to override the hover
+                    cursor: not-allowed !important;
+                }
+                
+                &:hover {
+                    cursor: pointer;
+                    background-color: $c_button_background_highlight;
+                }
+                
+                &:focus {
+                    background-color: $c_button_background_onpress;
+                }
+    
+            }
+        }
+        
+        textarea {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            height: 94px;
+        }
+        
+        .checkbox-group {
+            label, input {
+                display: inline-block;
+            }
+            
+            input {
+                width: 8%;
+                height: 20px;
+                vertical-align: top;
+            }
+            
+            label {
+                width: 89%;
+                color: $c_input_label_msg;
+            }
+        }
+    }
+
+    .error {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+}

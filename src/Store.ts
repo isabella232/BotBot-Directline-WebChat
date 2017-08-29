@@ -1,5 +1,4 @@
 import { Activity, IBotConnection, User, ConnectionStatus, Message } from 'botframework-directlinejs';
-import { FormInput } from './FormView';
 import { FormatOptions, ActivityOrID, konsole, sendMessage as sendChatMessage } from './Chat';
 import { strings, defaultStrings, Strings } from './Strings';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -397,83 +396,7 @@ export const history: Reducer<HistoryState> = (
     }
 }
 
-export interface FormState {
-    action: string,
-    inputs: Array<FormInput>,
-    submitDisabled: boolean
-}
-
-export type FormAction = {
-    type: 'Update_Form_Input',
-    activityId: string,
-    id: string,
-    input: any, 
-} | {
-    type: 'Toggle_Checkbox',
-    activityId: string,
-    id: string
-} | {
-    type: 'Disable_Submit',
-    activityId: string,
-} | {
-    type: 'Enable_Submit',
-    activityId: string,
-}
-
-export const form: Reducer<FormState> = (
-    state: FormState = {
-        action: '',
-        inputs: [],
-        submitDisabled: false
-    },
-    action: FormAction
-) => {
-    switch (action.type) {
-        // idea to extract out all the state first with destructing
-        case 'Update_Form_Input': {
-            const inputs = state.inputs;
-            const i = inputs.findIndex((input: any) => input.id === action.id);
-            const input = inputs[i];    
-            const newInput = {
-                ... input,
-                value: action.input
-            }
-            return {
-                ... state,
-                inputs: copyArrayWithUpdatedItem(inputs, i, newInput)
-            }
-        }
-        case 'Toggle_Checkbox': {
-            const inputs = state.inputs;
-            const i = inputs.findIndex((input: any) => input.id === action.id);
-            const input = inputs[i];
-            const newInput = {
-                ... input,
-                checked: !input.checked
-            }
-            return {
-                ... state,
-                inputs: copyArrayWithUpdatedItem(inputs, i, newInput)
-            }
-        }
-        case 'Disable_Submit': {
-            return {
-                ... state,
-                submitDisabled: true
-            }
-        }
-        case 'Enable_Submit': {
-            return {
-                ... state,
-                submitDisabled: false
-            }
-        }
-        default:
-            return state;
-    }
-}
-
-export type ChatActions = ShellAction | FormatAction | SizeAction | ConnectionAction | HistoryAction | FormAction;
+export type ChatActions = ShellAction | FormatAction | SizeAction | ConnectionAction | HistoryAction;
 
 const nullAction = { type: null } as ChatActions;
 
