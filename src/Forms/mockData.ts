@@ -1,4 +1,4 @@
-import _uniq from 'lodash/uniq';
+import * as _ from 'lodash';
 
 export const GS_CURR_ABBR: string[] = [
     "EEP", 
@@ -3427,4 +3427,4 @@ export const COUNTRIES = [
     }
    ]
 
-   export const CURRENCIES = _uniq(NOSTRO.map(nostroObj => nostroObj.GS_CURR_ABBR))
+   export const CURRENCIES = _.uniq(NOSTRO.map(nostroObj => nostroObj.GS_CURR_ABBR))

@@ -5,7 +5,7 @@ import { Carousel } from './Carousel';
 import { FormattedText } from './FormattedText';
 import { FormatState, SizeState } from './Store';
 import { IDoCardAction } from './Chat';
-import { Form } from './FormView';
+import { FormView } from './FormView';
 
 const Attachments = (props: {
     attachments: Attachment[],
@@ -51,18 +51,25 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
     }
 
     shouldComponentUpdate(nextProps: ActivityViewProps) {
+        const { activity, format, size } = this.props
+
+        const isExpanded = (activityData: any) => 
+            ((activityData.attachmentLayout && activityData.attachmentLayout === 'carousel')
+        || (activityData.channelData && typeof(activityData.channelData.action) === 'string'))
+
         // if the activity changed, re-render
-        return this.props.activity !== nextProps.activity
+        return activity !== nextProps.activity
         // if the format changed, re-render
-            || this.props.format !== nextProps.format
+            || format !== nextProps.format
         // if it's a carousel and the size changed, re-render
-            || (this.props.activity.type === 'message'
-                && this.props.activity.attachmentLayout === 'carousel'
-                && this.props.size !== nextProps.size);
+            || (activity.type === 'message'
+                && isExpanded(activity)
+                && size !== nextProps.size);
     }
 
     render() {
         const { activity, ... props } = this.props;
+        console.log(activity);
 
         switch (activity.type) {
             case 'message':
@@ -81,11 +88,12 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                             onImageLoad={ props.onImageLoad }
                             size={ props.size }
                         />
-                        {activity.channelData && activity.channelData.form &&
-                            <Form 
-                                formType={ activity.channelData.form.formType }
-                            />
-                        }
+                        {activity.channelData && typeof(activity.channelData.action) === 'string' && 
+                        <FormView 
+                            formType={0}
+                            channelData={activity.channelData}
+                            size={ props.size }
+                        />}
                     </div>
                 );
 
