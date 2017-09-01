@@ -1,0 +1,131 @@
+﻿
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Bot Chat</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+
+            #loginForm ul {
+                margin-top: 50px;
+                font-size: 16px;
+                list-style-type: none;
+                text-align: center;
+                font-family: 'Avenir', sans-serif;
+            }
+
+            #loginForm ul li input {
+                width: 480px;
+                border: 1px solid #E5E5E5;
+                margin-bottom: 10px;
+                line-height: 2;
+                padding: 22px 14px 22px 155px;
+                font-size: 1.3em;
+                margin-left: -155px;
+                box-sizing: border-box;
+            }
+
+            #loginForm ul li label {
+                display: inline-block;
+                width: 150px;
+                padding: 15px 0px 0px 24px;
+                position: relative;
+                font-weight: 400;
+                letter-spacing: 0.023em;
+                font-size: 1.3em;
+                opacity: 0.8;
+            }
+
+            #loginForm ul li button {
+                width: 480px;
+                padding: 10px;
+                background-color: #004792;
+                border: 1px solid #004792;
+                color: white;
+                border-radius: 0;
+                text-transform: uppercase;
+                line-height: 2;
+                font-size: 1.3em;
+                margin-left: 25px;
+            }
+        </style>
+        <link href="./botchat.css" rel="stylesheet" />
+        <link href="./botchat-fullwindow.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div id="loginForm">
+            <ul>
+                <li>
+                    <label>Username</label>
+                    <input type="username" id="txtUsername" placeholder="Case sensitive username" />
+                </li>
+                <li>
+                    <label>Password</label>
+                    <input type="password" id="txtPassword" placeholder="Case sensitive password" />
+                </li>
+                <li><button id="btnLogin">Login</button></li>
+            </ul>
+        </div>
+        <div id="BotChatWindow"></div>
+        <script src="./botchat.js"></script>
+        <script>
+            document.getElementById('btnLogin').addEventListener('click', doLogin);
+            document.getElementById('txtPassword').addEventListener('keydown', onKeyDown)
+
+            window.botchatDebug = true;
+
+            function uuidv4() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            function onKeyDown(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    doLogin();
+                }
+            }
+
+            function doLogin() {
+                var username = document.getElementById('txtUsername').value;
+                var password = document.getElementById('txtPassword').value;
+
+                if (!username || !password || password != 'password') return;
+
+                document.getElementById("loginForm").style.display = 'none';
+
+                var user = {
+                    id: uuidv4(),
+                    name: username
+                    };
+                
+                // var bot = {
+                //     id: params['botid'] || 'botid',
+                //     name: params["botname"] || 'botname'
+                // };
+                BotChat.App({
+                    directLine: {
+                        // secret: 'R1KG1jopgus.cwA.biA.u1ngrrUaHcHxI_dWNcC-mboA5UuLTBMqoFjSpgFsEUM',
+                        // secret: 'bIpwQ2WmFc4.cwA.uio.cHbLvIBsUBDEB6G0qysaEfP7oflLUx4B1P6TsRSfmbI',
+                        secret: 'apThmtE5X9w.cwA.Rh8.S11jhfB7O3Bj_IYY3fuQ0oID6P1jJXp0NpQDnXoraz0',
+                        token: '',
+                        domain: '',
+                        webSocket: true
+                    },
+                    user: user,
+                    locale: 'en-US',
+                    resize: 'window'
+                }, document.getElementById("BotChatWindow"));
+            }
+        </script>
+    </body>
+</html>

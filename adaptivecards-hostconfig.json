@@ -1,0 +1,174 @@
+﻿{
+  "supportsInteractivity": true,
+  "strongSeparation": {
+    "spacing": 40,
+    "lineThickness": 1,
+    "lineColor": "#eeeeee"
+  },
+  "fontFamily": "Avenir, sans-serif",
+  "fontSizes": {
+    "small": 12,
+    "normal": 13,
+    "medium": 15,
+    "large": 17,
+    "extraLarge": 19
+  },
+  "fontWeights": {
+    "lighter": 200,
+    "normal": 300,
+    "bolder": 400
+  },
+  "colors": {
+    "dark": {
+      "normal": "#7ba1ab",
+      "subtle": "#808c95"
+    },
+    "light": {
+      "normal": "#ffffff",
+      "subtle": "#88ffff"
+    },
+    "accent": {
+      "normal": "#2e89fc",
+      "subtle": "#802E8901"
+    },
+    "attention": {
+      "normal": "#ffd800",
+      "subtle": "#CCFFD800"
+    },
+    "good": {
+      "normal": "#00ff00",
+      "subtle": "#CC00FF00"
+    },
+    "warning": {
+      "normal": "#ff0000",
+      "subtle": "#CCFF0000"
+    }
+  },
+  "imageSizes": {
+    "small": 40,
+    "medium": 64,
+    "large": 96
+  },
+  "actions": {
+    "maxActions": 100,
+    "separation": {
+      "spacing": 2
+    },
+    "buttonSpacing": 2,
+    "stretch": false,
+    "showCard": {
+      "actionMode": "inlineEdgeToEdge",
+      "inlineTopMargin": 16,
+      "backgroundColor": "#00FFFFFF",
+      "padding": {
+        "top": 2,
+        "right": 2,
+        "bottom": 2,
+        "left": 2
+      }
+    },
+    "actionsOrientation": "vertical",
+    "actionAlignment": "left"
+  },
+  "adaptiveCard": {
+    "backgroundColor": "#00FFFFFF",
+    "padding": {
+      "left": 8,
+      "top": 8,
+      "right": 8,
+      "bottom": 8
+    }
+  },
+  "container": {
+    "separation": {
+      "spacing": 2
+    },
+    "normal": {
+      "backgroundColor": "#00000000"
+    },
+    "emphasis": {
+      "backgroundColor": "#eeeeee",
+      "borderColor": "#aaaaaa",
+      "borderThickness": {
+        "top": 2,
+        "right": 2,
+        "bottom": 2,
+        "left": 2
+      },
+      "padding": {
+        "top": 2,
+        "right": 2,
+        "bottom": 2,
+        "left": 2
+      }
+    }
+  },
+  "textBlock": {
+    "color": "dark",
+    "separations": {
+      "small": {
+        "spacing": 2
+      },
+      "normal": {
+        "spacing": 2
+      },
+      "medium": {
+        "spacing": 2
+      },
+      "large": {
+        "spacing": 2
+      },
+      "extraLarge": {
+        "spacing": 2
+      }
+    }
+  },
+  "image": {
+    "size": "medium",
+    "separation": {
+      "spacing": 2
+    }
+  },
+  "imageSet": {
+    "imageSize": "medium",
+    "separation": {
+      "spacing": 2
+    }
+  },
+  "factSet": {
+    "separation": {
+      "spacing": 2
+    },
+    "title": {
+      "color": "dark",
+      "size": "normal",
+      "isSubtle": false,
+      "weight": "bolder",
+      "wrap": true,
+      "maxWidth": 150
+    },
+    "value": {
+      "color": "dark",
+      "size": "normal",
+      "isSubtle": false,
+      "weight": "normal",
+      "wrap": true
+    },
+    "spacing": 2
+  },
+  "input": {
+    "separation": {
+      "spacing": 2
+    }
+  },
+  "columnSet": {
+    "separation": {
+      "spacing": 2
+    }
+  },
+  "column": {
+    "separation": {
+      "spacing": 2
+    }
+  }
+}

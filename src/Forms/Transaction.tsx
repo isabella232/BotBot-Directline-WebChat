@@ -56,7 +56,7 @@ export class Transaction extends React.Component<{
         else return `${className.join(' ')} ${validity.valid ? 'valid' : 'invalid'}`
     }
 
-    handleSubmit(e: React.FormEvent<HTMLInputElement>) {
+    handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (this.props.submitUrl) {
             const formData = {
@@ -92,7 +92,7 @@ export class Transaction extends React.Component<{
         const reasons = REASONS.map((item, idx) => <option key={idx}>{item}</option>)
 
         return (
-            <form>
+            <form onSubmit={e => this.handleSubmit(e)}>
                 <h1>Transaction</h1>
                 <div className="form-group row">
                     <div className="col-1">
@@ -116,6 +116,7 @@ export class Transaction extends React.Component<{
                         <DateTime
                             className={this.getControlClass(this.state['fromVD-valid'], "small")}
                             onChange={(value) => this.handleDateChange('fromVD', value)}
+                            isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment()))}
                             timeFormat={false}
                         />
                         {/* <div className="error">{this.state['fromVD-error']}</div> */}
@@ -123,6 +124,7 @@ export class Transaction extends React.Component<{
                         <DateTime
                             className={this.getControlClass(this.state['toVD-valid'], "small")}
                             onChange={(value) => this.handleDateChange('toVD', value)}
+                            isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment()))}
                             timeFormat={false}
                         />
                         {/* <div className="error">{this.state['toVD-error']}</div> */}
@@ -219,8 +221,6 @@ export class Transaction extends React.Component<{
                 <input 
                     type="submit" 
                     value="Enter" 
-                    onSubmit={e => this.handleSubmit(e)}
-                    onClick={e => this.handleSubmit(e)}
                 />
             </form>
         );

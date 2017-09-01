@@ -58,7 +58,7 @@ export class ManualSecrefCreation extends React.Component<{
         else return `${className.join(' ')} ${validity.valid ? 'valid' : 'invalid'}`
     }
 
-    handleSubmit(e: React.FormEvent<HTMLInputElement>) {
+    handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (this.props.submitUrl) {
             const formData = {
@@ -80,20 +80,17 @@ export class ManualSecrefCreation extends React.Component<{
 
     render() {
         return (
-            <form>
+            <form onSubmit={e => this.handleSubmit(e)}>
                 <h1>Manual Secref Creation</h1>
                 <div className="form-group row">
                     <div className="col-1">
                         <label htmlFor="account">Account</label>
                     </div>
-                    <select
+                    <input
                         name="account"
                         className={this.getControlClass(this.state['account-valid'], "form-control")}
                         onChange={(e) => this.handleChange(e)}
-                        required
-                    >
-                        <option>Blakeney_LP</option>
-                    </select>
+                    />
                     {/* <div className="error">{this.state['account-error']}</div> */}
                 </div>
 
@@ -113,14 +110,11 @@ export class ManualSecrefCreation extends React.Component<{
                     <div className="col-1">
                         <label htmlFor="assetType">Asset Type</label>
                     </div>
-                    <select
+                    <input
                         name="assetType"
                         className={this.getControlClass(this.state['assetType-valid'], "form-control")}
                         onChange={(e) => this.handleChange(e)}
-                        required
-                    >
-                        <option>P Note</option>
-                    </select>
+                    />
                     {/* <div className="error">{this.state['assetType-error']}</div> */}
                 </div>
 
@@ -141,15 +135,14 @@ export class ManualSecrefCreation extends React.Component<{
                     <div className="col-1">
                         <label htmlFor="pNoteISIN">P Note ISIN</label>
                     </div>
-                    <select
+                    <input
                         name="pNoteISIN"
                         className={this.getControlClass(this.state['pNoteISIN-valid'], "form-control")}
                         onChange={(e) => this.handleChange(e)}
+                        minLength={12}
+                        maxLength={12}
                         required
-                    >
-                        <option>CWN5647P7682</option>
-                        <option>CWN5647Q7251</option>
-                    </select>
+                    />
                     {/* <div className="error">{this.state['pNoteISIN-error']}</div> */}
                 </div>
 
@@ -157,15 +150,12 @@ export class ManualSecrefCreation extends React.Component<{
                     <div className="col-1">
                         <label htmlFor="securityDescription">Security Description</label>
                     </div>
-                    <select
+                    <input
                         name="securityDescription"
                         className={this.getControlClass(this.state['securityDescription-valid'], "form-control")}
                         onChange={(e) => this.handleChange(e)}
                         required
-                    >
-                        <option>Dallah Healthcare</option>
-                        <option>Al Rajhi Bank</option>
-                    </select>
+                    />
                     {/* <div className="error">{this.state['securityDescription-error']}</div> */}
                 </div>
 
@@ -176,7 +166,7 @@ export class ManualSecrefCreation extends React.Component<{
                     <DateTime
                         className={this.getControlClass(this.state['maturityDate-valid'], "form-control")}
                         onChange={(value) => this.handleDateChange('maturityDate', value)}
-                        isValidDate={(currentDate: Moment) => (currentDate.isAfter(moment()))}
+                        isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment()))}
                         timeFormat={false}
                     />
                     {/* <div className="error">{this.state['maturityDate-error']}</div> */}
@@ -192,7 +182,7 @@ export class ManualSecrefCreation extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        {COUNTRIES.map((country) => <option>{country.name}</option>)}
+                        {COUNTRIES.map((country, idx) => <option key={idx}>{country.name}</option>)}
                     </select>
                     {/* <div className="error">{this.state['countryOfIssue-error']}</div> */}
                 </div>
@@ -207,7 +197,7 @@ export class ManualSecrefCreation extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        {GS_CURR_ABBR.map(currency => <option>{currency}</option>)}
+                        {GS_CURR_ABBR.map((currency, idx) => <option key={idx}>{currency}</option>)}
                     </select>
                     <div className="error">{this.state['tradeCurrency-error']}</div>
                 </div>
@@ -216,14 +206,11 @@ export class ManualSecrefCreation extends React.Component<{
                     <div className="col-1">
                         <label htmlFor="underlyingISIN">Underlying ISIN</label>
                     </div>
-                    <select
+                    <input
                         name="underlyingISIN"
                         className={this.getControlClass(this.state['underlyingISIN-valid'], "form-control")}
                         onChange={(e) => this.handleChange(e)}
-                    >
-                        <option>CWN5647P7682</option>
-                        <option>CWN5647Q7251</option>
-                    </select>
+                    />
                     {/* <div className="error">{this.state['underlyingISIN-error']}</div> */}
                 </div>
 
@@ -270,14 +257,11 @@ export class ManualSecrefCreation extends React.Component<{
                     <div className="col-1">
                         <label htmlFor="underlyingSecurityDescription">Underlying Security Description</label>
                     </div>
-                    <select
+                    <input
                         name="underlyingSecurityDescription"
                         className={this.getControlClass(this.state['underlyingSecurityDescription-valid'], "form-control")}
                         onChange={(e) => this.handleChange(e)}
-                    >
-                        <option>Dallah Health Care</option>
-                        <option>Al Rajhi</option>
-                    </select>
+                    />
                     {/* <div className="error">{this.state['underlyingSecurityDescription-error']}</div> */}
                 </div>
 
@@ -285,14 +269,11 @@ export class ManualSecrefCreation extends React.Component<{
                     <div className="col-1">
                         <label htmlFor="underlyingCountryOfIssue">Underlying Country Of Issue</label>
                     </div>
-                    <select
+                    <input
                         name="underlyingCountryOfIssue"
                         className={this.getControlClass(this.state['underlyingCountryOfIssue-valid'], "form-control")}
                         onChange={(e) => this.handleChange(e)}
-                    >
-                        <option>Dallah Health Care</option>
-                        <option>Al Rajhi</option>
-                    </select>
+                    />
                     {/* <div className="error">{this.state['underlyingCountryOfIssue-error']}</div> */}
                 </div>
 
@@ -312,9 +293,7 @@ export class ManualSecrefCreation extends React.Component<{
 
                 <input 
                     type="submit" 
-                    value="Submit" 
-                    onSubmit={e => this.handleSubmit(e)}
-                    onClick={e => this.handleSubmit(e)}
+                    value="Submit"
                 />
             </form>
         );
