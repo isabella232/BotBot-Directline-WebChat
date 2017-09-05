@@ -96,7 +96,7 @@ export class Transaction extends React.Component<{
                 <h1>Transaction</h1>
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="currency">Currency</label>
+                        <label htmlFor="currency" className="required">Currency</label>
                     </div>
                     <select
                         name="currency"
@@ -110,29 +110,31 @@ export class Transaction extends React.Component<{
                 </div>
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="fromVD">From V/D</label>
+                        <label htmlFor="fromVD" className="required">From V/D</label>
                     </div>
                     <div className="form-group">
                         <DateTime
                             className={this.getControlClass(this.state['fromVD-valid'], "small")}
                             onChange={(value) => this.handleDateChange('fromVD', value)}
-                            isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment()))}
+                            isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment(), 'day'))}
                             timeFormat={false}
+                            inputProps={{required: true}}
                         />
                         {/* <div className="error">{this.state['fromVD-error']}</div> */}
-                        <label htmlFor="toVD">To V/D</label>
+                        <label htmlFor="toVD" className="required">To V/D</label>
                         <DateTime
                             className={this.getControlClass(this.state['toVD-valid'], "small")}
                             onChange={(value) => this.handleDateChange('toVD', value)}
-                            isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment()))}
+                            isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment(), 'day'))}
                             timeFormat={false}
+                            inputProps={{required: true}}
                         />
                         {/* <div className="error">{this.state['toVD-error']}</div> */}
                     </div>
                 </div>
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="reasons">Reasons</label>
+                        <label htmlFor="reasons" className="required">Reasons</label>
                     </div>
                     <select 
                         name="reasons"
@@ -159,7 +161,7 @@ export class Transaction extends React.Component<{
                 </div>
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="type">Type</label>
+                        <label htmlFor="type" className="required">Type</label>
                     </div>
                     <select
                         name="type"
@@ -176,7 +178,7 @@ export class Transaction extends React.Component<{
                 <h1>Transaction Details</h1>
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="accountOrPortfolio" className="col-1">Account / Portfolio</label>
+                        <label htmlFor="accountOrPortfolio" className="required">Account / Portfolio</label>
                     </div>
                     <select
                         name="accountOrPortfolio"
@@ -191,7 +193,7 @@ export class Transaction extends React.Component<{
 
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="nostro" className="col-1">Nostro Bank / Nostro AC / Bank Name</label>
+                        <label htmlFor="nostro" className="required">Nostro Bank / Nostro AC / Bank Name</label>
                     </div>
                     <select
                         name="nostro"
@@ -206,7 +208,7 @@ export class Transaction extends React.Component<{
 
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="amount" className="col-1">Amount</label>
+                        <label htmlFor="amount" className="required">Amount</label>
                     </div>
                     <input 
                         name="amount"

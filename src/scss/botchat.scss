@@ -790,6 +790,12 @@
         width: 290px;
     }
 
+    .required:after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+
     label {
         color: $c_input_label;
         font-weight: 500;
@@ -821,10 +827,10 @@
             padding-left: 18px;
             padding-right: 18px;
             margin-right: 20px;
-            width: 350px;
+            width: 360px;
 
             &.small {
-                min-width: 70px;
+                min-width: 68px;
             }
 
             &.active:valid {
@@ -876,8 +882,8 @@
         }
 
         select {
-            width: 385px;
-            overflow: hidden;
+            width: 395px;
+            overflow-x: hidden;
         }
         
         textarea {

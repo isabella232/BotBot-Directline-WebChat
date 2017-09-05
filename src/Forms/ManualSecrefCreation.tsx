@@ -133,7 +133,7 @@ export class ManualSecrefCreation extends React.Component<{
 
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="pNoteISIN">P Note ISIN</label>
+                        <label htmlFor="pNoteISIN" className="required">P Note ISIN</label>
                     </div>
                     <input
                         name="pNoteISIN"
@@ -148,7 +148,7 @@ export class ManualSecrefCreation extends React.Component<{
 
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="securityDescription">Security Description</label>
+                        <label htmlFor="securityDescription" className="required">Security Description</label>
                     </div>
                     <input
                         name="securityDescription"
@@ -166,7 +166,7 @@ export class ManualSecrefCreation extends React.Component<{
                     <DateTime
                         className={this.getControlClass(this.state['maturityDate-valid'], "form-control")}
                         onChange={(value) => this.handleDateChange('maturityDate', value)}
-                        isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment()))}
+                        isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment(), 'day'))}
                         timeFormat={false}
                     />
                     {/* <div className="error">{this.state['maturityDate-error']}</div> */}
@@ -174,7 +174,7 @@ export class ManualSecrefCreation extends React.Component<{
 
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="countryOfIssue">Country Of Issue</label>
+                        <label htmlFor="countryOfIssue" className="required">Country Of Issue</label>
                     </div>
                     <select
                         name="countryOfIssue"
@@ -189,7 +189,7 @@ export class ManualSecrefCreation extends React.Component<{
 
                 <div className="form-group row">
                     <div className="col-1">
-                        <label htmlFor="tradeCurrency">Trade Currency</label>
+                        <label htmlFor="tradeCurrency" className="required">Trade Currency</label>
                     </div>
                     <select
                         name="tradeCurrency"
