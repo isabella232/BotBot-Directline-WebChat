@@ -5,7 +5,7 @@ import { Carousel } from './Carousel';
 import { FormattedText } from './FormattedText';
 import { FormatState, SizeState } from './Store';
 import { IDoCardAction } from './Chat';
-import { FormView } from './FormView';
+import { FormView } from './CustomViews/FormView';
 
 const Attachments = (props: {
     attachments: Attachment[],
@@ -88,7 +88,9 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                             onImageLoad={ props.onImageLoad }
                             size={ props.size }
                         />
-                        {activity.channelData && typeof(activity.channelData.action) === 'string' && 
+                        {activity.channelData 
+                        && activity.channelData.type === "form" 
+                        && typeof(activity.channelData.data) === 'string' && 
                         <FormView 
                             formType={0}
                             channelData={activity.channelData}
