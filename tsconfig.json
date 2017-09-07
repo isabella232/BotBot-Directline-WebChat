@@ -15,6 +15,7 @@
     },
     "files": [
         "src/adaptivecards-hostconfig.d.ts",
+        "src/CustomViews/global.d.ts",
         "src/BotChat.ts"
     ]
 }

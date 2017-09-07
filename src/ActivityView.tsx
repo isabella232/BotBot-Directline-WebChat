@@ -6,6 +6,8 @@ import { FormattedText } from './FormattedText';
 import { FormatState, SizeState } from './Store';
 import { IDoCardAction } from './Chat';
 import { FormView } from './CustomViews/FormView';
+import { TableView } from './CustomViews/TableView';
+import { ChartView } from './CustomViews/ChartView';
 
 const Attachments = (props: {
     attachments: Attachment[],
@@ -54,8 +56,8 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
         const { activity, format, size } = this.props
 
         const isExpanded = (activityData: any) => 
-            ((activityData.attachmentLayout && activityData.attachmentLayout === 'carousel')
-        || (activityData.channelData && typeof(activityData.channelData.action) === 'string'))
+            (activityData.attachmentLayout && activityData.attachmentLayout === 'carousel')
+            || (activityData.channelData)
 
         // if the activity changed, re-render
         return activity !== nextProps.activity
@@ -88,11 +90,29 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                             onImageLoad={ props.onImageLoad }
                             size={ props.size }
                         />
-                        {activity.channelData 
+                        {
+                        activity.channelData 
                         && activity.channelData.type === "form" 
-                        && typeof(activity.channelData.data) === 'string' && 
+                        && typeof(activity.channelData.data) === 'string'
+                        && 
                         <FormView 
                             formType={0}
+                            channelData={activity.channelData}
+                            size={ props.size }
+                        />}
+                        {
+                        activity.channelData
+                        && activity.channelData.type === "table"
+                        &&
+                        <TableView
+                            channelData={activity.channelData}
+                            size={ props.size }
+                        />}
+                        {
+                        activity.channelData
+                        && activity.channelData.type === "chart"
+                        &&
+                        <ChartView
                             channelData={activity.channelData}
                             size={ props.size }
                         />}

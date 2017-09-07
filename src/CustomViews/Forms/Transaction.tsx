@@ -16,7 +16,6 @@ const TRANSACTION_KEYS: string[] = [
     "account",
 ]
 
-
 const TRANSACTION_DETAILS_KEYS: string[]  = [
     "accountOrPortfolio",
     "nostro",

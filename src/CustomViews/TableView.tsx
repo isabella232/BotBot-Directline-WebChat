@@ -5,33 +5,35 @@ export interface TableProps {
     channelData: any,
     size: SizeState,
 }
-class TableView extends React.Component<TableProps, {}> {
-    constructor(props) {
-        super(props);
+export class TableView extends React.Component<TableProps, {}> {
+    constructor() {
+        super();
     }
     render() {
         const { data } = this.props.channelData;
 
-        if (Object.prototype.toString.call(data) === '[object Array]') return <div></div>
+        if (Object.prototype.toString.call(data) !== '[object Array]') return <div></div>
 
         return (
             <div className="table-container">
                 <table>
-                    <tr>
-                        {data.length > 0 && data[0].map((hcell, idx) => (<th key={idx}>{hcell}</th>))}
-                    </tr>
+                    <thead>
+                        <tr>
+                            {data.length > 0 && data[0].map((hcell: any, idx: number) => (<th key={idx}>{hcell}</th>))}
+                        </tr>
+                    </thead>
+                    <tbody>
                     {data.length > 1 &&
-                    data.slice(1).map((trow, rownum) => 
+                    data.slice(1).map((trow: any[], rownum: number) => 
                         <tr key={rownum}>
                             {
-                                trow.map((cell, idx) => <td key={idx}>{cell}</td>)
+                                trow.map((cell: any, idx: number) => <td key={idx}>{cell}</td>)
                             }
                         </tr>
                     )}
+                    </tbody>
                 </table>
             </div>
         );
     }
 }
-
-export default TableView;
