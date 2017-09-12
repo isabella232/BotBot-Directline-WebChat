@@ -27,7 +27,9 @@ export class Transaction extends React.Component<{
 }, any> {
     constructor() {
         super();
-        this.state = {}
+        this.state = {
+            'currency': CURRENCIES[0]
+        }
     }
 
     handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) {
@@ -212,10 +214,11 @@ export class Transaction extends React.Component<{
                     <input 
                         name="amount"
                         type="text" 
-                        className={this.getControlClass(this.state['amount-valid'])}
+                        className={this.getControlClass(this.state['amount-valid'], "with-label")}
                         onChange={(e) => this.handleChange(e)}
                         required 
                     />
+                    <div className="input-label">{this.state['currency']}</div>
                     {/* <div className="error">{this.state['amount-error']}</div> */}
                 </div>
 
