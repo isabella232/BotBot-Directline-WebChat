@@ -25,7 +25,7 @@ var coreConfig = {
                 use: [{ loader: 'expose-loader', options: 'AdaptiveCards' }]
             }
         ]
-    }
+    },
 };
 
 var chatConfig = {
