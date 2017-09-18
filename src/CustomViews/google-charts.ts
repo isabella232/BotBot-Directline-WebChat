@@ -18,7 +18,7 @@ export function core() {
     let retries = 0;
     function ready () {
       if (window && window.google) {
-        console.log("Loaded Google Charts loader");
+        // console.log("Loaded Google Charts loader");
         clearInterval(interval);
         return resolve();
       }

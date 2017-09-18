@@ -6,6 +6,8 @@ import * as moment from 'moment';
 import * as DateTime from 'react-datetime';
 import * as _ from "lodash";
 
+const DATE_FORMAT = "DD/MM/YYYY"
+
 const TRANSACTION_KEYS: string[] = [
     "currency",
     "fromVD",
@@ -80,6 +82,7 @@ export class Transaction extends React.Component<{
     }
 
     render() {
+        const currencies = CURRENCIES.map((currency: string) => <option>{currency}</option>)
         const portfolioNames = _.uniq(NOSTRO
                                 .filter((nostro) => nostro.GS_CURR_ABBR === this.state.currency)
                                 .map((nostro) => nostro.GS_ACCNT_GROUP))
@@ -105,7 +108,7 @@ export class Transaction extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        {CURRENCIES.map((currency: string) => <option>{currency}</option>)}
+                        {currencies || []}
                     </select>
                     {/* <div className="error">{this.state['currency-error']}</div> */}
                 </div>
@@ -115,6 +118,7 @@ export class Transaction extends React.Component<{
                     </div>
                     <div className="form-group">
                         <DateTime
+                            dateFormat={DATE_FORMAT}
                             className={this.getControlClass(this.state['fromVD-valid'], "small")}
                             onChange={(value) => this.handleDateChange('fromVD', value)}
                             isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment(), 'day'))}
@@ -124,6 +128,7 @@ export class Transaction extends React.Component<{
                         {/* <div className="error">{this.state['fromVD-error']}</div> */}
                         <label htmlFor="toVD" className="required">To V/D</label>
                         <DateTime
+                            dateFormat={DATE_FORMAT}
                             className={this.getControlClass(this.state['toVD-valid'], "small")}
                             onChange={(value) => this.handleDateChange('toVD', value)}
                             isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment(), 'day'))}
@@ -143,7 +148,7 @@ export class Transaction extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required 
                     >
-                        {reasons}
+                        {reasons || []}
                     </select>
                     {/* <div className="error">{this.state['reasons-error']}</div> */}
                 </div>
@@ -187,7 +192,7 @@ export class Transaction extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                    {portfolioNames}
+                    {portfolioNames || []}
                     </select>
                     {/* <div className="error">{this.state['accountOrPortfolio-error']}</div> */}
                 </div>
@@ -202,7 +207,7 @@ export class Transaction extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        {bankNames}
+                        {bankNames || []}
                     </select>
                     {/* <div className="error">{this.state['nostro-error']}</div> */}
                 </div>
@@ -211,6 +216,7 @@ export class Transaction extends React.Component<{
                     <div className="col-1">
                         <label htmlFor="amount" className="required">Amount</label>
                     </div>
+                    <div className="input-label">{this.state['currency']}</div>
                     <input 
                         name="amount"
                         type="text" 
@@ -218,7 +224,6 @@ export class Transaction extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required 
                     />
-                    <div className="input-label">{this.state['currency']}</div>
                     {/* <div className="error">{this.state['amount-error']}</div> */}
                 </div>
 

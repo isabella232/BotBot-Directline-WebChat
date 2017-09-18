@@ -79,7 +79,7 @@
             document.getElementById('btnLogin').addEventListener('click', doLogin);
             document.getElementById('txtPassword').addEventListener('keydown', onKeyDown)
 
-            window.botchatDebug = true;
+            // window.botchatDebug = true;
 
             function uuidv4() {
                 return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -106,23 +106,10 @@
                 var user = {
                     id: uuidv4(),
                     name: username
-                    };
+                };
                 
-                // var bot = {
-                //     id: params['botid'] || 'botid',
-                //     name: params["botname"] || 'botname'
-                // };
                 BotChat.App({
-                    directLine: {
-                        // secret: 'R1KG1jopgus.cwA.biA.u1ngrrUaHcHxI_dWNcC-mboA5UuLTBMqoFjSpgFsEUM',
-                        // secret: 'bIpwQ2WmFc4.cwA.uio.cHbLvIBsUBDEB6G0qysaEfP7oflLUx4B1P6TsRSfmbI',
-                        secret: 'apThmtE5X9w.cwA.Rh8.S11jhfB7O3Bj_IYY3fuQ0oID6P1jJXp0NpQDnXoraz0',
-                        token: '',
-                        domain: '',
-                        webSocket: true
-                    },
                     user: user,
-                    locale: 'en-US',
                     resize: 'window'
                 }, document.getElementById("BotChatWindow"));
             }

@@ -71,7 +71,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
 
     render() {
         const { activity, ... props } = this.props;
-        console.log(activity);
+        // console.log(activity);
 
         switch (activity.type) {
             case 'message':

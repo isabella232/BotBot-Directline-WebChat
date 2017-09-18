@@ -6,6 +6,8 @@ import * as DateTime from 'react-datetime';
 import * as _ from "lodash";
 import { COUNTRIES, GS_CURR_ABBR } from './mockData'
 
+const DATE_FORMAT = "DD/MM/YYYY"
+
 const MANUALSECREF_KEYS: string[] = [
     "account",
     "asOfDate",
@@ -79,6 +81,9 @@ export class ManualSecrefCreation extends React.Component<{
     }
 
     render() {
+        const countryOfIssueOptions = COUNTRIES.map((country, idx) => <option key={idx}>{country.name}</option>)
+        const tradeCurrencyOptions = GS_CURR_ABBR.map((currency, idx) => <option key={idx}>{currency}</option>)
+        const underlyingTradeCurrencyOptions = GS_CURR_ABBR.map((currency, idx) => <option key={idx}>{currency}</option>)
         return (
             <form onSubmit={e => this.handleSubmit(e)}>
                 <h1>Manual Secref Creation</h1>
@@ -99,6 +104,7 @@ export class ManualSecrefCreation extends React.Component<{
                         <label htmlFor="asOfDate">As of Date</label>
                     </div>
                     <DateTime
+                        dateFormat={DATE_FORMAT}
                         className={this.getControlClass(this.state['asOfDate-valid'], "form-control")}
                         onChange={(value) => this.handleDateChange('asOfDate', value)}
                         timeFormat={false}
@@ -164,6 +170,7 @@ export class ManualSecrefCreation extends React.Component<{
                         <label htmlFor="maturityDate">Maturity Date</label>
                     </div>
                     <DateTime
+                        dateFormat={DATE_FORMAT}
                         className={this.getControlClass(this.state['maturityDate-valid'], "form-control")}
                         onChange={(value) => this.handleDateChange('maturityDate', value)}
                         isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment(), 'day'))}
@@ -182,7 +189,7 @@ export class ManualSecrefCreation extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        {COUNTRIES.map((country, idx) => <option key={idx}>{country.name}</option>)}
+                        {countryOfIssueOptions || []}
                     </select>
                     {/* <div className="error">{this.state['countryOfIssue-error']}</div> */}
                 </div>
@@ -197,7 +204,7 @@ export class ManualSecrefCreation extends React.Component<{
                         onChange={(e) => this.handleChange(e)}
                         required
                     >
-                        {GS_CURR_ABBR.map((currency, idx) => <option key={idx}>{currency}</option>)}
+                        {tradeCurrencyOptions || []}
                     </select>
                     <div className="error">{this.state['tradeCurrency-error']}</div>
                 </div>
@@ -286,7 +293,7 @@ export class ManualSecrefCreation extends React.Component<{
                         className={this.getControlClass(this.state['underlyingTradeCurrency-valid'], "form-control")}
                         onChange={(e) => this.handleChange(e)}
                     >
-                        {GS_CURR_ABBR.map((currency, idx) => <option key={idx}>{currency}</option>)}
+                        {underlyingTradeCurrencyOptions || []}
                     </select>
                     {/* <div className="error">{this.state['underlyingTradeCurrency-error']}</div> */}
                 </div>

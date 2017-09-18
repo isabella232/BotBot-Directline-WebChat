@@ -18,7 +18,7 @@ export class ChartView extends React.Component<ChartProps, {}> {
     }
 
     drawChart() {
-        console.log("Drawing chart");
+        // console.log("Drawing chart");
         const google = window.google;
         const { data } = this.props.channelData;
 
