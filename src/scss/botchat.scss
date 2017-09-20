@@ -932,15 +932,18 @@
             width: 395px;
             font-weight: 500;
             overflow-x: hidden;
-            background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23666666'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
-            background-size: 12px;
-            background-position: calc(100% - 10px) center;
+            background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTInIGhlaWdodD0nMTInIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZycgeG1sbnM6c3ZnPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PGc+PHBhdGggaWQ9J3N2Z18xJyBkPSdtMCwwbDExLjk5OTk5OSwwbC01Ljk5OTk5OSw1Ljk5OTk5OScgc3Ryb2tlLWxpbmVjYXA9J251bGwnIHN0cm9rZS1saW5lam9pbj0nbnVsbCcgc3Ryb2tlLWRhc2hhcnJheT0nbnVsbCcgc3Ryb2tlLXdpZHRoPSdudWxsJyBmaWxsPScjNjY2NjY2Jy8+PC9nPjwvc3ZnPg==") no-repeat;
+            background-position: 370px center;
             background-repeat: no-repeat;
             color: $c_input_text;
             background-color: $c_input_bg;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
+
+            &::-ms-expand {
+                display: none;
+            }
         }
         
         .checkbox-group {
