@@ -27,27 +27,85 @@ const TRANSACTION_DETAILS_KEYS: string[]  = [
 export class Transaction extends React.Component<{
     submitUrl: string,
 }, any> {
+    refs: any = {};
+
     constructor() {
         super();
+
+        const portfolioNamesDropdown = this.getPortfolioNames(CURRENCIES[0]);
+        const bankNamesDropdown = this.getBankNames(CURRENCIES[0], portfolioNamesDropdown[0])
+
+        const accountOrPortfolio = portfolioNamesDropdown ? portfolioNamesDropdown[0] : '';
+        const nostro = bankNamesDropdown ? bankNamesDropdown[0]: '';
+
         this.state = {
-            'currency': CURRENCIES[0]
+            'currency': CURRENCIES[0],
+            'type': 'account',
+            'reasons': REASONS[0],
+            'currenciesDropdown': CURRENCIES,
+            portfolioNamesDropdown,
+            accountOrPortfolio,
+            bankNamesDropdown,
+            nostro,
+            'reasonsDropdown': REASONS,
         }
+    }
+
+    getPortfolioNames(currency: string) {
+        return _.uniq(NOSTRO
+            .filter((nostro) => nostro.GS_CURR_ABBR === currency)
+            .map((nostro) => nostro.GS_ACCNT_GROUP))
+    }
+
+    getBankNames(currency: string, accountOrPortfolio: string) {
+        return _.uniq(NOSTRO
+            .filter((nostro) => nostro.GS_CURR_ABBR === currency
+                            && nostro.GS_ACCNT_GROUP === accountOrPortfolio)
+            .map((nostro) => nostro.GS_CPARTY_DES))
     }
 
     handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) {
         const target = e.target as (HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement);
+        const targetName = target.name;
+        const targetValue = target.value;
 
-        this.setState({
-            ...this.state,
-            [target.name]: target.value,
-            [`${target.name}-valid`]: target.validity,
-            [`${target.name}-error`]: target.validationMessage,
-        });
+        let bankNamesDropdown = this.state.bankNamesDropdown;
+        let nostro = this.state.nostro;
+
+        let portfolioNamesDropdown = this.state.portfolioNamesDropdown;
+        let accountOrPortfolio = this.state.accountOrPortfolio;
+
+        if (targetName === 'currency') {
+            bankNamesDropdown = this.getBankNames(targetValue, this.state.accountOrPortfolio);
+            nostro = bankNamesDropdown ? bankNamesDropdown[0] : '';
+
+            portfolioNamesDropdown = this.getPortfolioNames(targetValue);
+            accountOrPortfolio = portfolioNamesDropdown ? portfolioNamesDropdown[0] : '';
+        }
+        else if (targetName === 'accountOrPortfolio') {
+            bankNamesDropdown = this.getBankNames(this.state.currency, targetValue);
+            nostro = bankNamesDropdown ? bankNamesDropdown[0] : '';
+        }
+
+        // lets the target state override the previous state
+        this.setState(Object.assign(
+            {},
+            {
+                bankNamesDropdown,
+                nostro,
+                portfolioNamesDropdown,
+                accountOrPortfolio,
+            },
+            {
+                [targetName]: targetValue,
+                [`${targetName}-valid`]: target.validity,
+                [`${targetName}-error`]: target.validationMessage,
+            }
+        ));
     }
 
     handleDateChange(elemName: string, value: any) {
         this.setState({
-            ...this.state,
             [elemName]: value,
             [`${elemName}-valid`]: (typeof(value) === 'string'),
             [`${elemName}-error`]: "Date is invalid",
@@ -64,9 +122,12 @@ export class Transaction extends React.Component<{
         if (this.props.submitUrl) {
             const formData = {
                 'transaction': 
-                    _.zipObject(TRANSACTION_KEYS, TRANSACTION_KEYS.map(key => this.state[key])),
+                    _.zipObject(TRANSACTION_KEYS, 
+                        TRANSACTION_KEYS.map(key => this.state[key] || '')),
                 'transactionDetails': 
-                    _.zipObject(TRANSACTION_DETAILS_KEYS, TRANSACTION_DETAILS_KEYS.map(key => this.state[key])),
+                    _.zipObject(TRANSACTION_DETAILS_KEYS, 
+                        TRANSACTION_DETAILS_KEYS.map(key => this.state[key] || '')),
+                'submitToEmail': this.state.submitToEmail || '',
             }
 
             fetch(this.props.submitUrl, {
@@ -82,18 +143,14 @@ export class Transaction extends React.Component<{
     }
 
     render() {
-        const currencies = CURRENCIES.map((currency: string) => <option>{currency}</option>)
-        const portfolioNames = _.uniq(NOSTRO
-                                .filter((nostro) => nostro.GS_CURR_ABBR === this.state.currency)
-                                .map((nostro) => nostro.GS_ACCNT_GROUP))
-                            .map((item, idx) => <option key={idx}>{item}</option>)
-        const bankNames = _.uniq(NOSTRO
-                                .filter((nostro) => nostro.GS_CURR_ABBR === this.state.currency
-                                                && nostro.GS_ACCNT_GROUP === this.state.accountOrPortfolio)
-                                .map((nostro) => nostro.GS_CPARTY_DES))
-                            .map((item, idx) => <option key={idx}>{item}</option>)
-
-        const reasons = REASONS.map((item, idx) => <option key={idx}>{item}</option>)
+        const currencies = this.state.currenciesDropdown
+            .map((currency: string) => <option>{currency}</option>)
+        const portfolioNames = this.state.portfolioNamesDropdown
+            .map((item: string, idx: number) => <option key={idx}>{item}</option>)
+        const bankNames = this.state.bankNamesDropdown
+            .map((item: string, idx: number) => <option key={idx}>{item}</option>)
+        const reasons = this.state.reasonsDropdown
+            .map((item: string, idx: number) => <option key={idx}>{item}</option>)
 
         return (
             <form onSubmit={e => this.handleSubmit(e)}>
@@ -106,6 +163,7 @@ export class Transaction extends React.Component<{
                         name="currency"
                         className={this.getControlClass(this.state['currency-valid'])}
                         onChange={(e) => this.handleChange(e)}
+                        value={this.state.currency}
                         required
                     >
                         {currencies || []}
@@ -124,6 +182,7 @@ export class Transaction extends React.Component<{
                             isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment(), 'day'))}
                             timeFormat={false}
                             inputProps={{required: true}}
+                            value={this.state.fromVD}
                         />
                         {/* <div className="error">{this.state['fromVD-error']}</div> */}
                         <label htmlFor="toVD" className="required">To V/D</label>
@@ -134,6 +193,7 @@ export class Transaction extends React.Component<{
                             isValidDate={(currentDate: Moment) => (currentDate.isSameOrAfter(moment(), 'day'))}
                             timeFormat={false}
                             inputProps={{required: true}}
+                            value={this.state.toVD}
                         />
                         {/* <div className="error">{this.state['toVD-error']}</div> */}
                     </div>
@@ -146,6 +206,7 @@ export class Transaction extends React.Component<{
                         name="reasons"
                         className={this.getControlClass(this.state['reasons-valid'])}
                         onChange={(e) => this.handleChange(e)}
+                        value={this.state.reasons}
                         required 
                     >
                         {reasons || []}
@@ -161,6 +222,7 @@ export class Transaction extends React.Component<{
                         name="details"
                         className={this.getControlClass(this.state['details-valid'])}
                         onChange={(e) => this.handleChange(e)}
+                        value={this.state.details}
                         maxLength={1024}
                     />
                     {/* <div className="error">{this.state['details-error']}</div> */}
@@ -173,7 +235,7 @@ export class Transaction extends React.Component<{
                         name="type"
                         className={this.getControlClass(this.state['type-valid'])}
                         onChange={(e) => this.handleChange(e)}
-                        defaultValue="account"
+                        value={this.state.type}
                         required
                     >
                         <option value="account">Account</option>
@@ -190,6 +252,7 @@ export class Transaction extends React.Component<{
                         name="accountOrPortfolio"
                         className={this.getControlClass(this.state['accountOrPortfolio-valid'])}
                         onChange={(e) => this.handleChange(e)}
+                        value={this.state.accountOrPortfolio}
                         required
                     >
                     {portfolioNames || []}
@@ -205,6 +268,7 @@ export class Transaction extends React.Component<{
                         name="nostro"
                         className={this.getControlClass(this.state['nostro-valid'])}
                         onChange={(e) => this.handleChange(e)}
+                        value={this.state.nostro}
                         required
                     >
                         {bankNames || []}
@@ -222,6 +286,25 @@ export class Transaction extends React.Component<{
                         type="text" 
                         className={this.getControlClass(this.state['amount-valid'], "with-label")}
                         onChange={(e) => this.handleChange(e)}
+                        value={this.state.amount}
+                        required 
+                    />
+                    {/* <div className="error">{this.state['amount-error']}</div> */}
+                </div>
+
+                {/* separator div */}
+                <div style={{height: '25px'}} />
+
+                <div className="form-group row">
+                    <div className="col-1">
+                        <label htmlFor="submitToEmail" className="required">Submit to Email</label>
+                    </div>
+                    <input 
+                        name="submitToEmail"
+                        type="email" 
+                        className={this.getControlClass(this.state['submitToEmail-valid'])}
+                        onChange={(e) => this.handleChange(e)}
+                        value={this.state.submitToEmail}
                         required 
                     />
                     {/* <div className="error">{this.state['amount-error']}</div> */}

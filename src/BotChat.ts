@@ -9,5 +9,6 @@ import 'core-js/modules/es6.string.starts-with';
 import 'core-js/modules/es6.array.find';
 import 'core-js/modules/es6.array.find-index';
 import 'core-js/modules/es6.array.map';
+import 'core-js/modules/es6.object.assign';
 // import 'core-js/modules/es6.promise'; // this is having problems with IE11
 require('es6-promise').polyfill();
