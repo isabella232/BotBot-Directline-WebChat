@@ -38,17 +38,23 @@ export class Transaction extends React.Component<{
         const accountOrPortfolio = portfolioNamesDropdown ? portfolioNamesDropdown[0] : '';
         const nostro = bankNamesDropdown ? bankNamesDropdown[0]: '';
 
-        this.state = {
-            'currency': CURRENCIES[0],
-            'type': 'account',
-            'reasons': REASONS[0],
-            'currenciesDropdown': CURRENCIES,
-            portfolioNamesDropdown,
-            accountOrPortfolio,
-            bankNamesDropdown,
-            nostro,
-            'reasonsDropdown': REASONS,
-        }
+        this.state = Object.assign(
+            {},
+            _.fromPairs(TRANSACTION_KEYS.map(key => [key, ''])),
+            _.fromPairs(TRANSACTION_DETAILS_KEYS.map(key => [key, ''])),
+            {
+                'currency': CURRENCIES[0],
+                'type': 'account',
+                'reasons': REASONS[0],
+                'currenciesDropdown': CURRENCIES,
+                portfolioNamesDropdown,
+                accountOrPortfolio,
+                bankNamesDropdown,
+                nostro,
+                'reasonsDropdown': REASONS,
+                'submitToEmail': '',
+            }
+        );
     }
 
     getPortfolioNames(currency: string) {

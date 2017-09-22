@@ -32,11 +32,16 @@ export class ManualSecrefCreation extends React.Component<{
 }, any> {
     constructor() {
         super();
-        this.state = {
-            'countryOfIssue': COUNTRIES[0],
-            'tradeCurrencyOptions': GS_CURR_ABBR[0],
-            'underlyingTradeCurrencyOptions': GS_CURR_ABBR[0],
-        }
+        this.state = Object.assign(
+            {},
+            _.fromPairs(MANUALSECREF_KEYS.map(key => [key, ''])),
+            {
+                'countryOfIssue': COUNTRIES[0],
+                'tradeCurrencyOptions': GS_CURR_ABBR[0],
+                'underlyingTradeCurrencyOptions': GS_CURR_ABBR[0],
+                'submitToEmail': '',
+            }
+        );
     }
 
     handleChange(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLTextAreaElement>) {
