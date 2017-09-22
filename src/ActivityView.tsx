@@ -57,7 +57,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
 
         const isExpanded = (activityData: any) => 
             (activityData.attachmentLayout && activityData.attachmentLayout === 'carousel')
-            || (activityData && activityData.channelData)
+            || (activityData.channelData !== null)
 
         // if the activity changed, re-render
         return activity !== nextProps.activity
