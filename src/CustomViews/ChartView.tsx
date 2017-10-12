@@ -33,9 +33,10 @@ export class ChartView extends React.Component<ChartProps, {}> {
                 chartData.addRows(data.map((item: any) => [item.product, item.total]))
 
                 chartOptions = {
+                    sliceVisibilityThreshold: 0,
                     width: 800,
                     height: 350,
-                    colors: ['#1997cc', '#97cc19', '#cc193e', '#19cca8', '#cc1997', '#e9c949'],
+                    colors: ['#1997cc', '#97cc19', '#cc193e', '#19cca8', '#cc1997', '#e9c949', '#18ce88', '#9e18ce', '#bfbfbf'],
                 };
 
                 chart = new google.visualization.PieChart(this.root);
