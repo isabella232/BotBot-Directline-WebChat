@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as CardBuilder from './CardBuilder';
 import { Attachment, CardAction, KnownMedia, UnknownMedia } from 'botframework-directlinejs';
-import { renderIfNonempty, konsole, IDoCardAction } from './Chat';
+import { renderIfNonempty, IDoCardAction } from './Chat';
 import { FormatState } from './Store';
 import { AdaptiveCardContainer } from './AdaptiveCardContainer';
+import * as konsole from './Konsole';
 
 const regExpCard = /\^application\/vnd\.microsoft\.card\./i;
 
@@ -32,6 +33,8 @@ const queryString = (query: QueryParams) =>
     Object.keys(query)
     .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(query[key].toString()))
     .join('&');
+
+const exists = (value: any) => value != null && typeof value != "undefined";
 
 const Youtube = (props: {
     embedId: string,
@@ -128,7 +131,7 @@ const Unknown = (props: {
     if (regExpCard.test(props.contentType)) {
         return <span>{ props.format.strings.unknownCard.replace('%1', props.contentType) }</span>;
     } else if (props.contentUrl) {
-        return <span><a href={ props.contentUrl } title={ props.contentUrl } target='_blank'>{ props.name || props.format.strings.unknownFile.replace('%1', props.contentType) }</a></span>;
+        return <div><a className="wc-link-download" href={ props.contentUrl } target="_blank" title={ props.contentUrl }><div className="wc-text-download">{ props.name || props.format.strings.unknownFile.replace('%1', props.contentType) }</div><div className="wc-icon-download"></div></a></div>;
     } else {
         return <span>{ props.format.strings.unknownFile.replace('%1', props.contentType) }</span>;
     }
@@ -267,12 +270,21 @@ export const AttachmentView = (props: {
                     receiptCardBuilder.addTextBlock(item.price, { horizontalAlignment: 'right' }, columns3[1]);
                 }
             });
-            const taxCol = receiptCardBuilder.addColumnSet([75, 25]);
-            receiptCardBuilder.addTextBlock(props.format.strings.receiptTax, { size: "medium", weight: "bolder" }, taxCol[0]);
-            receiptCardBuilder.addTextBlock(attachment.content.tax, { horizontalAlignment: 'right' }, taxCol[1]);
-            const totalCol = receiptCardBuilder.addColumnSet([75, 25]);
-            receiptCardBuilder.addTextBlock(props.format.strings.receiptTotal, { size: "medium", weight: "bolder" }, totalCol[0]);
-            receiptCardBuilder.addTextBlock(attachment.content.total, { horizontalAlignment: 'right', size: "medium", weight: "bolder" }, totalCol[1]);
+            if (exists(attachment.content.vat)) {
+                const vatCol = receiptCardBuilder.addColumnSet([75, 25]);
+                receiptCardBuilder.addTextBlock(props.format.strings.receiptVat, { size: "medium", weight: "bolder" }, vatCol[0]);
+                receiptCardBuilder.addTextBlock(attachment.content.vat, { horizontalAlignment: 'right' }, vatCol[1]);
+            }
+            if (exists(attachment.content.tax)) {
+                const taxCol = receiptCardBuilder.addColumnSet([75, 25]);
+                receiptCardBuilder.addTextBlock(props.format.strings.receiptTax, { size: "medium", weight: "bolder" }, taxCol[0]);
+                receiptCardBuilder.addTextBlock(attachment.content.tax, { horizontalAlignment: 'right' }, taxCol[1]);
+            }
+            if (exists(attachment.content.total)) {
+                const totalCol = receiptCardBuilder.addColumnSet([75, 25]);
+                receiptCardBuilder.addTextBlock(props.format.strings.receiptTotal, { size: "medium", weight: "bolder" }, totalCol[0]);
+                receiptCardBuilder.addTextBlock(attachment.content.total, { horizontalAlignment: 'right', size: "medium", weight: "bolder" }, totalCol[1]);
+            }
             receiptCardBuilder.addButtons(attachment.content.buttons);
             return (
                 <AdaptiveCardContainer className='receipt' card={ receiptCardBuilder.card } onCardAction={ props.onCardAction } onClick={ onCardAction(attachment.content.tap) } />
@@ -295,6 +307,7 @@ export const AttachmentView = (props: {
                 </AdaptiveCardContainer>
             );
 
+        case "image/svg+xml":
         case "image/png":
         case "image/jpg":
         case "image/jpeg":
