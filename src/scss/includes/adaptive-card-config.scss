@@ -57,7 +57,7 @@ $hostConfig: (
     separation: (
       spacing: $separation
     ),
-    buttonSpacing: $separation,
+    buttonSpacing: 1,
     stretch: false,
     showCard: (
       actionMode: "inlineEdgeToEdge",
@@ -143,10 +143,10 @@ $hostConfig: (
       spacing: $separation
     ),
     title: (
-      color: "dark",
+      color: $c_timestamp,
       size: "normal",
       isSubtle: false,
-      weight: "bolder",
+      weight: "normal",
       wrap: true,
       maxWidth: 150px
     ),
