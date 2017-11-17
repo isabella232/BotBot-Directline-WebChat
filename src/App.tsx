@@ -4,6 +4,7 @@ import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
 
 export type AppProps = ChatProps;
+const PRODUCTION_SHORT_URL = 'canonbot.azurewebsites.net';
 const SECRET = {
     STAGING: '9kUh-BfAg2w.cwA.Ipg.D9QA3vOi6Blsu55VBkzcsAOWJPJlcQdKG7xgfeD_dSA',
     PRODUCTION: 'Gq5EM3rwkfU.cwA.Fp8.GBNJR72aRCX01jLRgdhcc4_hNUaMSWmry3PiJS__K2E'
@@ -36,7 +37,7 @@ function getAppProps() : Object {
 
     return {
         directLine: {
-            secret: window.location.hostname.indexOf('canonbot.azurewebsites.net') === -1 ? SECRET.STAGING : SECRET.PRODUCTION,
+            secret: window.location.hostname.indexOf(PRODUCTION_SHORT_URL) === -1 ? SECRET.STAGING : SECRET.PRODUCTION,
             token: params['t'],
             domain: params['domain'],
             webSocket: params['webSocket'] && params['webSocket'] === 'true'
