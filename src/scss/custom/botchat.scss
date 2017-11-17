@@ -176,6 +176,10 @@ $header-height: 72px;
   }
 }
 
-.wc-carousel .wc-hscroll > ul > li + li {
-  border-left: 2px solid #ddd;
+.wc-carousel .wc-hscroll > ul {
+  display: flex;
+
+  > li + li {
+    border-left: 2px solid #ddd;
+  }
 }
