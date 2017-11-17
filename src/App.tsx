@@ -6,7 +6,7 @@ import * as konsole from './Konsole';
 export type AppProps = ChatProps;
 const SECRET = {
     STAGING: '9kUh-BfAg2w.cwA.Ipg.D9QA3vOi6Blsu55VBkzcsAOWJPJlcQdKG7xgfeD_dSA',
-    PRODUCTION: '1vSA-j7e_O0.cwA.rDo.2gYU3xs7_QZDleMDNTbGAjohFqFyTBVuT8UVPmb6Cd0'
+    PRODUCTION: 'Gq5EM3rwkfU.cwA.Fp8.GBNJR72aRCX01jLRgdhcc4_hNUaMSWmry3PiJS__K2E'
 };
 
 export const App = (props: AppProps, container: HTMLElement) => {
