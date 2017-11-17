@@ -22,7 +22,7 @@ interface LocalizedStrings {
 
 const localizedStrings: LocalizedStrings = {
     'en-us': {
-        title: "Chat",
+        title: "Canon",
         send: "Send",
         unknownFile: "[File of type '%1']",
         unknownCard: "[Unknown Card '%1']",
@@ -39,7 +39,7 @@ const localizedStrings: LocalizedStrings = {
         speak: "Speak"
     },
     'ja-jp': {
-        title: "チャット",
+        title: "Canon",
         send: "送信",
         unknownFile: "[ファイルタイプ '%1']",
         unknownCard: "[不明なカード '%1']",
@@ -56,7 +56,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'nb-no': {
-        title: "Chat",
+        title: "Canon",
         send: "Send",
         unknownFile: "[Fil av typen '%1']",
         unknownCard: "[Ukjent Kort '%1']",
@@ -73,7 +73,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'da-dk': {
-        title: "Chat",
+        title: "Canon",
         send: "Send",
         unknownFile: "[Fil af typen '%1']",
         unknownCard: "[Ukendt kort '%1']",
@@ -90,7 +90,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'de-de': {
-        title: "Chat",
+        title: "Canon",
         send: "Senden",
         unknownFile: "[Datei vom Typ '%1']",
         unknownCard: "[Unbekannte Card '%1']",
@@ -107,7 +107,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'pl-pl': {
-        title: "Chat",
+        title: "Canon",
         send: "Wyślij",
         unknownFile: "[Plik typu '%1']",
         unknownCard: "[Nieznana karta '%1']",
@@ -124,7 +124,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'ru-ru': {
-        title: "Чат",
+        title: "Canon",
         send: "Отправить",
         unknownFile: "[Неизвестный тип '%1']",
         unknownCard: "[Неизвестная карта '%1']",
@@ -141,7 +141,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'nl-nl': {
-        title: "Chat",
+        title: "Canon",
         send: "Verstuur",
         unknownFile: "[Bestand van het type '%1']",
         unknownCard: "[Onbekende kaart '%1']",
@@ -158,7 +158,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'lv-lv': {
-        title: "Tērzēšana",
+        title: "Canon",
         send: "Sūtīt",
         unknownFile: "[Nezināms tips '%1']",
         unknownCard: "[Nezināma kartīte '%1']",
@@ -175,7 +175,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'pt-br': {
-        title: "Bate-papo",
+        title: "Canon",
         send: "Enviar",
         unknownFile: "[Arquivo do tipo '%1']",
         unknownCard: "[Cartão desconhecido '%1']",
@@ -192,7 +192,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'fr-fr': {
-        title: "Chat",
+        title: "Canon",
         send: "Envoyer",
         unknownFile: "[Fichier de type '%1']",
         unknownCard: "[Carte inconnue '%1']",
@@ -209,7 +209,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'es-es': {
-        title: "Chat",
+        title: "Canon",
         send: "Enviar",
         unknownFile: "[Archivo de tipo '%1']",
         unknownCard: "[Tarjeta desconocida '%1']",
@@ -226,7 +226,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'el-gr': {
-        title: "Συνομιλία",
+        title: "Canon",
         send: "Αποστολή",
         unknownFile: "[Αρχείο τύπου '%1']",
         unknownCard: "[Αγνωστη Κάρτα '%1']",
@@ -243,7 +243,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'it-it': {
-        title: "Chat",
+        title: "Canon",
         send: "Invia",
         unknownFile: "[File di tipo '%1']",
         unknownCard: "[Card sconosciuta '%1']",
@@ -260,7 +260,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'zh-hans': {
-        title: "聊天",
+        title: "Canon",
         send: "发送",
         unknownFile: "[类型为'%1'的文件]",
         unknownCard: "[未知的'%1'卡片]",
@@ -277,7 +277,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'zh-hant': {
-        title: "聊天",
+        title: "Canon",
         send: "發送",
         unknownFile: "[類型為'%1'的文件]",
         unknownCard: "[未知的'%1'卡片]",
@@ -294,7 +294,7 @@ const localizedStrings: LocalizedStrings = {
         speak: "發言"
     },
     'zh-yue': {
-        title: "傾偈",
+        title: "Canon",
         send: "傳送",
         unknownFile: "[類型係'%1'嘅文件]",
         unknownCard: "[唔知'%1'係咩卡片]",
@@ -311,7 +311,7 @@ const localizedStrings: LocalizedStrings = {
         speak: "講嘢"
     },
     'cs-cz': {
-        title: "Chat",
+        title: "Canon",
         send: "Odeslat",
         unknownFile: "[Soubor typu '%1']",
         unknownCard: "[Neznámá karta '%1']",
@@ -328,7 +328,7 @@ const localizedStrings: LocalizedStrings = {
         speak: ""
     },
     'ko-kr': {
-        title: "채팅",
+        title: "Canon",
         send: "전송",
         unknownFile: "[파일 형식 '%1']",
         unknownCard: "[알수없는 타입의 카드 '%1']",

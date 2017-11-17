@@ -1,11 +1,11 @@
-﻿{
+{
   "supportsInteractivity": true,
   "strongSeparation": {
     "spacing": 40,
     "lineThickness": 1,
     "lineColor": "#eeeeee"
   },
-  "fontFamily": "\"Segoe UI\", sans-serif",
+  "fontFamily": "\"Avenir\", sans-serif",
   "fontSizes": {
     "small": 12,
     "normal": 13,
@@ -16,7 +16,7 @@
   "fontWeights": {
     "lighter": 200,
     "normal": 400,
-    "bolder": 700
+    "bolder": 500
   },
   "colors": {
     "dark": {
@@ -54,7 +54,7 @@
     "separation": {
       "spacing": 8
     },
-    "buttonSpacing": 8,
+    "buttonSpacing": 1,
     "stretch": false,
     "showCard": {
       "actionMode": "inlineEdgeToEdge",
