@@ -22,7 +22,7 @@ const Attachments = (props: {
             attachments={ attachments }
             { ... otherProps }
         />
-    : 
+    :
         <div className="wc-list">
             { attachments.map((attachment, index) =>
                 <AttachmentView
@@ -68,7 +68,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                     <div>
                         <FormattedText
                             text={ activity.text }
-                            format={ activity.textFormat }
+                            format="plain"
                             onImageLoad={ props.onImageLoad }
                         />
                         <Attachments
