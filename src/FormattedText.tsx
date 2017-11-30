@@ -1,6 +1,8 @@
 import * as MarkdownIt from 'markdown-it';
 import * as React from 'react';
 
+const reg = /((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$]))/gi;
+
 export interface IFormattedTextProps {
     text: string,
     format: string,
@@ -22,7 +24,13 @@ export const FormattedText = (props: IFormattedTextProps) => {
 
 const renderPlainText = (text: string) => {
     const lines = text.replace('\r', '').split('\n');
-    const elements = lines.map((line, i) => <span key={i}>{line}<br /></span>);
+    const elements = lines.map((line, i) => {
+        // format link to a tag
+        let str = line.replace(reg, `[$1]($1)`);
+
+        const __html = markdownIt.render(str);
+        return <span key={i}><span dangerouslySetInnerHTML={{ __html }} /><br /></span>
+    });
     return <span className="format-plain">{elements}</span>;
 }
 
