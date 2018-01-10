@@ -4,10 +4,10 @@ import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
 
 export type AppProps = ChatProps;
-const PRODUCTION_SHORT_URL = 'canonbot.azurewebsites.net';
+const PRODUCTION_SHORT_URL = 'daimlerbot.azurewebsites.net';
 const SECRET = {
-    STAGING: '9kUh-BfAg2w.cwA.Ipg.D9QA3vOi6Blsu55VBkzcsAOWJPJlcQdKG7xgfeD_dSA',
-    PRODUCTION: 'Gq5EM3rwkfU.cwA.Fp8.GBNJR72aRCX01jLRgdhcc4_hNUaMSWmry3PiJS__K2E'
+    STAGING: 'CcrLBQYwopU.cwA.R-s.G4A0h7uhrfGk2QRPIHfmvW3ZtwVRZSxr7bn6Ej4eBe8',
+    PRODUCTION: '8p78m9DyAUE.cwA.0tQ.CKD_orlZYL6vhPkO79fwmSmXmQSWeAl37v_3k7ZjGgU'
 };
 
 export const App = (props: AppProps, container: HTMLElement) => {
