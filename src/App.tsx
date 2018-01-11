@@ -6,8 +6,8 @@ import * as konsole from './Konsole';
 export type AppProps = ChatProps;
 const PRODUCTION_SHORT_URL = 'daimlerbot.azurewebsites.net';
 const SECRET = {
-    STAGING: 'CcrLBQYwopU.cwA.R-s.G4A0h7uhrfGk2QRPIHfmvW3ZtwVRZSxr7bn6Ej4eBe8',
-    PRODUCTION: '8p78m9DyAUE.cwA.0tQ.CKD_orlZYL6vhPkO79fwmSmXmQSWeAl37v_3k7ZjGgU'
+    STAGING: 'oTdzMuiS_ko.cwA.pmo.RBhSwn9ye1Mwv5FgOdp2RZtWH0u_PSM60yH-znsUc5w',
+    PRODUCTION: 'r6FICvAFIYE.cwA.ZfQ.wuWdX1Dya7MJ9r9xu5X7yH26atJvkrOmLabCIIJ55uY'
 };
 
 export const App = (props: AppProps, container: HTMLElement) => {
