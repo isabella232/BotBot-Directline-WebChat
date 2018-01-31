@@ -4,7 +4,7 @@ import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
 
 export type AppProps = ChatProps;
-const PRODUCTION_SHORT_URL = 'canonbot.azurewebsites.net';
+const PRODUCTION_SHORT_URL = 'gicpublicsite.azurewebsites.net';
 const SECRET = {
     STAGING: 'hWhA3IfZkGA.cwA.058.GhnhDXs43TpcG9z6p3XZFAXSGeSxT8nmWyvPNoan9vw',
     PRODUCTION: 'rMjwcSJUrS0.cwA.6Gw.vBMKKOrGWxIcb9FpjrdGoRpVbESov5D0V9OUSKuuOk8'
