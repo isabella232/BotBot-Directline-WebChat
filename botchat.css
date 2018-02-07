@@ -582,6 +582,9 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#ffffff" fill-rule="evenodd"/></svg>');
     background-repeat: no-repeat; }
 
+body {
+  margin: 0; }
+
 .wc-header {
   background-color: #faf9f4;
   color: #0e3066;
@@ -708,3 +711,76 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   display: flex; }
   .wc-carousel .wc-hscroll > ul > li + li {
     border-left: 2px solid #ddd; }
+
+.wc-login-page {
+  font-family: Avenir, sans-serif;
+  font-size: 14px;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+  color: #333; }
+  .wc-login-page h1 {
+    text-align: center;
+    font-weight: 400; }
+  .wc-login-page .wc-login-avatar {
+    height: 50px;
+    margin: 16px auto;
+    display: block; }
+  .wc-login-page form {
+    background: #fff;
+    border: 2px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-width: 320px; }
+  .wc-login-page label {
+    color: #9e9e9e;
+    font-size: 12px;
+    font-style: italic; }
+  .wc-login-page input {
+    padding: 8px 0;
+    line-height: 1.4;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid #dbdee1;
+    outline: none;
+    font-size: inherit;
+    transition: all 0.2s ease; }
+    .wc-login-page input:focus {
+      border-color: #999999; }
+  .wc-login-page button {
+    min-width: 88px;
+    padding: 8px 16px;
+    background: #039BE5;
+    color: #fff;
+    border: 0;
+    font-size: inherit;
+    cursor: pointer;
+    outline: none;
+    border-radius: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px #757575;
+    transition: all 0.2s ease;
+    float: right; }
+    .wc-login-page button:active {
+      box-shadow: 0 4px 8px #757575;
+      background: #0277BD; }
+    .wc-login-page button[disabled] {
+      background: #BDBDBD;
+      opacity: 0.5;
+      color: #757575;
+      box-shadow: none;
+      cursor: not-allowed; }
+  .wc-login-page .form-group {
+    position: relative;
+    z-index: 0;
+    margin-bottom: 20px; }
+  .wc-login-page .error-message {
+    color: #d32f2f;
+    font-size: 12px;
+    font-style: italic;
+    position: absolute;
+    bottom: -20px;
+    left: 0; }
