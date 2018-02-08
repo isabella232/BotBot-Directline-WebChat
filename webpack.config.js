@@ -29,7 +29,12 @@ var coreConfig = {
 };
 
 var chatConfig = {
-    entry: "./src/BotChat.ts",
+    entry: {
+        app: [
+            "./src/polyfills.js",
+            "./src/BotChat.ts",
+        ]
+    },
     output: {
         libraryTarget: "umd",
         library: "BotChat",
