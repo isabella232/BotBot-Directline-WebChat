@@ -3,8 +3,8 @@ import * as React from 'react';
 
 export interface IFormattedTextProps {
     text: string,
-    format: string,
-    onImageLoad: () => void
+    format?: string,
+    onImageLoad?: () => void
 }
 
 export const FormattedText = (props: IFormattedTextProps) => {
