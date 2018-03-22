@@ -16,20 +16,18 @@ export class TableView extends React.Component < TableProps, {} > {
     if (Object.prototype.toString.call(data) !== '[object Array]') 
       return <div></div>
 
-    const optionRows = data.length > 0
-      ? data[0].map((item : string, idx : number) => typeof(item) === 'string' && item.startsWith('_')
-        ? idx
-        : null).filter((item : string) => item) // remove null items
-      : []
-    const hightlightIdx = data.findIndex((item : string) => item === '_highlight')
-
+    const highlightIdx = data.length > 0
+      ? data[0].findIndex((item : string) => item === '_highlight')
+      : -1
+    console.log(data)
+    
     return (
       <div className="table-container">
         <table>
           <thead>
             <tr>
               {data.length > 0 && data[0]
-              .filter((hcell : string, idx : number) => !optionRows.includes(idx))
+              .filter((hcell : string, idx : number) => !(idx === highlightIdx))
               .map((hcell : string, idx : number) => 
                 <th key={idx}>{<FormattedText text={hcell} />}</th>)}
             </tr>
@@ -40,13 +38,14 @@ export class TableView extends React.Component < TableProps, {} > {
               .map((trow : any[], rownum : number) => 
                 <tr 
                   key={rownum}
-                  className={hightlightIdx && trow[hightlightIdx] 
+                  className={highlightIdx > -1 && trow[highlightIdx]
                     ? 'highlighted' 
                     : ''}>
-                  {trow.map((cell : any, idx : number) => 
-                  <td key={idx}>{<FormattedText text = {cell} />}</td>)}
-              </tr>)
-              .filter((hcell : string, idx : number) => !optionRows.includes(idx))}
+                  {trow
+                    .filter((cell : any, idx : number) => !(idx === highlightIdx))
+                    .map((cell : any, idx : number) => 
+                      <td key={idx}>{<FormattedText text = {String(cell)} />}</td>)}
+              </tr>)}
           </tbody>
         </table>
       </div>

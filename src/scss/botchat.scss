@@ -787,6 +787,7 @@
     table {
         width:750px;
         font-size: 10px;
+        word-break: initial;
 
         th {
             font-size: 11px;
@@ -806,7 +807,7 @@
         }
 
         tr.highlighted {
-            background-color: $c_light_accent;
+            background-color: $c_dark_background_darken;
         }
     }
 }
