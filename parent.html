@@ -60,13 +60,14 @@
   <div class="container">
     <button onClick="sendMessage()">Click to post message to iframe</button>
 
-    <iframe id="iframe" height="300" src="http://127.0.0.1:8000"></iframe>
+    <iframe id="iframe" height="300" src="http://daimlerbot-staging.azurewebsites.net/index.html"></iframe>
   </div>
 
   <script>
+    const CHILD_URL = 'http://daimlerbot-staging.azurewebsites.net/index.html';
+    const CHILD_ORIGIN = 'http://daimlerbot-staging.azurewebsites.net';
     var sendMessage = function () {
       var iframeWindow = iframe.contentWindow;
-      console.log('loaded');
       iframeWindow.postMessage({
         hookURL: 'sapevent:CFG',
         urlFlag: '0',
@@ -85,7 +86,7 @@
         vehicleDescription: '',
         vehicleClass: 'A-Class',
         preSeriesModeFlag: ''
-      }, 'http://127.0.0.1:8000');
+      }, CHILD_ORIGIN);
     }
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -95,7 +96,7 @@
 
     // Listen event from child iframe
     var receiveMessage = function (event) {
-      if (event.origin === 'http://127.0.0.1:8000') {
+      if (event.origin === CHILD_ORIGIN) {
         const data = event.data;
         console.log('here', data);
       }
