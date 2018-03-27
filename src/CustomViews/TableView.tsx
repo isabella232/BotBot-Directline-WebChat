@@ -2,14 +2,31 @@ import * as React from 'react';
 import {SizeState} from '../Store';
 import {FormattedText} from '../FormattedText';
 
+const TABLE_LIMIT = 10;
+
 export interface TableProps {
   channelData : any,
   size : SizeState
 }
-export class TableView extends React.Component < TableProps, {} > {
+
+export interface TableState {
+  expanded: boolean,
+}
+
+export class TableView extends React.Component < TableProps, TableState > {
   constructor() {
     super();
+    this.state = {
+      expanded: false
+    }
   }
+
+  componentWillReceiveProps(nextProps: TableProps) {
+    if (nextProps.channelData !== this.props.channelData) {
+      this.setState({expanded: false})
+    }
+  }
+
   render() {
     const {data} = this.props.channelData;
 
@@ -19,7 +36,13 @@ export class TableView extends React.Component < TableProps, {} > {
     const highlightIdx = data.length > 0
       ? data[0].findIndex((item : string) => item === '_highlight')
       : -1
-    console.log(data)
+    const rowsData = 
+      data && data.length > 1
+      ? data.length < TABLE_LIMIT || this.state.expanded
+        ? data.slice(1)
+        : data.slice(1, 1 + TABLE_LIMIT)
+      : null
+    // console.log(data)
     
     return (
       <div className="table-container">
@@ -33,8 +56,7 @@ export class TableView extends React.Component < TableProps, {} > {
             </tr>
           </thead>
           <tbody>
-            {data.length > 1 && data
-              .slice(1)
+            {rowsData && rowsData
               .map((trow : any[], rownum : number) => 
                 <tr 
                   key={rownum}
@@ -48,6 +70,10 @@ export class TableView extends React.Component < TableProps, {} > {
               </tr>)}
           </tbody>
         </table>
+        {(data.length + 1 > TABLE_LIMIT && !this.state.expanded) && 
+          <div className="fade-overlay">
+            <button type="button" onClick={() => this.setState({expanded: true})}>Show More</button>
+          </div>}
       </div>
     );
   }

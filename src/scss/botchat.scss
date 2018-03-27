@@ -784,22 +784,41 @@
     position: relative;
     min-width: 900px;
 
+    .fade-overlay {
+        background: linear-gradient(to bottom, rgba(100, 100, 100, 0) 0%, rgba(255, 255, 255, 100) 75%);
+        width: 100%;
+        height: 90px;
+        position: absolute;
+        bottom: 0px;
+
+        button {
+            background-color: #fff;
+            color: $c_peacock_blue;
+            min-height: 32px;
+            border-radius: 1px;
+            border: 1px solid #ccc;
+            position: absolute;
+            bottom: 8px;
+        }
+    }
+
     table {
         width:750px;
         font-size: 10px;
         word-break: initial;
+        border-spacing: 0;
 
         th {
             font-size: 11px;
             text-transform: uppercase;
             color: $c_input_label;
             font-weight: 500;
-            padding: 5px 2px;
+            padding: 5px 4px;
             text-align: left;
         }
 
         td {
-            padding: 2px;
+            padding: 2px 4px;
             text-align: left;
             vertical-align:middle;
             font-weight: 300;
@@ -807,7 +826,7 @@
         }
 
         tr.highlighted {
-            background-color: $c_dark_background_darken;
+            background-color: $c_biege_two;
         }
     }
 }
