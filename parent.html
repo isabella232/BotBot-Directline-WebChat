@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      font-size: 16px;
+      font-family: Helvetica, sans-serif;
+    }
+
+    .container {
+      max-width: 1024px;
+      padding-left: 16px;
+      padding-right: 16px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    iframe {
+      border: 1px solid #ddd;
+      width: 100%;
+      height: calc(100vh - 68px);
+    }
+
+    button {
+      border: 0;
+      border-radius: 2px;
+      cursor: pointer;
+      padding: 10px 20px;
+      margin-bottom: 30px;
+      font-size: inherit;
+      background: rgb(194, 56, 56);
+      color: #fff;
+      transition: all 0.3s ease;
+      outline: none;
+      font-weight: 300;
+    }
+
+    button:hover {
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      background: rgb(158, 46, 46);
+    }
+
+    button:active {
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
+      background: rgb(119, 34, 34);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <button onClick="sendMessage()">Click to post message to iframe</button>
+
+    <iframe id="iframe" height="300" src="http://127.0.0.1:8000"></iframe>
+  </div>
+
+  <script>
+    var sendMessage = function () {
+      var iframeWindow = iframe.contentWindow;
+      console.log('loaded');
+      iframeWindow.postMessage({
+        hookURL: 'sapevent:CFG',
+        urlFlag: '0',
+        language: 'en',
+        configurationDate: '',
+        orderingMarket: '847',
+        pricingDate: '20170714',
+        salesLevel: 'W',
+        taxDate: '20170714',
+        materialType: 'MBPC',
+        plant: 'KR01',
+        baumuster: '11734512-KR5',
+        internalVehicleId: '0003900491',
+        savedConfig: '',
+        productionDate: '20170812',
+        vehicleDescription: '',
+        vehicleClass: 'A-Class',
+        preSeriesModeFlag: ''
+      }, 'http://127.0.0.1:8000');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var iframe = document.getElementById('iframe');
+      iframe.onload = sendMessage;
+    });
+
+    // Listen event from child iframe
+    var receiveMessage = function (event) {
+      if (event.origin === 'http://127.0.0.1:8000') {
+        const data = event.data;
+        console.log('here', data);
+      }
+    }
+
+    window.addEventListener('message', receiveMessage, false);
+  </script>
+
+</body>
+
+</html>

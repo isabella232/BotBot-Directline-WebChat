@@ -11,7 +11,7 @@ interface Props {
     inputText: string,
     strings: Strings,
     listening: boolean,
-
+    config: object,
     onChangeText: (inputText: string) => void
 
     sendMessage: (inputText: string) => void,
@@ -84,6 +84,12 @@ class ShellContainer extends React.Component<Props> implements ShellFunctions {
 
         if (appendKey) {
             this.props.onChangeText(this.props.inputText + appendKey);
+        }
+    }
+
+    componentWillReceiveProps(nextProps: Props) {
+        if (this.props.config !== nextProps.config) {
+            this.props.sendMessage(JSON.stringify(nextProps.config));
         }
     }
 
@@ -181,7 +187,8 @@ export const Shell = connect(
         // only used to create helper functions below
         locale: state.format.locale,
         user: state.connection.user,
-        listening : state.shell.listening
+        listening : state.shell.listening,
+        config: state.shell.config
     }), {
         // passed down to ShellContainer
         onChangeText: (input: string) => ({ type: 'Update_Input', input, source: "text" } as ChatActions),
@@ -195,6 +202,7 @@ export const Shell = connect(
         inputText: stateProps.inputText,
         strings: stateProps.strings,
         listening : stateProps.listening,
+        config: stateProps.config,
         // from dispatchProps
         onChangeText: dispatchProps.onChangeText,
         // helper functions

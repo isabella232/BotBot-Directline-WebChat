@@ -46,7 +46,8 @@ export interface ShellState {
     sendTyping: boolean
     input: string
     listening: boolean
-    lastInputViaSpeech : boolean
+    lastInputViaSpeech : boolean,
+    config: object
 }
 
 export type ShellAction = {
@@ -74,6 +75,9 @@ export type ShellAction = {
     ssml: string,
     locale: string
     autoListenAfterSpeak: boolean
+}| {
+    type: 'Set_Config',
+    config: object
 }
 
 export const shell: Reducer<ShellState> = (
@@ -81,7 +85,8 @@ export const shell: Reducer<ShellState> = (
         input: '',
         sendTyping: false,
         listening : false,
-        lastInputViaSpeech : false
+        lastInputViaSpeech : false,
+        config: null
     },
     action: ShellAction
 ) => {
@@ -121,6 +126,12 @@ export const shell: Reducer<ShellState> = (
            return {
                ... state,
                lastInputViaSpeech : false
+           };
+
+        case 'Set_Config':
+           return {
+               ... state,
+               config : action.config
            };
 
         default:

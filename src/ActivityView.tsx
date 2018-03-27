@@ -6,6 +6,8 @@ import { FormattedText } from './FormattedText';
 import { FormatState, SizeState } from './Store';
 import { IDoCardAction } from './Chat';
 
+import { PARENT_ORIGIN } from './Constants';
+
 const Attachments = (props: {
     attachments: Attachment[],
     attachmentLayout: AttachmentLayout,
@@ -47,6 +49,20 @@ export interface ActivityViewProps {
 export class ActivityView extends React.Component<ActivityViewProps, {}> {
     constructor(props: ActivityViewProps) {
         super(props)
+    }
+
+    componentWillReceiveProps(nextProps: ActivityViewProps) {
+        const activity = this.props.activity || {};
+        const nextActivity = nextProps.activity || {};
+
+        if (activity.text !== nextActivity.text) {
+            let text = nextActivity.text || '';
+            text = text.toLowerCase();
+            if (text.indexOf('order id') > -1) {
+                // Send message to parent window
+                window.parent.postMessage({ data: 'success '}, PARENT_ORIGIN)
+            }
+        }
     }
 
     shouldComponentUpdate(nextProps: ActivityViewProps) {

@@ -14,6 +14,28 @@ import { ActivityOrID, FormatOptions } from './Types';
 import * as konsole from './Konsole';
 import { getTabIndex } from './getTabIndex';
 
+import { PARENT_ORIGIN } from './Constants';
+
+export interface DaimlerData {
+    okURL: string,
+    urlFlag: string,
+    language: string,
+    configurationDate: string,
+    orderingMarket: string,
+    pricingDate: string,
+    salesLevel: string,
+    taxDate: string,
+    materialType: string,
+    plant: string,
+    baumuster: string,
+    internalVehicleId: string,
+    savedConfig: string,
+    productionDate: string,
+    vehicleDescription: string,
+    vehicleClass: string,
+    preSeriesModeFlag: string
+}
+
 export interface ChatProps {
     user: User,
     bot: User,
@@ -67,6 +89,18 @@ export class Chat extends React.Component<ChatProps, {}> {
         if (props.speechOptions) {
             Speech.SpeechRecognizer.setSpeechRecognizer(props.speechOptions.speechRecognizer);
             Speech.SpeechSynthesizer.setSpeechSynthesizer(props.speechOptions.speechSynthesizer);
+        }
+
+        this.receiveMessage = this.receiveMessage.bind(this)
+        window.addEventListener('message', this.receiveMessage, false);
+    }
+
+    private receiveMessage(event) {
+        if (event.origin === PARENT_ORIGIN) {
+            const data = event.data;
+            this.store.dispatch<ChatActions>({ type: 'Set_Config', config: data });
+
+            // window.removeEventListener('message', this.receiveMessage, false);
         }
     }
 
