@@ -60,12 +60,11 @@
   <div class="container">
     <button onClick="sendMessage()">Click to post message to iframe</button>
 
-    <iframe id="iframe" height="300" src="http://daimlerbot-staging.azurewebsites.net/index.html"></iframe>
+    <iframe id="iframe" height="300" src="http://127.0.0.1:8000/index.html"></iframe>
   </div>
 
   <script>
-    const CHILD_URL = 'http://daimlerbot-staging.azurewebsites.net/index.html';
-    const CHILD_ORIGIN = 'http://daimlerbot-staging.azurewebsites.net';
+    const CHILD_ORIGIN = 'http://127.0.0.1:8000';
     var sendMessage = function () {
       var iframeWindow = iframe.contentWindow;
       iframeWindow.postMessage({

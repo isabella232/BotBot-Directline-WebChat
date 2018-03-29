@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Speech } from './SpeechModule';
 import { ActivityOrID, FormatOptions } from './Types';
 import * as konsole from './Konsole';
+import { IDaimlerData } from './Chat';
 
 // Reducers - perform state transformations
 
@@ -47,7 +48,7 @@ export interface ShellState {
     input: string
     listening: boolean
     lastInputViaSpeech : boolean,
-    config: object
+    config: IDaimlerData
 }
 
 export type ShellAction = {
@@ -77,7 +78,7 @@ export type ShellAction = {
     autoListenAfterSpeak: boolean
 }| {
     type: 'Set_Config',
-    config: object
+    config: IDaimlerData
 }
 
 export const shell: Reducer<ShellState> = (

@@ -14,9 +14,10 @@ import { ActivityOrID, FormatOptions } from './Types';
 import * as konsole from './Konsole';
 import { getTabIndex } from './getTabIndex';
 
+import axios from 'axios';
 import { PARENT_ORIGIN } from './Constants';
 
-export interface DaimlerData {
+export interface IDaimlerData {
     okURL: string,
     urlFlag: string,
     language: string,
@@ -69,6 +70,7 @@ export class Chat extends React.Component<ChatProps, {}> {
 
     private _handleKeyDownCapture = this.handleKeyDownCapture.bind(this);
     private _saveShellRef = this.saveShellRef.bind(this);
+    private _handlePlaceOrder = this.handlePlaceOrder.bind(this);
 
     constructor(props: ChatProps) {
         super(props);
@@ -109,6 +111,7 @@ export class Chat extends React.Component<ChatProps, {}> {
         switch (activity.type) {
             case "message":
                 this.store.dispatch<ChatActions>({ type: activity.from.id === state.connection.user.id ? 'Receive_Sent_Message' : 'Receive_Message', activity });
+                this._handlePlaceOrder(activity);
                 break;
 
             case "typing":
@@ -152,6 +155,28 @@ export class Chat extends React.Component<ChatProps, {}> {
 
     private saveShellRef(shellWrapper: any) {
         this.shellRef = shellWrapper.getWrappedInstance();
+    }
+
+    private handlePlaceOrder(activity: Activity) {
+        let text = activity.text || '';
+        text = text.toLowerCase();
+
+        if (text.indexOf('order id') > -1) {
+            const state = this.store.getState();
+            console.log('state', state);
+            axios.get(`http://daimlerbot-staging.azurewebsites.net/api/config/get?channelID=directline&accountChannelId=${state.connection.user.id}`)
+            .then((resp) => {
+                console.log('place an order', resp);
+
+                // window.parent.postMessage({ data: 'success '}, PARENT_ORIGIN)
+            })
+            .catch(error => {
+                debugger;
+                if (error.response.status) {
+                    // what we do if catch an error
+                }
+            });
+        }
     }
 
     componentDidMount() {
