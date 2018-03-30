@@ -10,6 +10,9 @@
   </head>
   <body>
     <div id="BotChatWindow"/>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
     <script src="./botchat.js"></script>
     <script>
         BotChat.App({
@@ -17,5 +20,6 @@
             // sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
         }, document.getElementById("BotChatWindow"));
     </script>
+    <!-- <script src="https://daimlerbot-staging.azurewebsites.net/signalr/hubs"></script> -->
   </body>
 </html>
