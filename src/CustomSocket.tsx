@@ -1,7 +1,7 @@
 /* global $ */
 import * as React from 'react';
 import { IDaimlerData } from './Chat';
-import { PARENT_ORIGIN } from './Constants';
+import { PARENT_ORIGIN, SIGNALR_URL } from './Constants';
 
 interface IConnection {
     error: Function;
@@ -30,8 +30,10 @@ const handleConnectError = (error: Object) => {
     console.log('error', error);
 };
 
-const handleDisconnected = () => {
-    // connectToSignalR();
+const handleDisconnected = (userId: Number) => {
+    setTimeout(() => {
+        connectToSignalR(userId);
+    }, 3000);
 };
 
 const handleReceiveMessage = (message: IDaimlerData) => {
@@ -41,12 +43,12 @@ const handleReceiveMessage = (message: IDaimlerData) => {
 };
 
 const connectToSignalR = (userId: Number) => {
-    connection = $.hubConnection('https://daimlerbot-staging.azurewebsites.net/signalr');
+    connection = $.hubConnection(SIGNALR_URL);
     hub = connection.createHubProxy('conversationHub');
 
     // error handler
     connection.error(handleConnectError);
-    connection.disconnected(handleDisconnected);
+    connection.disconnected(() => handleDisconnected(userId));
     connection.start().done(() => handleConnected(userId));
 };
 
