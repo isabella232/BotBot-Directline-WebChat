@@ -1,3 +1,4 @@
+/* global $ */
 import * as React from 'react';
 import { IDaimlerData } from './Chat';
 import { PARENT_ORIGIN } from './Constants';
@@ -25,7 +26,7 @@ const handleConnected = (userId: Number) => {
     hub.invoke('subscribe', userId);
 };
 
-const handleConnectError = error => {
+const handleConnectError = (error: Object) => {
     console.log('error', error);
 };
 
@@ -40,7 +41,7 @@ const handleReceiveMessage = (message: IDaimlerData) => {
 };
 
 const connectToSignalR = (userId: Number) => {
-    connection = window.$.hubConnection('https://daimlerbot-staging.azurewebsites.net/signalr');
+    connection = $.hubConnection('https://daimlerbot-staging.azurewebsites.net/signalr');
     hub = connection.createHubProxy('conversationHub');
 
     // error handler
