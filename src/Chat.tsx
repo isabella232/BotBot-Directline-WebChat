@@ -100,8 +100,10 @@ export class Chat extends React.Component<ChatProps, {}> {
     private receiveMessage(event) {
         if (event.origin === PARENT_ORIGIN) {
             const data = event.data;
-            this.store.dispatch<ChatActions>({ type: 'Set_Config', config: data });
-
+            const { reqPurpose, ...rest } = data;
+            if (reqPurpose === 'botbot') {
+                this.store.dispatch<ChatActions>({ type: 'Set_Config', config: rest });
+            }
             // window.removeEventListener('message', this.receiveMessage, false);
         }
     }

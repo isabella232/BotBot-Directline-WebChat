@@ -68,6 +68,7 @@
     var sendMessage = function () {
       var iframeWindow = iframe.contentWindow;
       iframeWindow.postMessage({
+        reqPurpose: 'botbot',
         hookURL: 'sapevent:CFG',
         urlFlag: '0',
         language: 'en',
