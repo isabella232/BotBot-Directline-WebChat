@@ -708,3 +708,17 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   display: flex; }
   .wc-carousel .wc-hscroll > ul > li + li {
     border-left: 2px solid #ddd; }
+
+.wc-table {
+  border-collapse: collapse; }
+  .wc-table th {
+    background-color: #ddd; }
+  .wc-table td {
+    padding: 5px 10px; }
+  .wc-table button {
+    background-color: #f5f2e9;
+    border-radius: 5px;
+    border: 0px;
+    color: #21396b;
+    font-weight: 500;
+    outline: none; }

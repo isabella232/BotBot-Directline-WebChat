@@ -184,3 +184,24 @@ $header-height: 72px;
     border-left: 2px solid #ddd;
   }
 }
+
+.wc-table {
+  border-collapse: collapse;
+
+  th {
+    background-color: #ddd;
+  }
+
+  td {
+    padding: 5px 10px;
+  }
+
+  button {
+    background-color: $c_button;
+    border-radius: 5px;
+    border: 0px;
+    color: $c_brand;
+    font-weight: 500;
+    outline: none;
+  }
+}

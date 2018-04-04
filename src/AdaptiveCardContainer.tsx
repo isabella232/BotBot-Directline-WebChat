@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { renderToString } from 'react-dom/server';
 import * as AdaptiveCards from "microsoft-adaptivecards";
 import * as AdaptiveCardSchema from "microsoft-adaptivecards/built/schema";
 import { CardAction } from "botframework-directlinejs/built/directLine";
@@ -97,14 +98,31 @@ export class AdaptiveCardContainer extends React.Component<Props, State> {
         }
     }
 
+    getColumnSetProperties(): Array<object> {
+        const { card } = this.props;
+        const body = card.body;
+        let results;
+
+        if (body && body.length > 0) {
+            results = body.filter(item => item.type === 'ColumnSet');
+        }
+
+        return results;
+    }
+
     componentDidMount() {
         const adaptiveCard = new LinkedAdaptiveCard(this);
         adaptiveCard.parse(cardWithoutHttpActions(this.props.card));
         const errors = adaptiveCard.validate();
         if (errors.length === 0) {
+            const columnSet = this.getColumnSetProperties();
             let renderedCard: HTMLElement;
             try {
-                renderedCard = adaptiveCard.render();
+                if (columnSet && columnSet.length > 0) {
+                    renderedCard = this.renderTable(columnSet);
+                } else {
+                    renderedCard = adaptiveCard.render();
+                }
             }
             catch (e) {
                 const ve: AdaptiveCards.IValidationError = {
@@ -135,6 +153,68 @@ export class AdaptiveCardContainer extends React.Component<Props, State> {
             errors.forEach(e => console.log(e.message));
             this.setState({ errors: errors.map(e => e.message) });
         }
+    }
+
+    renderTable(data: Array<object>): HTMLElement {
+        var div = document.createElement('div');
+        div.innerHTML = 'Table';
+        console.log('here', data);
+
+        data.map((table: { columns: Array<object>}) => {
+            const tableEl = document.createElement('table');
+            tableEl.classList.add('wc-table');
+
+            if (table && table.columns) {
+                const colNumber = table.columns.length;
+                const rowNumber = table.columns[0].items.length;
+
+                const theadEl = document.createElement('thead');
+                const tbodyEl = document.createElement('tbody');
+
+
+                for (let rowIndex = 0; rowIndex < rowNumber; rowIndex++) {
+                    let rowEl = document.createElement('tr');
+                    for (let colIndex = 0; colIndex < colNumber; colIndex++) {
+                        let cellEl = document.createElement('td');
+                        let text = table.columns[colIndex].items[rowIndex].text;
+                        const regCheckButton = /^\[(([\w\W])+)\]$/;
+
+                        if (rowIndex === 0) {
+                            cellEl = document.createElement('th');
+                        }
+
+                        if (regCheckButton.test(text)) {
+                            let buttonEl = document.createElement('button');
+                            buttonEl.innerText = 'Choose';
+                            text = text.replace(regCheckButton, '$1');
+
+                            buttonEl.addEventListener('click', () => {
+                                this.onCardAction('imBack', text);
+                            });
+
+                            cellEl.appendChild(buttonEl);
+                        } else {
+                            cellEl.innerText = text;
+                        }
+
+                        rowEl.appendChild(cellEl);
+                    }
+
+                    if (rowIndex === 0) {
+                        theadEl.appendChild(rowEl);
+                    } else {
+                        tbodyEl.appendChild(rowEl);
+                    }
+                }
+
+                tableEl.appendChild(theadEl);
+                tableEl.appendChild(tbodyEl);
+            }
+
+            div.appendChild(tableEl);
+        });
+
+        return div;
     }
 
     render() {
