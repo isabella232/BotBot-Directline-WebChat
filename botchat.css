@@ -1,7 +1,7 @@
 /* reset */
 body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   font-family: Avenir, sans-serif;
-  font-size: 15px; }
+  font-size: 13px; }
 
 .wc-app button {
   background-color: #21396b;
@@ -583,7 +583,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-repeat: no-repeat; }
 
 .wc-header {
-  background-color: #faf9f4;
+  background-color: #f6f6f6;
   color: #21396b;
   font-weight: 700;
   height: 72px;
@@ -592,9 +592,11 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   align-items: center;
   box-shadow: none; }
   .wc-header img {
-    margin-right: 20px; }
+    margin-right: 20px;
+    max-height: 72px; }
   .wc-header h1 {
-    font-size: 24px; }
+    font-size: 24px;
+    display: none; }
 
 .wc-message-groups {
   top: 72px;
@@ -624,13 +626,17 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background: none;
     color: #231f20; }
 
-.wc-message svg.wc-message-callout {
-  display: none; }
+.wc-message {
+  max-width: 75%;
+  background: #f1f0f0;
+  padding: 5px 10px; }
+  .wc-message svg.wc-message-callout {
+    display: none; }
 
 .wc-message-meta {
   clear: both;
   color: #7ba1ab;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 300;
   padding-top: 5px; }
 
@@ -711,8 +717,6 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 .wc-table {
   border-collapse: collapse; }
-  .wc-table th {
-    background-color: #ddd; }
   .wc-table td {
     padding: 5px 10px; }
   .wc-table button {

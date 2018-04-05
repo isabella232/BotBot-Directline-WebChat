@@ -3,7 +3,7 @@
 $header-height: 72px;
 
 .wc-header {
-  background-color: #faf9f4;
+  background-color: #f6f6f6 ;
   color: $c_brand;
   font-weight: 700;
   height: $header-height;
@@ -14,10 +14,12 @@ $header-height: 72px;
 
   img {
     margin-right: 20px;
+    max-height: $header-height;
   }
 
   h1 {
     font-size: 24px;
+    display: none;
   }
 }
 
@@ -58,14 +60,20 @@ $header-height: 72px;
 }
 
 
-.wc-message svg.wc-message-callout {
-  display: none;
+.wc-message {
+  max-width: 75%;
+  background: #f1f0f0;
+  padding: 5px 10px;
+
+  svg.wc-message-callout {
+    display: none;
+  }
 }
 
 .wc-message-meta {
   clear: both;
   color: $c_timestamp;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 300;
   padding-top: 5px;
 }
@@ -187,10 +195,6 @@ $header-height: 72px;
 
 .wc-table {
   border-collapse: collapse;
-
-  th {
-    background-color: #ddd;
-  }
 
   td {
     padding: 5px 10px;

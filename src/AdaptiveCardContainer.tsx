@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { renderToString } from 'react-dom/server';
 import * as AdaptiveCards from "microsoft-adaptivecards";
 import * as AdaptiveCardSchema from "microsoft-adaptivecards/built/schema";
 import { CardAction } from "botframework-directlinejs/built/directLine";
@@ -157,44 +156,52 @@ export class AdaptiveCardContainer extends React.Component<Props, State> {
 
     renderTable(data: Array<object>): HTMLElement {
         var div = document.createElement('div');
-        div.innerHTML = 'Table';
-        console.log('here', data);
+        const regCheckButton = /^\[(([\w\W])+)\]$/;
 
-        data.map((table: { columns: Array<object>}) => {
+        data.map((table: { columns: Array<AdaptiveCardSchema.IColumnSet>}) => {
             const tableEl = document.createElement('table');
             tableEl.classList.add('wc-table');
 
             if (table && table.columns) {
+                let textBlock;
+                let column: AdaptiveCardSchema.IColumn = table.columns[0];
                 const colNumber = table.columns.length;
-                const rowNumber = table.columns[0].items.length;
+                const rowNumber = column.items.length;
 
                 const theadEl = document.createElement('thead');
                 const tbodyEl = document.createElement('tbody');
 
-
                 for (let rowIndex = 0; rowIndex < rowNumber; rowIndex++) {
-                    let rowEl = document.createElement('tr');
-                    for (let colIndex = 0; colIndex < colNumber; colIndex++) {
-                        let cellEl = document.createElement('td');
-                        let text = table.columns[colIndex].items[rowIndex].text;
-                        const regCheckButton = /^\[(([\w\W])+)\]$/;
+                    let rowEl: HTMLElement = document.createElement('tr');
 
-                        if (rowIndex === 0) {
-                            cellEl = document.createElement('th');
+                    for (let colIndex = 0; colIndex < colNumber; colIndex++) {
+                        let column: AdaptiveCardSchema.IColumn = table.columns[colIndex];
+                        let item: any = column.items[rowIndex];
+                        let cellType: string = rowIndex === 0 ? 'th' : 'td';
+                        let cellEl: HTMLElement = document.createElement(cellType);
+                        let contentEl: HTMLElement;
+                        let text: string;
+
+                        textBlock = new AdaptiveCards.TextBlock();
+                        if (item) {
+                            textBlock.parse(item);
+                            contentEl = textBlock.render();
+                            text = item.text;
                         }
 
                         if (regCheckButton.test(text)) {
-                            let buttonEl = document.createElement('button');
-                            buttonEl.innerText = 'Choose';
-                            text = text.replace(regCheckButton, '$1');
+                            const message = text.replace(regCheckButton, '$1');
+                            // render button with action
+                            contentEl = document.createElement('button');
+                            contentEl.innerText = 'Choose';
 
-                            buttonEl.addEventListener('click', () => {
-                                this.onCardAction('imBack', text);
+                            contentEl.addEventListener('click', () => {
+                                this.onCardAction('imBack', message);
                             });
+                        }
 
-                            cellEl.appendChild(buttonEl);
-                        } else {
-                            cellEl.innerText = text;
+                        if (contentEl) {
+                            cellEl.appendChild(contentEl);
                         }
 
                         rowEl.appendChild(cellEl);

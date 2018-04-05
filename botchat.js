@@ -21539,36 +21539,43 @@ var AdaptiveCardContainer = (function (_super) {
     AdaptiveCardContainer.prototype.renderTable = function (data) {
         var _this = this;
         var div = document.createElement('div');
-        div.innerHTML = 'Table';
-        console.log('here', data);
+        var regCheckButton = /^\[(([\w\W])+)\]$/;
         data.map(function (table) {
             var tableEl = document.createElement('table');
             tableEl.classList.add('wc-table');
             if (table && table.columns) {
+                var textBlock = void 0;
+                var column = table.columns[0];
                 var colNumber = table.columns.length;
-                var rowNumber = table.columns[0].items.length;
+                var rowNumber = column.items.length;
                 var theadEl = document.createElement('thead');
                 var tbodyEl = document.createElement('tbody');
                 for (var rowIndex = 0; rowIndex < rowNumber; rowIndex++) {
                     var rowEl = document.createElement('tr');
                     var _loop_1 = function (colIndex) {
-                        var cellEl = document.createElement('td');
-                        var text = table.columns[colIndex].items[rowIndex].text;
-                        var regCheckButton = /^\[(([\w\W])+)\]$/;
-                        if (rowIndex === 0) {
-                            cellEl = document.createElement('th');
+                        var column_1 = table.columns[colIndex];
+                        var item = column_1.items[rowIndex];
+                        var cellType = rowIndex === 0 ? 'th' : 'td';
+                        var cellEl = document.createElement(cellType);
+                        var contentEl = void 0;
+                        var text = void 0;
+                        textBlock = new AdaptiveCards.TextBlock();
+                        if (item) {
+                            textBlock.parse(item);
+                            contentEl = textBlock.render();
+                            text = item.text;
                         }
                         if (regCheckButton.test(text)) {
-                            var buttonEl = document.createElement('button');
-                            buttonEl.innerText = 'Choose';
-                            text = text.replace(regCheckButton, '$1');
-                            buttonEl.addEventListener('click', function () {
-                                _this.onCardAction('imBack', text);
+                            var message_1 = text.replace(regCheckButton, '$1');
+                            // render button with action
+                            contentEl = document.createElement('button');
+                            contentEl.innerText = 'Choose';
+                            contentEl.addEventListener('click', function () {
+                                _this.onCardAction('imBack', message_1);
                             });
-                            cellEl.appendChild(buttonEl);
                         }
-                        else {
-                            cellEl.innerText = text;
+                        if (contentEl) {
+                            cellEl.appendChild(contentEl);
                         }
                         rowEl.appendChild(cellEl);
                     };
