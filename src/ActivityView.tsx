@@ -82,16 +82,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                             format={ activity.textFormat }
                             onImageLoad={ props.onImageLoad }
                         />
-                        <Attachments
-                            attachments={ activity.attachments }
-                            attachmentLayout={ activity.attachmentLayout }
-                            format={ props.format }
-                            onCardAction={ props.onCardAction }
-                            onImageLoad={ props.onImageLoad }
-                            size={ props.size }
-                        />
-                        {
-                        activity.channelData 
+                        {activity.channelData 
                         && activity.channelData.type === "form" 
                         && typeof(activity.channelData.data) === 'string'
                         && 
@@ -100,22 +91,28 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                             channelData={activity.channelData}
                             size={ props.size }
                         />}
-                        {
-                        activity.channelData
+                        {activity.channelData
                         && activity.channelData.type === "table"
                         &&
                         <TableView
                             channelData={activity.channelData}
                             size={ props.size }
                         />}
-                        {
-                        activity.channelData
+                        {activity.channelData
                         && activity.channelData.type === "chart"
                         &&
                         <ChartView
                             channelData={activity.channelData}
                             size={ props.size }
                         />}
+                        <Attachments
+                            attachments={ activity.attachments }
+                            attachmentLayout={ activity.attachmentLayout }
+                            format={ props.format }
+                            onCardAction={ props.onCardAction }
+                            onImageLoad={ props.onImageLoad }
+                            size={ props.size }
+                        />
                     </div>
                 );
 

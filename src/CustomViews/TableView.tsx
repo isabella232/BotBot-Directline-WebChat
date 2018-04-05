@@ -36,9 +36,10 @@ export class TableView extends React.Component < TableProps, TableState > {
     const highlightIdx = data.length > 0
       ? data[0].findIndex((item : string) => item === '_highlight')
       : -1
+    const isExpanded = data.length - 1 < TABLE_LIMIT || this.state.expanded
     const rowsData = 
       data && data.length > 1
-      ? data.length < TABLE_LIMIT || this.state.expanded
+      ? isExpanded
         ? data.slice(1)
         : data.slice(1, 1 + TABLE_LIMIT)
       : null
@@ -70,10 +71,10 @@ export class TableView extends React.Component < TableProps, TableState > {
               </tr>)}
           </tbody>
         </table>
-        {(data.length + 1 > TABLE_LIMIT && !this.state.expanded) && 
-          <div className="fade-overlay">
-            <button type="button" onClick={() => this.setState({expanded: true})}>Show More</button>
-          </div>}
+        {!isExpanded && <div className="fade-overlay" />}
+        {data.length - 1 > TABLE_LIMIT && <button type="button" className={isExpanded ? '' : 'overlay'} onClick={() => this.setState({expanded: !this.state.expanded})}>
+          {isExpanded ? 'Show Less' : 'Show More'}
+        </button>}
       </div>
     );
   }

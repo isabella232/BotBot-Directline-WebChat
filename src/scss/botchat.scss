@@ -790,16 +790,21 @@
         height: 90px;
         position: absolute;
         bottom: 0px;
+    }
 
-        button {
-            background-color: #fff;
-            color: $c_peacock_blue;
-            min-height: 32px;
-            border-radius: 1px;
-            border: 1px solid #ccc;
+    button { // Show more/less button
+        &.overlay {
             position: absolute;
             bottom: 8px;
         }
+
+        min-width: 80px;
+        background-color: #fff;
+        color: $c_peacock_blue;
+        min-height: 32px;
+        border-radius: 1px;
+        border: 1px solid #ccc;
+        margin-top: 5px;
     }
 
     table {
