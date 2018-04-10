@@ -7,5 +7,5 @@
 
 Run project
 1. `yarn start` --> serve website
-2. `yarn watch` --> watch files change
+2. `yarn dev` --> starting development
 3. `yarn build` --> build
