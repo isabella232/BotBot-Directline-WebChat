@@ -744,4 +744,5 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     border: 0px;
     color: #21396b;
     font-weight: 500;
-    outline: none; }
+    outline: none;
+    white-space: nowrap; }
