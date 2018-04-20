@@ -194,6 +194,9 @@ export class AdaptiveCardContainer extends React.Component<Props, State> {
                             // render button with action
                             contentEl = document.createElement('button');
                             contentEl.innerText = 'Choose';
+                            if (message.toLocaleLowerCase().indexOf('remove') > -1) {
+                                contentEl.innerText = 'Remove';
+                            }
 
                             contentEl.addEventListener('click', () => {
                                 this.onCardAction('imBack', message);
