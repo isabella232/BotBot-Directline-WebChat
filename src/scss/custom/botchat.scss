@@ -1,7 +1,16 @@
 @import "../includes/colors";
+@import "../includes/settings";
 @import "./_functions.scss";
 
 $header-height: 72px;
+
+body .wc-app {
+  font-family: $globalFF;
+}
+
+.wc-shellinput::placeholder {
+  font-family: inherit;
+}
 
 .wc-header {
   background-color: #f6f6f6 ;

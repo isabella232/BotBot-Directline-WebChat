@@ -1,6 +1,6 @@
 /* reset */
 body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
-  font-family: Avenir, sans-serif;
+  font-family: inherit;
   font-size: 13px; }
 
 .wc-app button {
@@ -593,6 +593,12 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     box-shadow: 10px 0 rgba(33, 57, 107, 0.7), 20px 0 transparent, 30px 0 rgba(33, 57, 107, 0.5), 40px 0 transparent, 50px 0 rgba(33, 57, 107, 0.3), 60px 0 transparent, 70px 0 rgba(33, 57, 107, 0.1), 80px 0 transparent, 90px 0 rgba(33, 57, 107, 0.1); }
   100% {
     box-shadow: 10px 0 rgba(33, 57, 107, 0.9), 20px 0 transparent, 30px 0 rgba(33, 57, 107, 0.7), 40px 0 transparent, 50px 0 rgba(33, 57, 107, 0.5), 60px 0 transparent, 70px 0 rgba(33, 57, 107, 0.3), 80px 0 transparent, 90px 0 rgba(33, 57, 107, 0.1); } }
+
+body .wc-app {
+  font-family: Avenir, sans-serif; }
+
+.wc-shellinput::placeholder {
+  font-family: inherit; }
 
 .wc-header {
   background-color: #f6f6f6;

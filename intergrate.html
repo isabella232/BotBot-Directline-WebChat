@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Daimler Bot</title>
   <meta charset="UTF-8">
@@ -8,6 +9,7 @@
   <link href="./botchat.css" rel="stylesheet" />
   <link href="./botchat-fullwindow.css" rel="stylesheet" />
 </head>
+
 <body>
   <div id="BotChatWindow" />
 
@@ -16,9 +18,18 @@
   <script src="./botchat.js"></script>
   <script>
     BotChat.App({
-      resize: 'window'
+      resize: 'window',
+      config: {
+        color: 'red',
+        logo: './avatar.png',
+        style: {
+          fontFamily: 'Dancing Script',
+        },
+        fontUrl: 'https://fonts.googleapis.com/css?family=Dancing+Script' // Google font url
+      }
       // sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
     }, document.getElementById("BotChatWindow"));
   </script>
 </body>
+
 </html>
