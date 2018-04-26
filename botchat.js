@@ -9174,7 +9174,7 @@ exports.DirectLine = DirectLine;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PARENT_ORIGIN = 'http://localhost:4200';
+exports.PARENT_ORIGIN = window.parent && window.parent.location.origin || '';
 exports.PRODUCTION_SHORT_URL = 'daimlerbot.azurewebsites.net';
 exports.SECRET = {
     STAGING: 'oTdzMuiS_ko.cwA.pmo.RBhSwn9ye1Mwv5FgOdp2RZtWH0u_PSM60yH-znsUc5w',
