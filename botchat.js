@@ -22317,7 +22317,7 @@ var ShellContainer = (function (_super) {
     };
     ShellContainer.prototype.componentWillReceiveProps = function (nextProps) {
         if (this.props.config !== nextProps.config) {
-            this.props.sendMessage(JSON.stringify(nextProps.config));
+            this.props.sendMessage("#|-|VehicleData" + JSON.stringify(nextProps.config));
         }
     };
     ShellContainer.prototype.render = function () {

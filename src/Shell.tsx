@@ -89,7 +89,7 @@ class ShellContainer extends React.Component<Props> implements ShellFunctions {
 
     componentWillReceiveProps(nextProps: Props) {
         if (this.props.config !== nextProps.config) {
-            this.props.sendMessage(JSON.stringify(nextProps.config));
+            this.props.sendMessage(`#|-|VehicleData${JSON.stringify(nextProps.config)}`);
         }
     }
 
