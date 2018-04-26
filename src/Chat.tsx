@@ -47,9 +47,12 @@ export interface IDaimlerData {
 
 export interface IConfig {
     fontUrl?: string;
-    style?: object;
+    globalStyle?: object;
     logo?: string;
-    color?: string
+    color?: string,
+    buttonBackground?: string,
+    userMessageBg?: string
+    botMesssageBg?: string
 }
 
 export interface ChatProps {
@@ -272,7 +275,7 @@ export class Chat extends React.Component<ChatProps, {}> {
         if (state.format.options.showHeader)
             header = (
                 <div className="wc-header">
-                    <img src={this.props.logo || './avatar.png'} />
+                    <img src={this.props.config && this.props.config.logo || './avatar.png'} />
                     <h1>{state.format.strings.title}</h1>
                 </div>
             );
