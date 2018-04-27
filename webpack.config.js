@@ -12,7 +12,7 @@ var coreConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        PARENT_ORIGIN: JSON.stringify('http://localhost')
+        PARENT_ORIGIN: JSON.stringify('http://localhost:8000')
       }
     })
   ],

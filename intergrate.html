@@ -8,15 +8,52 @@
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   <link href="./botchat.css" rel="stylesheet" />
   <link href="./botchat-fullwindow.css" rel="stylesheet" />
+  <style>
+    .chat-wrapper {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="BotChatWindow" />
+  <button onclick="sendMessage()">Send Message</button>
+  <div class="chat-wrapper">
+    <div id="BotChatWindow" />
+  </div>
 
   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"></script>
   <script src="https://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
   <script src="./botchat.js"></script>
   <script>
+    var sendMessage = function () {
+      window.postMessage({
+        reqPurpose: 'botbot',
+        hookURL: 'sapevent:CFG',
+        urlFlag: '0',
+        language: 'en',
+        configurationDate: '',
+        orderingMarket: '847',
+        pricingDate: '20170714',
+        salesLevel: 'W',
+        taxDate: '20170714',
+        materialType: 'MBPC',
+        plant: 'KR01',
+        baumuster: '11734512-KR5',
+        internalVehicleId: '0003900491',
+        savedConfig: '',
+        productionDate: '20170812',
+        vehicleDescription: '',
+        vehicleClass: 'A-Class',
+        preSeriesModeFlag: ''
+      }, window.location.origin);
+    }
+
     function onComplete(data) {
       console.log('here', data);
     }

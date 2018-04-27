@@ -67,7 +67,7 @@ export interface ChatProps {
   formatOptions?: FormatOptions;
   resize?: 'none' | 'window' | 'detect';
   config?: IConfig;
-  onComplete?: Function
+  onComplete?: Function;
 }
 
 import { History } from './History';
@@ -128,7 +128,7 @@ export class Chat extends React.Component<ChatProps, {}> {
   }
 
   private receiveMessage(event: any) {
-    if (event.origin === PARENT_ORIGIN) {
+    if (event.origin === window.location.origin || event.origin === PARENT_ORIGIN) {
       const data = event.data;
       const { reqPurpose, ...rest } = data;
       if (reqPurpose === 'botbot') {

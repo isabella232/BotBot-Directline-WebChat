@@ -754,11 +754,15 @@ body .wc-app {
     outline: none;
     white-space: nowrap; }
 
-.wc-console .wc-mic, .wc-console .wc-send {
+.wc-console .wc-mic,
+.wc-console .wc-send {
   background: none !important; }
 
-.wc-app button:not([disabled]):hover {
+.wc-app button:not(.scroll[disabled]):hover {
   opacity: 0.8; }
 
 .wc-adaptive-card * {
   font-family: inherit !important; }
+
+.wc-card {
+  max-width: 100%; }
