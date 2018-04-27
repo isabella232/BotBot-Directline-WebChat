@@ -17,11 +17,15 @@
   <script src="https://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
   <script src="./botchat.js"></script>
   <script>
+    function onComplete(data) {
+      console.log('here', data);
+    }
+
     BotChat.App({
       resize: 'window',
       config: {
         color: '#5555b9',
-        logo: 'https://picsum.photos/300/72',
+        logo: 'https://picsum.photos/300/72?random',
         userMessageBg: '#eee',
         botMesssageBg: '#e3f0f8',
         buttonBackground: '#eee',
@@ -29,8 +33,9 @@
           fontFamily: 'Dancing Script',
           color: '#333'
         },
-        fontUrl: 'https://fonts.googleapis.com/css?family=Dancing+Script' // Google font url
-      }
+        fontUrl: 'https://fonts.googleapis.com/css?family=Dancing+Script', // Google font url
+      },
+      onComplete: onComplete
       // sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
     }, document.getElementById("BotChatWindow"));
   </script>

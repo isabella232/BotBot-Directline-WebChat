@@ -759,3 +759,6 @@ body .wc-app {
 
 .wc-app button:not([disabled]):hover {
   opacity: 0.8; }
+
+.wc-adaptive-card * {
+  font-family: inherit !important; }

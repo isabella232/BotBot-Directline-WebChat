@@ -1,6 +1,6 @@
-@import "../includes/colors";
-@import "../includes/settings";
-@import "./_functions.scss";
+@import '../includes/colors';
+@import '../includes/settings';
+@import './_functions.scss';
 
 $header-height: 72px;
 
@@ -13,7 +13,7 @@ body .wc-app {
 }
 
 .wc-header {
-  background-color: #f6f6f6 ;
+  background-color: #f6f6f6;
   color: $c_brand;
   font-weight: 700;
   height: $header-height;
@@ -69,7 +69,6 @@ body .wc-app {
     color: #231f20;
   }
 }
-
 
 .wc-message {
   max-width: 75%;
@@ -200,7 +199,6 @@ body .wc-app {
       background-color: $c_brand;
       border-color: $c_brand;
       color: $c01;
-
     }
   }
 }
@@ -231,10 +229,15 @@ body .wc-app {
   }
 }
 
-.wc-console .wc-mic, .wc-console .wc-send {
+.wc-console .wc-mic,
+.wc-console .wc-send {
   background: none !important;
 }
 
 .wc-app button:not([disabled]):hover {
   opacity: 0.8;
+}
+
+.wc-adaptive-card * {
+  font-family: inherit !important;
 }
