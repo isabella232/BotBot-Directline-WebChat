@@ -6,7 +6,7 @@ import * as konsole from './Konsole';
 export type AppProps = ChatProps;
 const PRODUCTION_SHORT_URL = 'canonbot.azurewebsites.net';
 const SECRET = {
-    STAGING: '9kUh-BfAg2w.cwA.Ipg.D9QA3vOi6Blsu55VBkzcsAOWJPJlcQdKG7xgfeD_dSA',
+    STAGING: 'vHJJa7VhBGQ.cwA.MPM.eWdF_cJu2ZPoE-weTDWzWvbmJOoHGz4OPDai9nlkGwA',
     PRODUCTION: 'Gq5EM3rwkfU.cwA.Fp8.GBNJR72aRCX01jLRgdhcc4_hNUaMSWmry3PiJS__K2E'
 };
 
