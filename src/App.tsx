@@ -92,5 +92,3 @@ const AppContainer = (props: AppProps) => {
     </div>
   );
 };
-
-console.log('here', process.env.PARENT_ORIGIN);

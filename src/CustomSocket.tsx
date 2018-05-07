@@ -20,7 +20,6 @@ let connection: IConnection;
 let hub: IHub;
 
 const handleConnected = (userId: String, callback: Function) => {
-  console.log('Connection start');
   hub.on('broadcastConfig', (message: IDaimlerData) => handleReceiveMessage(message, callback));
   hub.invoke('subscribe', userId);
 };
