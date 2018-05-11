@@ -52,42 +52,53 @@ function getAppProps(): Object {
 
 const compileStyle = (config: IConfig) => {
   let style;
-  if (config.fontUrl) {
-    style = config.style;
-    const styleTag = document.createElement('style');
-    styleTag.innerHTML = `
-        @import url(${config.fontUrl});
-        .wc-message { border-color: ${config.color} }
-        .wc-console #wc-send-icon { fill: ${config.color} }
-        ${
-          config.buttonBackground
-            ? `.wc-app button { background-color: ${config.buttonBackground} !important; }`
-            : ''
-        }
-        ${
-          config.botMesssageBg
-            ? `.wc-message-from-bot { background-color: ${config.botMesssageBg} }`
-            : ''
-        }
-        ${
-          config.userMessageBg
-            ? `.wc-message-from-me { background-color: ${config.userMessageBg} }`
-            : ''
-        }
-        `;
-    document.head.appendChild(styleTag);
-  }
+
+  const styleTag = document.createElement('style');
+  styleTag.innerHTML = `
+    @import url(${config.fontUrl});
+    body .wc-app {
+      font-family: "${config.fontFamily}", sans-serif;
+      color: ${config.textColor};
+    }
+    .wc-message { border-color: ${config.brandColor} }
+    .wc-console #wc-send-icon { fill: ${config.brandColor} }
+    .wc-adaptive-card * {
+      font-family: inherit !important;
+      color: inherit !important;
+    }
+    .wc-card button {
+      color: ${config.brandColor} !important;
+    }
+    .wc-header {
+      background-color: ${config.headerBg};
+      color: ${config.brandColor}
+    }
+    .wc-message-meta { color: ${config.textProfileColor} }
+    .wc-suggested-actions .wc-hscroll > ul > li button { color: ${config.brandColor} }
+    `;
+
+  document.head.appendChild(styleTag);
 };
 
+function requestCustomiseUI() {
+  setTimeout(() => {
+    compileStyle({
+      brandColor: '#8c64cf',
+      fontFamily: 'Dancing Script',
+      fontUrl: 'https://fonts.googleapis.com/css?family=Dancing+Script',
+      textColor: '#ff00ff',
+      textProfileColor: '#ff0000',
+      headerBg: 'red',
+      logo: ''
+    });
+  }, 3000);
+}
+
 const AppContainer = (props: AppProps) => {
-  let style;
-  if (props.config && props.config.fontUrl) {
-    style = props.config.globalStyle;
-    compileStyle(props.config);
-  }
+  requestCustomiseUI();
 
   return (
-    <div className="wc-app" style={style}>
+    <div className="wc-app">
       <Chat {...props} {...getAppProps()} />
     </div>
   );

@@ -46,13 +46,13 @@ export interface IDaimlerData {
 }
 
 export interface IConfig {
+  brandColor?: string;
+  fontFamily?: string;
   fontUrl?: string;
-  globalStyle?: object;
+  textColor?: string;
+  textProfileColor?: string;
+  headerBg?: string;
   logo?: string;
-  color?: string;
-  buttonBackground?: string;
-  userMessageBg?: string;
-  botMesssageBg?: string;
 }
 
 export interface ChatProps {

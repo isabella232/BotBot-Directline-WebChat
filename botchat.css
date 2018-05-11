@@ -643,7 +643,7 @@ body .wc-app {
   margin-right: 0; }
   .wc-message-from-me .wc-message-content {
     background: none;
-    color: #231f20; }
+    color: inherit; }
 
 .wc-message {
   max-width: 75%;
@@ -760,9 +760,6 @@ body .wc-app {
 
 .wc-app button:not(.scroll[disabled]):hover {
   opacity: 0.8; }
-
-.wc-adaptive-card * {
-  font-family: inherit !important; }
 
 .wc-card {
   max-width: 100%; }
