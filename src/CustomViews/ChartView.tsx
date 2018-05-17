@@ -36,7 +36,7 @@ export class ChartView extends React.Component<ChartProps, {}> {
                     sliceVisibilityThreshold: 0,
                     width: 800,
                     height: 350,
-                    colors: ['#1997cc', '#97cc19', '#cc193e', '#19cca8', '#cc1997', '#e9c949', '#18ce88', '#9e18ce', '#bfbfbf'],
+                    colors: ['#48607D', '#969FA9', '#CCBB8D', '#B7AFA2', '#333333', '#999999', '#BBBBBB'],
                 };
 
                 chart = new google.visualization.PieChart(this.root);
@@ -52,7 +52,7 @@ export class ChartView extends React.Component<ChartProps, {}> {
                     width: 800,
                     height: 350,
                     bar: {groupWidth: "95%"},
-                    colors: ['#1997cc'],
+                    colors: ['#BCA480'],
                     legend: { position: "none" },
                 };
 

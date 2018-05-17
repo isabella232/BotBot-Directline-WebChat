@@ -187,7 +187,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
                 </div>
               </div>
               <div>
-                <a href="javascript:void(0)" onClick={() => this.onFilterValueSelectAll()}>Select all</a> - 
+                <a href="javascript:void(0)" onClick={() => this.onFilterValueSelectAll()}>Select all</a>{' − '}
                 <a href="javascript:void(0)" onClick={() => this.onFilterValueClear()}>Clear</a>
               </div>
               <ul className="filter-values-list">

@@ -98,12 +98,12 @@ export class LoginForm extends React.Component<AppProps, LoginState> {
                 <form id="loginForm" onSubmit={(event) => this.handleSubmit(event)}>
                     <fieldset disabled={this.state.isLoggingIn}>
                         <ul>
-                            {this.state.loginError && <li><label className="error">{this.state.loginError}</label></li>}
+                            <h1>Login</h1>
                             <li>
                                 <label>Username</label>
                                 <input 
                                     type="username"
-                                    placeholder="Case sensitive username"
+                                    placeholder="Username"
                                     onChange={(event: React.FormEvent<HTMLInputElement>) => this.setState({username: event.currentTarget.value})}
                                     value={this.state.username}
                                     minLength={4} maxLength={60} 
@@ -113,11 +113,12 @@ export class LoginForm extends React.Component<AppProps, LoginState> {
                                 <label>Password</label>
                                 <input 
                                     type="password"
-                                    placeholder="Case sensitive password" 
+                                    placeholder="Password" 
                                     onChange={(event: React.FormEvent<HTMLInputElement>) => this.setState({password: event.currentTarget.value})}
                                     value={this.state.password}
                                     minLength={4} maxLength={60} />
                             </li>
+                            {this.state.loginError && <li><label className="error">{this.state.loginError}</label></li>}
                             <li><button type="submit">Login</button></li>
                         </ul>
                     </fieldset>

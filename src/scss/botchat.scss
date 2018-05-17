@@ -438,12 +438,12 @@
         .ac-container > div > div > div {
             button {
                 &:first-child {
-                    border-top-left-radius: 10px;
-                    border-top-right-radius: 10px;
+                    border-top-left-radius: 20px;
+                    border-top-right-radius: 20px;
                 }
                 &:last-child {
-                    border-bottom-left-radius: 10px;
-                    border-bottom-right-radius: 10px;
+                    border-bottom-left-radius: 20px;
+                    border-bottom-right-radius: 20px;
                 }
             }
         }
@@ -795,7 +795,7 @@
     font-family: $fontFamily;
     user-select: none;
     box-shadow: 0 0px 2px 0px rgba(0,0,0,0.2);
-    border: 1px solid $c_light_grey;
+    border: 1px solid $c_subtle;
     animation: fadeIn 0.35s cubic-bezier(0.1, 0.9, 0.2, 1),
                slideDownIn10 0.16s cubic-bezier(0.1, 0.25, 0.75, 0.9);
 
@@ -811,10 +811,10 @@
 
     div.search-box {
         position: relative;
-        border: 1px solid $c_light_grey;
+        border: 1px solid $c_subtle;
 
         &:hover {
-            border: 1px solid $c_grey;
+            border: 1px solid $c_shadow;
         }
 
         &:focus {
@@ -890,8 +890,8 @@
             height: 200px;
             max-height: 200px;
             overflow: auto;
-            border: 1px solid $c_light_grey;
-            border-left: 2px solid $c_input_label;
+            border: 1px solid $c_subtle;
+            border-left: 2px solid $c_brand;
 
             li {
                 border-bottom: none;
@@ -922,7 +922,7 @@
         user-select: none;
         min-width: 80px;
         background-color: #fff;
-        color: $c_peacock_blue;
+        color: $c_brand_two;
         min-height: 32px;
         border-radius: 1px;
         border: 1px solid #ccc;
@@ -967,7 +967,7 @@
         }
 
         tr.highlighted {
-            background-color: $c_biege_two;
+            background-color: $c_light_background;
         }
     }
 }
@@ -981,8 +981,8 @@
     h1 {
         color: $c_input_label;
         font-weight: 500;
-        text-transform: uppercase;
         margin-bottom: 5px;
+        font-size: 30px;
     }
 
     .col-1 {
@@ -1011,7 +1011,7 @@
         }
         
         .form-group.row {
-            margin-bottom: 10px;
+            margin-bottom: 30px;
             position: relative;
         }
 
@@ -1071,9 +1071,11 @@
             &[type=submit] {
                 min-width: initial;
                 width: 102px;
-                border-radius: 10px;
+                height: 50px;
+                border-radius: 25px;
                 color: $c_button_text;
-                font-size: 17px;
+                background-color: $c_button_background;
+                font-size: 15px;
                 font-weight: 800;
                 margin-top: 10px;
                 
@@ -1104,6 +1106,7 @@
             background-repeat: no-repeat;
             color: $c_input_text;
             background-color: $c_input_bg;
+            border-radius: 0;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
@@ -1356,62 +1359,96 @@
     }
 }
 
+#BotChatWindow {
+    width: 100%;
+    height: 100%;
+}
+
 // Login form
 
 #loginForm {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: $c_brand;
+
     fieldset {
         border-width: 0px;
+        width: 640px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 0px;
+
+        * {
+            box-sizing: border-box;
+        }
     }
 
     ul {
-        margin-top: 50px;
+        padding: 0px;
+        margin: 0px;
         font-size: 16px;
         list-style-type: none;
+        font-family: 'Lato', sans-serif;
         text-align: center;
-        font-family: 'Avenir', sans-serif;
+        font-size: 14px;
+
+        h1 {
+            margin-top: 80px;
+            font-size: 30px;
+            color: $c_brand;
+            position: relative;
+
+            &:before{
+                content: "";
+                position: absolute;
+                width: 50px;
+                height: 1px;
+                bottom: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-bottom: 2px solid $c_brand_two;
+            }
+        }
 
         li {
+            position: relative;
+
             .error {
-                color: red;
-                font-size: 1em;
-                width: 480px !important;
+                color: $c_primary_text;
+                font-size: 14em;
                 padding-top: 0px;
+                display: initial;
             }
 
             input {
-                width: 480px;
-                border: 1px solid #E5E5E5;
-                margin-bottom: 10px;
-                line-height: 2;
-                padding: 22px 14px 22px 155px;
-                font-size: 1.3em;
-                margin-left: -155px;
-                box-sizing: border-box;
+                padding: 10px 15px;
+                margin: 15px 30px;
+                width: 580px;
+                height: 41px;
+                font-size: 17px;
             }
 
 
             label {
-                display: inline-block;
-                width: 150px;
-                padding: 15px 0px 0px 24px;
-                position: relative;
-                font-weight: 400;
-                letter-spacing: 0.023em;
-                font-size: 1.3em;
-                opacity: 0.8;
+                display: none;
             }
             
             button {
-                width: 480px;
-                padding: 10px;
-                background-color: #004792;
-                border: 1px solid #004792;
-                color: white;
-                border-radius: 0;
                 text-transform: uppercase;
-                line-height: 2;
-                font-size: 1.3em;
-                margin-left: 25px;
+                margin: 35px auto 80px auto;
+                height: 50px;
+                padding: 0 20px;
+                border-radius: 25px;
+                color: #fff;
+                background-color: $c_button_background;
+
+                &:hover, &:active {
+                    background-color: $c_button_background_onpress;
+                }
             }
         }
     }
