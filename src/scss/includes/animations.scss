@@ -1,0 +1,15 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to { opacity: 1; }
+}
+
+@keyframes slideDownIn10 {
+  from { 
+    transform: translate3d(0px, -10px, 0px); 
+  }
+  to { 
+    transform: translate3d(0px, 0px, 0px); 
+  }
+}

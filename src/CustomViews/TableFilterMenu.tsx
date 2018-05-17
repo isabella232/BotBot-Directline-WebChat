@@ -29,6 +29,7 @@ export interface TableFilterMenuState {
   position: Position,
   expanded: boolean,
   query: string,
+  filteredValues: string[],
 }
 
 export interface Position {
@@ -50,6 +51,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
       expanded: true,
       position: this.getMenuPosition(props.container),
       query: '',
+      filteredValues: uniqueValues
     }
   }
 
@@ -68,9 +70,10 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   }
 
   onFilterValueToggle(idx: number, value: boolean) {
-    const {uniqueValues, filterValues} = this.props.columnState
+    const {filterValues} = this.props.columnState
+    const {filteredValues} = this.state
     const existingIdx: number = filterValues
-      ? filterValues.findIndex((value: string) => value === uniqueValues[idx])
+      ? filterValues.indexOf(filteredValues[idx])
       : -1
     // console.log(idx, value, existingIdx)
 
@@ -78,8 +81,8 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
       if (existingIdx === -1) {
         this.onStateChanged({
           filterValues: filterValues
-            ? [...filterValues, uniqueValues[idx]]
-            : [uniqueValues[idx]]
+            ? [...filterValues, filteredValues[idx]]
+            : [filteredValues[idx]]
         })
       }
     }
@@ -96,15 +99,37 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
 
   onFilterValueSelectAll() {
     const {filterValues} = this.props.columnState
+    const {filteredValues} = this.state
     this.onStateChanged({
-      filterValues: null
+      filterValues: filterValues
+        ? filterValues
+          .filter((value: string) => filteredValues && filteredValues.indexOf(value) === -1)
+        : [],
     })
   }
 
   onFilterValueClear() {
-    const {uniqueValues} = this.props.columnState
+    const {filterValues} = this.props.columnState
+    const {filteredValues} = this.state
+    const newValues: string[] = filterValues
+      ? [...filterValues, ...(filteredValues || [])]
+      : filteredValues || []
     this.onStateChanged({
-      filterValues: uniqueValues
+      filterValues: filterValues
+        ? newValues
+          .filter((value: string, idx: number) => newValues.indexOf(value) === idx)
+        : newValues
+    })
+  }
+
+  onSearchQueryChange(event: any) {
+    const query: string = event.target.value.toLocaleLowerCase()
+    const {uniqueValues} = this.props.columnState
+    this.setState({
+      query: event.target.value,
+      filteredValues: uniqueValues
+        .filter((value: string) => typeof(value) === 'string'
+          && value.toLocaleLowerCase().indexOf(query) > -1)
     })
   }
 
@@ -126,6 +151,13 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
     if (nextProps.container !== this.props.container) {
       this.setState({position: this.getMenuPosition(nextProps.container)})
     }
+    const {uniqueValues} = nextProps.columnState
+    if (uniqueValues !== this.props.columnState.uniqueValues) {
+      this.setState({
+        filteredValues: uniqueValues,
+        query: ''
+      })
+    }
     const {contextOpened} = nextProps.columnState
     if (contextOpened !== this.props.columnState.contextOpened) {
       this.setState({
@@ -137,6 +169,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   
   render() {
     const {container, columnState, onSortDirectionChanged} = this.props
+    const {filteredValues} = this.state
 
     if (!columnState.contextOpened) return null
 
@@ -156,7 +189,10 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
             {this.state.expanded && <div className="filter-values">
               <div>
                 <div className="search-box">
-                  <input type="search" onChange={(event: any) => this.setState({query: event.target.value})} />
+                  <input 
+                    type="search" 
+                    onChange={(event: any) => this.onSearchQueryChange(event)} 
+                    value={this.state.query} />
                   <div className="search-icon" />
                 </div>
               </div>
@@ -164,25 +200,26 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
                 <a href="javascript:void(0)" onClick={() => this.onFilterValueSelectAll()}>Select all</a> - 
                 <a href="javascript:void(0)" onClick={() => this.onFilterValueClear()}>Clear</a>
               </div>
-              <div className="filter-values-list"><ul>
-                {columnState.uniqueValues && columnState.uniqueValues
+              <ul className="filter-values-list">
+                {filteredValues && filteredValues
                   .map((value: string, idx: number) => {
                     const checked: boolean = columnState.filterValues
-                      ? columnState.filterValues
-                          .findIndex((value: string) => value === columnState.uniqueValues[idx]) === -1
+                      ? columnState.filterValues.indexOf(value) === -1
                       : true
                     return (
-                      <label key={idx}>
-                        <li><input 
-                          type="checkbox" 
-                          checked={checked}
-                          onChange={() => this.onFilterValueToggle(idx, !checked)}
-                          />
-                        {value === "" ? "(Blanks)" : value}</li>
-                      </label>
+                      <li onClick={() => this.onFilterValueToggle(idx, !checked)}>
+                        <label key={idx}>
+                          <input 
+                            type="checkbox" 
+                            checked={checked}
+                            onChange={() => this.onFilterValueToggle(idx, !checked)}
+                            />
+                          {value === "" ? "(Blanks)" : value}
+                        </label>
+                      </li>
                     )
                   })}
-              </ul></div>
+              </ul>
             </div>}
           </ul>
         </div>

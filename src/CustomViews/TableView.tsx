@@ -65,7 +65,7 @@ export class TableView extends React.Component < TableProps, TableState > {
         }))
 
       highlightIdx = data.length > 0 
-        ? data[0].findIndex((item : string) => item === '_highlight') 
+        ? data[0].indexOf('_highlight')
         : -1
     }
 
@@ -169,7 +169,7 @@ export class TableView extends React.Component < TableProps, TableState > {
           const filterValues = columnStates[i].filterValues
           if (filterValues && filterValues.length) {
             rowsData = rowsData
-              .filter((row: any[]) => filterValues.findIndex((v: any) => v === row[i]) === -1)
+              .filter((row: any[]) => filterValues.indexOf(row[i]) === -1)
           }
         }
       }
