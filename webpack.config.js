@@ -12,7 +12,8 @@ var coreConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        PARENT_ORIGIN: JSON.stringify('http://localhost:8000')
+        PARENT_ORIGIN: JSON.stringify('http://localhost:8000'),
+        MS_APP_ID: JSON.stringify('3350aaac3-9566-48ea-98a5-1f194a26e767')
       }
     })
   ],

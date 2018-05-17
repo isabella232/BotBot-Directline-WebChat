@@ -2,8 +2,15 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Chat, ChatProps, IConfig } from './Chat';
 import * as konsole from './Konsole';
+import axios from 'axios';
 
-import { PRODUCTION_SHORT_URL, SECRET, PARENT_ORIGIN } from './Constants';
+import {
+  PRODUCTION_SHORT_URL,
+  SECRET,
+  PARENT_ORIGIN,
+  DASHBOARD_API_URL,
+  BOT_API_URL
+} from './Constants';
 export type AppProps = ChatProps;
 
 export const App = (props: AppProps, container: HTMLElement) => {
@@ -78,20 +85,21 @@ const compileStyle = (config: IConfig) => {
     `;
 
   document.head.appendChild(styleTag);
+
+  // change logo
+  const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
+
+  if (config.logo) {
+    logoEl.setAttribute('src', config.logo);
+  }
 };
 
 function requestCustomiseUI() {
-  setTimeout(() => {
-    compileStyle({
-      brandColor: '#8c64cf',
-      fontFamily: 'Dancing Script',
-      fontUrl: 'https://fonts.googleapis.com/css?family=Dancing+Script',
-      textColor: '#ff00ff',
-      textProfileColor: '#ff0000',
-      headerBg: 'red',
-      logo: ''
+  axios.get(`${BOT_API_URL}/dashboard/botid`)
+    .then(resp => axios.get(`${DASHBOARD_API_URL}/feconfig/get?botid=${resp.data.id}`))
+    .then(resp => {
+      compileStyle(resp.data);
     });
-  }, 3000);
 }
 
 const AppContainer = (props: AppProps) => {

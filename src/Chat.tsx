@@ -21,7 +21,6 @@ import { ActivityOrID, FormatOptions } from './Types';
 import * as konsole from './Konsole';
 import { getTabIndex } from './getTabIndex';
 
-import axios from 'axios';
 import { PARENT_ORIGIN } from './Constants';
 import { initSignalR } from './CustomSocket';
 

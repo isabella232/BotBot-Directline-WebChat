@@ -6,3 +6,5 @@ export const SECRET = {
 };
 
 export const SIGNALR_URL = 'https://daimlerbot-staging.azurewebsites.net/signalr';
+export const DASHBOARD_API_URL = 'http://botbotapi-staging.azurewebsites.net/api';
+export const BOT_API_URL = 'http://daimlerbot-staging.azurewebsites.net/api';
