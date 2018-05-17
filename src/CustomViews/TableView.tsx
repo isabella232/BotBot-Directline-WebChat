@@ -75,7 +75,7 @@ export class TableView extends React.Component < TableProps, TableState > {
     }
 
     return {
-      expandState: this.state.expandState || ExpandState.Collapsed,
+      expandState: this.state && this.state.expandState || ExpandState.Collapsed,
       sortBy: -1,
       sortDirection: SortDirection.Unsorted,
       highlightIdx,
