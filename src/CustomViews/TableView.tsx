@@ -4,19 +4,24 @@ import {SizeState} from '../Store';
 import {FormattedText} from '../FormattedText';
 import { Column } from 'microsoft-adaptivecards';
 
-const TABLE_LIMIT = 10;
-
 export interface TableProps {
   channelData: any,
   size: SizeState
 }
 
 export interface TableState {
-  expanded: boolean,
+  expandState: ExpandState,
   columnStates?: ColumnState[],
   sortBy: number,
   sortDirection: SortDirection,
   highlightIdx: number,
+}
+
+export enum ExpandState {
+  Collapsed = 0,
+  Expand100 = 1,
+  Expand1000 = 2,
+  ShowAll = 3,
 }
 
 export class TableView extends React.Component < TableProps, TableState > {
@@ -70,11 +75,11 @@ export class TableView extends React.Component < TableProps, TableState > {
     }
 
     return {
-      expanded: false,
+      expandState: this.state.expandState || ExpandState.Collapsed,
       sortBy: -1,
       sortDirection: SortDirection.Unsorted,
       highlightIdx,
-      columnStates
+      columnStates,
     }
   }
 
@@ -148,8 +153,10 @@ export class TableView extends React.Component < TableProps, TableState > {
 
   render() {
     const {data} = this.props.channelData
-    const {highlightIdx, columnStates, sortBy, sortDirection} = this.state
-
+    const {expandState, highlightIdx, columnStates, sortBy, sortDirection} = this.state
+    let tableLimit: number = 10
+    let showMessage: string = 'Show Less'
+    
     if (!isArray(data)) 
       return <div></div>
     
@@ -157,6 +164,7 @@ export class TableView extends React.Component < TableProps, TableState > {
       ? data.slice(1)
       : null
     let isExpanded: boolean = false
+    let fullLength = 0
     
     if (rowsData) {
       if (sortBy > -1 && sortDirection !== SortDirection.Unsorted) {
@@ -174,9 +182,25 @@ export class TableView extends React.Component < TableProps, TableState > {
         }
       }
 
-      isExpanded = rowsData.length < TABLE_LIMIT || this.state.expanded
+      fullLength = rowsData.length
+      isExpanded = fullLength <= 10 || this.state.expandState === ExpandState.ShowAll
+      switch (expandState) {
+        case ExpandState.Collapsed:
+          tableLimit = 10; 
+          showMessage = fullLength > 110 ? '+100 More Rows' : 'Show All'; break;
+        case ExpandState.Expand100:
+          tableLimit = 110; 
+          showMessage = fullLength > 1110 ? '+1000 More Rows' : 'Show All'; break;
+        case ExpandState.Expand1000:
+          tableLimit = 1110; showMessage = 'Show All'; break;
+        case ExpandState.ShowAll:
+          tableLimit = 0; break;
+        default:
+          tableLimit = 10; break;
+      }
+      
       if (!isExpanded) {
-        rowsData = rowsData.slice(0, TABLE_LIMIT)
+        rowsData = rowsData.slice(0, tableLimit)
       }
     }
     
@@ -192,7 +216,13 @@ export class TableView extends React.Component < TableProps, TableState > {
                   <button 
                     ref={(element: HTMLElement) => this.menuContainers[idx] = element}
                     onClick={(event: any) => this.onContextMenu(event, idx, true)}>
-                    ▾
+                    {columnStates[idx].filterValues && columnStates[idx].filterValues.length
+                      ? (<svg width="8" height="8">
+                          <g>
+                            <path stroke="null" fill="#006f91" id="svg_1" d="m3.07149,3.76966c0.08268,0.08997 0.12807,0.2075 0.12807,0.32909l0,3.58271c0,0.21562 0.26019,0.32505 0.4142,0.17346l0.99943,-1.14534c0.13374,-0.16049 0.2075,-0.23994 0.2075,-0.3988l0,-2.21123c0,-0.12158 0.0462,-0.23911 0.12807,-0.3291l2.86778,-3.11176c0.2148,-0.23344 0.04946,-0.61198 -0.2683,-0.61198l-7.07626,0c-0.31774,0 -0.48391,0.37773 -0.2683,0.61198l2.8678,3.11096l0,0l0.00001,0.00001z"/>
+                          </g>
+                        </svg>)
+                      : '▾'}
                   </button>
                   <TableFilterMenu 
                     container={this.menuContainers[idx]}
@@ -222,8 +252,28 @@ export class TableView extends React.Component < TableProps, TableState > {
           </tbody>
         </table>
         {!isExpanded && <div className="fade-overlay" />}
-        {rowsData.length >= TABLE_LIMIT && <button type="button" className={isExpanded ? '' : 'overlay'} onClick={() => this.setState({expanded: !this.state.expanded})}>
-          {isExpanded ? 'Show Less' : 'Show More'}
+        {fullLength > 10 && 
+        <button type="button" className={isExpanded ? '' : 'overlay'} 
+          onClick={() => {
+            let newState: ExpandState = ExpandState.Collapsed
+            switch (expandState) {
+              case ExpandState.Collapsed:
+                newState = fullLength > 110 ? ExpandState.Expand100 : ExpandState.ShowAll
+                break
+              case ExpandState.Expand100:
+                newState = fullLength > 1110 ? ExpandState.Expand1000 : ExpandState.ShowAll
+                break
+              case ExpandState.Expand1000:
+                newState = ExpandState.ShowAll
+                break
+              case ExpandState.ShowAll:
+                newState = ExpandState.Collapsed
+              default:
+                newState = ExpandState.Collapsed
+            }
+            this.setState({expandState: newState})
+          }}>
+          {showMessage}
         </button>}
       </div>
     );

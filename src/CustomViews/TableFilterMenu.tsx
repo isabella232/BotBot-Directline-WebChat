@@ -26,15 +26,9 @@ export interface TableFilterMenuProps {
 }
 
 export interface TableFilterMenuState {
-  position: Position,
   expanded: boolean,
   query: string,
   filteredValues: string[],
-}
-
-export interface Position {
-  top: string,
-  left: string,
 }
 
 export class TableFilterMenu extends React.Component<TableFilterMenuProps, TableFilterMenuState> {
@@ -49,9 +43,8 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
 
     this.state = {
       expanded: true,
-      position: this.getMenuPosition(props.container),
       query: '',
-      filteredValues: uniqueValues
+      filteredValues: uniqueValues,
     }
   }
 
@@ -133,7 +126,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
     })
   }
 
-  getMenuPosition(container: HTMLElement): Position {
+  getMenuPosition(container: HTMLElement) {
     const rect: ClientRect = container && container.getBoundingClientRect
       ? container.getBoundingClientRect() : null
     return rect
@@ -148,14 +141,11 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   }
 
   componentWillReceiveProps(nextProps: TableFilterMenuProps) {
-    if (nextProps.container !== this.props.container) {
-      this.setState({position: this.getMenuPosition(nextProps.container)})
-    }
     const {uniqueValues} = nextProps.columnState
     if (uniqueValues !== this.props.columnState.uniqueValues) {
       this.setState({
         filteredValues: uniqueValues,
-        query: ''
+        query: '',
       })
     }
     const {contextOpened} = nextProps.columnState
@@ -178,7 +168,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
         onClick={(event: any) => this.windowClickHandler(event)}
         style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 200}}>
         <div
-          style={this.state.position}
+          style={this.getMenuPosition(container)}
           className="table-dropdown" 
           ref={(element) => this.dropDownContainer = element}
           onClick={(event: any) => event.stopPropagation()}>
@@ -206,13 +196,14 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
                     const checked: boolean = columnState.filterValues
                       ? columnState.filterValues.indexOf(value) === -1
                       : true
+                    const toggleFunction = () => this.onFilterValueToggle(idx, !checked)
                     return (
-                      <li onClick={() => this.onFilterValueToggle(idx, !checked)}>
-                        <label key={idx}>
+                      <li key={idx} onClick={toggleFunction}>
+                        <label onClick={toggleFunction}>
                           <input 
                             type="checkbox" 
                             checked={checked}
-                            onChange={() => this.onFilterValueToggle(idx, !checked)}
+                            onChange={toggleFunction}
                             />
                           {value === "" ? "(Blanks)" : value}
                         </label>
