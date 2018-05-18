@@ -28,7 +28,8 @@ export interface TableFilterMenuProps {
 export interface TableFilterMenuState {
   expanded: boolean,
   query: string,
-  filteredValues: string[],
+  listValues?: string[],
+  filterValues?: string[],
 }
 
 export class TableFilterMenu extends React.Component<TableFilterMenuProps, TableFilterMenuState> {
@@ -37,14 +38,15 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   constructor(props: TableFilterMenuProps) {
     super(props)
 
-    const {uniqueValues} = props.columnState
+    const {uniqueValues, filterValues} = props.columnState
 
     this.dropDownContainer = null
 
     this.state = {
       expanded: true,
       query: '',
-      filteredValues: uniqueValues,
+      listValues: uniqueValues,
+      filterValues
     }
   }
 
@@ -54,34 +56,33 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   }
 
   onStateChanged(newState: object, close: boolean = false) {
-    const {onColumnStateChanged, onClose, columnState} = this.props
+    const {onColumnStateChanged, columnState} = this.props
     // console.log('State changed', newState)
-    onColumnStateChanged({...columnState, ...newState})
-    if (close) {
-      onClose()
-    }
+    onColumnStateChanged({
+      ...columnState, ...newState, contextOpened: !close
+    })
   }
 
   onFilterValueToggle(idx: number, value: boolean) {
-    const {filterValues} = this.props.columnState
-    const {filteredValues} = this.state
+    const {filterValues} = this.state
+    const {listValues} = this.state
     const existingIdx: number = filterValues
-      ? filterValues.indexOf(filteredValues[idx])
+      ? filterValues.indexOf(listValues[idx])
       : -1
     // console.log(idx, value, existingIdx)
 
     if (!value) {
       if (existingIdx === -1) {
-        this.onStateChanged({
+        this.setState({
           filterValues: filterValues
-            ? [...filterValues, filteredValues[idx]]
-            : [filteredValues[idx]]
+            ? [...filterValues, listValues[idx]]
+            : [listValues[idx]]
         })
       }
     }
     else {
       if (existingIdx > -1) {
-        this.onStateChanged({
+        this.setState({
           filterValues: filterValues
             ? filterValues.filter((_: any, itemIdx: number) => itemIdx !== existingIdx)
             : []
@@ -91,23 +92,21 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   }
 
   onFilterValueSelectAll() {
-    const {filterValues} = this.props.columnState
-    const {filteredValues} = this.state
-    this.onStateChanged({
+    const {listValues, filterValues} = this.state
+    this.setState({
       filterValues: filterValues
         ? filterValues
-          .filter((value: string) => filteredValues && filteredValues.indexOf(value) === -1)
-        : [],
+          .filter((value: string) => listValues && listValues.indexOf(value) === -1)
+        : []
     })
   }
 
   onFilterValueClear() {
-    const {filterValues} = this.props.columnState
-    const {filteredValues} = this.state
+    const {listValues, filterValues} = this.state
     const newValues: string[] = filterValues
-      ? [...filterValues, ...(filteredValues || [])]
-      : filteredValues || []
-    this.onStateChanged({
+      ? [...filterValues, ...(listValues || [])]
+      : listValues || []
+    this.setState({
       filterValues: filterValues
         ? newValues
           .filter((value: string, idx: number) => newValues.indexOf(value) === idx)
@@ -120,7 +119,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
     const {uniqueValues} = this.props.columnState
     this.setState({
       query: event.target.value,
-      filteredValues: uniqueValues
+      listValues: uniqueValues
         .filter((value: string) => typeof(value) === 'string'
           && value.toLocaleLowerCase().indexOf(query) > -1)
     })
@@ -141,25 +140,39 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   }
 
   componentWillReceiveProps(nextProps: TableFilterMenuProps) {
-    const {uniqueValues} = nextProps.columnState
+    const {uniqueValues, filterValues} = nextProps.columnState
     if (uniqueValues !== this.props.columnState.uniqueValues) {
       this.setState({
-        filteredValues: uniqueValues,
+        listValues: uniqueValues,
         query: '',
+        filterValues,
       })
     }
     const {contextOpened} = nextProps.columnState
     if (contextOpened !== this.props.columnState.contextOpened) {
       this.setState({
         expanded: true,
-        query: ''
+        query: '',
       })
     }
+  }
+
+  handleOKClick() {
+    this.onStateChanged({
+      filterValues: this.state.filterValues
+    }, true)
+  }
+
+  handleCancelClick() {
+    this.setState({
+      filterValues: this.props.columnState.filterValues
+    })
+    this.props.onClose()
   }
   
   render() {
     const {container, columnState, onSortDirectionChanged} = this.props
-    const {filteredValues} = this.state
+    const {listValues, filterValues} = this.state
 
     if (!columnState.contextOpened) return null
 
@@ -183,7 +196,13 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
                     type="search" 
                     onChange={(event: any) => this.onSearchQueryChange(event)} 
                     value={this.state.query} />
-                  <div className="search-icon" />
+                  <div className="search-icon">
+                    <svg width="12" height="12">
+                      <g>
+                        <path stroke="null" fill="#243A81" d="m11.59488,10.88009l-2.83676,-2.95681c0.72938,-0.86895 1.12901,-1.96226 1.12901,-3.10045c0,-2.65927 -2.15885,-4.82283 -4.81233,-4.82283s-4.81233,2.16356 -4.81233,4.82283s2.15885,4.82283 4.81233,4.82283c0.99615,0 1.94544,-0.30111 2.75704,-0.87272l2.85831,2.97925c0.11947,0.12435 0.28016,0.19291 0.45236,0.19291c0.16299,0 0.31761,-0.06228 0.43499,-0.17551c0.2494,-0.24051 0.25735,-0.63934 0.01737,-0.8895zm-6.52007,-9.62196c1.96134,0 3.55694,1.59908 3.55694,3.5647s-1.5956,3.5647 -3.55694,3.5647s-3.55694,-1.59908 -3.55694,-3.5647s1.5956,-3.5647 3.55694,-3.5647z"/>
+                      </g>
+                    </svg>
+                  </div>
                 </div>
               </div>
               <div>
@@ -191,10 +210,10 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
                 <a href="javascript:void(0)" onClick={() => this.onFilterValueClear()}>Clear</a>
               </div>
               <ul className="filter-values-list">
-                {filteredValues && filteredValues
+                {listValues && listValues
                   .map((value: string, idx: number) => {
-                    const checked: boolean = columnState.filterValues
-                      ? columnState.filterValues.indexOf(value) === -1
+                    const checked: boolean = filterValues
+                      ? filterValues.indexOf(value) === -1
                       : true
                     const toggleFunction = () => this.onFilterValueToggle(idx, !checked)
                     return (
@@ -211,6 +230,10 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
                     )
                   })}
               </ul>
+              <div>
+                <button className="primary" onClick={() => this.handleOKClick()}>OK</button>
+                <button onClick={() => this.handleCancelClick()}>Cancel</button>
+              </div>
             </div>}
           </ul>
         </div>

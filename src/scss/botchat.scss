@@ -834,31 +834,14 @@
         }
     }
 
-    $size: 8px;
     .search-icon {
         display: inline-block;
-        width: $size;
-        height: $size;
-        border-radius: 50%;
-        border: $size/10 solid #333;
         position: absolute;
         padding: 0 !important;
         margin: 0 !important;
         right: 8px;
         top: 8px;
         z-index: -1;
-        
-        &:after {
-          content: '';
-          position: absolute;
-          top: $size/2 + $size/4*1.414 + $size/10;
-          left: $size/2 + $size/4*1.414;
-          transform: rotate(45deg);
-          height: $size/10;
-          width: $size/2;
-          background-color: #333;
-          border-radius: 10px;
-        }
       }
 
     li {
@@ -879,6 +862,30 @@
         div {
             padding: 5px;
             margin: 0px;
+
+            button {
+                min-width: 80px;
+                height: 32px;
+                border: 1px solid #ccc;
+                background-color: #fff;
+                color: $c_brand;
+                outline: none;
+                margin-top: 10px;
+                margin-right: 5px;
+
+                &.primary {
+                    background-color: $c_brand_two;
+                    color: #fff;
+
+                    &:hover {
+                        background-color: $c_brand;
+                    }
+                }
+
+                &:hover {
+                    background-color: $c_subtle;
+                }
+            }
         }
 
         a{
@@ -887,8 +894,8 @@
 
         ul.filter-values-list {
             padding: 5px;
-            height: 200px;
-            max-height: 200px;
+            height: 150px;
+            max-height: 150px;
             overflow: auto;
             border: 1px solid $c_subtle;
             border-left: 2px solid $c_brand;
@@ -1445,6 +1452,7 @@
                 border-radius: 25px;
                 color: #fff;
                 background-color: $c_button_background;
+                border: none;
 
                 &:hover, &:active {
                     background-color: $c_button_background_onpress;
