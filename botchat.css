@@ -583,16 +583,18 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-repeat: no-repeat; }
 
 @keyframes dots {
+  0% {
+    box-shadow: 10px 0 transparent, 20px 0 rgba(33, 57, 107, 0.2), 30px 0 transparent, 40px 0 rgba(33, 57, 107, 0.4), 50px 0 transparent, 60px 0 rgba(33, 57, 107, 0.6), 70px 0 transparent, 80px 0 rgba(33, 57, 107, 0.8), 90px 0 transparent, 100px 0 #21396b; }
   20% {
-    box-shadow: 10px 0 rgba(33, 57, 107, 0.1), 20px 0 transparent, 30px 0 rgba(33, 57, 107, 0.1), 40px 0 transparent, 50px 0 rgba(33, 57, 107, 0.3), 60px 0 transparent, 70px 0 rgba(33, 57, 107, 0.5), 80px 0 transparent, 90px 0 rgba(33, 57, 107, 0.7); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(33, 57, 107, 0), 30px 0 transparent, 40px 0 rgba(33, 57, 107, 0.2), 50px 0 transparent, 60px 0 rgba(33, 57, 107, 0.4), 70px 0 transparent, 80px 0 rgba(33, 57, 107, 0.6), 90px 0 transparent, 100px 0 rgba(33, 57, 107, 0.8); }
   40% {
-    box-shadow: 10px 0 rgba(33, 57, 107, 0.3), 20px 0 transparent, 30px 0 rgba(33, 57, 107, 0.1), 40px 0 transparent, 50px 0 rgba(33, 57, 107, 0.1), 60px 0 transparent, 70px 0 rgba(33, 57, 107, 0.3), 80px 0 transparent, 90px 0 rgba(33, 57, 107, 0.5); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(33, 57, 107, 0.2), 30px 0 transparent, 40px 0 rgba(33, 57, 107, 0), 50px 0 transparent, 60px 0 rgba(33, 57, 107, 0.2), 70px 0 transparent, 80px 0 rgba(33, 57, 107, 0.4), 90px 0 transparent, 100px 0 rgba(33, 57, 107, 0.6); }
   60% {
-    box-shadow: 10px 0 rgba(33, 57, 107, 0.5), 20px 0 transparent, 30px 0 rgba(33, 57, 107, 0.3), 40px 0 transparent, 50px 0 rgba(33, 57, 107, 0.1), 60px 0 transparent, 70px 0 rgba(33, 57, 107, 0.1), 80px 0 transparent, 90px 0 rgba(33, 57, 107, 0.3); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(33, 57, 107, 0.4), 30px 0 transparent, 40px 0 rgba(33, 57, 107, 0.2), 50px 0 transparent, 60px 0 rgba(33, 57, 107, 0), 70px 0 transparent, 80px 0 rgba(33, 57, 107, 0.2), 90px 0 transparent, 100px 0 rgba(33, 57, 107, 0.4); }
   80% {
-    box-shadow: 10px 0 rgba(33, 57, 107, 0.7), 20px 0 transparent, 30px 0 rgba(33, 57, 107, 0.5), 40px 0 transparent, 50px 0 rgba(33, 57, 107, 0.3), 60px 0 transparent, 70px 0 rgba(33, 57, 107, 0.1), 80px 0 transparent, 90px 0 rgba(33, 57, 107, 0.1); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(33, 57, 107, 0.6), 30px 0 transparent, 40px 0 rgba(33, 57, 107, 0.4), 50px 0 transparent, 60px 0 rgba(33, 57, 107, 0.2), 70px 0 transparent, 80px 0 rgba(33, 57, 107, 0), 90px 0 transparent, 100px 0 rgba(33, 57, 107, 0.2); }
   100% {
-    box-shadow: 10px 0 rgba(33, 57, 107, 0.9), 20px 0 transparent, 30px 0 rgba(33, 57, 107, 0.7), 40px 0 transparent, 50px 0 rgba(33, 57, 107, 0.5), 60px 0 transparent, 70px 0 rgba(33, 57, 107, 0.3), 80px 0 transparent, 90px 0 rgba(33, 57, 107, 0.1); } }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(33, 57, 107, 0.8), 30px 0 transparent, 40px 0 rgba(33, 57, 107, 0.6), 50px 0 transparent, 60px 0 rgba(33, 57, 107, 0.4), 70px 0 transparent, 80px 0 rgba(33, 57, 107, 0.2), 90px 0 transparent, 100px 0 rgba(33, 57, 107, 0); } }
 
 body .wc-app {
   font-family: Avenir, sans-serif; }
@@ -711,7 +713,7 @@ body .wc-app {
     border-radius: 10px;
     height: 10px;
     width: 10px;
-    box-shadow: 10px 0 rgba(33, 57, 107, 0.1), 20px 0 transparent, 30px 0 rgba(33, 57, 107, 0.3), 40px 0 transparent, 50px 0 rgba(33, 57, 107, 0.5), 60px 0 transparent, 70px 0 rgba(33, 57, 107, 0.7), 80px 0 transparent, 90px 0 rgba(33, 57, 107, 0.9);
+    box-shadow: 10px 0 transparent, 20px 0 rgba(33, 57, 107, 0.2), 30px 0 transparent, 40px 0 rgba(33, 57, 107, 0.4), 50px 0 transparent, 60px 0 rgba(33, 57, 107, 0.6), 70px 0 transparent, 80px 0 rgba(33, 57, 107, 0.8), 90px 0 transparent, 100px 0 #21396b;
     animation: dots infinite 1s;
     margin-left: -10px; }
 
