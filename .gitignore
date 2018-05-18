@@ -24,5 +24,3 @@ CognitiveServices.js
 CognitiveServices.js.map
 *.map.css
 /test/uploads
-includes
-custom
