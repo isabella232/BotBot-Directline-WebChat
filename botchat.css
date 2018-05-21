@@ -582,19 +582,27 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#ffffff" fill-rule="evenodd"/></svg>');
     background-repeat: no-repeat; }
 
+.wc-app button, .wc-app input, .wc-app textarea {
+  font-family: inherit; }
+
+.wc-shellinput::placeholder {
+  font-family: inherit; }
+
 .wc-header {
   background-color: #faf9f4;
   color: #cf1d2b;
   font-weight: 700;
   height: 72px;
-  padding: 0;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   box-shadow: none; }
   .wc-header img {
-    margin-right: 20px; }
+    margin-right: 20px;
+    max-height: 30px; }
   .wc-header h1 {
-    font-size: 24px; }
+    font-size: 24px;
+    display: none; }
 
 .wc-message-groups {
   top: 72px;
