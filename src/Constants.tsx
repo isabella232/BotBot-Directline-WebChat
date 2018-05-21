@@ -1,4 +1,4 @@
-export const PRODUCTION_SHORT_URL = 'canonbot.azurewebsites.net';
+export const PRODUCTION_SHORT_URL = 'sony-bot.azurewebsites.net';
 export const SECRET = {
   STAGING: '_nNYAbNBhrA.cwA.4wA.LE0wV8yJRWGJXWjwzjiC7wrDAOptGvBN_dPXvsJD-Zg',
   PRODUCTION: 'UBvH0kZTzw8.cwA.evE.puBTUiwudRislL8EYJkEgNq5J_n0-RnSwAx5E_YTvMk'
