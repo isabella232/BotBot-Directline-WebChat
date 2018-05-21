@@ -10,6 +10,11 @@ export enum SortDirection {
   Descending = 2
 }
 
+export enum DropdownDirection {
+  Upwards = 0,
+  Downwards = 1,
+}
+
 export interface ColumnState {
   contextOpened: boolean,
   filterValues?: string[],
@@ -128,15 +133,38 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   getMenuPosition(container: HTMLElement) {
     const rect: ClientRect = container && container.getBoundingClientRect
       ? container.getBoundingClientRect() : null
-    return rect
-      ? {
-          top: `${rect.bottom}px`,
-          left: `${rect.left}px`
+    
+    if (rect) {
+      const screenHeight = window.innerHeight || document.documentElement.offsetHeight;
+
+      if (rect.top > ((screenHeight / 2) + rect.height)) {
+        return {
+          style: {
+            bottom: `${screenHeight - rect.top}px`,
+            left: `${rect.left}px`
+          },
+          direction: DropdownDirection.Upwards
         }
-      : {
-          top: '0px',
-          left: '0px'
+      }
+      else {
+        return {
+          style: {
+            top: `${rect.bottom}px`,
+            left: `${rect.left}px`
+          },
+          direction: DropdownDirection.Downwards
         }
+      }
+    }
+
+    // Default
+    return {
+      style: {
+        top: '0px',
+        left: '0px'
+      },
+      direction: DropdownDirection.Downwards
+    }
   }
 
   componentWillReceiveProps(nextProps: TableFilterMenuProps) {
@@ -173,6 +201,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   render() {
     const {container, columnState, onSortDirectionChanged} = this.props
     const {listValues, filterValues} = this.state
+    const menuPosition = this.getMenuPosition(container)
 
     if (!columnState.contextOpened) return null
 
@@ -181,8 +210,8 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
         onClick={(event: any) => this.windowClickHandler(event)}
         style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 200}}>
         <div
-          style={this.getMenuPosition(container)}
-          className="table-dropdown" 
+          style={menuPosition.style}
+          className={`table-dropdown ${menuPosition.direction == DropdownDirection.Upwards && 'animation-upwards'}`}
           ref={(element) => this.dropDownContainer = element}
           onClick={(event: any) => event.stopPropagation()}>
           <ul>

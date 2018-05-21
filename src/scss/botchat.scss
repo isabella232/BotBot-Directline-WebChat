@@ -799,6 +799,11 @@
     animation: fadeIn 0.35s cubic-bezier(0.1, 0.9, 0.2, 1),
                slideDownIn10 0.16s cubic-bezier(0.1, 0.25, 0.75, 0.9);
 
+    &.animation-upwards {
+        animation: fadeIn 0.35s cubic-bezier(0.1, 0.9, 0.2, 1),
+                   slideUpIn10 0.16s cubic-bezier(0.1, 0.25, 0.75, 0.9);
+    }
+
     ul {
         margin: 0;
         padding: 0;

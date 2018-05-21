@@ -13,3 +13,12 @@
     transform: translate3d(0px, 0px, 0px); 
   }
 }
+
+@keyframes slideUpIn10 {
+  from { 
+    transform: translate3d(0px, 10px, 0px); 
+  }
+  to { 
+    transform: translate3d(0px, 0px, 0px); 
+  }
+}
