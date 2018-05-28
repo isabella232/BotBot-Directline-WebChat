@@ -584,17 +584,17 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 @keyframes dots {
   0% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(207, 29, 43, 0.2), 30px 0 transparent, 40px 0 rgba(207, 29, 43, 0.4), 50px 0 transparent, 60px 0 rgba(207, 29, 43, 0.6), 70px 0 transparent, 80px 0 rgba(207, 29, 43, 0.8), 90px 0 transparent, 100px 0 #cf1d2b; }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(34, 116, 103, 0.2), 30px 0 transparent, 40px 0 rgba(34, 116, 103, 0.4), 50px 0 transparent, 60px 0 rgba(34, 116, 103, 0.6), 70px 0 transparent, 80px 0 rgba(34, 116, 103, 0.8), 90px 0 transparent, 100px 0 #227467; }
   20% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(207, 29, 43, 0), 30px 0 transparent, 40px 0 rgba(207, 29, 43, 0.2), 50px 0 transparent, 60px 0 rgba(207, 29, 43, 0.4), 70px 0 transparent, 80px 0 rgba(207, 29, 43, 0.6), 90px 0 transparent, 100px 0 rgba(207, 29, 43, 0.8); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(34, 116, 103, 0), 30px 0 transparent, 40px 0 rgba(34, 116, 103, 0.2), 50px 0 transparent, 60px 0 rgba(34, 116, 103, 0.4), 70px 0 transparent, 80px 0 rgba(34, 116, 103, 0.6), 90px 0 transparent, 100px 0 rgba(34, 116, 103, 0.8); }
   40% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(207, 29, 43, 0.2), 30px 0 transparent, 40px 0 rgba(207, 29, 43, 0), 50px 0 transparent, 60px 0 rgba(207, 29, 43, 0.2), 70px 0 transparent, 80px 0 rgba(207, 29, 43, 0.4), 90px 0 transparent, 100px 0 rgba(207, 29, 43, 0.6); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(34, 116, 103, 0.2), 30px 0 transparent, 40px 0 rgba(34, 116, 103, 0), 50px 0 transparent, 60px 0 rgba(34, 116, 103, 0.2), 70px 0 transparent, 80px 0 rgba(34, 116, 103, 0.4), 90px 0 transparent, 100px 0 rgba(34, 116, 103, 0.6); }
   60% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(207, 29, 43, 0.4), 30px 0 transparent, 40px 0 rgba(207, 29, 43, 0.2), 50px 0 transparent, 60px 0 rgba(207, 29, 43, 0), 70px 0 transparent, 80px 0 rgba(207, 29, 43, 0.2), 90px 0 transparent, 100px 0 rgba(207, 29, 43, 0.4); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(34, 116, 103, 0.4), 30px 0 transparent, 40px 0 rgba(34, 116, 103, 0.2), 50px 0 transparent, 60px 0 rgba(34, 116, 103, 0), 70px 0 transparent, 80px 0 rgba(34, 116, 103, 0.2), 90px 0 transparent, 100px 0 rgba(34, 116, 103, 0.4); }
   80% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(207, 29, 43, 0.6), 30px 0 transparent, 40px 0 rgba(207, 29, 43, 0.4), 50px 0 transparent, 60px 0 rgba(207, 29, 43, 0.2), 70px 0 transparent, 80px 0 rgba(207, 29, 43, 0), 90px 0 transparent, 100px 0 rgba(207, 29, 43, 0.2); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(34, 116, 103, 0.6), 30px 0 transparent, 40px 0 rgba(34, 116, 103, 0.4), 50px 0 transparent, 60px 0 rgba(34, 116, 103, 0.2), 70px 0 transparent, 80px 0 rgba(34, 116, 103, 0), 90px 0 transparent, 100px 0 rgba(34, 116, 103, 0.2); }
   100% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(207, 29, 43, 0.8), 30px 0 transparent, 40px 0 rgba(207, 29, 43, 0.6), 50px 0 transparent, 60px 0 rgba(207, 29, 43, 0.4), 70px 0 transparent, 80px 0 rgba(207, 29, 43, 0.2), 90px 0 transparent, 100px 0 rgba(207, 29, 43, 0); } }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(34, 116, 103, 0.8), 30px 0 transparent, 40px 0 rgba(34, 116, 103, 0.6), 50px 0 transparent, 60px 0 rgba(34, 116, 103, 0.4), 70px 0 transparent, 80px 0 rgba(34, 116, 103, 0.2), 90px 0 transparent, 100px 0 rgba(34, 116, 103, 0); } }
 
 .wc-app button, .wc-app input, .wc-app textarea {
   font-family: inherit; }
@@ -708,7 +708,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     border-radius: 10px;
     height: 10px;
     width: 10px;
-    box-shadow: 10px 0 transparent, 20px 0 rgba(207, 29, 43, 0.2), 30px 0 transparent, 40px 0 rgba(207, 29, 43, 0.4), 50px 0 transparent, 60px 0 rgba(207, 29, 43, 0.6), 70px 0 transparent, 80px 0 rgba(207, 29, 43, 0.8), 90px 0 transparent, 100px 0 #cf1d2b;
+    box-shadow: 10px 0 transparent, 20px 0 rgba(34, 116, 103, 0.2), 30px 0 transparent, 40px 0 rgba(34, 116, 103, 0.4), 50px 0 transparent, 60px 0 rgba(34, 116, 103, 0.6), 70px 0 transparent, 80px 0 rgba(34, 116, 103, 0.8), 90px 0 transparent, 100px 0 #227467;
     animation: dots infinite 1s;
     margin-left: -10px; }
 
