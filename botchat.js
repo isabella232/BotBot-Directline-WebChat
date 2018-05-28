@@ -4726,7 +4726,7 @@ var Chat = (function (_super) {
         if (state.format.options.showHeader)
             header =
                 React.createElement("div", { className: "wc-header" },
-                    React.createElement("img", { src: "./avatar.png" }),
+                    React.createElement("img", { src: "./avatar.jpg" }),
                     React.createElement("h1", null, state.format.strings.title));
         var resize;
         if (this.props.resize === 'detect')
@@ -13415,14 +13415,14 @@ exports.tryCatch = tryCatch;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PRODUCTION_SHORT_URL = 'canonbot.azurewebsites.net';
+exports.PRODUCTION_SHORT_URL = 'stlogs.azurewebsites.net';
 exports.SECRET = {
-    STAGING: '_nNYAbNBhrA.cwA.4wA.LE0wV8yJRWGJXWjwzjiC7wrDAOptGvBN_dPXvsJD-Zg',
-    PRODUCTION: 'UBvH0kZTzw8.cwA.evE.puBTUiwudRislL8EYJkEgNq5J_n0-RnSwAx5E_YTvMk'
+    STAGING: 'PdrTmwgLH-g.cwA.DWQ.S0xmG_cWNrIUXXVVN7W4M1T2rtAubMN3tYYeNjtz9w8',
+    PRODUCTION: '5oQLnI6JMJA.cwA.MPc.I_dzNYcHBnRJd3ntU3cbaL9xzmbVe5y07XXS62bFCCg'
 };
 exports.DASHBOARD_API_URL = ' https://botbotapi-staging.azurewebsites.net/api';
 exports.BOT_API_URL = 'http://daimlerbot-staging.azurewebsites.net/api';
-exports.CHATBOT_NAME = 'Sony';
+exports.CHATBOT_NAME = 'ST Logs';
 
 
 /***/ }),
