@@ -1,0 +1,30 @@
+$number-of-dots: 5;
+$size: 10px;
+@function makeshadow($fromIndex) {
+  $list: ();
+
+  @for $i from 1 to $number-of-dots * 2 + 1 {
+    $color: $c_brand;
+    $color: rgba($color, abs($fromIndex - $i / 2) / $number-of-dots);
+
+    @if ($i % 2 != 0) {
+      $color: transparent;
+    }
+
+    $list: append($list, #{$size * $i + ' 0 ' + $color}, comma);
+  }
+
+  @return $list;
+}
+
+@keyframes dots {
+  $to: 0;
+  $gap: 100 / $number-of-dots;
+
+  @for $i from 0 to $number-of-dots + 1 {
+    $to: $i * $gap;
+    #{$to}#{'%'} {
+      box-shadow: makeshadow($i);
+    }
+  }
+}
