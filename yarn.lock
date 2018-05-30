@@ -33,6 +33,10 @@
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/deep-freeze/-/deep-freeze-0.0.29.tgz#c2d4c0bb10fb247a2b2c9da1970bb0902859190a"
 
+"@types/dompurify@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@types/dompurify/-/dompurify-0.0.31.tgz#f152d5a81f2b5625e29f11eb016cd9b301d0d4b4"
+
 "@types/express-serve-static-core@*":
   version "4.0.56"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.0.56.tgz#4ed556dcff9012cce6b016e214fdc5ef6e99db7d"
@@ -1052,6 +1056,10 @@ diffie-hellman@^5.0.0:
 domain-browser@^1.1.1:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
+
+dompurify@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-1.0.4.tgz#b0655d07856c1ef76fd27ae18e8ab1174ed18819"
 
 dot-prop@^4.1.0:
   version "4.2.0"
