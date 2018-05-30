@@ -1,5 +1,6 @@
 import * as MarkdownIt from 'markdown-it';
 import * as React from 'react';
+import * as DOMPurify from 'dompurify';
 
 const reg = /((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$]))/gi;
 
@@ -67,6 +68,7 @@ const renderMarkdown = (
                  .replace(/<br\s*\/?>/ig, '\r\n\r\n')
                 // URL encode all links
                  .replace(/\[(.*?)\]\((.*?)\)/ig, (match, text, url) => `[${text}](${markdownIt.normalizeLink(url)})`);
-    const __html = markdownIt.render(src);
+    let __html = markdownIt.render(src);
+    __html = DOMPurify.sanitize(__html);
     return <div className="format-markdown" dangerouslySetInnerHTML={{ __html }} />;
 }
