@@ -67,7 +67,7 @@
         right: 0;
         top: $headerTotalHeight;
         transition: transform $actionTransition;
-        
+
         &.no-header {
             top: 0;
         }
@@ -130,7 +130,7 @@
             top: 0;
             width: 28px;
         }
-        
+
         button.scroll:disabled {
             display: none;
         }
@@ -271,7 +271,7 @@
         .non-adaptive-content {
             margin: $card_padding $card_padding 0 $card_padding;
         }
-        
+
         button {
             background-color: transparent;
             color: $c_brand;
@@ -423,9 +423,9 @@
     }
 
     /* styling for Hero Card */
-    
+
     .wc-card.hero {
-        
+
         p {
             // font-size: 15px;
             margin-left: 0px;
@@ -434,7 +434,7 @@
             color: $c_card_heading;
             font-weight: 300;
         }
-        
+
         .ac-container > div > div > div {
             button {
                 &:first-child {
@@ -447,7 +447,7 @@
                 }
             }
         }
-        
+
         // styling of the button is done here
         button {
             background-color: $c_button_background;
@@ -458,16 +458,16 @@
             text-align: left;
             padding-top: 10px;
             padding-bottom: 10px;
-            
+
             &:hover {
                 background-color: $c_button_background_highlight;
             }
-            
+
             &:focus {
                 background-color: $c_button_background_onpress;
-            }        
+            }
         }
-        
+
     }
 
 /* alternate chat sizes */
@@ -590,7 +590,7 @@
             .wc-adaptive-card p {
                 min-height: initial;
             }
-            
+
         }
     }
 
@@ -650,7 +650,7 @@
         resize: none;
         width: 100%;
     }
-    
+
     .wc-console input[type=text]::placeholder {
         color: $c_console_text;
         opacity: 0.16;
@@ -685,7 +685,7 @@
         fill: $c_console_send_icon;
         fill-opacity: 0.4;
     }
-    
+
     .wc-send.hidden {
         visibility: hidden
     }
@@ -701,7 +701,7 @@
     .wc-mic.active path#micFilling {
         fill:rgb(78, 55, 135)
     }
-    
+
     .wc-mic.inactive path#micFilling {
         visibility: hidden
     }
@@ -779,7 +779,7 @@
     min-width: 900px;
     min-height: 330px;
 }
-    
+
 /* custom table style */
 
 .table-dropdown {
@@ -1044,7 +1044,7 @@
             display: inline-block;
             vertical-align: top;
         }
-        
+
         .form-group.row {
             margin-bottom: 30px;
             position: relative;
@@ -1089,11 +1089,11 @@
             &.active:invalid {
                 box-shadow: 0 0 5px 1px red;
             }
-        
+
             &::placeholder {
                 opacity: 0.4;
             }
-            
+
             &[type=file] {
                 background: none;
                 height: 20px;
@@ -1101,7 +1101,7 @@
                 margin-bottom: 18px;
                 font-size: 13px;
             }
-            
+
             // Styling for button
             &[type=submit] {
                 min-width: initial;
@@ -1113,24 +1113,24 @@
                 font-size: 15px;
                 font-weight: 800;
                 margin-top: 10px;
-                
+
                 &.disabled {
                     opacity: 0.4;
                     // important to override the hover
                     cursor: not-allowed !important;
                 }
-                
+
                 &:hover {
                     cursor: pointer;
                     background-color: $c_button_background_highlight;
                 }
-                
+
                 &:focus {
                     background-color: $c_button_background_onpress;
                 }
             }
         }
-        
+
         select {
             height: 40px;
             width: 395px;
@@ -1150,18 +1150,18 @@
                 display: none;
             }
         }
-        
+
         .checkbox-group {
             label, input {
                 display: inline-block;
             }
-            
+
             input {
                 width: 8%;
                 height: 20px;
                 vertical-align: top;
             }
-            
+
             label {
                 width: 89%;
                 color: $c_input_label_msg;
@@ -1197,11 +1197,11 @@
             box-shadow: none;
             position: static;
         }
-        
+
         .rdtPicker .rdtTimeToggle {
             text-align: center;
         }
-        
+
         .rdtPicker table {
             width: 100%;
             margin: 0;
@@ -1254,7 +1254,7 @@
             color: #999999;
             cursor: not-allowed;
         }
-        
+
         .rdtPicker td span.rdtOld {
             color: #999999;
         }
@@ -1279,7 +1279,7 @@
             font-size: 21px;
             vertical-align: top;
         }
-        
+
         .rdtPrev span,
         .rdtNext span {
             display: block;
@@ -1290,7 +1290,7 @@
             -ms-user-select: none;       /* Internet Explorer/Edge */
             user-select: none;
         }
-        
+
         .rdtPicker th.rdtDisabled,
         .rdtPicker th.rdtDisabled:hover {
             background: none;
@@ -1303,11 +1303,11 @@
         .rdtPicker thead tr:first-child th:hover {
             background: #eeeeee;
         }
-        
+
         .rdtPicker tfoot {
             border-top: 1px solid #f9f9f9;
         }
-        
+
         .rdtPicker button {
             border: none;
             background: none;
@@ -1316,12 +1316,12 @@
         .rdtPicker button:hover {
             background-color: #eee;
         }
-        
+
         .rdtPicker thead button {
             width: 100%;
             height: 100%;
         }
-        
+
         td.rdtMonth,
         td.rdtYear {
             height: 50px;
@@ -1332,33 +1332,33 @@
         td.rdtYear:hover {
             background: #eee;
         }
-        
+
         .rdtCounters {
             display: inline-block;
         }
-        
+
         .rdtCounters > div {
             float: left;
         }
-        
+
         .rdtCounter {
             height: 100px;
         }
-        
+
         .rdtCounter {
             width: 40px;
         }
-        
+
         .rdtCounterSeparator {
             line-height: 100px;
         }
-        
+
         .rdtCounter .rdtBtn {
             height: 40%;
             line-height: 40px;
             cursor: pointer;
             display: block;
-            
+
             -webkit-touch-callout: none; /* iOS Safari */
             -webkit-user-select: none;   /* Chrome/Safari/Opera */
             -khtml-user-select: none;    /* Konqueror */
@@ -1373,13 +1373,13 @@
             height: 20%;
             font-size: 1.2em;
         }
-        
+
         .rdtMilli {
             vertical-align: middle;
             padding-left: 8px;
             width: 48px;
         }
-        
+
         .rdtMilli input {
             width: 100%;
             font-size: 1.2em;
@@ -1471,7 +1471,7 @@
             label {
                 display: none;
             }
-            
+
             button {
                 text-transform: uppercase;
                 margin: 35px auto 80px auto;
@@ -1487,5 +1487,16 @@
                 }
             }
         }
+    }
+}
+
+.wc-header {
+    display: flex;
+    align-items: center;
+    padding: 5px 17px;
+
+    img {
+        max-height: 100%;
+        margin-right: 10px;
     }
 }

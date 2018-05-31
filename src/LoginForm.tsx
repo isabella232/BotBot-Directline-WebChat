@@ -1,7 +1,7 @@
 import 'whatwg-fetch'
 import * as React from 'react';
 import { Chat } from './Chat';
-import { App, AppProps } from './App';
+import { App, AppProps, requestCustomiseUI } from './App';
 
 const API_URL = process.env.NODE_ENV === 'production' ? '' : 'https://gic-investment-staging.azurewebsites.net'
 
@@ -101,19 +101,19 @@ export class LoginForm extends React.Component<AppProps, LoginState> {
                             <h1>Login</h1>
                             <li>
                                 <label>Username</label>
-                                <input 
+                                <input
                                     type="username"
                                     placeholder="Username"
                                     onChange={(event: React.FormEvent<HTMLInputElement>) => this.setState({username: event.currentTarget.value})}
                                     value={this.state.username}
-                                    minLength={4} maxLength={60} 
+                                    minLength={4} maxLength={60}
                                 />
                             </li>
                             <li>
                                 <label>Password</label>
-                                <input 
+                                <input
                                     type="password"
-                                    placeholder="Password" 
+                                    placeholder="Password"
                                     onChange={(event: React.FormEvent<HTMLInputElement>) => this.setState({password: event.currentTarget.value})}
                                     value={this.state.password}
                                     minLength={4} maxLength={60} />
@@ -126,6 +126,8 @@ export class LoginForm extends React.Component<AppProps, LoginState> {
             );
         }
         else {
+            requestCustomiseUI();
+
             return (
                 <div className="wc-app">
                     <Chat {...{...this.props, ...this.getGICProps()}} />
