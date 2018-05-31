@@ -858,39 +858,61 @@
         &:hover {
             background-color: $c_subtle;
         }
+
+        &.no-highlight {
+            cursor: initial;
+            &:hover {
+                background-color: initial;
+            }
+        }
+    }
+
+    button {
+        border: 1px solid #ccc;
+        background-color: #fff;
+        color: $c_brand;
+        outline: none;
+
+        &.icon-button {
+            margin: 2px 0px 2px 5px;
+        }
+
+        &.primary {
+            background-color: $c_brand_two;
+            color: #fff;
+
+            &:hover {
+                background-color: $c_brand;
+            }
+        }
+
+        &:hover {
+            background-color: $c_subtle;
+        }
     }
 
     div.filter-values {
         padding: 10px;
         padding-top: 5px;
 
+        button {
+            min-width: 80px;
+            height: 32px;
+            margin-top: 10px;
+            margin-right: 5px;
+        }
+
         div {
             padding: 5px;
             margin: 0px;
+        }
 
-            button {
-                min-width: 80px;
-                height: 32px;
-                border: 1px solid #ccc;
-                background-color: #fff;
-                color: $c_brand;
-                outline: none;
-                margin-top: 10px;
-                margin-right: 5px;
-
-                &.primary {
-                    background-color: $c_brand_two;
-                    color: #fff;
-
-                    &:hover {
-                        background-color: $c_brand;
-                    }
-                }
-
-                &:hover {
-                    background-color: $c_subtle;
-                }
-            }
+        div.bottom {
+            background-color: $c_subtle;
+            border: 1px solid $c_subtle;
+            border-top: 0;
+            border-left: 2px solid $c_brand;
+            border-bottom-right-radius: 3px;
         }
 
         a{
@@ -904,6 +926,7 @@
             overflow: auto;
             border: 1px solid $c_subtle;
             border-left: 2px solid $c_brand;
+            border-bottom: 0;
 
             li {
                 border-bottom: none;
@@ -1431,7 +1454,7 @@
 
             .error {
                 color: $c_primary_text;
-                font-size: 14em;
+                font-size: 14px;
                 padding-top: 0px;
                 display: initial;
             }

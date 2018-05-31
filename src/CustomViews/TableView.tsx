@@ -122,7 +122,7 @@ export class TableView extends React.Component < TableProps, TableState > {
   }
 
   onSortDirectionChanged(idx: number, newDirection: SortDirection) {
-    this.onContextMenu(null, idx, false)
+    // this.onContextMenu(null, idx, false)
     this.setState({
       sortBy: idx,
       sortDirection: newDirection
