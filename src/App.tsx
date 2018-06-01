@@ -24,6 +24,7 @@ export interface IConfig {
   headerBg: string;
   textProfileColor: string;
   logo: string;
+  displayName: string;
 }
 
 const lightenDarkenColor = (col: string, amt: number) => {
@@ -83,11 +84,18 @@ const compileStyle = (config: IConfig) => {
   document.head.appendChild(styleTag);
 
   // change logo
-  const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
+  const logoEl: HTMLElement = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
 
   if (config.logo && logoEl) {
     logoEl.setAttribute('src', config.logo);
     logoEl.style.display = '';
+  }
+
+  if (config.displayName) {
+    const botnameEl: HTMLElement = document.querySelector(
+      '#BotChatWindow .wc-chatview-panel .wc-header .js-botname'
+    );
+    botnameEl.innerText = config.displayName;
   }
 };
 

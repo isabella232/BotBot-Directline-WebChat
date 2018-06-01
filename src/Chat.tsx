@@ -182,7 +182,7 @@ export class Chat extends React.Component<ChatProps, {}> {
         if (state.format.options.showHeader) header =
             <div className="wc-header">
                 <img src="" alt="Logo" style={{ display: 'none' }}/>
-                <span>{ state.format.strings.title }</span>
+                <span className="js-botname">{ state.format.strings.title }</span>
             </div>;
 
         let resize: JSX.Element;
