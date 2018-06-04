@@ -1,20 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ChatProps, konsole } from './Chat';
-import { LoginForm } from './LoginForm';
+import { Chat, ChatProps } from './Chat';
 import axios from 'axios';
+
+export const DASHBOARD_API_URL = ' https://botbotapi-staging.azurewebsites.net/api';
+export const BOT_API_URL = 'https://gic-investment-staging.azurewebsites.net/api';
 
 export type AppProps = ChatProps;
 
 export const App = (props: AppProps, container: HTMLElement) => {
-  konsole.log('BotChat.App props', props);
   ReactDOM.render(React.createElement(AppContainer, props), container);
 };
-
-const AppContainer = (props: AppProps) => <LoginForm {...props} />;
-
-export const DASHBOARD_API_URL = ' https://botbotapi-staging.azurewebsites.net/api';
-export const BOT_API_URL = 'https://gic-investment-staging.azurewebsites.net/api';
 
 export interface IConfig {
   fontUrl: string;
@@ -52,7 +48,6 @@ const lightenDarkenColor = (col: string, amt: number) => {
 
   return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16);
 };
-
 const compileStyle = (config: IConfig) => {
   let style;
 
@@ -60,7 +55,7 @@ const compileStyle = (config: IConfig) => {
   styleTag.innerHTML = `
     @import url(${config.fontUrl});
     body .wc-app {
-    font-family: "${config.fontFamily}", sans-serif;
+      font-family: "${config.fontFamily}", sans-serif;
       color: ${config.textColor};
     }
     /*.wc-message-from-bot { border-color: ${config.brandColor} }
@@ -99,7 +94,7 @@ const compileStyle = (config: IConfig) => {
   }
 };
 
-export function requestCustomiseUI() {
+function requestCustomiseUI() {
   axios
     .get(`${BOT_API_URL}/dashboard/botid`)
     .then(resp => axios.get(`${DASHBOARD_API_URL}/feconfig/get?botid=${resp.data.id}`))
@@ -107,3 +102,13 @@ export function requestCustomiseUI() {
       compileStyle(resp.data);
     });
 }
+
+const AppContainer = (props: AppProps) => {
+  requestCustomiseUI();
+
+  return (
+    <div className="wc-app">
+      <Chat {...props} />
+    </div>
+  );
+};
