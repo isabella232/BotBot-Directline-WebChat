@@ -64,6 +64,8 @@ const renderMarkdown = (
                 // URL encode all links
                  .replace(/\[(.*?)\]\((.*?)\)/ig, (match, text, url) => `[${text}](${markdownIt.normalizeLink(url)})`);
     let __html = markdownIt.render(src);
-    __html = DOMPurify.sanitize(__html);
+    __html = DOMPurify.sanitize(__html, {
+        ADD_ATTR: ['target']
+    });
     return <div className="format-markdown" dangerouslySetInnerHTML={{ __html }} />;
 }
