@@ -46,11 +46,11 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
 
             // Subtract the padding from the offsetParent's width to get the width of the content
             const maxContentWidth = (this.carouselActivity.messageDiv.offsetParent as HTMLElement).offsetWidth - paddedWidth;
-            
+
             // Subtract the content width from the chat width to get the margin.
             // Next time we need to get the content width (on a resize) we can use this margin to get the maximum content width
             const carouselMargin = this.props.size.width - maxContentWidth;
-            
+
             konsole.log('history measureMessage ' + carouselMargin);
 
             // Finally, save it away in the Store, which will force another re-render
@@ -76,10 +76,10 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
     }
 
     // In order to do their cool horizontal scrolling thing, Carousels need to know how wide they can be.
-    // So, at startup, we create this mock Carousel activity and measure it. 
+    // So, at startup, we create this mock Carousel activity and measure it.
     private measurableCarousel = () =>
         // find the largest possible message size by forcing a width larger than the chat itself
-        <WrappedActivity 
+        <WrappedActivity
             ref={ x => this.carouselActivity = x }
             activity={ {
                 type: 'message',
@@ -164,7 +164,7 @@ export const History = connect(
         format: state.format,
         size: state.size,
         activities: state.history.activities,
-        // only used to create helper functions below 
+        // only used to create helper functions below
         connectionSelectedActivity: state.connection.selectedActivity,
         selectedActivity: state.history.selectedActivity,
         botConnection: state.connection.botConnection,
@@ -173,7 +173,7 @@ export const History = connect(
         setMeasurements: (carouselMargin: number) => ({ type: 'Set_Measurements', carouselMargin }),
         onClickRetry: (activity: Activity) => ({ type: 'Send_Message_Retry', clientActivityId: activity.channelData.clientActivityId }),
         onClickCardAction: () => ({ type: 'Card_Action_Clicked'}),
-        // only used to create helper functions below 
+        // only used to create helper functions below
         sendMessage
     }, (stateProps: any, dispatchProps: any, ownProps: any): HistoryProps => ({
         // from stateProps
@@ -254,7 +254,7 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
                 let sent: string;
                 if (this.props.showTimestamp)
                     sent = this.props.format.strings.timeSent.replace('%1', (new Date(this.props.activity.timestamp)).toLocaleTimeString());
-                timeLine = <span>{ this.props.activity.from.name || this.props.activity.from.id }{ sent }</span>;
+                timeLine = <span><strong className="wc-message-meta-from">{ this.props.activity.from.name || this.props.activity.from.id }</strong><span>{ sent }</span></span>;
                 break;
         }
 
@@ -262,6 +262,7 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
 
         const wrapperClassName = classList(
             'wc-message-wrapper',
+            `wc-message-wrapper-${who}`,
             (this.props.activity as Message).attachmentLayout || 'list',
             this.props.onClickActivity && 'clickable'
         );
@@ -273,16 +274,18 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
 
         return (
             <div data-activity-id={ this.props.activity.id } className={ wrapperClassName } onClick={ this.props.onClickActivity }>
-                <div className={ 'wc-message wc-message-from-' + who } ref={ div => this.messageDiv = div }>
-                    <div className={ contentClassName }>
-                        {/* <svg className="wc-message-callout">
-                            <path className="point-left" d="m0,6 l6 6 v-12 z" />
-                            <path className="point-right" d="m6,6 l-6 6 v-12 z" />
-                        </svg> */}
-                        { this.props.children }
+                <div className={ 'wc-message wc-message-from-' + who }>
+                    <div ref={ div => this.messageDiv = div }>
+                        <div className={ contentClassName }>
+                            {/* <svg className="wc-message-callout">
+                                <path className="point-left" d="m0,6 l6 6 v-12 z" />
+                                <path className="point-right" d="m6,6 l-6 6 v-12 z" />
+                            </svg> */}
+                            { this.props.children }
+                        </div>
                     </div>
+                    <div className="wc-message-meta">{ timeLine }</div>
                 </div>
-                <div className={ 'wc-message-from wc-message-from-' + who }>{ timeLine }</div>
             </div>
         );
     }

@@ -21,6 +21,7 @@ export interface IConfig {
   textProfileColor: string;
   logo: string;
   displayName: string;
+  bgImage: string;
 }
 
 const lightenDarkenColor = (col: string, amt: number) => {
@@ -50,14 +51,16 @@ const lightenDarkenColor = (col: string, amt: number) => {
 };
 const compileStyle = (config: IConfig) => {
   let style;
+  // config.bgImage = 'https://botbotstorage.blob.core.windows.net/botslogo/33e4ba77-c126-4799-a5fa-a8f70050d2c243404371-vectgor-blue-green-feathers-pastel-seamless-pattern-background.jpg';
 
   const styleTag = document.createElement('style');
   styleTag.innerHTML = `
     @import url(${config.fontUrl});
     body .wc-app {
       font-family: "${config.fontFamily}", sans-serif;
-      color: ${config.textColor};
+      /*color: ${config.textColor};*/
     }
+    ${config.bgImage && `.wc-chatview-panel { background-image: url(${config.bgImage}) }`}
     /*.wc-message-from-bot { border-color: ${config.brandColor} }
     .wc-message-from-me { border-color: ${lightenDarkenColor(config.brandColor, 60)} }
     .wc-console #wc-send-icon { fill: ${config.brandColor} }
@@ -67,19 +70,21 @@ const compileStyle = (config: IConfig) => {
     }
     .wc-card button {
       color: ${config.brandColor} !important;
-    }*/
+    }
     .wc-header {
       background-color: ${config.headerBg};
       color: ${config.brandColor}
     }
-    /*.wc-message-meta { color: ${config.textProfileColor} }
+    .wc-message-meta { color: ${config.textProfileColor} }
     .wc-suggested-actions .wc-hscroll > ul > li button { color: ${config.brandColor} }*/
     `;
 
   document.head.appendChild(styleTag);
 
   // change logo
-  const logoEl: HTMLElement = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
+  const logoEl: HTMLElement = document.querySelector(
+    '#BotChatWindow .wc-chatview-panel .wc-header img'
+  );
 
   if (config.logo && logoEl) {
     logoEl.setAttribute('src', config.logo);

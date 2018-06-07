@@ -23,6 +23,7 @@ $c_messageFromMe: $c07;
 $c_messageFromThem: $c09;
 
 // Colors Palette
+$c_brand_light: #BCA480;
 $c_brand: #243A81;
 $c_brand_two: #48607D;
 $c_light_accent: #DDD;
@@ -30,7 +31,7 @@ $c_dark_accent: #969FA9;
 $c_primary_text: #333;
 $c_secondary_text: #999;
 $c_light_background: #CCBB8D;
-$c_dark_background: #BCA480;
+$c_dark_background: $c_brand_light;
 $c_dark_background_lighten: #EBE7E4;
 $c_dark_background_darken: #B7AFA2;
 $c_shadow: #333;
