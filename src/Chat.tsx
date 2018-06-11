@@ -48,11 +48,14 @@ export class Chat extends React.Component<ChatProps, {}> {
     private selectedActivitySubscription: Subscription;
     private shellRef: React.Component & ShellFunctions;
 
+    private scrollContent: HTMLElement;
     private chatviewPanel: HTMLElement;
     private resizeListener = () => this.setSize();
 
     private _handleKeyDownCapture = this.handleKeyDownCapture.bind(this);
     private _saveShellRef = this.saveShellRef.bind(this);
+    private _handleScrollToTop = this.handleScrollToTop.bind(this);
+    private _handleGetRef = this.handleGetRef.bind(this);
 
     constructor(props: ChatProps) {
         super(props);
@@ -202,6 +205,14 @@ export class Chat extends React.Component<ChatProps, {}> {
         window.removeEventListener('resize', this.resizeListener);
     }
 
+    private handleScrollToTop() {
+        this.scrollContent.scrollTo(0, 0);
+    }
+
+    private handleGetRef(div: HTMLElement) {
+        this.scrollContent = div;
+    }
+
     // At startup we do three render passes:
     // 1. To determine the dimensions of the chat panel (nothing needs to actually render here, so we don't)
     // 2. To determine the margins of any given carousel (we just render one mock activity so that we can measure it)
@@ -238,10 +249,29 @@ export class Chat extends React.Component<ChatProps, {}> {
                 >
                     {header}
                     <MessagePane>
-                        <History />
+                        <History getRef={this._handleGetRef} />
                     </MessagePane>
                     <Shell ref={this._saveShellRef} />
                     {resize}
+                    <button className="wc-back-top" onClick={this._handleScrollToTop}>
+                        <svg
+                            version="1.1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlnsXlink="http://www.w3.org/1999/xlink"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                fill="#000000"
+                                d="M2.782 3.782c-1.794 1.794-2.782 4.18-2.782 6.718s0.988 4.923 2.782 6.718 4.18 2.782 6.718 2.782 4.923-0.988 6.718-2.782 2.782-4.18 2.782-6.717-0.988-4.923-2.782-6.718-4.18-2.782-6.718-2.782-4.923 0.988-6.718 2.782zM18 10.5c0 4.687-3.813 8.5-8.5 8.5s-8.5-3.813-8.5-8.5c0-4.687 3.813-8.5 8.5-8.5s8.5 3.813 8.5 8.5z"
+                            />
+                            <path
+                                fill="#000000"
+                                d="M9.147 4.647l-4 4c-0.195 0.195-0.195 0.512 0 0.707s0.512 0.195 0.707 0l3.146-3.147v10.293c0 0.276 0.224 0.5 0.5 0.5s0.5-0.224 0.5-0.5v-10.293l3.147 3.146c0.195 0.195 0.512 0.195 0.707 0 0.098-0.098 0.146-0.226 0.146-0.353s-0.049-0.256-0.147-0.353l-4-4c-0.195-0.195-0.512-0.195-0.707 0z"
+                            />
+                        </svg>
+                    </button>
                 </div>
             </Provider>
         );

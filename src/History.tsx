@@ -20,6 +20,7 @@ export interface HistoryProps {
     isSelected: (activity: Activity) => boolean;
     onClickActivity: (activity: Activity) => React.MouseEventHandler<HTMLDivElement>;
     doCardAction: IDoCardAction;
+    getRef: Function;
 }
 
 export class HistoryView extends React.Component<HistoryProps, {}> {
@@ -171,7 +172,10 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
         return (
             <div
                 className={groupsClassName}
-                ref={div => (this.scrollMe = div || this.scrollMe)}
+                ref={div => {
+                    this.scrollMe = div || this.scrollMe;
+                    if (this.props.getRef) this.props.getRef(div);
+                }}
                 role="log"
             >
                 <div
@@ -229,7 +233,8 @@ export const History = connect(
         isSelected: (activity: Activity) => activity === stateProps.selectedActivity,
         onClickActivity: (activity: Activity) =>
             stateProps.connectionSelectedActivity &&
-            (() => stateProps.connectionSelectedActivity.next({ activity }))
+            (() => stateProps.connectionSelectedActivity.next({ activity })),
+        getRef: ownProps.getRef
     })
 )(HistoryView);
 

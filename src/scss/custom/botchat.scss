@@ -1,5 +1,5 @@
-@import "../includes/colors";
-@import "../includes/settings";
+@import '../includes/colors';
+@import '../includes/settings';
 @import './_functions.scss';
 
 $header-height: 72px;
@@ -29,7 +29,7 @@ body {
 
   .subtext {
     width: 100%;
-    color: #BCA480;
+    color: #bca480;
     font-weight: normal;
   }
 }
@@ -79,7 +79,6 @@ body {
     color: #231f20;
   }
 }
-
 
 .wc-message svg.wc-message-callout {
   display: none;
@@ -204,7 +203,6 @@ body {
       background-color: $c_brand;
       border-color: $c_brand;
       color: $c01;
-
     }
   }
 }
@@ -271,7 +269,7 @@ body {
   button {
     min-width: 88px;
     padding: 8px 16px;
-    background: #039BE5;
+    background: #039be5;
     color: #fff;
     border: 0;
     font-size: inherit;
@@ -285,11 +283,11 @@ body {
 
     &:active {
       box-shadow: 0 4px 8px #757575;
-      background: #0277BD;
+      background: #0277bd;
     }
 
     &[disabled] {
-      background: #BDBDBD;
+      background: #bdbdbd;
       opacity: 0.5;
       color: #757575;
       box-shadow: none;
@@ -315,4 +313,23 @@ body {
 
 .wc-message-wrapper.carousel .wc-message {
   max-width: 91%;
+}
+
+.wc-app .wc-back-top {
+  position: fixed;
+  bottom: 70px;
+  right: 10px;
+  background: none;
+  border: 0;
+  opacity: 0.3;
+
+  svg {
+    display: block;
+    width: 30px;
+    height: 30px;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
 }
