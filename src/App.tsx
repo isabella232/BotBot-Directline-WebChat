@@ -5,6 +5,7 @@ import * as konsole from './Konsole';
 import axios from 'axios';
 
 import Login from './Login';
+import { requestCustomiseUI } from './helpers';
 
 export type AppProps = ChatProps;
 const PRODUCTION_SHORT_URL = 'gicpublicsite.azurewebsites.net';
@@ -14,17 +15,18 @@ let SECRET = {
 };
 
 export const App = (props: AppProps, container: HTMLElement) => {
-    konsole.log("BotChat.App props", props);
+    konsole.log('BotChat.App props', props);
     ReactDOM.render(React.createElement(AppContainer, props), container);
-}
+};
 
 function isProduction() {
     return !(window.location.hostname.indexOf(PRODUCTION_SHORT_URL) === -1);
 }
 
 function uuidv4(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8;
         return v.toString(16);
     });
 }
@@ -34,12 +36,12 @@ function getAppProps(): Object {
 
     var user = {
         id: params['userid'] || uuidv4(),
-        name: params["username"] || 'user'
+        name: params['username'] || 'user'
     };
 
     var bot = {
         id: params['botid'] || 'botid',
-        name: params["botname"] || 'botname'
+        name: params['botname'] || 'botname'
     };
 
     return {
@@ -54,13 +56,13 @@ function getAppProps(): Object {
         locale: params['locale'],
         resize: 'window'
         // sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
-    }
+    };
 }
 
 export interface ChatState {
-    loggedIn: boolean,
-    loggingIn: boolean,
-    error: boolean
+    loggedIn: boolean;
+    loggingIn: boolean;
+    error: boolean;
 }
 
 class AppContainer extends React.PureComponent<ChatProps, ChatState> {
@@ -68,7 +70,7 @@ class AppContainer extends React.PureComponent<ChatProps, ChatState> {
         loggedIn: false,
         error: false,
         loggingIn: false
-    }
+    };
 
     constructor(p: ChatProps) {
         super(p);
@@ -85,10 +87,11 @@ class AppContainer extends React.PureComponent<ChatProps, ChatState> {
             url = 'https://gicpublicsitebot-staging.azurewebsites.net/api/form/secret';
         }
 
-        axios.post(url, {
-            username,
-            password
-        })
+        axios
+            .post(url, {
+                username,
+                password
+            })
             .then(resp => {
                 if (isProduction()) {
                     SECRET.PRODUCTION = resp.data;
@@ -105,11 +108,20 @@ class AppContainer extends React.PureComponent<ChatProps, ChatState> {
 
     render() {
         if (!this.state.loggedIn) {
-            return <Login loggingIn={this.state.loggingIn} onSubmit={this.handleSubmit} error={this.state.error} />;
+            return (
+                <Login
+                    loggingIn={this.state.loggingIn}
+                    onSubmit={this.handleSubmit}
+                    error={this.state.error}
+                />
+            );
         }
 
-        return <div className="wc-app">
-            <Chat { ...this.props } {...getAppProps() } />
-        </div>
+        requestCustomiseUI();
+        return (
+            <div className="wc-app">
+                <Chat {...this.props} {...getAppProps()} />
+            </div>
+        );
     }
 }

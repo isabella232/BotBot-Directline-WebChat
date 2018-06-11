@@ -26,3 +26,6 @@ CognitiveServices.js.map
 /test/uploads
 includes
 custom
+yarn-error.log
+botchat.css
+botchat.js
