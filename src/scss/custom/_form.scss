@@ -1,0 +1,183 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-family: Avenir, sans-serif;
+  font-size: 14px;
+  // background: #fff;
+  color: #333;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.container {
+  max-width: 768px;
+  margin: auto;
+  padding: 0 15px;
+}
+
+.login-form-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  min-width: 320px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  border: 2px;
+  padding: 16px;
+
+  h1 {
+    text-align: center;
+    font-weight: 400;
+  }
+
+  .wc-login-avatar {
+    height: 50px;
+    margin: 16px auto;
+    display: block;
+  }
+}
+
+form {
+  margin: 0;
+
+  label {
+    color: #9e9e9e;
+    font-size: 12px;
+    font-style: italic;
+  }
+
+  input {
+    padding: 8px 0;
+    line-height: 1.4;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #dbdee1;
+    outline: none;
+    font-size: inherit;
+    transition: all 0.2s ease;
+    background: none;
+  }
+
+  input:focus {
+    border-color: #999999;
+  }
+
+  .actions {
+    text-align: right;
+  }
+
+  button[type='submit'] {
+    min-width: 88px;
+    padding: 8px 16px;
+    background: #039be5;
+    color: #fff;
+    border: 0;
+    font-size: inherit;
+    cursor: pointer;
+    outline: none;
+    border-radius: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px #757575;
+    transition: all 0.2s ease;
+
+    &:active {
+      box-shadow: 0 4px 8px #757575;
+      background: #0277bd;
+    }
+
+    &[disabled] {
+      background: #bdbdbd;
+      opacity: 0.5;
+      color: #757575;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+  }
+
+  fieldset {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 1.6rem;
+
+    legend {
+      font-size: inherit;
+      padding: 0 1rem;
+      font-size: 16px;
+    }
+
+    + fieldset  {
+      margin-top: 2.4rem;
+    }
+
+  }
+
+  hr {
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    position: relative;
+    z-index: 0;
+    margin-bottom: 20px;
+  }
+
+  .error-message {
+    color: #d32f2f;
+    font-size: 12px;
+    font-style: italic;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+  }
+}
+
+// TABS
+.tab-buttons {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #eee;
+
+  button {
+    outline: none;
+    border: 0;
+    padding: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+
+    &:hover {
+      background: #eee;
+    }
+
+    &.active {
+      box-shadow: inset 0 -3px 0 red;
+    }
+  }
+}
+
+.tab-content {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}

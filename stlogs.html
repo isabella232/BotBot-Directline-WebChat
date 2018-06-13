@@ -1,0 +1,611 @@
+<html>
+
+<head>
+  <title>STLogs</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link href="./form.css" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+    <section class="login-form-wrapper js-login-form-wrapper">
+      <form class="login-form js-login-form" action="https://botbotidentity.azurewebsites.net/connect/token" method="POST">
+        <img src="./avatar.jpg" class="wc-login-avatar">
+        <h1>Login</h1>
+        <p class="form-group">
+          <label for="username">Username</label>
+          <input type="text" required="" id="username" value="aviation@stlogs.com" name="username" placeholder="Enter username...">
+        </p>
+        <p class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" required="" value="Aviation536$" id="login-password" value="ISPM2017!!" name="password" placeholder="Enter your password...">
+        </p>
+        <input type="hidden" name="client_id" value="botbotclient" />
+        <input type="hidden" name="client_secret" value="botbotsecret" />
+        <input type="hidden" name="grant_type" value="password" />
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+    <div class="js-post-login container hidden">
+      <h1>STLogs</h1>
+      <div class="js-tabs js-forms">
+        <ul class="tab-buttons">
+          <li>
+            <button data-toggle="tab" data-target="#form-operations" class="active">Today Ops & Next Day Highlights</button>
+          </li>
+          <li>
+            <button data-toggle="tab" data-target="#form-manpower">Manpower</button>
+          </li>
+        </ul>
+        <!-- TODAY OPERATIONS FORMS -->
+        <div id="form-operations" class="tab-content js-tab-content active">
+          <!-- AVIVATION FORM -->
+          <div class="js-operation-avivation hidden">
+            <h2>Aviation/Freight</h2>
+            <form id="today_avivation" action="" class="form-wrapper">
+              <h3>Today's Operations:</h3>
+
+              <fieldset>
+                <legend>Air freight</legend>
+                <p class="form-group">
+                  <label for="today_air_freight_import">Import: </label>
+                  <input id="today_air_freight_import" type="text" name="today_air_freight_import" value="askdhak" />
+                </p>
+                <p class="form-group">
+                  <label for="today_air_freight_export">Export: </label>
+                  <input id="today_air_freight_export" type="text" name="today_air_freight_export" />
+                </p>
+                <p class="form-group">
+                  <label for="today_air_freight_traffic">Traffic:</label>
+                  <input id="today_air_freight_traffic" type="text" name="today_air_freight_traffic" />
+                </p>
+              </fieldset>
+              <fieldset>
+                <legend>Sea freight</legend>
+                <p class="form-group">
+                  <label for="today_sea_freight_import">Import: </label>
+                  <input id="today_sea_freight_import" type="text" name="today_sea_freight_import" />
+                </p>
+                <p class="form-group">
+                  <label for="today_sea_freight_export">Export: </label>
+                  <input id="today_sea_freight_export" type="text" name="today_sea_freight_export" />
+                </p>
+                <p class="form-group">
+                  <label for="today_sea_freight_traffic">Traffic:</label>
+                  <input id="today_sea_freight_traffic" type="text" name="today_sea_freight_traffic" />
+                </p>
+              </fieldset>
+              <fieldset>
+                <legend>STARS</legend>
+                <p class="form-group">
+                  <label for="today_stars_refuelling">Refuelling: </label>
+                  <input id="today_stars_refuelling" type="text" name="today_stars_refuelling" />
+                </p>
+                <p class="form-group">
+                  <label for="today_stars_amc">AMC: </label>
+                  <input id="today_stars_amc" type="text" name="today_stars_amc" />
+                </p>
+                <p class="form-group">
+                  <label for="today_stars_dsr_refuelling_defuelling_bridging">DSR Refuelling: Defuelling: Bridging:</label>
+                  <input id="today_stars_dsr_refuelling_defuelling_bridging" type="text" name="today_stars_dsr_refuelling_defuelling_bridging"
+                  />
+                </p>
+              </fieldset>
+              <fieldset>
+                <legend>AML</legend>
+                <p class="form-group">
+                  <label for="today_aml_rsaf_tech_log">RSAF Tech Log: </label>
+                  <input id="today_aml_rsaf_tech_log" type="text" name="today_aml_rsaf_tech_log" />
+                </p>
+                <p class="form-group">
+                  <label for="today_aml_rsn_shiphusbandry">RSN ShipHusbandry: </label>
+                  <input id="today_aml_rsn_shiphusbandry" type="text" name="today_aml_rsn_shiphusbandry" />
+                </p>
+                <p class="form-group">
+                  <label for="today_aml_other_ops">Other Ops:</label>
+                  <input id="today_aml_other_ops" type="text" name="today_aml_other_ops" />
+                </p>
+              </fieldset>
+              <p class="form-group">
+                <label for="today_incident">Incident:</label>
+                <input id="today_incident" type="text" name="today_incident" />
+              </p>
+              <br />
+              <h3>Key Highlight For Next Day:</h3>
+
+              <fieldset label="">
+                <legend>Air freight</legend>
+                <p class="form-group">
+                  <label for="today_air_freight_import">Import: </label>
+                  <input id="nextday_air_freight_import" type="text" name="nextday_air_freight_import" />
+                </p>
+                <p class="form-group">
+                  <label for="nextday_air_freight_export">Export: </label>
+                  <input id="nextday_air_freight_export" type="text" name="nextday_air_freight_export" />
+                </p>
+                <p class="form-group">
+                  <label for="nextday_air_freight_traffic">Traffic:</label>
+                  <input id="nextday_air_freight_traffic" type="text" name="nextday_air_freight_traffic" />
+                </p>
+              </fieldset>
+              <fieldset>
+                <legend>Sea freight</legend>
+                <p class="form-group">
+                  <label for="nextday_sea_freight_import">Import: </label>
+                  <input id="nextday_sea_freight_import" type="text" name="nextday_sea_freight_import" />
+                </p>
+                <p class="form-group">
+                  <label for="nextday_sea_freight_export">Export: </label>
+                  <input id="nextday_sea_freight_export" type="text" name="nextday_sea_freight_export" />
+                </p>
+                <p class="form-group">
+                  <label for="nextday_sea_freight_traffic">Traffic:</label>
+                  <input id="nextday_sea_freight_traffic" type="text" name="nextday_sea_freight_traffic" />
+                </p>
+              </fieldset>
+              <fieldset>
+                <legend>STARS</legend>
+                <p class="form-group">
+                  <label for="nextday_stars_refuelling">Refuelling: </label>
+                  <input id="nextday_stars_refuelling" type="text" name="nextday_stars_refuelling" />
+                </p>
+                <p class="form-group">
+                  <label for="nextday_stars_amc">AMC: </label>
+                  <input id="nextday_stars_amc" type="text" name="nextday_stars_amc" />
+                </p>
+                <p class="form-group">
+                  <label for="nextday_stars_dsr_refuelling_defuelling_bridging">DSR Refuelling: Defuelling: Bridging:</label>
+                  <input id="nextday_stars_dsr_refuelling_defuelling_bridging" type="text" name="nextday_stars_dsr_refuelling_defuelling_bridging"
+                  />
+                </p>
+              </fieldset>
+              <fieldset>
+                <legend>AML</legend>
+                <p class="form-group">
+                  <label for="nextday_aml_rsaf_tech_log">RSAF Tech Log: </label>
+                  <input id="nextday_aml_rsaf_tech_log" type="text" name="nextday_aml_rsaf_tech_log" />
+                </p>
+                <p class="form-group">
+                  <label for="nextday_aml_rsn_shiphusbandry">RSN ShipHusbandry: </label>
+                  <input id="nextday_aml_rsn_shiphusbandry" type="text" name="nextday_aml_rsn_shiphusbandry" />
+                </p>
+                <p class="form-group">
+                  <label for="nextday_aml_other_ops">Other Ops:</label>
+                  <input id="nextday_aml_other_ops" type="text" name="nextday_aml_other_ops" />
+                </p>
+
+              </fieldset>
+              <p class="form-group">
+                <label for="nextday_incident">Incident:</label>
+                <input id="nextday_incident" type="text" name="nextday_incident" />
+              </p>
+              <div class="actions">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- END OF AVIVATION FORM -->
+          <!-- DEFENCE FORM -->
+          <div class="js-operation-defence hidden">
+            <h2>Defence</h2>
+            <form action="" class="form-wrapper">
+              <h3>Today's Operations:</h3>
+              <p class="form-group">
+                <label for="army_delivery">Army Delivery (Milkrun): 105 Pallets deliver across Units.</label>
+                <input id="army_delivery" type="text" name="army_delivery" />
+              </p>
+              <p class="form-group">
+                <label for="emart_delivery">E-mart Delivery: Delivery Date Order for 25 April 18 – All orders completed.</label>
+                <input id="emart_delivery" type="text" name="emart_delivery" />
+              </p>
+              <p class="form-group">
+                <label for="supported">Supported:</label>
+                <input id="supported" type="text" name="supported" />
+              </p>
+              <p class="form-group">
+                <label for="defence_incident">Incident:</label>
+                <input id="defence_incident" type="text" name="incident" />
+              </p>
+              <div class="actions">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- END OF DEFENCE FORM -->
+          <!-- HEALTHCATE FORM -->
+          <div class="js-operation-healthcare hidden">
+            <h2>Healthcare</h2>
+            <form action="" class="form-wrapper">
+              <h3>Today's Operations:</h3>
+              <p class="form-group">
+                <label for="sthc">STHC: All delivery completed.</label>
+                <input id="sthc" type="text" name="sthc" />
+              </p>
+              <p class="form-group">
+                <label for="thc">THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.</label>
+                <input id="thc" type="text" name="thc" />
+              </p>
+
+              <p class="form-group">
+                <label for="healthcare_incident">Incident:</label>
+                <input id="healthcare_incident" type="text" name="incident" />
+              </p>
+              <div class="actions">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- END OF HEALTHCATE FORM -->
+          <!-- PSS FORM -->
+          <div class="js-operation-pss hidden">
+            <h2>PSS</h2>
+            <form action="" class="form-wrapper">
+              <h3>Today's Operations:</h3>
+              <p class="form-group">
+                <label for="pss_today_fupo">FUPO (D)</label>
+                <input id="pss_today_fupo" type="text" name="fupo" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_mha_mailroom">MHA Mailroom (D) </label>
+                <input id="pss_today_mha_mailroom" type="text" name="mha_mailroom" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_moe">MOE (N)</label>
+                <input id="pss_today_moe" type="text" name="moe" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_mom">MOM (N)</label>
+                <input id="pss_today_mom" type="text" name="mom" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_events">Events (N) </label>
+                <input id="pss_today_events" type="text" name="events" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_mlaw">MLAW (N) </label>
+                <input id="pss_today_mlaw" type="text" name="mlaw" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_plb_offsite_stores">PLB Offsite Stores (N)</label>
+                <input id="pss_today_plb_offsite_stores" type="text" name="plb_offsite_stores" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_scdf_offsite_stores">SCDF Offsite Stores (N) </label>
+                <input id="pss_today_scdf_offsite_stores" type="text" name="scdf_offsite_stores" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_courier_services">Courier Services (N)</label>
+                <input id="pss_today_courier_services" type="text" name="courier_services" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_nlb">NLB (N)</label>
+                <input id="pss_today_nlb" type="text" name="nlb" />
+              </p>
+              <p class="form-group">
+                <label for="pss_today_procurement">Procurement (N) </label>
+                <input id="pss_today_procurement" type="text" name="procurement" />
+              </p>
+              <br>
+              <h3>Key Highlight For Next Day:</h3>
+              <p class="form-group">
+                <label for="pss_nextday_fupo">FUPO (D)</label>
+                <input id="pss_nextday_fupo" type="text" name="fupo" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_mha_mailroom">MHA Mailroom (D) </label>
+                <input id="pss_nextday_mha_mailroom" type="text" name="mha_mailroom" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_moe">MOE (N)</label>
+                <input id="pss_nextday_moe" type="text" name="moe" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_mom">MOM (N)</label>
+                <input id="pss_nextday_mom" type="text" name="mom" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_events">Events (N) </label>
+                <input id="pss_nextday_events" type="text" name="events" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_mlaw">MLAW (N) </label>
+                <input id="pss_nextday_mlaw" type="text" name="mlaw" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_plb_offsite_stores">PLB Offsite Stores (N)</label>
+                <input id="pss_nextday_plb_offsite_stores" type="text" name="plb_offsite_stores" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_scdf_offsite_stores">SCDF Offsite Stores (N) </label>
+                <input id="pss_nextday_scdf_offsite_stores" type="text" name="scdf_offsite_stores" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_courier_services">Courier Services (N)</label>
+                <input id="pss_nextday_courier_services" type="text" name="courier_services" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_nlb">NLB (N)</label>
+                <input id="pss_nextday_nlb" type="text" name="nlb" />
+              </p>
+              <p class="form-group">
+                <label for="pss_nextday_procurement">Procurement (N) </label>
+                <input id="pss_nextday_procurement" type="text" name="procurement" />
+              </p>
+              <div class="actions">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- END OF PSS FORM -->
+        </div>
+        <!-- END TODAY OPERATIONS FORMS -->
+        <!-- MAINPOWER FORM -->
+        <div id="form-manpower" class="tab-content js-tab-content">
+          <form action="" class="form-wrapper">
+            <!-- MANPOWER AVIVATION FORM -->
+            <div class="js-manpower-avivation hidden">
+              <h2>Manpower Status - Aviation</h2>
+              <form action="" class="form-wrapper">
+                <h3>MPCON</h3>
+                <p class="form-group">
+                  <label for="mpcon_overall_strength">Overall Strength</label>
+                  <input type="text" id="mpcon_overall_strength" name="overall_strength">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_overall_present">Overall Present</label>
+                  <input type="text" id="mpcon_overall_present" name="overall_present">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_overall_overseas">Overall Overseas</label>
+                  <input type="text" id="mpcon_overall_overseas" name="overall_overseas">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_overall_leave">Overall Leave</label>
+                  <input type="text" id="mpcon_overall_leave" name="overall_leave">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_overall_medical">Overall Medical</label>
+                  <input type="text" id="mpcon_overall_medical" name="overall_medical">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_overall_mpcon">Overall MPCON</label>
+                  <input type="text" id="mpcon_overall_mpcon" name="overall_mpcon">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_stars_strength">STARS Strength</label>
+                  <input type="text" id="mpcon_stars_strength" name="stars_strength">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_stars_present">STARS Present</label>
+                  <input type="text" id="mpcon_stars_present" name="stars_present">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_stars_overseas">STARS Overseas</label>
+                  <input type="text" id="mpcon_stars_overseas" name="stars_overseas">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_stars_leave">STARS Leave</label>
+                  <input type="text" id="mpcon_stars_leave" name="stars_leave">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_stars_medical">STARS Medical</label>
+                  <input type="text" id="mpcon_stars_medical" name="stars_medical">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_stars_mpcon">STARS MPCON</label>
+                  <input type="text" id="mpcon_stars_mpcon" name="stars_mpcon">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_aml_strength">AML Strength</label>
+                  <input type="text" id="mpcon_aml_strength" name="aml_strength">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_aml_present">AML Present</label>
+                  <input type="text" id="mpcon_aml_present" name="aml_present">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_aml_overseas">AML Overseas</label>
+                  <input type="text" id="mpcon_aml_overseas" name="aml_overseas">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_aml_leave">AML Leave</label>
+                  <input type="text" id="mpcon_aml_leave" name="aml_leave">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_aml_medical">AML Medical</label>
+                  <input type="text" id="mpcon_aml_medical" name="aml_medical">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_aml_mpcon">AML MPCON</label>
+                  <input type="text" id="mpcon_aml_mpcon" name="aml_mpcon">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_freight_strength">Freight Strength</label>
+                  <input type="text" id="mpcon_freight_strength" name="freight_strength">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_freight_present">Freight Present</label>
+                  <input type="text" id="mpcon_freight_present" name="freight_present">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_freight_overseas">Freight Overseas</label>
+                  <input type="text" id="mpcon_freight_overseas" name="freight_overseas">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_freight_leave">Freight Leave</label>
+                  <input type="text" id="mpcon_freight_leave" name="freight_leave">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_freight_medical">Freight Medical</label>
+                  <input type="text" id="mpcon_freight_medical" name="freight_medical">
+                </p>
+                <p class="form-group">
+                  <label for="mpcon_freight_mpcon">Freight MPCON</label>
+                  <input type="text" id="mpcon_freight_mpcon" name="freight_mpcon">
+                </p>
+                <br>
+                <h3>REDCON</h3>
+                <p class="form-group">
+                  <label for="redcon_overall_fleet">Overall Fleet</label>
+                  <input type="text" id="redcon_overall_fleet" name="overall_fleet">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_overall_serviceable">Overall Serviceable</label>
+                  <input type="text" id="redcon_overall_serviceable" name="overall_serviceable">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_overall_unserviceable">Overall Unserviceable</label>
+                  <input type="text" id="redcon_overall_unserviceable" name="overall_unserviceable">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_overall_workshop">Overall Workshop</label>
+                  <input type="text" id="redcon_overall_workshop" name="overall_workshop">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_overall_redcon">Overall REDCON</label>
+                  <input type="text" id="redcon_overall_redcon" name="overall_redcon">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_stars_fleet">STARS Fleet</label>
+                  <input type="text" id="redcon_stars_fleet" name="stars_fleet">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_stars_serviceable">STARS Serviceable</label>
+                  <input type="text" id="redcon_stars_serviceable" name="stars_serviceable">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_stars_unserviceable">STARS Unserviceable</label>
+                  <input type="text" id="redcon_stars_unserviceable" name="stars_unserviceable">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_stars_workshop">STARS Workshop</label>
+                  <input type="text" id="redcon_stars_workshop" name="stars_workshop">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_stars_redcon">STARS REDCON</label>
+                  <input type="text" id="redcon_stars_redcon" name="stars_redcon">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_aml_fleet">AML Fleet</label>
+                  <input type="text" id="redcon_aml_fleet" name="aml_fleet">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_aml_serviceable">AML Serviceable</label>
+                  <input type="text" id="redcon_aml_serviceable" name="aml_serviceable">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_aml_unserviceable">AML Unserviceable</label>
+                  <input type="text" id="redcon_aml_unserviceable" name="aml_unserviceable">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_aml_workshop">AML Workshop</label>
+                  <input type="text" id="redcon_aml_workshop" name="aml_workshop">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_aml_redcon">AML REDCON</label>
+                  <input type="text" id="redcon_aml_redcon" name="aml_redcon">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_freight_fleet">Freight Fleet</label>
+                  <input type="text" id="redcon_freight_fleet" name="freight_fleet">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_freight_serviceable">Freight Serviceable</label>
+                  <input type="text" id="redcon_freight_serviceable" name="freight_serviceable">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_freight_unserviceable">Freight Unserviceable</label>
+                  <input type="text" id="redcon_freight_unserviceable" name="freight_unserviceable">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_freight_workshop">Freight Workshop</label>
+                  <input type="text" id="redcon_freight_workshop" name="freight_workshop">
+                </p>
+                <p class="form-group">
+                  <label for="redcon_freight_redco">Freight REDCO</label>
+                  <input type="text" id="redcon_freight_redco" name="freight_redco">
+                </p>
+                <div class="actions">
+                  <button type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- END OF MANPOWER AVIVATION FORM -->
+            <!-- MANPOWER STATUS - DEFENCE, PSS, HEALTHCARE FORM -->
+            <div class="js-manpower-defence hidden">
+              <h2>Manpower Status - Defence, PSS, Healthcare</h2>
+              <form action="" class="form-wrapper">
+                <h3>MPCON</h3>
+                <p class="form-group">
+                  <label for="defence_mpcon_overall_strength">Overall Strength</label>
+                  <input type="text" id="defence_mpcon_overall_strength" name="defence_overall_strength">
+                </p>
+                <p class="form-group">
+                  <label for="defence_mpcon_overall_present">Overall Present</label>
+                  <input type="text" id="defence_mpcon_overall_present" name="defence_overall_present">
+                </p>
+                <p class="form-group">
+                  <label for="defence_mpcon_overall_overseas">Overall Overseas</label>
+                  <input type="text" id="defence_mpcon_overall_overseas" name="defence_overall_overseas">
+                </p>
+                <p class="form-group">
+                  <label for="defence_mpcon_overall_leave">Overall Leave</label>
+                  <input type="text" id="defence_mpcon_overall_leave" name="defence_overall_leave">
+                </p>
+                <p class="form-group">
+                  <label for="defence_mpcon_overall_medical">Overall Medical</label>
+                  <input type="text" id="defence_mpcon_overall_medical" name="defence_overall_medical">
+                </p>
+                <p class="form-group">
+                  <label for="defence_mpcon_overall_mpcon">Overall MPCON</label>
+                  <input type="text" id="defence_mpcon_overall_mpcon" name="defence_overall_mpcon">
+                </p>
+                <br>
+
+                <h3>REDCON</h3>
+                <p class="form-group">
+                  <label for="defence_redcon_overall_fleet">Overall Fleet</label>
+                  <input type="text" id="defence_redcon_overall_fleet" name="overall_fleet">
+                </p>
+                <p class="form-group">
+                  <label for="defence_redcon_overall_serviceable">Overall Serviceable</label>
+                  <input type="text" id="defence_redcon_overall_serviceable" name="overall_serviceable">
+                </p>
+                <p class="form-group">
+                  <label for="defence_redcon_overall_unserviceable">Overall Unserviceable</label>
+                  <input type="text" id="defence_redcon_overall_unserviceable" name="overall_unserviceable">
+                </p>
+                <p class="form-group">
+                  <label for="defence_redcon_overall_workshop">Overall Workshop</label>
+                  <input type="text" id="defence_redcon_overall_workshop" name="overall_workshop">
+                </p>
+                <p class="form-group">
+                  <label for="defence_redcon_overall_redcon">Overall REDCON</label>
+                  <input type="text" id="defence_redcon_overall_redcon" name="overall_redcon">
+                </p>
+
+                <div class="actions">
+                  <button type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- END OF MANPOWER STATUS - DEFENCE, PSS, HEALTHCARE FORM -->
+          </form>
+        </div>
+        <!-- END MANPOWER FORMS -->
+      </div>
+      <br>
+    </div>
+
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.5.2/qs.min.js"></script>
+
+  <script src="./stlogs-forms.js"></script>
+</body>
+
+</html>
