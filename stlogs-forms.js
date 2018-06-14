@@ -439,6 +439,7 @@
   var app = new Vue({
     el: '#app',
     data: {
+      loaded: true,
       user: {
         loggedin: !!isLoggedIn(),
         logining: false,

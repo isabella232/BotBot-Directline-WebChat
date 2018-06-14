@@ -5,11 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
   <link href="./form.css" rel="stylesheet">
 </head>
 
 <body>
-  <main id="app">
+  <main id="app" v-if="loaded">
     <section v-if="!user.loggedin" class="login-form-wrapper js-login-form-wrapper">
       <form @submit.prevent="login" class="login-form js-login-form">
         <img src="./avatar.jpg" class="wc-login-avatar">
@@ -30,7 +31,7 @@
       </form>
     </section>
 
-    <div v-else class="js-post-login container">
+    <div v-else class="container">
       <div class="page-title">
         <h1>STLogs</h1>
         <div class="account-info">
@@ -38,198 +39,195 @@
           <button @click="logout">Logout</button>
         </div>
       </div>
-      <div class="js-tabs js-forms">
-        <ul class="tab-buttons">
-          <li>
-            <button v-bind:class="{ active: operationTabActive }" @click="showOperation">Today Ops & Next Day Highlights</button>
-          </li>
-          <li>
-            <button v-bind:class="{ active: manpowerTabActive }" @click="showManpower">Manpower</button>
-          </li>
-        </ul>
-        <!-- TODAY OPERATIONS FORMS -->
-        <div v-bind:class="[{ active: operationTabActive }, 'tab-content']">
-          <!-- AVIVATION FORM -->
-          <div v-if="isAvivation">
-            <h2>Aviation/Freight</h2>
-            <form id="today_avivation" class="form-wrapper form-2-col" @submit.prevent="doAvivationOperationSubmit">
-              <div class="block" v-for="block in avivationOperation.fields">
-                <h3>{{block.heading}}</h3>
+      <ul class="tab-buttons">
+        <li>
+          <button v-bind:class="{ active: operationTabActive }" @click="showOperation">Today Ops & Next Day Highlights</button>
+        </li>
+        <li>
+          <button v-bind:class="{ active: manpowerTabActive }" @click="showManpower">Manpower</button>
+        </li>
+      </ul>
+      <!-- TODAY OPERATIONS FORMS -->
+      <div v-if="operationTabActive">
+        <!-- AVIVATION FORM -->
+        <div v-if="isAvivation">
+          <h2>Aviation/Freight</h2>
+          <form id="today_avivation" class="form-wrapper form-2-col" @submit.prevent="doAvivationOperationSubmit">
+            <div class="block" v-for="block in avivationOperation.fields">
+              <h3>{{block.heading}}</h3>
 
-                <fieldset v-for="item in block.groups" v-if="item.title">
-                  <legend>{{item.title}}</legend>
-                  <p v-for="field in item.fields" class="form-group">
-                    <label>{{ field.label}}</label>
-                    <input type="text" autocomplete="off" v-model="avivationOperation.model[field.name]" :name="field.name" value="" />
-                  </p>
-                </fieldset>
-                <p v-for="item in block.groups" v-if="!item.title" class="form-group">
-                  <label>{{ item.label}}</label>
-                  <input type="text" autocomplete="off" v-model="avivationOperation.model[item.name]" :name="item.name" value="" />
+              <fieldset v-for="item in block.groups" v-if="item.title">
+                <legend>{{item.title}}</legend>
+                <p v-for="field in item.fields" class="form-group">
+                  <label>{{ field.label}}</label>
+                  <input type="text" autocomplete="off" v-model="avivationOperation.model[field.name]" :name="field.name" value="" />
                 </p>
-              </div>
+              </fieldset>
+              <p v-for="item in block.groups" v-if="!item.title" class="form-group">
+                <label>{{ item.label}}</label>
+                <input type="text" autocomplete="off" v-model="avivationOperation.model[item.name]" :name="item.name" value="" />
+              </p>
+            </div>
 
-              <div class="actions">
-                <button :disabled="avivationOperation.submitting" class="btn-primary" type="submit">{{avivationOperationFormSubmitText}}</button>
-              </div>
-            </form>
-          </div>
-          <!-- END OF AVIVATION FORM -->
-          <!-- DEFENCE FORM -->
-          <div v-if="isDefence">
-            <h2>Defence</h2>
-            <form action="" class="form-wrapper" @submit.prevent="doDefenceOperationSubmit">
-              <template v-for="block in defenceOperation.fields">
-                <h3>{{block.heading}}</h3>
-
-                <fieldset v-for="item in block.groups" v-if="item.title">
-                  <legend>{{item.title}}</legend>
-                  <p v-for="field in item.fields" class="form-group">
-                    <label>{{ field.label}}</label>
-                    <input type="text" autocomplete="off" v-model="defenceOperation.model[field.name]" :name="field.name" value="" />
-                  </p>
-                </fieldset>
-                <p v-for="item in block.groups" v-if="!item.title" class="form-group">
-                  <label>{{ item.label}}</label>
-                  <input type="text" autocomplete="off" v-model="defenceOperation.model[item.name]" :name="item.name" value="" />
-                </p>
-              </template>
-
-              <div class="actions">
-                <button :disabled="defenceOperation.submitting" class="btn-primary" type="submit">{{defenceOperationFormSubmitText}}</button>
-              </div>
-            </form>
-          </div>
-          <!-- END OF DEFENCE FORM -->
-          <!-- HEALTHCATE FORM -->
-          <div v-if="isHealthcare">
-            <h2>Healthcare</h2>
-            <form action="" class="form-wrapper" @submit.prevent="doHealthcareOperationSubmit">
-              <template v-for="block in healthcareOperation.fields">
-                <h3>{{block.heading}}</h3>
-
-                <fieldset v-for="item in block.groups" v-if="item.title">
-                  <legend>{{item.title}}</legend>
-                  <p v-for="field in item.fields" class="form-group">
-                    <label>{{ field.label}}</label>
-                    <input type="text" autocomplete="off" v-model="healthcareOperation.model[field.name]" :name="field.name" value="" />
-                  </p>
-                </fieldset>
-                <p v-for="item in block.groups" v-if="!item.title" class="form-group">
-                  <label>{{ item.label}}</label>
-                  <input type="text" autocomplete="off" v-model="healthcareOperation.model[item.name]" :name="item.name" value="" />
-                </p>
-              </template>
-
-              <div class="actions">
-                <button :disabled="healthcareOperation.submitting" class="btn-primary" type="submit">{{healthcareOperationFormSubmitText}}</button>
-              </div>
-            </form>
-          </div>
-          <!-- END OF HEALTHCATE FORM -->
-          <!-- PSS FORM -->
-          <div v-if="isPSS">
-            <h2>PSS</h2>
-            <form action="" class="form-wrapper" @submit.prevent="doPssOperationSubmit">
-              <div class="block" v-for="block in pssOperation.fields">
-                <h3>{{block.heading}}</h3>
-
-                <fieldset v-for="item in block.groups" v-if="item.title">
-                  <legend>{{item.title}}</legend>
-                  <p v-for="field in item.fields" class="form-group">
-                    <label>{{ field.label}}</label>
-                    <input type="text" autocomplete="off" v-model="pssOperation.model[field.name]" :name="field.name" value="" />
-                  </p>
-                </fieldset>
-                <p v-for="item in block.groups" v-if="!item.title" class="form-group">
-                  <label>{{ item.label}}</label>
-                  <input type="text" autocomplete="off" v-model="pssOperation.model[item.name]" :name="item.name" value="" />
-                </p>
-              </div>
-
-              <div class="actions">
-                <button :disabled="pssOperation.submitting" class="btn-primary" type="submit">{{pssOperationFormSubmitText}}</button>
-              </div>
-            </form>
-          </div>
-          <!-- END OF PSS FORM -->
+            <div class="actions">
+              <button :disabled="avivationOperation.submitting" class="btn-primary" type="submit">{{avivationOperationFormSubmitText}}</button>
+            </div>
+          </form>
         </div>
-        <!-- END TODAY OPERATIONS FORMS -->
-        <!-- MAINPOWER FORM -->
-        <div v-bind:class="[{ active: manpowerTabActive }, 'tab-content']">
-          <!-- MANPOWER AVIVATION FORM -->
-          <div v-if="isAvivation">
-            <!-- <h2>Manpower Status - Aviation</h2> -->
-            <form class="form-wrapper" @submit.prevent="doAvivationManpowerSubmit">
-              <template v-for="block in avivationManpower.fields">
-                <h2>{{block.heading}}</h2>
+        <!-- END OF AVIVATION FORM -->
+        <!-- DEFENCE FORM -->
+        <div v-if="isDefence">
+          <h2>Defence</h2>
+          <form action="" class="form-wrapper" @submit.prevent="doDefenceOperationSubmit">
+            <template v-for="block in defenceOperation.fields">
+              <h3>{{block.heading}}</h3>
 
-                <p v-for="item in block.groups" class="form-group">
-                  <label>{{ item.label}}</label>
-                  <input type="text" autocomplete="off" v-model="avivationManpower.model[item.name]" :name="item.name" />
+              <fieldset v-for="item in block.groups" v-if="item.title">
+                <legend>{{item.title}}</legend>
+                <p v-for="field in item.fields" class="form-group">
+                  <label>{{ field.label}}</label>
+                  <input type="text" autocomplete="off" v-model="defenceOperation.model[field.name]" :name="field.name" value="" />
                 </p>
-              </template>
-              <div class="actions">
-                <button :disabled="avivationManpower.submitting" class="btn-primary" type="submit">{{avivationManpowerFormSubmitText}}</button>
-              </div>
-            </form>
+              </fieldset>
+              <p v-for="item in block.groups" v-if="!item.title" class="form-group">
+                <label>{{ item.label}}</label>
+                <input type="text" autocomplete="off" v-model="defenceOperation.model[item.name]" :name="item.name" value="" />
+              </p>
+            </template>
 
-            <form class="form-wrapper" @submit.prevent="doAvivationRedconSubmit">
-              <template v-for="block in avivationRedcon.fields">
-                <h2>{{block.heading}}</h2>
-
-                <p v-for="item in block.groups" class="form-group">
-                  <label>{{ item.label}}</label>
-                  <input type="text" autocomplete="off" v-model="avivationRedcon.model[item.name]" :name="item.name" />
-                </p>
-              </template>
-              <div class="actions">
-                <button :disabled="avivationRedcon.submitting" class="btn-primary" type="submit">{{avivationRedconFormSubmitText}}</button>
-              </div>
-            </form>
-          </div>
-          <!-- END OF MANPOWER AVIVATION FORM -->
-          <!-- MANPOWER STATUS - DEFENCE, PSS, HEALTHCARE FORM -->
-          <div v-if="isDefence || isHealthcare || isPSS">
-            <form class="form-wrapper" @submit.prevent="doDefenceManpowerSubmit">
-              <template v-for="block in defenceManpower.fields">
-                <h2>{{block.heading}}</h2>
-
-                <p v-for="item in block.groups" class="form-group">
-                  <label>{{ item.label}}</label>
-                  <input type="text" autocomplete="off" v-model="defenceManpower.model[item.name]" :name="item.name" />
-                </p>
-              </template>
-              <div class="actions">
-                <button :disabled="defenceManpower.submitting" class="btn-primary" type="submit">{{defenceManpowerFormSubmitText}}</button>
-              </div>
-            </form>
-
-            <form class="form-wrapper" @submit.prevent="doDefenceRedconSubmit">
-              <template v-for="block in defenceRedcon.fields">
-                <h2>{{block.heading}}</h2>
-
-                <p v-for="item in block.groups" class="form-group">
-                  <label>{{ item.label}}</label>
-                  <input type="text" autocomplete="off" v-model="defenceRedcon.model[item.name]" :name="item.name" />
-                </p>
-              </template>
-              <div class="actions">
-                <button :disabled="defenceRedcon.submitting" class="btn-primary" type="submit">{{defenceRedconFormSubmitText}}</button>
-              </div>
-            </form>
-
-          </div>
-          <!-- END OF MANPOWER STATUS - DEFENCE, PSS, HEALTHCARE FORM -->
+            <div class="actions">
+              <button :disabled="defenceOperation.submitting" class="btn-primary" type="submit">{{defenceOperationFormSubmitText}}</button>
+            </div>
+          </form>
         </div>
-        <!-- END MANPOWER FORMS -->
+        <!-- END OF DEFENCE FORM -->
+        <!-- HEALTHCATE FORM -->
+        <div v-if="isHealthcare">
+          <h2>Healthcare</h2>
+          <form action="" class="form-wrapper" @submit.prevent="doHealthcareOperationSubmit">
+            <template v-for="block in healthcareOperation.fields">
+              <h3>{{block.heading}}</h3>
+
+              <fieldset v-for="item in block.groups" v-if="item.title">
+                <legend>{{item.title}}</legend>
+                <p v-for="field in item.fields" class="form-group">
+                  <label>{{ field.label}}</label>
+                  <input type="text" autocomplete="off" v-model="healthcareOperation.model[field.name]" :name="field.name" value="" />
+                </p>
+              </fieldset>
+              <p v-for="item in block.groups" v-if="!item.title" class="form-group">
+                <label>{{ item.label}}</label>
+                <input type="text" autocomplete="off" v-model="healthcareOperation.model[item.name]" :name="item.name" value="" />
+              </p>
+            </template>
+
+            <div class="actions">
+              <button :disabled="healthcareOperation.submitting" class="btn-primary" type="submit">{{healthcareOperationFormSubmitText}}</button>
+            </div>
+          </form>
+        </div>
+        <!-- END OF HEALTHCATE FORM -->
+        <!-- PSS FORM -->
+        <div v-if="isPSS">
+          <h2>PSS</h2>
+          <form action="" class="form-wrapper" @submit.prevent="doPssOperationSubmit">
+            <div class="block" v-for="block in pssOperation.fields">
+              <h3>{{block.heading}}</h3>
+
+              <fieldset v-for="item in block.groups" v-if="item.title">
+                <legend>{{item.title}}</legend>
+                <p v-for="field in item.fields" class="form-group">
+                  <label>{{ field.label}}</label>
+                  <input type="text" autocomplete="off" v-model="pssOperation.model[field.name]" :name="field.name" value="" />
+                </p>
+              </fieldset>
+              <p v-for="item in block.groups" v-if="!item.title" class="form-group">
+                <label>{{ item.label}}</label>
+                <input type="text" autocomplete="off" v-model="pssOperation.model[item.name]" :name="item.name" value="" />
+              </p>
+            </div>
+
+            <div class="actions">
+              <button :disabled="pssOperation.submitting" class="btn-primary" type="submit">{{pssOperationFormSubmitText}}</button>
+            </div>
+          </form>
+        </div>
+        <!-- END OF PSS FORM -->
       </div>
+      <!-- END TODAY OPERATIONS FORMS -->
+      <!-- MAINPOWER FORM -->
+      <div v-if="manpowerTabActive">
+        <!-- MANPOWER AVIVATION FORM -->
+        <div v-if="isAvivation">
+          <!-- <h2>Manpower Status - Aviation</h2> -->
+          <form class="form-wrapper" @submit.prevent="doAvivationManpowerSubmit">
+            <template v-for="block in avivationManpower.fields">
+              <h2>{{block.heading}}</h2>
+
+              <p v-for="item in block.groups" class="form-group">
+                <label>{{ item.label}}</label>
+                <input type="text" autocomplete="off" v-model="avivationManpower.model[item.name]" :name="item.name" />
+              </p>
+            </template>
+            <div class="actions">
+              <button :disabled="avivationManpower.submitting" class="btn-primary" type="submit">{{avivationManpowerFormSubmitText}}</button>
+            </div>
+          </form>
+
+          <form class="form-wrapper" @submit.prevent="doAvivationRedconSubmit">
+            <template v-for="block in avivationRedcon.fields">
+              <h2>{{block.heading}}</h2>
+
+              <p v-for="item in block.groups" class="form-group">
+                <label>{{ item.label}}</label>
+                <input type="text" autocomplete="off" v-model="avivationRedcon.model[item.name]" :name="item.name" />
+              </p>
+            </template>
+            <div class="actions">
+              <button :disabled="avivationRedcon.submitting" class="btn-primary" type="submit">{{avivationRedconFormSubmitText}}</button>
+            </div>
+          </form>
+        </div>
+        <!-- END OF MANPOWER AVIVATION FORM -->
+        <!-- MANPOWER STATUS - DEFENCE, PSS, HEALTHCARE FORM -->
+        <div v-if="isDefence || isHealthcare || isPSS">
+          <form class="form-wrapper" @submit.prevent="doDefenceManpowerSubmit">
+            <template v-for="block in defenceManpower.fields">
+              <h2>{{block.heading}}</h2>
+
+              <p v-for="item in block.groups" class="form-group">
+                <label>{{ item.label}}</label>
+                <input type="text" autocomplete="off" v-model="defenceManpower.model[item.name]" :name="item.name" />
+              </p>
+            </template>
+            <div class="actions">
+              <button :disabled="defenceManpower.submitting" class="btn-primary" type="submit">{{defenceManpowerFormSubmitText}}</button>
+            </div>
+          </form>
+
+          <form class="form-wrapper" @submit.prevent="doDefenceRedconSubmit">
+            <template v-for="block in defenceRedcon.fields">
+              <h2>{{block.heading}}</h2>
+
+              <p v-for="item in block.groups" class="form-group">
+                <label>{{ item.label}}</label>
+                <input type="text" autocomplete="off" v-model="defenceRedcon.model[item.name]" :name="item.name" />
+              </p>
+            </template>
+            <div class="actions">
+              <button :disabled="defenceRedcon.submitting" class="btn-primary" type="submit">{{defenceRedconFormSubmitText}}</button>
+            </div>
+          </form>
+
+        </div>
+        <!-- END OF MANPOWER STATUS - DEFENCE, PSS, HEALTHCARE FORM -->
+      </div>
+      <!-- END MANPOWER FORMS -->
       <br>
     </div>
 
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
   <script src="./stlogs-forms.min.js"></script>
