@@ -14,7 +14,7 @@
     AVIVATION: 'STLogsAviation',
     DEFENCE: 'STLogsDefence',
     HEALTHCARE: 'STLogsHealthcare',
-    PSS: 'PSS'
+    PSS: 'STLogsPSS'
   };
 
   var AVIVATION_OPERATION_FORM = [
@@ -237,7 +237,7 @@
   ];
   var DEFENCE_MANPOWER_FORM = [
     {
-      heading: 'Manpower Status - Defence',
+      heading: 'Manpower Status',
       groups: [
         { label: 'Mpcon', name: 'Mpcon' },
         { label: 'Impact', name: 'Impact' },
@@ -287,36 +287,6 @@
       ]
     }
   ];
-
-  var HEALTHCARE_MANPOWER_FORM = [
-    {
-      heading: 'Manpower Status - Defence',
-      groups: [
-        { label: 'Mpcon', name: 'Mpcon' },
-        { label: 'Impact', name: 'Impact' },
-        { label: 'Overall Strength', name: 'OverallStrength' },
-        { label: 'Overall Present', name: 'OverallPresent' },
-        { label: 'Overall Overseas', name: 'OverallOverseas' },
-        { label: 'Overall Leave', name: 'OverallLeave' },
-        { label: 'Overall Medical', name: 'OverallMedical' },
-        { label: 'Overall Mpcon', name: 'OverallMpcon' }
-      ]
-    }
-  ];
-  var HEALTHCARE_REDCON_FORM = [
-    {
-      heading: 'REDCON',
-      groups: [
-        { label: 'Redcon', name: 'Redcon' },
-        { label: 'Impact', name: 'Impact' },
-        { label: 'Overall Fleet', name: 'OverallFleet' },
-        { label: 'Overall Serviceable', name: 'OverallServiceable' },
-        { label: 'Overall Unserviceable', name: 'OverallUnserviceable' },
-        { label: 'Overall Workshop', name: 'OverallWorkshop' },
-        { label: 'Overall Redcon', name: 'OverallRedcon' }
-      ]
-    }
-  ];
   var HEALTHCARE_OPERATION_FORM = [
     {
       heading: "Today's Operations:",
@@ -337,6 +307,106 @@
       ]
     }
   ];
+  var PSS_OPERATION_FORM = [
+    {
+      heading: "Today's Operations:",
+      groups: [
+        {
+          label: '>FUPO (D)',
+          name: '>FUPO (D)'
+        },
+        {
+          label: 'MHA Mailroom (D) ',
+          name: 'MHA Mailroom (D) '
+        },
+        {
+          label: 'MOE (N)',
+          name: 'MOE (N)t'
+        },
+        {
+          label: 'MOM (N)',
+          name: 'MOM (N)'
+        },
+        {
+          label: 'Events (N) ',
+          name: 'Events (N) '
+        },
+        {
+          label: 'MLAW (N) ',
+          name: 'MLAW (N) '
+        },
+        {
+          label: 'PLB Offsite Stores (N)',
+          name: 'PLB Offsite Stores (N)'
+        },
+        {
+          label: 'SCDF Offsite Stores (N) ',
+          name: 'SCDF Offsite Stores (N) '
+        },
+        {
+          label: 'Courier Services (N)',
+          name: 'Courier Services (N)'
+        },
+        {
+          label: 'NLB (N)',
+          name: 'NLB (N)'
+        },
+        {
+          label: 'Procurement (N) ',
+          name: 'Procurement (N) '
+        }
+      ]
+    },
+    {
+      heading: 'Key Highlight For Next Day:',
+      groups: [
+        {
+          label: '>FUPO (D)',
+          name: '>FUPO (D)'
+        },
+        {
+          label: 'MHA Mailroom (D) ',
+          name: 'MHA Mailroom (D) '
+        },
+        {
+          label: 'MOE (N)',
+          name: 'MOE (N)t'
+        },
+        {
+          label: 'MOM (N)',
+          name: 'MOM (N)'
+        },
+        {
+          label: 'Events (N) ',
+          name: 'Events (N) '
+        },
+        {
+          label: 'MLAW (N) ',
+          name: 'MLAW (N) '
+        },
+        {
+          label: 'PLB Offsite Stores (N)',
+          name: 'PLB Offsite Stores (N)'
+        },
+        {
+          label: 'SCDF Offsite Stores (N) ',
+          name: 'SCDF Offsite Stores (N) '
+        },
+        {
+          label: 'Courier Services (N)',
+          name: 'Courier Services (N)'
+        },
+        {
+          label: 'NLB (N)',
+          name: 'NLB (N)'
+        },
+        {
+          label: 'Procurement (N) ',
+          name: 'Procurement (N) '
+        }
+      ]
+    }
+  ];
 
   var authStr = 'Bearer ' + localStorage.getItem(TOKEN_KEY);
 
@@ -350,8 +420,8 @@
         // healthcare@stlogs.com / Healthcare412$
         // pss@stlogs.com / Pss126$
         // aviation@stlogs.com / Aviation536$
-        username: 'healthcare@stlogs.com',
-        password: 'Healthcare412$',
+        username: 'aviation@stlogs.com',
+        password: 'Aviation536$',
         loginBtnText: 'Login',
         userDepartment: '',
         token: ''
@@ -459,33 +529,6 @@
           Incident: ''
         }
       },
-      healthcareManpower: {
-        submitting: false,
-        fields: HEALTHCARE_MANPOWER_FORM,
-        model: {
-          Mpcon: '',
-          Impact: '',
-          OverallStrength: '',
-          OverallPresent: '',
-          OverallOverseas: '',
-          OverallLeave: '',
-          OverallMedical: '',
-          OverallMpcon: ''
-        }
-      },
-      healthcareRedcon: {
-        submitting: false,
-        fields: HEALTHCARE_REDCON_FORM,
-        model: {
-          Redcon: '',
-          Impact: '',
-          OverallFleet: '',
-          OverallServiceable: '',
-          OverallUnserviceable: '',
-          OverallWorkshop: '',
-          OverallRedcon: ''
-        }
-      },
       healthcareOperation: {
         submitting: false,
         fields: HEALTHCARE_OPERATION_FORM,
@@ -494,6 +537,11 @@
           Thc: '',
           Incident: ''
         }
+      },
+      pssOperation: {
+        submitting: false,
+        fields: PSS_OPERATION_FORM,
+        model: {}
       }
     },
     computed: {
@@ -533,14 +581,11 @@
       defenceOperationFormSubmitText: function() {
         return this.defenceOperation.submitting ? 'Submitting...' : 'Submit';
       },
-      healthcareManpowerFormSubmitText: function() {
-        return this.healthcareManpower.submitting ? 'Submitting...' : 'Submit';
-      },
-      healthcareRedconFormSubmitText: function() {
-        return this.healthcareRedcon.submitting ? 'Submitting...' : 'Submit';
-      },
       healthcareOperationFormSubmitText: function() {
         return this.healthcareOperation.submitting ? 'Submitting...' : 'Submit';
+      },
+      pssOperationFormSubmitText: function() {
+        return this.pssOperation.submitting ? 'Submitting...' : 'Submit';
       }
     },
     methods: {
@@ -752,6 +797,27 @@
           })
           .catch(function(error) {
             self.healthcareOperation.submitting = false;
+            console.log('error', error);
+          });
+      },
+      doPssOperationSubmit: function() {
+        var self = this;
+        self.pssOperation.submitting = true;
+
+        axios({
+          url: API + '/api/form/mpcon',
+          method: 'POST',
+          headers: {
+            Authorization: authStr
+          },
+          data: this.pssOperation.model
+        })
+          .then(function(resp) {
+            self.pssOperation.submitting = false;
+            console.log('data', resp);
+          })
+          .catch(function(error) {
+            self.pssOperation.submitting = false;
             console.log('error', error);
           });
       }

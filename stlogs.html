@@ -45,8 +45,8 @@
           <!-- AVIVATION FORM -->
           <div v-if="isAvivation">
             <h2>Aviation/Freight</h2>
-            <form id="today_avivation" action="" class="form-wrapper" @submit="doAvivationOperationSubmit">
-              <template v-for="block in avivationOperation.fields">
+            <form id="today_avivation" class="form-wrapper form-2-col" @submit="doAvivationOperationSubmit">
+              <div class="block" v-for="block in avivationOperation.fields">
                 <h3>{{block.heading}}</h3>
 
                 <fieldset v-for="item in block.groups" v-if="item.title">
@@ -60,7 +60,7 @@
                   <label>{{ item.label}}</label>
                   <input type="text" v-model="avivationOperation.model[item.name]" :name="item.name" value="" />
                 </p>
-              </template>
+              </div>
 
               <div class="actions">
                 <button type="submit">Submit</button>
@@ -123,100 +123,25 @@
           <!-- PSS FORM -->
           <div v-if="isPSS">
             <h2>PSS</h2>
-            <form action="" class="form-wrapper">
-              <h3>Today's Operations:</h3>
-              <p class="form-group">
-                <label for="pss_today_fupo">FUPO (D)</label>
-                <input id="pss_today_fupo" type="text" name="fupo" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_mha_mailroom">MHA Mailroom (D) </label>
-                <input id="pss_today_mha_mailroom" type="text" name="mha_mailroom" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_moe">MOE (N)</label>
-                <input id="pss_today_moe" type="text" name="moe" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_mom">MOM (N)</label>
-                <input id="pss_today_mom" type="text" name="mom" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_events">Events (N) </label>
-                <input id="pss_today_events" type="text" name="events" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_mlaw">MLAW (N) </label>
-                <input id="pss_today_mlaw" type="text" name="mlaw" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_plb_offsite_stores">PLB Offsite Stores (N)</label>
-                <input id="pss_today_plb_offsite_stores" type="text" name="plb_offsite_stores" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_scdf_offsite_stores">SCDF Offsite Stores (N) </label>
-                <input id="pss_today_scdf_offsite_stores" type="text" name="scdf_offsite_stores" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_courier_services">Courier Services (N)</label>
-                <input id="pss_today_courier_services" type="text" name="courier_services" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_nlb">NLB (N)</label>
-                <input id="pss_today_nlb" type="text" name="nlb" />
-              </p>
-              <p class="form-group">
-                <label for="pss_today_procurement">Procurement (N) </label>
-                <input id="pss_today_procurement" type="text" name="procurement" />
-              </p>
-              <br>
-              <h3>Key Highlight For Next Day:</h3>
-              <p class="form-group">
-                <label for="pss_nextday_fupo">FUPO (D)</label>
-                <input id="pss_nextday_fupo" type="text" name="fupo" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_mha_mailroom">MHA Mailroom (D) </label>
-                <input id="pss_nextday_mha_mailroom" type="text" name="mha_mailroom" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_moe">MOE (N)</label>
-                <input id="pss_nextday_moe" type="text" name="moe" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_mom">MOM (N)</label>
-                <input id="pss_nextday_mom" type="text" name="mom" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_events">Events (N) </label>
-                <input id="pss_nextday_events" type="text" name="events" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_mlaw">MLAW (N) </label>
-                <input id="pss_nextday_mlaw" type="text" name="mlaw" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_plb_offsite_stores">PLB Offsite Stores (N)</label>
-                <input id="pss_nextday_plb_offsite_stores" type="text" name="plb_offsite_stores" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_scdf_offsite_stores">SCDF Offsite Stores (N) </label>
-                <input id="pss_nextday_scdf_offsite_stores" type="text" name="scdf_offsite_stores" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_courier_services">Courier Services (N)</label>
-                <input id="pss_nextday_courier_services" type="text" name="courier_services" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_nlb">NLB (N)</label>
-                <input id="pss_nextday_nlb" type="text" name="nlb" />
-              </p>
-              <p class="form-group">
-                <label for="pss_nextday_procurement">Procurement (N) </label>
-                <input id="pss_nextday_procurement" type="text" name="procurement" />
-              </p>
+            <form action="" class="form-wrapper" @submit.prevent="doPssOperationSubmit">
+              <div class="block" v-for="block in pssOperation.fields">
+                <h3>{{block.heading}}</h3>
+
+                <fieldset v-for="item in block.groups" v-if="item.title">
+                  <legend>{{item.title}}</legend>
+                  <p v-for="field in item.fields" class="form-group">
+                    <label>{{ field.label}}</label>
+                    <input type="text" v-model="pssOperation.model[field.name]" :name="field.name" value="" />
+                  </p>
+                </fieldset>
+                <p v-for="item in block.groups" v-if="!item.title" class="form-group">
+                  <label>{{ item.label}}</label>
+                  <input type="text" v-model="pssOperation.model[item.name]" :name="item.name" value="" />
+                </p>
+              </div>
+
               <div class="actions">
-                <button type="submit">Submit</button>
+                <button :disabled="pssOperation.submitting" type="submit">{{pssOperationFormSubmitText}}</button>
               </div>
             </form>
           </div>
