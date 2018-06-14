@@ -97,23 +97,25 @@
           <!-- HEALTHCATE FORM -->
           <div v-if="isHealthcare">
             <h2>Healthcare</h2>
-            <form action="" class="form-wrapper">
-              <h3>Today's Operations:</h3>
-              <p class="form-group">
-                <label for="sthc">STHC: All delivery completed.</label>
-                <input id="sthc" type="text" name="sthc" />
-              </p>
-              <p class="form-group">
-                <label for="thc">THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.</label>
-                <input id="thc" type="text" name="thc" />
-              </p>
+            <form action="" class="form-wrapper" @submit.prevent="doHealthcareOperationSubmit">
+              <template v-for="block in healthcareOperation.fields">
+                <h3>{{block.heading}}</h3>
 
-              <p class="form-group">
-                <label for="healthcare_incident">Incident:</label>
-                <input id="healthcare_incident" type="text" name="incident" />
-              </p>
+                <fieldset v-for="item in block.groups" v-if="item.title">
+                  <legend>{{item.title}}</legend>
+                  <p v-for="field in item.fields" class="form-group">
+                    <label>{{ field.label}}</label>
+                    <input type="text" v-model="healthcareOperation.model[field.name]" :name="field.name" value="" />
+                  </p>
+                </fieldset>
+                <p v-for="item in block.groups" v-if="!item.title" class="form-group">
+                  <label>{{ item.label}}</label>
+                  <input type="text" v-model="healthcareOperation.model[item.name]" :name="item.name" value="" />
+                </p>
+              </template>
+
               <div class="actions">
-                <button type="submit">Submit</button>
+                <button :disabled="healthcareOperation.submitting" type="submit">{{healthcareOperationFormSubmitText}}</button>
               </div>
             </form>
           </div>

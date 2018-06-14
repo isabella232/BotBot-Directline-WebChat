@@ -13,7 +13,7 @@
   var DEPARTMENTS = {
     AVIVATION: 'STLogsAviation',
     DEFENCE: 'STLogsDefence',
-    HEALTHCARE: 'HEALTHCARE',
+    HEALTHCARE: 'STLogsHealthcare',
     PSS: 'PSS'
   };
 
@@ -288,6 +288,56 @@
     }
   ];
 
+  var HEALTHCARE_MANPOWER_FORM = [
+    {
+      heading: 'Manpower Status - Defence',
+      groups: [
+        { label: 'Mpcon', name: 'Mpcon' },
+        { label: 'Impact', name: 'Impact' },
+        { label: 'Overall Strength', name: 'OverallStrength' },
+        { label: 'Overall Present', name: 'OverallPresent' },
+        { label: 'Overall Overseas', name: 'OverallOverseas' },
+        { label: 'Overall Leave', name: 'OverallLeave' },
+        { label: 'Overall Medical', name: 'OverallMedical' },
+        { label: 'Overall Mpcon', name: 'OverallMpcon' }
+      ]
+    }
+  ];
+  var HEALTHCARE_REDCON_FORM = [
+    {
+      heading: 'REDCON',
+      groups: [
+        { label: 'Redcon', name: 'Redcon' },
+        { label: 'Impact', name: 'Impact' },
+        { label: 'Overall Fleet', name: 'OverallFleet' },
+        { label: 'Overall Serviceable', name: 'OverallServiceable' },
+        { label: 'Overall Unserviceable', name: 'OverallUnserviceable' },
+        { label: 'Overall Workshop', name: 'OverallWorkshop' },
+        { label: 'Overall Redcon', name: 'OverallRedcon' }
+      ]
+    }
+  ];
+  var HEALTHCARE_OPERATION_FORM = [
+    {
+      heading: "Today's Operations:",
+      groups: [
+        {
+          label: 'STHC: All delivery completed.',
+          name: 'Sthc'
+        },
+        {
+          label:
+            'THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.',
+          name: 'Thc'
+        },
+        {
+          label: 'Incident:',
+          name: 'Incident'
+        }
+      ]
+    }
+  ];
+
   var authStr = 'Bearer ' + localStorage.getItem(TOKEN_KEY);
 
   var app = new Vue({
@@ -300,8 +350,8 @@
         // healthcare@stlogs.com / Healthcare412$
         // pss@stlogs.com / Pss126$
         // aviation@stlogs.com / Aviation536$
-        username: 'defence@stlogs.com',
-        password: 'Defence210$',
+        username: 'healthcare@stlogs.com',
+        password: 'Healthcare412$',
         loginBtnText: 'Login',
         userDepartment: '',
         token: ''
@@ -408,6 +458,42 @@
           Supported: '',
           Incident: ''
         }
+      },
+      healthcareManpower: {
+        submitting: false,
+        fields: HEALTHCARE_MANPOWER_FORM,
+        model: {
+          Mpcon: '',
+          Impact: '',
+          OverallStrength: '',
+          OverallPresent: '',
+          OverallOverseas: '',
+          OverallLeave: '',
+          OverallMedical: '',
+          OverallMpcon: ''
+        }
+      },
+      healthcareRedcon: {
+        submitting: false,
+        fields: HEALTHCARE_REDCON_FORM,
+        model: {
+          Redcon: '',
+          Impact: '',
+          OverallFleet: '',
+          OverallServiceable: '',
+          OverallUnserviceable: '',
+          OverallWorkshop: '',
+          OverallRedcon: ''
+        }
+      },
+      healthcareOperation: {
+        submitting: false,
+        fields: HEALTHCARE_OPERATION_FORM,
+        model: {
+          Sthc: '',
+          Thc: '',
+          Incident: ''
+        }
       }
     },
     computed: {
@@ -446,6 +532,15 @@
       },
       defenceOperationFormSubmitText: function() {
         return this.defenceOperation.submitting ? 'Submitting...' : 'Submit';
+      },
+      healthcareManpowerFormSubmitText: function() {
+        return this.healthcareManpower.submitting ? 'Submitting...' : 'Submit';
+      },
+      healthcareRedconFormSubmitText: function() {
+        return this.healthcareRedcon.submitting ? 'Submitting...' : 'Submit';
+      },
+      healthcareOperationFormSubmitText: function() {
+        return this.healthcareOperation.submitting ? 'Submitting...' : 'Submit';
       }
     },
     methods: {
@@ -594,6 +689,69 @@
           })
           .catch(function(error) {
             self.defenceOperation.submitting = false;
+            console.log('error', error);
+          });
+      },
+      doHealthcareRedconSubmit: function() {
+        var self = this;
+        self.healthcareRedcon.submitting = true;
+
+        axios({
+          url: API + '/api/form/redcon',
+          method: 'POST',
+          headers: {
+            Authorization: authStr
+          },
+          data: this.healthcareRedcon.model
+        })
+          .then(function(resp) {
+            self.healthcareRedcon.submitting = false;
+            console.log('data', resp);
+          })
+          .catch(function(error) {
+            self.healthcareRedcon.submitting = false;
+            console.log('error', error);
+          });
+      },
+      doHealthcareManpowerSubmit: function() {
+        var self = this;
+        self.healthcareManpower.submitting = true;
+
+        axios({
+          url: API + '/api/form/mpcon',
+          method: 'POST',
+          headers: {
+            Authorization: authStr
+          },
+          data: this.healthcareManpower.model
+        })
+          .then(function(resp) {
+            self.healthcareManpower.submitting = false;
+            console.log('data', resp);
+          })
+          .catch(function(error) {
+            self.healthcareManpower.submitting = false;
+            console.log('error', error);
+          });
+      },
+      doHealthcareOperationSubmit: function() {
+        var self = this;
+        self.healthcareOperation.submitting = true;
+
+        axios({
+          url: API + '/api/form/mpcon',
+          method: 'POST',
+          headers: {
+            Authorization: authStr
+          },
+          data: this.healthcareOperation.model
+        })
+          .then(function(resp) {
+            self.healthcareOperation.submitting = false;
+            console.log('data', resp);
+          })
+          .catch(function(error) {
+            self.healthcareOperation.submitting = false;
             console.log('error', error);
           });
       }
