@@ -71,26 +71,25 @@
           <!-- DEFENCE FORM -->
           <div v-if="isDefence">
             <h2>Defence</h2>
-            <form action="" class="form-wrapper">
-              <h3>Today's Operations:</h3>
-              <p class="form-group">
-                <label for="army_delivery">Army Delivery (Milkrun): 105 Pallets deliver across Units.</label>
-                <input id="army_delivery" type="text" name="army_delivery" />
-              </p>
-              <p class="form-group">
-                <label for="emart_delivery">E-mart Delivery: Delivery Date Order for 25 April 18 – All orders completed.</label>
-                <input id="emart_delivery" type="text" name="emart_delivery" />
-              </p>
-              <p class="form-group">
-                <label for="supported">Supported:</label>
-                <input id="supported" type="text" name="supported" />
-              </p>
-              <p class="form-group">
-                <label for="defence_incident">Incident:</label>
-                <input id="defence_incident" type="text" name="incident" />
-              </p>
+            <form action="" class="form-wrapper" @submit.prevent="doDefenceOperationSubmit">
+              <template v-for="block in defenceOperation.fields">
+                <h3>{{block.heading}}</h3>
+
+                <fieldset v-for="item in block.groups" v-if="item.title">
+                  <legend>{{item.title}}</legend>
+                  <p v-for="field in item.fields" class="form-group">
+                    <label>{{ field.label}}</label>
+                    <input type="text" v-model="defenceOperation.model[field.name]" :name="field.name" value="" />
+                  </p>
+                </fieldset>
+                <p v-for="item in block.groups" v-if="!item.title" class="form-group">
+                  <label>{{ item.label}}</label>
+                  <input type="text" v-model="defenceOperation.model[item.name]" :name="item.name" value="" />
+                </p>
+              </template>
+
               <div class="actions">
-                <button type="submit">Submit</button>
+                <button :disabled="defenceOperation.submitting" type="submit">{{defenceOperationFormSubmitText}}</button>
               </div>
             </form>
           </div>
@@ -258,61 +257,34 @@
           <!-- END OF MANPOWER AVIVATION FORM -->
           <!-- MANPOWER STATUS - DEFENCE, PSS, HEALTHCARE FORM -->
           <div v-if="isDefence || isHealthcare || isPSS">
-            <h2>Manpower Status - Defence, PSS, Healthcare</h2>
-            <form action="" class="form-wrapper">
-              <h3>MPCON</h3>
-              <p class="form-group">
-                <label for="defence_mpcon_overall_strength">Overall Strength</label>
-                <input type="text" id="defence_mpcon_overall_strength" name="defence_overall_strength">
-              </p>
-              <p class="form-group">
-                <label for="defence_mpcon_overall_present">Overall Present</label>
-                <input type="text" id="defence_mpcon_overall_present" name="defence_overall_present">
-              </p>
-              <p class="form-group">
-                <label for="defence_mpcon_overall_overseas">Overall Overseas</label>
-                <input type="text" id="defence_mpcon_overall_overseas" name="defence_overall_overseas">
-              </p>
-              <p class="form-group">
-                <label for="defence_mpcon_overall_leave">Overall Leave</label>
-                <input type="text" id="defence_mpcon_overall_leave" name="defence_overall_leave">
-              </p>
-              <p class="form-group">
-                <label for="defence_mpcon_overall_medical">Overall Medical</label>
-                <input type="text" id="defence_mpcon_overall_medical" name="defence_overall_medical">
-              </p>
-              <p class="form-group">
-                <label for="defence_mpcon_overall_mpcon">Overall MPCON</label>
-                <input type="text" id="defence_mpcon_overall_mpcon" name="defence_overall_mpcon">
-              </p>
-              <br>
+            <form class="form-wrapper" @submit.prevent="doDefenceManpowerSubmit">
+              <template v-for="block in defenceManpower.fields">
+                <h2>{{block.heading}}</h2>
 
-              <h3>REDCON</h3>
-              <p class="form-group">
-                <label for="defence_redcon_overall_fleet">Overall Fleet</label>
-                <input type="text" id="defence_redcon_overall_fleet" name="overall_fleet">
-              </p>
-              <p class="form-group">
-                <label for="defence_redcon_overall_serviceable">Overall Serviceable</label>
-                <input type="text" id="defence_redcon_overall_serviceable" name="overall_serviceable">
-              </p>
-              <p class="form-group">
-                <label for="defence_redcon_overall_unserviceable">Overall Unserviceable</label>
-                <input type="text" id="defence_redcon_overall_unserviceable" name="overall_unserviceable">
-              </p>
-              <p class="form-group">
-                <label for="defence_redcon_overall_workshop">Overall Workshop</label>
-                <input type="text" id="defence_redcon_overall_workshop" name="overall_workshop">
-              </p>
-              <p class="form-group">
-                <label for="defence_redcon_overall_redcon">Overall REDCON</label>
-                <input type="text" id="defence_redcon_overall_redcon" name="overall_redcon">
-              </p>
-
+                <p v-for="item in block.groups" class="form-group">
+                  <label>{{ item.label}}</label>
+                  <input type="text" v-model="defenceManpower.model[item.name]" :name="item.name" />
+                </p>
+              </template>
               <div class="actions">
-                <button type="submit">Submit</button>
+                <button :disabled="defenceManpower.submitting" type="submit">{{defenceManpowerFormSubmitText}}</button>
               </div>
             </form>
+
+            <form class="form-wrapper" @submit.prevent="doDefenceRedconSubmit">
+              <template v-for="block in defenceRedcon.fields">
+                <h2>{{block.heading}}</h2>
+
+                <p v-for="item in block.groups" class="form-group">
+                  <label>{{ item.label}}</label>
+                  <input type="text" v-model="defenceRedcon.model[item.name]" :name="item.name" />
+                </p>
+              </template>
+              <div class="actions">
+                <button :disabled="defenceRedcon.submitting" type="submit">{{defenceRedconFormSubmitText}}</button>
+              </div>
+            </form>
+
           </div>
           <!-- END OF MANPOWER STATUS - DEFENCE, PSS, HEALTHCARE FORM -->
         </div>
@@ -323,7 +295,7 @@
 
   </main>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.5.2/qs.min.js"></script>
 

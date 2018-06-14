@@ -12,7 +12,7 @@
 
   var DEPARTMENTS = {
     AVIVATION: 'STLogsAviation',
-    DEFENCE: 'DEFENCE',
+    DEFENCE: 'STLogsDefence',
     HEALTHCARE: 'HEALTHCARE',
     PSS: 'PSS'
   };
@@ -235,6 +235,60 @@
       ]
     }
   ];
+  var DEFENCE_MANPOWER_FORM = [
+    {
+      heading: 'Manpower Status - Defence',
+      groups: [
+        { label: 'Mpcon', name: 'Mpcon' },
+        { label: 'Impact', name: 'Impact' },
+        { label: 'Overall Strength', name: 'OverallStrength' },
+        { label: 'Overall Present', name: 'OverallPresent' },
+        { label: 'Overall Overseas', name: 'OverallOverseas' },
+        { label: 'Overall Leave', name: 'OverallLeave' },
+        { label: 'Overall Medical', name: 'OverallMedical' },
+        { label: 'Overall Mpcon', name: 'OverallMpcon' }
+      ]
+    }
+  ];
+  var DEFENCE_REDCON_FORM = [
+    {
+      heading: 'REDCON',
+      groups: [
+        { label: 'Redcon', name: 'Redcon' },
+        { label: 'Impact', name: 'Impact' },
+        { label: 'Overall Fleet', name: 'OverallFleet' },
+        { label: 'Overall Serviceable', name: 'OverallServiceable' },
+        { label: 'Overall Unserviceable', name: 'OverallUnserviceable' },
+        { label: 'Overall Workshop', name: 'OverallWorkshop' },
+        { label: 'Overall Redcon', name: 'OverallRedcon' }
+      ]
+    }
+  ];
+  var DEFENCE_OPERATION_FORM = [
+    {
+      heading: "Today's Operations:",
+      groups: [
+        {
+          label: 'Army Delivery (Milkrun): 105 Pallets deliver across Units.',
+          name: 'ArmyDelivery'
+        },
+        {
+          label: 'E-mart Delivery: Delivery Date Order for 25 April 18 – All orders completed.',
+          name: 'EMartDelivery'
+        },
+        {
+          label: 'Supported:',
+          name: 'Supported'
+        },
+        {
+          label: 'Incident:',
+          name: 'Incident'
+        }
+      ]
+    }
+  ];
+
+  var authStr = 'Bearer ' + localStorage.getItem(TOKEN_KEY);
 
   var app = new Vue({
     el: '#app',
@@ -242,8 +296,12 @@
       user: {
         loggedin: false,
         logining: false,
-        username: 'aviation@stlogs.com',
-        password: 'Aviation536$',
+        // defence@stlogs.com / Defence210$
+        // healthcare@stlogs.com / Healthcare412$
+        // pss@stlogs.com / Pss126$
+        // aviation@stlogs.com / Aviation536$
+        username: 'defence@stlogs.com',
+        password: 'Defence210$',
         loginBtnText: 'Login',
         userDepartment: '',
         token: ''
@@ -313,6 +371,43 @@
         submitting: false,
         fields: AVIVATION_OPERATION_FORM,
         model: {}
+      },
+      defenceManpower: {
+        submitting: false,
+        fields: DEFENCE_MANPOWER_FORM,
+        model: {
+          Mpcon: '',
+          Impact: '',
+          OverallStrength: '',
+          OverallPresent: '',
+          OverallOverseas: '',
+          OverallLeave: '',
+          OverallMedical: '',
+          OverallMpcon: ''
+        }
+      },
+      defenceRedcon: {
+        submitting: false,
+        fields: DEFENCE_REDCON_FORM,
+        model: {
+          Redcon: '',
+          Impact: '',
+          OverallFleet: '',
+          OverallServiceable: '',
+          OverallUnserviceable: '',
+          OverallWorkshop: '',
+          OverallRedcon: ''
+        }
+      },
+      defenceOperation: {
+        submitting: false,
+        fields: DEFENCE_OPERATION_FORM,
+        model: {
+          ArmyDelivery: '',
+          EMartDelivery: '',
+          Supported: '',
+          Incident: ''
+        }
       }
     },
     computed: {
@@ -334,14 +429,23 @@
       isPSS: function() {
         return this.user.userDepartment === DEPARTMENTS.PSS;
       },
-      avivationManpowerFormSubmitText: function() {
-        return this.avivationManpower.submitting ? 'Submitting...' : 'Submit';
-      },
       loginBtnText: function() {
         return this.user.logining ? 'Logining...' : 'Login';
       },
+      avivationManpowerFormSubmitText: function() {
+        return this.avivationManpower.submitting ? 'Submitting...' : 'Submit';
+      },
       avivationRedconFormSubmitText: function() {
         return this.avivationRedcon.submitting ? 'Submitting...' : 'Submit';
+      },
+      defenceManpowerFormSubmitText: function() {
+        return this.defenceManpower.submitting ? 'Submitting...' : 'Submit';
+      },
+      defenceRedconFormSubmitText: function() {
+        return this.defenceRedcon.submitting ? 'Submitting...' : 'Submit';
+      },
+      defenceOperationFormSubmitText: function() {
+        return this.defenceOperation.submitting ? 'Submitting...' : 'Submit';
       }
     },
     methods: {
@@ -396,7 +500,7 @@
           url: API + '/api/form/redcon',
           method: 'POST',
           headers: {
-            Authorization: 'Bearer ' + localStorage.getItem(TOKEN_KEY)
+            Authorization: authStr
           },
           data: this.avivationRedcon.model
         })
@@ -417,7 +521,7 @@
           url: API + '/api/form/mpcon',
           method: 'POST',
           headers: {
-            Authorization: 'Bearer ' + localStorage.getItem(TOKEN_KEY)
+            Authorization: authStr
           },
           data: this.avivationManpower.model
         })
@@ -427,6 +531,69 @@
           })
           .catch(function(error) {
             self.avivationManpower.submitting = false;
+            console.log('error', error);
+          });
+      },
+      doDefenceRedconSubmit: function() {
+        var self = this;
+        self.defenceRedcon.submitting = true;
+
+        axios({
+          url: API + '/api/form/redcon',
+          method: 'POST',
+          headers: {
+            Authorization: authStr
+          },
+          data: this.defenceRedcon.model
+        })
+          .then(function(resp) {
+            self.defenceRedcon.submitting = false;
+            console.log('data', resp);
+          })
+          .catch(function(error) {
+            self.defenceRedcon.submitting = false;
+            console.log('error', error);
+          });
+      },
+      doDefenceManpowerSubmit: function() {
+        var self = this;
+        self.defenceManpower.submitting = true;
+
+        axios({
+          url: API + '/api/form/mpcon',
+          method: 'POST',
+          headers: {
+            Authorization: authStr
+          },
+          data: this.defenceManpower.model
+        })
+          .then(function(resp) {
+            self.defenceManpower.submitting = false;
+            console.log('data', resp);
+          })
+          .catch(function(error) {
+            self.defenceManpower.submitting = false;
+            console.log('error', error);
+          });
+      },
+      doDefenceOperationSubmit: function() {
+        var self = this;
+        self.defenceOperation.submitting = true;
+
+        axios({
+          url: API + '/api/form/mpcon',
+          method: 'POST',
+          headers: {
+            Authorization: authStr
+          },
+          data: this.defenceOperation.model
+        })
+          .then(function(resp) {
+            self.defenceOperation.submitting = false;
+            console.log('data', resp);
+          })
+          .catch(function(error) {
+            self.defenceOperation.submitting = false;
             console.log('error', error);
           });
       }
