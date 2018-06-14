@@ -21,20 +21,42 @@ export interface HistoryProps {
     doCardAction: IDoCardAction
 }
 
-export class HistoryView extends React.Component<HistoryProps, {}> {
+export interface HistoryState {
+    newMessages: number,
+}
+
+export class HistoryView extends React.Component<HistoryProps, HistoryState> {
     private scrollMe: HTMLDivElement;
     private scrollContent: HTMLDivElement;
     private scrollToBottom = true;
+    private lastActivityFromMe = false;
+    private lastMessagesCount = 0;
 
     private carouselActivity: WrappedActivity;
     private largeWidth: number;
 
     constructor(props: HistoryProps) {
         super(props);
+        this.state = {
+            newMessages: 0,
+        }
     }
 
-    componentWillUpdate() {
+    componentWillReceiveProps(nextProps: HistoryProps) {
         this.scrollToBottom = (Math.abs(this.scrollMe.scrollHeight - this.scrollMe.scrollTop - this.scrollMe.offsetHeight) <= 1);
+        
+        const lastActivity = nextProps.activities[nextProps.activities.length - 1];
+        this.lastActivityFromMe = lastActivity && nextProps.isFromMe && nextProps.isFromMe(lastActivity);
+
+        const messagesCount = nextProps.activities.filter(activity => !nextProps.isFromMe(activity)).length
+        if (this.scrollToBottom || this.lastActivityFromMe) {
+            this.lastMessagesCount = messagesCount
+            this.setState({newMessages: 0})
+        }
+        else {
+            this.setState({newMessages: messagesCount - this.lastMessagesCount})
+            // console.log('New messages', messagesCount - this.lastMessagesCount)
+        }
     }
 
     componentDidUpdate() {
@@ -62,17 +84,23 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
         this.autoscroll();
     }
 
-    private autoscroll() {
+    private autoscroll(force: boolean = false) {
         const vAlignBottomPadding = Math.max(0, measurePaddedHeight(this.scrollMe) - this.scrollContent.offsetHeight);
         this.scrollContent.style.marginTop = vAlignBottomPadding + 'px';
 
-        const lastActivity = this.props.activities[this.props.activities.length - 1];
-        const lastActivityFromMe = lastActivity && this.props.isFromMe && this.props.isFromMe(lastActivity);
-
         // Validating if we are at the bottom of the list or the last activity was triggered by the user.
-        if (this.scrollToBottom || lastActivityFromMe) {
+        // if (force || this.scrollToBottom || this.lastActivityFromMe) {
+        if (force || this.scrollToBottom) {
             this.scrollMe.scrollTop = this.scrollMe.scrollHeight - this.scrollMe.offsetHeight;
         }
+    }
+
+    private handleScrollToBottom() {
+        this.autoscroll(true)
+
+        const messagesCount = this.props.activities.filter(activity => !this.props.isFromMe(activity)).length
+        this.lastMessagesCount = messagesCount
+        this.setState({newMessages: 0})
     }
 
     // In order to do their cool horizontal scrolling thing, Carousels need to know how wide they can be.
@@ -149,9 +177,15 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
         const groupsClassName = classList('wc-message-groups', !this.props.format.options.showHeader && 'no-header');
 
         return (
-            <div className={ groupsClassName } ref={ div => this.scrollMe = div || this.scrollMe }>
-                <div className="wc-message-group-content" ref={ div => { if (div) this.scrollContent = div }}>
-                    { content }
+            <div>
+                {this.state.newMessages > 0 && 
+                <div onClick={() => this.handleScrollToBottom()} className="wc-message-notification">
+                    {`↓ ${this.state.newMessages} new message${this.state.newMessages > 1 ? 's' : ''}`}
+                </div>}
+                <div className={ groupsClassName } ref={ div => this.scrollMe = div || this.scrollMe }>
+                    <div className="wc-message-group-content" ref={ div => { if (div) this.scrollContent = div }}>
+                        { content }
+                    </div>
                 </div>
             </div>
         );
@@ -168,7 +202,7 @@ export const History = connect(
         connectionSelectedActivity: state.connection.selectedActivity,
         selectedActivity: state.history.selectedActivity,
         botConnection: state.connection.botConnection,
-        user: state.connection.user
+        user: state.connection.user,
     }), {
         setMeasurements: (carouselMargin: number) => ({ type: 'Set_Measurements', carouselMargin }),
         onClickRetry: (activity: Activity) => ({ type: 'Send_Message_Retry', clientActivityId: activity.channelData.clientActivityId }),

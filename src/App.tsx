@@ -84,7 +84,7 @@ const compileStyle = (config: IConfig) => {
   // change logo
   const logoEl: HTMLElement = document.querySelector(
     '#BotChatWindow .wc-chatview-panel .wc-header img'
-  );
+  ) as HTMLElement;
 
   if (config.logo && logoEl) {
     logoEl.setAttribute('src', config.logo);
@@ -94,7 +94,7 @@ const compileStyle = (config: IConfig) => {
   if (config.displayName) {
     const botnameEl: HTMLElement = document.querySelector(
       '#BotChatWindow .wc-chatview-panel .wc-header .js-botname'
-    );
+    ) as HTMLElement;
     botnameEl.innerText = config.displayName;
   }
 };
