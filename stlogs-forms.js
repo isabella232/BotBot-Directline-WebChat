@@ -629,13 +629,12 @@
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
           },
-          data: Qs.stringify({
-            username: this.user.username,
-            password: this.user.password,
-            client_id: 'botbotclient',
-            client_secret: 'botbotsecret',
-            grant_type: 'password'
-          })
+          data:
+            'username=' +
+            this.user.username +
+            '&password=' +
+            this.user.password +
+            '&client_id=botbotclient&client_secret=botbotsecret&grant_type=password'
         })
           .then(function(resp) {
             var roles = resp.data.roles;

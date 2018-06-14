@@ -22,8 +22,9 @@
     "start": "http-server -p 8080",
     "test": "concurrently  \"node test/mock_dl/index.js\" \"mocha test\" ",
     "mock": "node test/mock_dl/index.js",
-    "form-dev": "run-p scss-watch start",
-    "form-build": "uglifyjs ./stlogs-forms.js --compress --output ./stlogs-form.min.js"
+    "form-js": "uglifyjs ./stlogs-forms.js --output ./stlogs-forms.min.js",
+    "form-dev": "run-p scss-watch form-js start",
+    "form-build": "run-p build-css form-js -- --compress"
   },
   "repository": {
     "type": "git",
