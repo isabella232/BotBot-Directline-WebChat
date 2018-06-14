@@ -1,3 +1,5 @@
+$brand: #039be5;
+
 *,
 *::before,
 *::after {
@@ -13,6 +15,42 @@ body {
   font-size: 14px;
   // background: #fff;
   color: #333;
+}
+
+button {
+  min-width: 88px;
+  padding: 8px 16px;
+  background: #ddd;
+  // color: #333;
+  border: 0;
+  font-size: inherit;
+  cursor: pointer;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px #757575;
+  transition: all 0.2s ease;
+
+  &:active {
+    box-shadow: 0 4px 8px #757575;
+    background: rgb(158, 158, 158);
+  }
+
+  &[disabled] {
+    background: #bdbdbd;
+    opacity: 0.5;
+    color: #757575;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background: $brand;
+  color: #fff;
+
+  &:active {
+    background: #0277bd;
+  }
 }
 
 .hidden {
@@ -55,31 +93,7 @@ form {
   }
 
   button[type='submit'] {
-    min-width: 88px;
-    padding: 8px 16px;
-    background: #039be5;
-    color: #fff;
-    border: 0;
-    font-size: inherit;
-    cursor: pointer;
-    outline: none;
-    border-radius: 2px;
     text-transform: uppercase;
-    box-shadow: 0 2px 4px #757575;
-    transition: all 0.2s ease;
-
-    &:active {
-      box-shadow: 0 4px 8px #757575;
-      background: #0277bd;
-    }
-
-    &[disabled] {
-      background: #bdbdbd;
-      opacity: 0.5;
-      color: #757575;
-      box-shadow: none;
-      cursor: not-allowed;
-    }
   }
 
   fieldset {
@@ -152,7 +166,7 @@ form {
 .tab-buttons {
   list-style-type: none;
   display: flex;
-  margin: 0;
+  margin: 1.6rem 0 0;
   padding: 0;
   border-bottom: 1px solid #eee;
 
@@ -162,13 +176,16 @@ form {
     padding: 1rem;
     cursor: pointer;
     text-transform: uppercase;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
 
     &:hover {
       background: #eee;
     }
 
     &.active {
-      box-shadow: inset 0 -3px 0 red;
+      box-shadow: inset 0 -3px 0 $brand;
     }
   }
 }
@@ -197,4 +214,15 @@ form {
   .actions {
     width: 100%;
   }
+}
+
+.account-info,
+.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.account-info > button {
+  margin-left: 10px;
 }

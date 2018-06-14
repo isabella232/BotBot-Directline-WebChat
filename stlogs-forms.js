@@ -1,6 +1,9 @@
 (function() {
   'use strict';
   var TOKEN_KEY = '(*&(Y#@HIUH(W*R';
+  var DEPARTMENT_KEY = ')(*)*)(#)$*(()';
+  var EMAIL_KEY = ')(*)*)(#)$*(()*^*@(#&';
+
   var API =
     document.location.href.indexOf('stlogs.azurewebsites.net') > 0
       ? 'https://stlogs.azurewebsites.net'
@@ -408,23 +411,45 @@
     }
   ];
 
-  var authStr = 'Bearer ' + localStorage.getItem(TOKEN_KEY);
+  var callApi = function callApi(options) {
+    if (localStorage.getItem(TOKEN_KEY)) {
+      var authStr = 'Bearer ' + localStorage.getItem(TOKEN_KEY);
+
+      options.headers = options.headers || {};
+      options.headers.Authorization = authStr;
+    }
+
+    return axios(options).catch(function(error) {
+      if (error.response.status === 401) {
+        window.location.reload();
+      }
+
+      return error;
+    });
+  };
+
+  var isLoggedIn = function() {
+    var token = localStorage.getItem(TOKEN_KEY);
+    var department = localStorage.getItem(DEPARTMENT_KEY);
+    var availabelDepartments = JSON.stringify(DEPARTMENTS);
+
+    return !!token && availabelDepartments.indexOf(department) > -1;
+  };
 
   var app = new Vue({
     el: '#app',
     data: {
       user: {
-        loggedin: false,
+        loggedin: !!isLoggedIn(),
         logining: false,
         // defence@stlogs.com / Defence210$
         // healthcare@stlogs.com / Healthcare412$
         // pss@stlogs.com / Pss126$
         // aviation@stlogs.com / Aviation536$
-        username: 'aviation@stlogs.com',
-        password: 'Aviation536$',
-        loginBtnText: 'Login',
-        userDepartment: '',
-        token: ''
+        username: 'pss@stlogs.com',
+        password: 'Pss126$',
+        email: isLoggedIn() ? localStorage.getItem(EMAIL_KEY) : '',
+        userDepartment: isLoggedIn() ? localStorage.getItem(DEPARTMENT_KEY) : ''
       },
       tabActive: TABS.MANPOWER,
       avivationManpower: {
@@ -541,6 +566,7 @@
       pssOperation: {
         submitting: false,
         fields: PSS_OPERATION_FORM,
+        messages: null,
         model: {}
       }
     },
@@ -571,6 +597,9 @@
       },
       avivationRedconFormSubmitText: function() {
         return this.avivationRedcon.submitting ? 'Submitting...' : 'Submit';
+      },
+      avivationOperationFormSubmitText: function() {
+        return this.avivationOperation.submitting ? 'Submitting...' : 'Submit';
       },
       defenceManpowerFormSubmitText: function() {
         return this.defenceManpower.submitting ? 'Submitting...' : 'Submit';
@@ -610,20 +639,27 @@
         })
           .then(function(resp) {
             var roles = resp.data.roles;
-            self.user.userDepartment = roles && roles[0];
+            var userDepartment = roles && roles[0];
 
+            self.user.userDepartment = userDepartment;
+            self.user.email = resp.data.email;
             self.user.logining = false;
-
             self.user.loggedin = true;
+
             localStorage.setItem(TOKEN_KEY, resp.data.access_token);
+            localStorage.setItem(DEPARTMENT_KEY, userDepartment);
+            localStorage.setItem(EMAIL_KEY, resp.data.email);
           })
           .catch(function(error) {
             self.user.logining = false;
-            self.user.token = '';
             self.user.userDepartment = '';
 
             console.log('error', error);
           });
+      },
+      logout: function() {
+        localStorage.clear();
+        window.location.reload();
       },
       showOperation: function() {
         this.tabActive = TABS.OPERATION;
@@ -631,17 +667,31 @@
       showManpower: function() {
         this.tabActive = TABS.MANPOWER;
       },
-      doAvivationOperationSubmit: function() {},
+      doAvivationOperationSubmit: function() {
+        var self = this;
+        self.avivationOperation.submitting = true;
+
+        callApi({
+          url: API + '/api/form/redcon',
+          method: 'POST',
+          data: this.avivationOperation.model
+        })
+          .then(function(resp) {
+            self.avivationOperation.submitting = false;
+            console.log('data', resp);
+          })
+          .catch(function(error) {
+            self.avivationOperation.submitting = false;
+            console.log('error', error);
+          });
+      },
       doAvivationRedconSubmit: function() {
         var self = this;
         self.avivationRedcon.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/redcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.avivationRedcon.model
         })
           .then(function(resp) {
@@ -657,12 +707,9 @@
         var self = this;
         self.avivationManpower.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.avivationManpower.model
         })
           .then(function(resp) {
@@ -678,12 +725,9 @@
         var self = this;
         self.defenceRedcon.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/redcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.defenceRedcon.model
         })
           .then(function(resp) {
@@ -699,12 +743,9 @@
         var self = this;
         self.defenceManpower.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.defenceManpower.model
         })
           .then(function(resp) {
@@ -720,12 +761,9 @@
         var self = this;
         self.defenceOperation.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.defenceOperation.model
         })
           .then(function(resp) {
@@ -741,12 +779,9 @@
         var self = this;
         self.healthcareRedcon.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/redcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.healthcareRedcon.model
         })
           .then(function(resp) {
@@ -762,12 +797,9 @@
         var self = this;
         self.healthcareManpower.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.healthcareManpower.model
         })
           .then(function(resp) {
@@ -783,12 +815,9 @@
         var self = this;
         self.healthcareOperation.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.healthcareOperation.model
         })
           .then(function(resp) {
@@ -804,16 +833,17 @@
         var self = this;
         self.pssOperation.submitting = true;
 
-        axios({
+        callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          headers: {
-            Authorization: authStr
-          },
           data: this.pssOperation.model
         })
           .then(function(resp) {
             self.pssOperation.submitting = false;
+            self.pssOperation.messages = {
+              type: 'success',
+              messages: ['Submit successful']
+            };
             console.log('data', resp);
           })
           .catch(function(error) {

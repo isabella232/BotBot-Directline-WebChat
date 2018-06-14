@@ -16,7 +16,8 @@
         <h1>Login</h1>
         <p class="form-group">
           <label for="username">Username</label>
-          <input type="text" v-bind:disabled="user.logining" required id="username" v-model="user.username" name="username" placeholder="Enter username...">
+          <input type="text" autocomplete="off" v-bind:disabled="user.logining" required id="username" v-model="user.username" name="username"
+            placeholder="Enter username...">
         </p>
         <p class="form-group">
           <label for="login-password">Password</label>
@@ -24,13 +25,19 @@
             name="password" placeholder="Enter your password...">
         </p>
         <div class="actions">
-          <button type="submit" v-bind:disabled="user.logining">{{ loginBtnText }}</button>
+          <button class="btn-primary" type="submit" v-bind:disabled="user.logining">{{ loginBtnText }}</button>
         </div>
       </form>
     </section>
 
     <div v-else class="js-post-login container">
-      <h1>STLogs</h1>
+      <div class="page-title">
+        <h1>STLogs</h1>
+        <div class="account-info">
+          <p>{{user.email}}</p>
+          <button @click="logout">Logout</button>
+        </div>
+      </div>
       <div class="js-tabs js-forms">
         <ul class="tab-buttons">
           <li>
@@ -45,7 +52,7 @@
           <!-- AVIVATION FORM -->
           <div v-if="isAvivation">
             <h2>Aviation/Freight</h2>
-            <form id="today_avivation" class="form-wrapper form-2-col" @submit="doAvivationOperationSubmit">
+            <form id="today_avivation" class="form-wrapper form-2-col" @submit.prevent="doAvivationOperationSubmit">
               <div class="block" v-for="block in avivationOperation.fields">
                 <h3>{{block.heading}}</h3>
 
@@ -53,17 +60,17 @@
                   <legend>{{item.title}}</legend>
                   <p v-for="field in item.fields" class="form-group">
                     <label>{{ field.label}}</label>
-                    <input type="text" v-model="avivationOperation.model[field.name]" :name="field.name" value="" />
+                    <input type="text" autocomplete="off" v-model="avivationOperation.model[field.name]" :name="field.name" value="" />
                   </p>
                 </fieldset>
                 <p v-for="item in block.groups" v-if="!item.title" class="form-group">
                   <label>{{ item.label}}</label>
-                  <input type="text" v-model="avivationOperation.model[item.name]" :name="item.name" value="" />
+                  <input type="text" autocomplete="off" v-model="avivationOperation.model[item.name]" :name="item.name" value="" />
                 </p>
               </div>
 
               <div class="actions">
-                <button type="submit">Submit</button>
+                <button :disabled="avivationOperation.submitting" class="btn-primary" type="submit">{{avivationOperationFormSubmitText}}</button>
               </div>
             </form>
           </div>
@@ -79,17 +86,17 @@
                   <legend>{{item.title}}</legend>
                   <p v-for="field in item.fields" class="form-group">
                     <label>{{ field.label}}</label>
-                    <input type="text" v-model="defenceOperation.model[field.name]" :name="field.name" value="" />
+                    <input type="text" autocomplete="off" v-model="defenceOperation.model[field.name]" :name="field.name" value="" />
                   </p>
                 </fieldset>
                 <p v-for="item in block.groups" v-if="!item.title" class="form-group">
                   <label>{{ item.label}}</label>
-                  <input type="text" v-model="defenceOperation.model[item.name]" :name="item.name" value="" />
+                  <input type="text" autocomplete="off" v-model="defenceOperation.model[item.name]" :name="item.name" value="" />
                 </p>
               </template>
 
               <div class="actions">
-                <button :disabled="defenceOperation.submitting" type="submit">{{defenceOperationFormSubmitText}}</button>
+                <button :disabled="defenceOperation.submitting" class="btn-primary" type="submit">{{defenceOperationFormSubmitText}}</button>
               </div>
             </form>
           </div>
@@ -105,17 +112,17 @@
                   <legend>{{item.title}}</legend>
                   <p v-for="field in item.fields" class="form-group">
                     <label>{{ field.label}}</label>
-                    <input type="text" v-model="healthcareOperation.model[field.name]" :name="field.name" value="" />
+                    <input type="text" autocomplete="off" v-model="healthcareOperation.model[field.name]" :name="field.name" value="" />
                   </p>
                 </fieldset>
                 <p v-for="item in block.groups" v-if="!item.title" class="form-group">
                   <label>{{ item.label}}</label>
-                  <input type="text" v-model="healthcareOperation.model[item.name]" :name="item.name" value="" />
+                  <input type="text" autocomplete="off" v-model="healthcareOperation.model[item.name]" :name="item.name" value="" />
                 </p>
               </template>
 
               <div class="actions">
-                <button :disabled="healthcareOperation.submitting" type="submit">{{healthcareOperationFormSubmitText}}</button>
+                <button :disabled="healthcareOperation.submitting" class="btn-primary" type="submit">{{healthcareOperationFormSubmitText}}</button>
               </div>
             </form>
           </div>
@@ -131,17 +138,17 @@
                   <legend>{{item.title}}</legend>
                   <p v-for="field in item.fields" class="form-group">
                     <label>{{ field.label}}</label>
-                    <input type="text" v-model="pssOperation.model[field.name]" :name="field.name" value="" />
+                    <input type="text" autocomplete="off" v-model="pssOperation.model[field.name]" :name="field.name" value="" />
                   </p>
                 </fieldset>
                 <p v-for="item in block.groups" v-if="!item.title" class="form-group">
                   <label>{{ item.label}}</label>
-                  <input type="text" v-model="pssOperation.model[item.name]" :name="item.name" value="" />
+                  <input type="text" autocomplete="off" v-model="pssOperation.model[item.name]" :name="item.name" value="" />
                 </p>
               </div>
 
               <div class="actions">
-                <button :disabled="pssOperation.submitting" type="submit">{{pssOperationFormSubmitText}}</button>
+                <button :disabled="pssOperation.submitting" class="btn-primary" type="submit">{{pssOperationFormSubmitText}}</button>
               </div>
             </form>
           </div>
@@ -159,11 +166,11 @@
 
                 <p v-for="item in block.groups" class="form-group">
                   <label>{{ item.label}}</label>
-                  <input type="text" v-model="avivationManpower.model[item.name]" :name="item.name" />
+                  <input type="text" autocomplete="off" v-model="avivationManpower.model[item.name]" :name="item.name" />
                 </p>
               </template>
               <div class="actions">
-                <button :disabled="avivationManpower.submitting" type="submit">{{avivationManpowerFormSubmitText}}</button>
+                <button :disabled="avivationManpower.submitting" class="btn-primary" type="submit">{{avivationManpowerFormSubmitText}}</button>
               </div>
             </form>
 
@@ -173,11 +180,11 @@
 
                 <p v-for="item in block.groups" class="form-group">
                   <label>{{ item.label}}</label>
-                  <input type="text" v-model="avivationRedcon.model[item.name]" :name="item.name" />
+                  <input type="text" autocomplete="off" v-model="avivationRedcon.model[item.name]" :name="item.name" />
                 </p>
               </template>
               <div class="actions">
-                <button :disabled="avivationRedcon.submitting" type="submit">{{avivationRedconFormSubmitText}}</button>
+                <button :disabled="avivationRedcon.submitting" class="btn-primary" type="submit">{{avivationRedconFormSubmitText}}</button>
               </div>
             </form>
           </div>
@@ -190,11 +197,11 @@
 
                 <p v-for="item in block.groups" class="form-group">
                   <label>{{ item.label}}</label>
-                  <input type="text" v-model="defenceManpower.model[item.name]" :name="item.name" />
+                  <input type="text" autocomplete="off" v-model="defenceManpower.model[item.name]" :name="item.name" />
                 </p>
               </template>
               <div class="actions">
-                <button :disabled="defenceManpower.submitting" type="submit">{{defenceManpowerFormSubmitText}}</button>
+                <button :disabled="defenceManpower.submitting" class="btn-primary" type="submit">{{defenceManpowerFormSubmitText}}</button>
               </div>
             </form>
 
@@ -204,11 +211,11 @@
 
                 <p v-for="item in block.groups" class="form-group">
                   <label>{{ item.label}}</label>
-                  <input type="text" v-model="defenceRedcon.model[item.name]" :name="item.name" />
+                  <input type="text" autocomplete="off" v-model="defenceRedcon.model[item.name]" :name="item.name" />
                 </p>
               </template>
               <div class="actions">
-                <button :disabled="defenceRedcon.submitting" type="submit">{{defenceRedconFormSubmitText}}</button>
+                <button :disabled="defenceRedcon.submitting" class="btn-primary" type="submit">{{defenceRedconFormSubmitText}}</button>
               </div>
             </form>
 
