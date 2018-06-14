@@ -25,33 +25,6 @@ body {
   padding: 0 15px;
 }
 
-.login-form-wrapper {
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-form {
-  min-width: 320px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  background: #fff;
-  border: 2px;
-  padding: 16px;
-
-  h1 {
-    text-align: center;
-    font-weight: 400;
-  }
-
-  .wc-login-avatar {
-    height: 50px;
-    margin: 16px auto;
-    display: block;
-  }
-}
-
 form {
   margin: 0;
 
@@ -120,10 +93,9 @@ form {
       font-size: 16px;
     }
 
-    + fieldset  {
+    + fieldset {
       margin-top: 2.4rem;
     }
-
   }
 
   hr {
@@ -146,6 +118,33 @@ form {
     position: absolute;
     bottom: -20px;
     left: 0;
+  }
+}
+
+.login-form-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  min-width: 320px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  border: 2px;
+  padding: 16px;
+
+  h1 {
+    text-align: center;
+    font-weight: 400;
+  }
+
+  .wc-login-avatar {
+    height: 50px;
+    margin: 16px auto;
+    display: block;
   }
 }
 

@@ -27,3 +27,4 @@ CognitiveServices.js.map
 custom/*.css
 includes/*.css
 *.css
+*.min.js

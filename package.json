@@ -22,7 +22,8 @@
     "start": "http-server -p 8080",
     "test": "concurrently  \"node test/mock_dl/index.js\" \"mocha test\" ",
     "mock": "node test/mock_dl/index.js",
-    "form-dev": "run-p scss-watch start"
+    "form-dev": "run-p scss-watch start",
+    "form-build": "uglifyjs ./stlogs-forms.js --compress --output ./stlogs-form.min.js"
   },
   "repository": {
     "type": "git",
@@ -81,6 +82,7 @@
     "rimraf": "2.6.1",
     "source-map-loader": "0.2.1",
     "typescript": "2.3",
+    "uglify-js": "^3.4.0",
     "vo": "4.0.2",
     "webpack": "2.3.3"
   },
