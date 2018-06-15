@@ -5,9 +5,9 @@
   var NAME_KEY = ')(*)*)(#)$*(()*^*@(#&';
 
   var API =
-    document.location.href.indexOf('stlogs.azurewebsites.net') > 0
-      ? 'https://stlogs.azurewebsites.net'
-      : 'https://stlogs-staging.azurewebsites.net';
+    document.location.href.indexOf('localhost') > 0
+      ? 'https://stlogs-staging.azurewebsites.net'
+      : '';
   var TABS = {
     OPERATION: 'OPERATION',
     MANPOWER: 'MANPOWER'
