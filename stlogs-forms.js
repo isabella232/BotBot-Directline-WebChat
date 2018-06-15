@@ -2,7 +2,7 @@
   'use strict';
   var TOKEN_KEY = '(*&(Y#@HIUH(W*R';
   var DEPARTMENT_KEY = ')(*)*)(#)$*(()';
-  var EMAIL_KEY = ')(*)*)(#)$*(()*^*@(#&';
+  var NAME_KEY = ')(*)*)(#)$*(()*^*@(#&';
 
   var API =
     document.location.href.indexOf('stlogs.azurewebsites.net') > 0
@@ -421,6 +421,7 @@
 
     return axios(options).catch(function(error) {
       if (error.response.status === 401) {
+        localStorage.clear();
         window.location.reload();
       }
 
@@ -439,7 +440,7 @@
   var app = new Vue({
     el: '#app',
     data: {
-      loaded: true,
+      notifications: [],
       user: {
         loggedin: !!isLoggedIn(),
         logining: false,
@@ -449,7 +450,7 @@
         // aviation@stlogs.com / Aviation536$
         username: 'pss@stlogs.com',
         password: 'Pss126$',
-        email: isLoggedIn() ? localStorage.getItem(EMAIL_KEY) : '',
+        name: isLoggedIn() ? localStorage.getItem(NAME_KEY) : '',
         userDepartment: isLoggedIn() ? localStorage.getItem(DEPARTMENT_KEY) : ''
       },
       tabActive: TABS.MANPOWER,
@@ -567,7 +568,6 @@
       pssOperation: {
         submitting: false,
         fields: PSS_OPERATION_FORM,
-        messages: null,
         model: {}
       }
     },
@@ -642,19 +642,27 @@
             var userDepartment = roles && roles[0];
 
             self.user.userDepartment = userDepartment;
-            self.user.email = resp.data.email;
+            self.user.name = resp.data.name;
             self.user.logining = false;
             self.user.loggedin = true;
 
             localStorage.setItem(TOKEN_KEY, resp.data.access_token);
             localStorage.setItem(DEPARTMENT_KEY, userDepartment);
-            localStorage.setItem(EMAIL_KEY, resp.data.email);
+            localStorage.setItem(NAME_KEY, resp.data.name);
+
+            self.notifications.push({
+              type: 'success',
+              message: 'Login success'
+            });
           })
           .catch(function(error) {
             self.user.logining = false;
             self.user.userDepartment = '';
 
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       logout: function() {
@@ -678,11 +686,14 @@
         })
           .then(function(resp) {
             self.avivationOperation.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.avivationOperation.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doAvivationRedconSubmit: function() {
@@ -696,11 +707,14 @@
         })
           .then(function(resp) {
             self.avivationRedcon.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.avivationRedcon.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doAvivationManpowerSubmit: function() {
@@ -714,11 +728,14 @@
         })
           .then(function(resp) {
             self.avivationManpower.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.avivationManpower.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doDefenceRedconSubmit: function() {
@@ -732,11 +749,14 @@
         })
           .then(function(resp) {
             self.defenceRedcon.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.defenceRedcon.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doDefenceManpowerSubmit: function() {
@@ -750,11 +770,14 @@
         })
           .then(function(resp) {
             self.defenceManpower.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.defenceManpower.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doDefenceOperationSubmit: function() {
@@ -768,11 +791,14 @@
         })
           .then(function(resp) {
             self.defenceOperation.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.defenceOperation.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doHealthcareRedconSubmit: function() {
@@ -786,11 +812,14 @@
         })
           .then(function(resp) {
             self.healthcareRedcon.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.healthcareRedcon.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doHealthcareManpowerSubmit: function() {
@@ -804,11 +833,14 @@
         })
           .then(function(resp) {
             self.healthcareManpower.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.healthcareManpower.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doHealthcareOperationSubmit: function() {
@@ -822,11 +854,14 @@
         })
           .then(function(resp) {
             self.healthcareOperation.submitting = false;
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.healthcareOperation.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
       },
       doPssOperationSubmit: function() {
@@ -840,16 +875,18 @@
         })
           .then(function(resp) {
             self.pssOperation.submitting = false;
-            self.pssOperation.messages = {
-              type: 'success',
-              messages: ['Submit successful']
-            };
-            console.log('data', resp);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.pssOperation.submitting = false;
-            console.log('error', error);
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
           });
+      },
+      removeNotification: function(index) {
+        this.notifications.splice(index, 1);
       }
     }
   });

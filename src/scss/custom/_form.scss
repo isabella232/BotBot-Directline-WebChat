@@ -226,3 +226,48 @@ form {
 .account-info > button {
   margin-left: 10px;
 }
+
+.notifications {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .noti-item {
+    padding: 5px 10px;
+    border-radius: 50px;
+    background: #fff;
+    box-shadow: 0 3px 8px #ddd,3px 0 8px #ddd, -3px 0 8px #ddd;
+    display: flex;
+    align-items: center;
+
+    + .noti-item {
+      margin-top: 10px;
+    }
+
+    &.success .icon path {
+      fill: #0bd20b;
+    }
+
+    &.error .icon path {
+      fill: red;
+    }
+  }
+
+  .icon {
+    margin-right: 5px;
+  }
+
+  .close {
+    background: none;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+    min-width: 0;
+    margin-left: 10px;
+  }
+}
