@@ -4,10 +4,10 @@
   var DEPARTMENT_KEY = ')(*)*)(#)$*(()';
   var NAME_KEY = ')(*)*)(#)$*(()*^*@(#&';
 
-  var API =
-    document.location.href.indexOf('localhost') > 0
-      ? 'https://stlogs-staging.azurewebsites.net'
-      : '';
+  var API = '';
+    // document.location.href.indexOf('localhost') > 0
+    //   ? 'https://stlogs-staging.azurewebsites.net' for dev only
+    //   : '';
   var TABS = {
     OPERATION: 'OPERATION',
     MANPOWER: 'MANPOWER'
