@@ -35,7 +35,8 @@ body {
 }
 
 .wc-message {
-  padding: 8px;
+  padding: 8px 15px;
+  border-radius: 1.3em;
 }
 
 .wc-message-groups {
@@ -52,9 +53,9 @@ body {
 
 .wc-message-from-bot {
   float: left;
-  border-left: 6px solid $c_brand;
-  padding-left: 15px;
-  margin-left: 0;
+  // border-left: 6px solid $c_brand;
+  // padding-left: 15px;
+  // margin-left: 0;
   background-color: $c_bot_reply_bg;
 
   .wc-message-content {
@@ -69,14 +70,13 @@ body {
 
 .wc-message-from-me {
   float: right;
-  border-right: 6px solid lighten($c_brand, 30); // #00b4ff;
-  padding-right: 15px;
-  margin-right: 0;
-  background-color: #eee;
+  // border-right: 6px solid lighten($c_brand, 30); // #00b4ff;
+  // padding: 0 15px;
+  background-color: $c_me_reply_bg;
 
   .wc-message-content {
     background: none;
-    color: #231f20;
+    color: #fff;
   }
 }
 
@@ -90,15 +90,21 @@ body {
   font-size: 13px;
   font-weight: 300;
   padding-top: 5px;
+  margin: 0 25px;
+  float: left;
+}
+
+.wc-message-meta-me {
+  float: right;
 }
 
 .wc-card.hero {
   background: none;
 
   button {
-    background-color: $c_button;
+    background-color: #bca480;
     border: 0px;
-    color: $c_brand;
+    color: #fff;
     font-weight: 500;
     line-height: 1.29;
     text-align: left;
@@ -106,22 +112,23 @@ body {
     padding-bottom: 10px;
     outline: none;
     white-space: normal !important;
+    font-size: 18px;
 
     &:active {
       background-color: $c06;
     }
 
     &:hover {
-      background-color: #dad7ce;
+      background-color: $c_brand;
     }
   }
 
   .ac-pushButton:first-of-type {
-    border-radius: 5px 5px 0 0;
+    border-radius: 1.3em 1.3em 0 0;
   }
 
   .ac-pushButton:last-of-type {
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 1.3em 1.3em;
   }
 
   &.hero h1 {
@@ -312,7 +319,7 @@ body {
 }
 
 .wc-message-wrapper.carousel .wc-message {
-  max-width: 91%;
+  max-width: 75%;
 }
 
 .wc-app .wc-back-top {
@@ -332,4 +339,25 @@ body {
   &:hover {
     opacity: 0.9;
   }
+}
+
+.wc-carousel button.scroll {
+  background: #fff;
+
+  &:hover {
+    background: #ddd;
+  }
+
+  svg {
+    fill: #666
+  }
+}
+
+.wc-carousel li .wc-adaptive-card p {
+  font-size: 14px;
+}
+
+mark, .mark {
+  color: $c_brand;
+  background: none;
 }

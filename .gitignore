@@ -24,8 +24,7 @@ CognitiveServices.js
 CognitiveServices.js.map
 *.map.css
 /test/uploads
-includes
-custom
 yarn-error.log
 botchat.css
 botchat.js
+*.min.js

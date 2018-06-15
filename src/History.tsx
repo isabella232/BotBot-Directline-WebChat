@@ -339,10 +339,11 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
                     }`}
                     ref={div => (this.messageDiv = div)}
                 >
-                    <div className={contentClassName}>
-                        {this.props.children}
-                        <div className="wc-message-meta">{timeLine}</div>
-                    </div>
+                    <div className={contentClassName}>{this.props.children}</div>
+                </div>
+                <div className={`wc-message-meta wc-message-meta-${who}`}>
+                    {who === 'bot' && <strong className="mark">GIC - </strong>}
+                    <span>{timeLine}</span>
                 </div>
             </div>
         );
