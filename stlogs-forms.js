@@ -5,9 +5,9 @@
   var NAME_KEY = ')(*)*)(#)$*(()*^*@(#&';
 
   var API = '';
-    // document.location.href.indexOf('localhost') > 0
-    //   ? 'https://stlogs-staging.azurewebsites.net' for dev only
-    //   : '';
+  // document.location.href.indexOf('localhost') > 0
+  //   ? 'https://stlogs-staging.azurewebsites.net' for dev only
+  //   : '';
   var TABS = {
     OPERATION: 'OPERATION',
     MANPOWER: 'MANPOWER'
@@ -429,6 +429,15 @@
     });
   };
 
+  var resetModel = function resetModel(model) {
+    var keys = Object.keys(model);
+    keys.forEach(function(key) {
+      model[key] = '';
+    });
+
+    return model;
+  };
+
   var isLoggedIn = function() {
     var token = localStorage.getItem(TOKEN_KEY);
     var department = localStorage.getItem(DEPARTMENT_KEY);
@@ -448,8 +457,8 @@
         // healthcare@stlogs.com / Healthcare412$
         // pss@stlogs.com / Pss126$
         // aviation@stlogs.com / Aviation536$
-        username: 'pss@stlogs.com',
-        password: 'Pss126$',
+        username: '',
+        password: '',
         name: isLoggedIn() ? localStorage.getItem(NAME_KEY) : '',
         userDepartment: isLoggedIn() ? localStorage.getItem(DEPARTMENT_KEY) : ''
       },
@@ -686,6 +695,7 @@
         })
           .then(function(resp) {
             self.avivationOperation.submitting = false;
+            self.avivationOperation.model = resetModel(self.avivationOperation.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -707,6 +717,7 @@
         })
           .then(function(resp) {
             self.avivationRedcon.submitting = false;
+            self.avivationRedcon.model = resetModel(self.avivationRedcon.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -728,6 +739,7 @@
         })
           .then(function(resp) {
             self.avivationManpower.submitting = false;
+            self.avivationManpower.model = resetModel(self.avivationManpower.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -749,6 +761,7 @@
         })
           .then(function(resp) {
             self.defenceRedcon.submitting = false;
+            self.defenceRedcon.model = resetModel(self.defenceRedcon.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -770,6 +783,7 @@
         })
           .then(function(resp) {
             self.defenceManpower.submitting = false;
+            self.defenceManpower.model = resetModel(self.defenceManpower.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -791,6 +805,7 @@
         })
           .then(function(resp) {
             self.defenceOperation.submitting = false;
+            self.defenceOperation.model = resetModel(self.defenceOperation.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -812,6 +827,7 @@
         })
           .then(function(resp) {
             self.healthcareRedcon.submitting = false;
+            self.healthcareRedcon.model = resetModel(self.healthcareRedcon.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -833,6 +849,7 @@
         })
           .then(function(resp) {
             self.healthcareManpower.submitting = false;
+            self.healthcareManpower.model = resetModel(self.healthcareManpower.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -854,6 +871,7 @@
         })
           .then(function(resp) {
             self.healthcareOperation.submitting = false;
+            self.healthcareOperation.model = resetModel(self.healthcareOperation.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
@@ -875,6 +893,7 @@
         })
           .then(function(resp) {
             self.pssOperation.submitting = false;
+            self.pssOperation.model = resetModel(self.pssOperation.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
