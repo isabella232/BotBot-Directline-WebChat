@@ -180,61 +180,61 @@
     {
       heading: 'Manpower Status - Aviation',
       groups: [
-        { label: 'Mpcon', name: 'Mpcon' },
+        { label: 'MPCON', name: 'Mpcon' },
         { label: 'Impact', name: 'Impact' },
         { label: 'Overall Strength', name: 'OverallStrength' },
         { label: 'Overall Present', name: 'OverallPresent' },
         { label: 'Overall Overseas', name: 'OverallOverseas' },
         { label: 'Overall Leave', name: 'OverallLeave' },
         { label: 'Overall Medical', name: 'OverallMedical' },
-        { label: 'Overall Mpcon', name: 'OverallMpcon' },
+        { label: 'Overall MPCON', name: 'OverallMpcon' },
         { label: 'Stars Strength', name: 'StarsStrength' },
         { label: 'Stars Present', name: 'StarsPresent' },
         { label: 'Stars Overseas', name: 'StarsOverseas' },
         { label: 'Stars Leave', name: 'StarsLeave' },
         { label: 'Stars Medical', name: 'StarsMedical' },
-        { label: 'Stars Mpcon', name: 'StarsMpcon' },
+        { label: 'Stars MPCON', name: 'StarsMpcon' },
         { label: 'Aml Strength', name: 'AmlStrength' },
         { label: 'Aml Present', name: 'AmlPresent' },
         { label: 'Aml Overseas', name: 'AmlOverseas' },
         { label: 'Aml Leave', name: 'AmlLeave' },
         { label: 'Aml Medical', name: 'AmlMedical' },
-        { label: 'Aml Mpcon', name: 'AmlMpcon' },
+        { label: 'Aml MPCON', name: 'AmlMpcon' },
         { label: 'Freight Strength', name: 'FreightStrength' },
         { label: 'Freight Present', name: 'FreightPresent' },
         { label: 'Freight Overseas', name: 'FreightOverseas' },
         { label: 'Freight Leave', name: 'FreightLeave' },
         { label: 'Freight Medical', name: 'FreightMedical' },
-        { label: 'Freight Mpcon', name: 'FreightMpcon' }
+        { label: 'Freight MPCON', name: 'FreightMpcon' }
       ]
     }
   ];
   var AVIVATION_REDCON_FORM = [
     {
-      heading: 'Redcon',
+      heading: 'REDCON',
       groups: [
-        { label: 'Redcon', name: 'Redcon' },
+        { label: 'REDCON', name: 'Redcon' },
         { label: 'Impact', name: 'Impact' },
         { label: 'Overall Fleet', name: 'OverallFleet' },
         { label: 'Overall Serviceable', name: 'OverallServiceable' },
         { label: 'Overall Unserviceable', name: 'OverallUnserviceable' },
         { label: 'Overall Workshop', name: 'OverallWorkshop' },
-        { label: 'Overall Redcon', name: 'OverallRedcon' },
+        { label: 'Overall REDCON', name: 'OverallRedcon' },
         { label: 'Stars Fleet', name: 'StarsFleet' },
         { label: 'Stars Serviceable', name: 'StarsServiceable' },
         { label: 'Stars Unserviceable', name: 'StarsUnserviceable' },
         { label: 'Stars Workshop', name: 'StarsWorkshop' },
-        { label: 'Stars Redcon', name: 'StarsRedcon' },
+        { label: 'Stars REDCON', name: 'StarsRedcon' },
         { label: 'Aml Fleet', name: 'AmlFleet' },
         { label: 'Aml Serviceable', name: 'AmlServiceable' },
         { label: 'Aml Unserviceable', name: 'AmlUnserviceable' },
         { label: 'Aml Workshop', name: 'AmlWorkshop' },
-        { label: 'Aml Redcon', name: 'AmlRedcon' },
+        { label: 'Aml REDCON', name: 'AmlRedcon' },
         { label: 'Freight Fleet', name: 'FreightFleet' },
         { label: 'Freight Serviceable', name: 'FreightServiceable' },
         { label: 'Freight Unserviceable', name: 'FreightUnserviceable' },
         { label: 'Freight Workshop', name: 'FreightWorkshop' },
-        { label: 'Freight Redcon', name: 'FreightRedcon' }
+        { label: 'Freight REDCON', name: 'FreightRedcon' }
       ]
     }
   ];
@@ -242,14 +242,14 @@
     {
       heading: 'Manpower Status',
       groups: [
-        { label: 'Mpcon', name: 'Mpcon' },
+        { label: 'MPCON', name: 'Mpcon' },
         { label: 'Impact', name: 'Impact' },
         { label: 'Overall Strength', name: 'OverallStrength' },
         { label: 'Overall Present', name: 'OverallPresent' },
         { label: 'Overall Overseas', name: 'OverallOverseas' },
         { label: 'Overall Leave', name: 'OverallLeave' },
         { label: 'Overall Medical', name: 'OverallMedical' },
-        { label: 'Overall Mpcon', name: 'OverallMpcon' }
+        { label: 'Overall MPCON', name: 'OverallMpcon' }
       ]
     }
   ];
@@ -257,13 +257,13 @@
     {
       heading: 'REDCON',
       groups: [
-        { label: 'Redcon', name: 'Redcon' },
+        { label: 'REDCON', name: 'Redcon' },
         { label: 'Impact', name: 'Impact' },
         { label: 'Overall Fleet', name: 'OverallFleet' },
         { label: 'Overall Serviceable', name: 'OverallServiceable' },
         { label: 'Overall Unserviceable', name: 'OverallUnserviceable' },
         { label: 'Overall Workshop', name: 'OverallWorkshop' },
-        { label: 'Overall Redcon', name: 'OverallRedcon' }
+        { label: 'Overall REDCON', name: 'OverallRedcon' }
       ]
     }
   ];
