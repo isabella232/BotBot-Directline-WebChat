@@ -1552,3 +1552,14 @@ h2 {
     font-size: 30px;
     line-height: 1.1;
 }
+
+.format-markdown {
+    line-height: 1.6;
+
+    p + ul,
+    ul + p,
+    ul + ul,
+    p + p {
+        margin-top: 15px;
+    }
+}
