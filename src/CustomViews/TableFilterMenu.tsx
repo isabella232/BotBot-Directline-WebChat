@@ -119,14 +119,14 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
     })
   }
 
-  onSearchQueryChange(event: any) {
-    const query: string = event.target.value.toLocaleLowerCase()
+  onSearchQueryChange(query: string) {
+    const lCaseQuery: string = query.toLocaleLowerCase()
     const {uniqueValues} = this.props.columnState
     this.setState({
-      query: event.target.value,
+      query,
       listValues: uniqueValues
         .filter((value: string) => typeof(value) === 'string'
-          && value.toLocaleLowerCase().indexOf(query) > -1)
+          && value.toLocaleLowerCase().indexOf(lCaseQuery) > -1)
     })
   }
 
@@ -186,12 +186,14 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   }
 
   handleOKClick() {
+    this.onSearchQueryChange('') // reset search query
     this.onStateChanged({
       filterValues: this.state.filterValues
     }, true)
   }
 
   handleCancelClick() {
+    this.onSearchQueryChange('') // reset search query
     this.setState({
       filterValues: this.props.columnState.filterValues
     })
@@ -215,7 +217,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
           ref={(element) => this.dropDownContainer = element}
           onClick={(event: any) => event.stopPropagation()}>
           <ul>
-            <li className="no-highlight">{/*clearfix, also floats for IE compatibility*/}
+            <li className="no-highlight" style={{overflow: "auto"}}>{/*clearfix, also floats for IE compatibility*/}
               <span style={{float: "right"}}>
               <button title="Sort A → Z" className="icon-button"
                 onClick={() => onSortDirectionChanged(SortDirection.Ascending)}>
@@ -250,7 +252,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
                 <div className="search-box">
                   <input 
                     type="search" 
-                    onChange={(event: any) => this.onSearchQueryChange(event)} 
+                    onChange={(event: any) => this.onSearchQueryChange(event.target.value)}
                     value={this.state.query} />
                   <div className="search-icon">
                     <svg width="12" height="12">
