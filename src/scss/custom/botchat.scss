@@ -2,7 +2,7 @@
 @import '../includes/settings';
 @import './_functions.scss';
 
-$header-height: 72px;
+$header-height: 52px;
 
 body {
   margin: 0;
@@ -21,22 +21,25 @@ body {
   img {
     margin-right: 20px;
     max-height: 100%;
+    display: none;
   }
 
-  h1 {
+  h2 {
     font-size: 24px;
+    display: none;
   }
 
   .subtext {
     width: 100%;
     color: #bca480;
     font-weight: normal;
+    display: none;
   }
 }
 
 .wc-message {
   padding: 8px 15px;
-  border-radius: 1.3em;
+  // border-radius: 1.3em;
 }
 
 .wc-message-groups {
@@ -102,9 +105,9 @@ body {
   background: none;
 
   button {
-    background-color: #bca480;
+    background-color: $c_button; //;
     border: 0px;
-    color: #fff;
+    // color: #fff;
     font-weight: 500;
     line-height: 1.29;
     text-align: left;
@@ -112,23 +115,24 @@ body {
     padding-bottom: 10px;
     outline: none;
     white-space: normal !important;
-    font-size: 18px;
+    // font-size: 18px;
 
     &:active {
       background-color: $c06;
     }
 
     &:hover {
-      background-color: $c_brand;
+      background-color: $c_button_hover;
+      color: #fff;
     }
   }
 
   .ac-pushButton:first-of-type {
-    border-radius: 1.3em 1.3em 0 0;
+    // border-radius: 1.3em 1.3em 0 0;
   }
 
   .ac-pushButton:last-of-type {
-    border-radius: 0 0 1.3em 1.3em;
+    // border-radius: 0 0 1.3em 1.3em;
   }
 
   &.hero h1 {
