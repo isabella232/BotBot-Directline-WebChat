@@ -236,6 +236,8 @@ body {
   justify-content: center;
   background: #f8f8f8;
   color: #333;
+  padding: 0 10px;
+  box-sizing: border-box;
 
   h1 {
     text-align: center;
@@ -253,7 +255,9 @@ body {
     border: 2px;
     padding: 16px;
     box-shadow: 0 4px 8px $c_shadow;
-    min-width: 320px;
+    max-width: 300px;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   label {
