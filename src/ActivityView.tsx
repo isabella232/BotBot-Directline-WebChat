@@ -68,7 +68,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
                     <div>
                         <FormattedText
                             text={ activity.text }
-                            format="plain"
+                            format={ activity.textFormat }
                             onImageLoad={ props.onImageLoad }
                         />
                         <Attachments
