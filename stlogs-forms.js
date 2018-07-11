@@ -5,6 +5,37 @@
   var NAME_KEY = ')(*)*)(#)$*(()*^*@(#&';
 
   var API = '';
+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
+  if (typeof Object.assign != 'function') {
+    // Must be writable: true, enumerable: false, configurable: true
+    Object.defineProperty(Object, "assign", {
+      value: function assign(target, varArgs) { // .length of function is 2
+        'use strict';
+        if (target == null) { // TypeError if undefined or null
+          throw new TypeError('Cannot convert undefined or null to object');
+        }
+  
+        var to = Object(target);
+  
+        for (var index = 1; index < arguments.length; index++) {
+          var nextSource = arguments[index];
+  
+          if (nextSource != null) { // Skip over if undefined or null
+            for (var nextKey in nextSource) {
+              // Avoid bugs when hasOwnProperty is shadowed
+              if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+                to[nextKey] = nextSource[nextKey];
+              }
+            }
+          }
+        }
+        return to;
+      },
+      writable: true,
+      configurable: true
+    });
+  }
   // document.location.href.indexOf('localhost') > 0
   //   ? 'https://stlogs-staging.azurewebsites.net' for dev only
   //   : '';
@@ -180,32 +211,31 @@
     {
       heading: 'Manpower Status - Aviation',
       groups: [
-        { label: 'MPCON', name: 'Mpcon' },
-        { label: 'Impact', name: 'Impact' },
-        { label: 'Overall Strength', name: 'OverallStrength' },
-        { label: 'Overall Present', name: 'OverallPresent' },
-        { label: 'Overall Overseas', name: 'OverallOverseas' },
-        { label: 'Overall Leave', name: 'OverallLeave' },
-        { label: 'Overall Medical', name: 'OverallMedical' },
-        { label: 'Overall MPCON', name: 'OverallMpcon' },
-        { label: 'STARS Strength', name: 'StarsStrength' },
-        { label: 'STARS Present', name: 'StarsPresent' },
-        { label: 'STARS Overseas', name: 'StarsOverseas' },
-        { label: 'STARS Leave', name: 'StarsLeave' },
-        { label: 'STARS Medical', name: 'StarsMedical' },
-        { label: 'STARS MPCON', name: 'StarsMpcon' },
-        { label: 'AML Strength', name: 'AmlStrength' },
-        { label: 'AML Present', name: 'AmlPresent' },
-        { label: 'AML Overseas', name: 'AmlOverseas' },
-        { label: 'AML Leave', name: 'AmlLeave' },
-        { label: 'AML Medical', name: 'AmlMedical' },
-        { label: 'AML MPCON', name: 'AmlMpcon' },
-        { label: 'Freight Strength', name: 'FreightStrength' },
-        { label: 'Freight Present', name: 'FreightPresent' },
-        { label: 'Freight Overseas', name: 'FreightOverseas' },
-        { label: 'Freight Leave', name: 'FreightLeave' },
-        { label: 'Freight Medical', name: 'FreightMedical' },
-        { label: 'Freight MPCON', name: 'FreightMpcon' }
+        { label: 'MPCON', name: 'Mpcon', required: true, type: 'number' },
+        { label: 'Overall Strength', name: 'OverallStrength', required: true, type: 'number' },
+        { label: 'Overall Present', name: 'OverallPresent', required: true, type: 'number' },
+        { label: 'Overall Overseas', name: 'OverallOverseas', required: true, type: 'number' },
+        { label: 'Overall Leave', name: 'OverallLeave', required: true, type: 'number' },
+        { label: 'Overall Medical', name: 'OverallMedical', required: true, type: 'number' },
+        { label: 'Overall MPCON', name: 'OverallMpcon', required: true, type: 'number' },
+        { label: 'STARS Strength', name: 'StarsStrength', required: true, type: 'number' },
+        { label: 'STARS Present', name: 'StarsPresent', required: true, type: 'number' },
+        { label: 'STARS Overseas', name: 'StarsOverseas', required: true, type: 'number' },
+        { label: 'STARS Leave', name: 'StarsLeave', required: true, type: 'number' },
+        { label: 'STARS Medical', name: 'StarsMedical', required: true, type: 'number' },
+        { label: 'STARS MPCON', name: 'StarsMpcon', required: true, type: 'number' },
+        { label: 'AML Strength', name: 'AmlStrength', required: true, type: 'number' },
+        { label: 'AML Present', name: 'AmlPresent', required: true, type: 'number' },
+        { label: 'AML Overseas', name: 'AmlOverseas', required: true, type: 'number' },
+        { label: 'AML Leave', name: 'AmlLeave', required: true, type: 'number' },
+        { label: 'AML Medical', name: 'AmlMedical', required: true, type: 'number' },
+        { label: 'AML MPCON', name: 'AmlMpcon', required: true, type: 'number' },
+        { label: 'Freight Strength', name: 'FreightStrength', required: true, type: 'number' },
+        { label: 'Freight Present', name: 'FreightPresent', required: true, type: 'number' },
+        { label: 'Freight Overseas', name: 'FreightOverseas', required: true, type: 'number' },
+        { label: 'Freight Leave', name: 'FreightLeave', required: true, type: 'number' },
+        { label: 'Freight Medical', name: 'FreightMedical', required: true, type: 'number' },
+        { label: 'Freight MPCON', name: 'FreightMpcon', required: true, type: 'number' }
       ]
     }
   ];
@@ -213,28 +243,28 @@
     {
       heading: 'REDCON',
       groups: [
-        { label: 'REDCON', name: 'Redcon' },
-        { label: 'Impact', name: 'Impact' },
-        { label: 'Overall Fleet', name: 'OverallFleet' },
-        { label: 'Overall Serviceable', name: 'OverallServiceable' },
-        { label: 'Overall Unserviceable', name: 'OverallUnserviceable' },
-        { label: 'Overall Workshop', name: 'OverallWorkshop' },
-        { label: 'Overall REDCON', name: 'OverallRedcon' },
-        { label: 'STARS Fleet', name: 'StarsFleet' },
-        { label: 'STARS Serviceable', name: 'StarsServiceable' },
-        { label: 'STARS Unserviceable', name: 'StarsUnserviceable' },
-        { label: 'STARS Workshop', name: 'StarsWorkshop' },
-        { label: 'STARS REDCON', name: 'StarsRedcon' },
-        { label: 'AML Fleet', name: 'AmlFleet' },
-        { label: 'AML Serviceable', name: 'AmlServiceable' },
-        { label: 'AML Unserviceable', name: 'AmlUnserviceable' },
-        { label: 'AML Workshop', name: 'AmlWorkshop' },
-        { label: 'AML REDCON', name: 'AmlRedcon' },
-        { label: 'Freight Fleet', name: 'FreightFleet' },
-        { label: 'Freight Serviceable', name: 'FreightServiceable' },
-        { label: 'Freight Unserviceable', name: 'FreightUnserviceable' },
-        { label: 'Freight Workshop', name: 'FreightWorkshop' },
-        { label: 'Freight REDCON', name: 'FreightRedcon' }
+        { label: 'REDCON', name: 'Redcon', required: true, type: 'number' },
+        { label: 'Overall Fleet', name: 'OverallFleet', required: true, type: 'number' },
+        { label: 'Overall Serviceable', name: 'OverallServiceable', required: true, type: 'number' },
+        { label: 'Overall Unserviceable', name: 'OverallUnserviceable', required: true, type: 'number' },
+        { label: 'Overall Workshop', name: 'OverallWorkshop', required: true, type: 'number' },
+        { label: 'Overall REDCON', name: 'OverallRedcon', required: true, type: 'number' },
+        { label: 'STARS Fleet', name: 'StarsFleet', required: true, type: 'number' },
+        { label: 'STARS Serviceable', name: 'StarsServiceable', required: true, type: 'number' },
+        { label: 'STARS Unserviceable', name: 'StarsUnserviceable', required: true, type: 'number' },
+        { label: 'STARS Workshop', name: 'StarsWorkshop', required: true, type: 'number' },
+        { label: 'STARS REDCON', name: 'StarsRedcon', required: true, type: 'number' },
+        { label: 'AML Fleet', name: 'AmlFleet', required: true, type: 'number' },
+        { label: 'AML Serviceable', name: 'AmlServiceable', required: true, type: 'number' },
+        { label: 'AML Unserviceable', name: 'AmlUnserviceable', required: true, type: 'number' },
+        { label: 'AML Workshop', name: 'AmlWorkshop', required: true, type: 'number' },
+        { label: 'AML REDCON', name: 'AmlRedcon', required: true, type: 'number' },
+        { label: 'Freight Fleet', name: 'FreightFleet', required: true, type: 'number' },
+        { label: 'Freight Serviceable', name: 'FreightServiceable', required: true, type: 'number' },
+        { label: 'Freight Unserviceable', name: 'FreightUnserviceable', required: true, type: 'number' },
+        { label: 'Freight Workshop', name: 'FreightWorkshop', required: true, type: 'number' },
+        { label: 'Freight REDCON', name: 'FreightRedcon', required: true, type: 'number' },
+        { label: 'Impact', name: 'Impact' }
       ]
     }
   ];
@@ -242,14 +272,13 @@
     {
       heading: 'Manpower Status',
       groups: [
-        { label: 'MPCON', name: 'Mpcon' },
-        { label: 'Impact', name: 'Impact' },
-        { label: 'Overall Strength', name: 'OverallStrength' },
-        { label: 'Overall Present', name: 'OverallPresent' },
-        { label: 'Overall Overseas', name: 'OverallOverseas' },
-        { label: 'Overall Leave', name: 'OverallLeave' },
-        { label: 'Overall Medical', name: 'OverallMedical' },
-        { label: 'Overall MPCON', name: 'OverallMpcon' }
+        { label: 'MPCON', name: 'Mpcon', required: true, type: 'number' },
+        { label: 'Overall Strength', name: 'OverallStrength', required: true, type: 'number' },
+        { label: 'Overall Present', name: 'OverallPresent', required: true, type: 'number' },
+        { label: 'Overall Overseas', name: 'OverallOverseas', required: true, type: 'number' },
+        { label: 'Overall Leave', name: 'OverallLeave', required: true, type: 'number' },
+        { label: 'Overall Medical', name: 'OverallMedical', required: true, type: 'number' },
+        { label: 'Overall MPCON', name: 'OverallMpcon', required: true, type: 'number' }
       ]
     }
   ];
@@ -257,13 +286,13 @@
     {
       heading: 'REDCON',
       groups: [
-        { label: 'REDCON', name: 'Redcon' },
-        { label: 'Impact', name: 'Impact' },
-        { label: 'Overall Fleet', name: 'OverallFleet' },
-        { label: 'Overall Serviceable', name: 'OverallServiceable' },
-        { label: 'Overall Unserviceable', name: 'OverallUnserviceable' },
-        { label: 'Overall Workshop', name: 'OverallWorkshop' },
-        { label: 'Overall REDCON', name: 'OverallRedcon' }
+        { label: 'REDCON', name: 'Redcon', required: true, type: 'number' },
+        { label: 'Overall Fleet', name: 'OverallFleet', required: true, type: 'number' },
+        { label: 'Overall Serviceable', name: 'OverallServiceable', required: true, type: 'number' },
+        { label: 'Overall Unserviceable', name: 'OverallUnserviceable', required: true, type: 'number' },
+        { label: 'Overall Workshop', name: 'OverallWorkshop', required: true, type: 'number' },
+        { label: 'Overall REDCON', name: 'OverallRedcon', required: true, type: 'number' },
+        { label: 'Impact', name: 'Impact' }
       ]
     }
   ];
@@ -468,7 +497,6 @@
         fields: AVIVATION_MANPOWER_FORM,
         model: {
           Mpcon: '',
-          Impact: '',
           OverallStrength: '',
           OverallPresent: '',
           OverallOverseas: '',
@@ -499,7 +527,6 @@
         submitting: false,
         fields: AVIVATION_REDCON_FORM,
         model: {
-          Impact: '',
           Redcon: '',
           OverallFleet: '',
           OverallServiceable: '',
@@ -520,7 +547,8 @@
           FreightServiceable: '',
           FreightUnserviceable: '',
           FreightWorkshop: '',
-          FreightRedcon: ''
+          FreightRedcon: '',
+          Impact: ''
         }
       },
       avivationOperation: {
@@ -533,7 +561,6 @@
         fields: DEFENCE_MANPOWER_FORM,
         model: {
           Mpcon: '',
-          Impact: '',
           OverallStrength: '',
           OverallPresent: '',
           OverallOverseas: '',
@@ -547,12 +574,12 @@
         fields: DEFENCE_REDCON_FORM,
         model: {
           Redcon: '',
-          Impact: '',
           OverallFleet: '',
           OverallServiceable: '',
           OverallUnserviceable: '',
           OverallWorkshop: '',
-          OverallRedcon: ''
+          OverallRedcon: '',
+          Impact: ''
         }
       },
       defenceOperation: {
@@ -735,37 +762,16 @@
         callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          data: this.avivationManpower.model
+          data: Object.assign(this.avivationRedcon.model ,this.avivationManpower.model)
         })
           .then(function(resp) {
             self.avivationManpower.submitting = false;
             self.avivationManpower.model = resetModel(self.avivationManpower.model);
+            self.avivationRedcon.model = resetModel(self.avivationRedcon.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
             self.avivationManpower.submitting = false;
-            self.notifications.push({
-              type: 'error',
-              message: 'Something went wrong. Please try again'
-            });
-          });
-      },
-      doDefenceRedconSubmit: function() {
-        var self = this;
-        self.defenceRedcon.submitting = true;
-
-        callApi({
-          url: API + '/api/form/redcon',
-          method: 'POST',
-          data: this.defenceRedcon.model
-        })
-          .then(function(resp) {
-            self.defenceRedcon.submitting = false;
-            self.defenceRedcon.model = resetModel(self.defenceRedcon.model);
-            self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.defenceRedcon.submitting = false;
             self.notifications.push({
               type: 'error',
               message: 'Something went wrong. Please try again'
@@ -779,11 +785,12 @@
         callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          data: this.defenceManpower.model
+          data: Object.assign(this.defenceRedcon.model, this.defenceManpower.model)
         })
           .then(function(resp) {
             self.defenceManpower.submitting = false;
             self.defenceManpower.model = resetModel(self.defenceManpower.model);
+            self.defenceRedcon.model = resetModel(self.defenceRedcon.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
           })
           .catch(function(error) {
