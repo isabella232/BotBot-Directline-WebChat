@@ -117,6 +117,14 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
 
     private doCardAction(type: CardActionTypes, value: string | object) {
         this.props.onClickCardAction();
+        // debugger;
+        // console.log('clicked on button');
+        
+        if (type === 'postBack' || type === 'imBack') {
+            this.scrollToBottom = true;
+            this.autoscroll();
+        }
+
         return this.props.doCardAction(type, value);
     }
 

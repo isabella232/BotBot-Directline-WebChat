@@ -39,7 +39,7 @@ body {
 
 .wc-message {
   padding: 8px 15px;
-  // border-radius: 1.3em;
+  border-radius: $radius;
 }
 
 .wc-message-groups {
@@ -128,11 +128,11 @@ body {
   }
 
   .ac-pushButton:first-of-type {
-    // border-radius: 1.3em 1.3em 0 0;
+    border-radius: $radius $radius 0 0;
   }
 
   .ac-pushButton:last-of-type {
-    // border-radius: 0 0 1.3em 1.3em;
+    border-radius: 0 0 $radius $radius;
   }
 
   &.hero h1 {
