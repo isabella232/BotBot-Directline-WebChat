@@ -9,7 +9,15 @@ export const BOT_API_URL = 'https://gic-investment-staging.azurewebsites.net/api
 export type AppProps = ChatProps;
 
 export const App = (props: AppProps, container: HTMLElement) => {
-  ReactDOM.render(React.createElement(AppContainer, props), container);
+  axios
+    .post('https://gic-investment-staging.azurewebsites.net/api/setting/adsfdgkhdsfdkaj32453535')
+    .then(resp => {
+      props.directLine.secret = resp.data.secret;
+
+      requestCustomiseUI(resp.data.feconfig);
+
+      ReactDOM.render(React.createElement(AppContainer, props), container);
+    });
 };
 
 export interface IConfig {
@@ -99,18 +107,15 @@ const compileStyle = (config: IConfig) => {
   }
 };
 
-function requestCustomiseUI() {
+function requestCustomiseUI(feconfigUrl) {
   axios
-    .get(`${BOT_API_URL}/dashboard/botid`)
-    .then(resp => axios.get(`${DASHBOARD_API_URL}/feconfig/get?botid=${resp.data.id}`))
+    .get(feconfigUrl)
     .then(resp => {
       compileStyle(resp.data);
     });
 }
 
 const AppContainer = (props: AppProps) => {
-  requestCustomiseUI();
-
   return (
     <div className="wc-app">
       <Chat {...props} />
