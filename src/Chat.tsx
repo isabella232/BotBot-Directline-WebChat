@@ -206,7 +206,7 @@ export class Chat extends React.Component<ChatProps, {}> {
     }
 
     private handleScrollToTop() {
-        this.scrollContent.scrollTo(0, 0);
+        this.scrollContent.scrollTop = 0;
     }
 
     private handleGetRef(div: HTMLElement) {
