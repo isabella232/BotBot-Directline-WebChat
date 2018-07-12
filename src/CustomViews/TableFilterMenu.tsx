@@ -122,11 +122,12 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   onSearchQueryChange(query: string) {
     const lCaseQuery: string = query.toLocaleLowerCase()
     const {uniqueValues} = this.props.columnState
+    const listValues = uniqueValues
+      .filter((value: string) => typeof(value) === 'string'
+        && value.toLocaleLowerCase().indexOf(lCaseQuery) > -1)
     this.setState({
       query,
-      listValues: uniqueValues
-        .filter((value: string) => typeof(value) === 'string'
-          && value.toLocaleLowerCase().indexOf(lCaseQuery) > -1)
+      listValues,
     })
   }
 
@@ -187,9 +188,14 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
 
   handleOKClick() {
     this.onSearchQueryChange('') // reset search query
-    this.onStateChanged({
-      filterValues: this.state.filterValues
-    }, true)
+    const filterValues = this.state.query === ''
+      ? this.state.filterValues
+      : this.props.columnState.uniqueValues
+          .filter((value: string) => this.state.listValues.indexOf(value) === -1)
+    
+    this.setState({
+      filterValues
+    }, () => this.onStateChanged(filterValues, true))
   }
 
   handleCancelClick() {
