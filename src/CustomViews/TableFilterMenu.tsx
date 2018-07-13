@@ -189,7 +189,7 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
       : this.props.columnState.uniqueValues
           .filter(
             (value: string) => this.state.listValues.indexOf(value) === -1
-            || this.state.filterValues.indexOf(value) > -1
+            || (this.state.filterValues && this.state.filterValues.indexOf(value) > -1)
           )
     
     this.onSearchQueryChange('') // reset search query
