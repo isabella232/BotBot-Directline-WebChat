@@ -9,10 +9,12 @@ export const BOT_API_URL = 'https://gic-investment-staging.azurewebsites.net/api
 export type AppProps = ChatProps;
 
 export const App = (props: AppProps, container: HTMLElement) => {
-  // dev: https://gic-investment-staging.azurewebsites.net
-  
+  const API_URL = process.env.NODE_ENV === 'development' 
+    ? 'https://gic-investment-staging.azurewebsites.net' 
+    : ''
+
   axios
-    .post('/api/setting/adsfdgkhdsfdkaj32453535')
+    .post(API_URL + '/api/setting/adsfdgkhdsfdkaj32453535')
     .then(resp => {
       props.directLine.secret = resp.data.secret;
 
@@ -109,7 +111,7 @@ const compileStyle = (config: IConfig) => {
   }
 };
 
-function requestCustomiseUI(feconfigUrl) {
+function requestCustomiseUI(feconfigUrl: string) {
   axios
     .get(feconfigUrl)
     .then(resp => {

@@ -1,7 +1,4 @@
 import * as React from 'react';
-import { filter } from 'rxjs/operator/filter';
-import { Column } from 'microsoft-adaptivecards';
-import { TableProps } from './TableView';
 import { Portal } from './Portal';
 
 export enum SortDirection {
@@ -187,23 +184,25 @@ export class TableFilterMenu extends React.Component<TableFilterMenuProps, Table
   }
 
   handleOKClick() {
-    this.onSearchQueryChange('') // reset search query
     const filterValues = this.state.query === ''
       ? this.state.filterValues
       : this.props.columnState.uniqueValues
-          .filter((value: string) => this.state.listValues.indexOf(value) === -1)
+          .filter(
+            (value: string) => this.state.listValues.indexOf(value) === -1
+            || this.state.filterValues.indexOf(value) > -1
+          )
     
+    this.onSearchQueryChange('') // reset search query
     this.setState({
       filterValues
-    }, () => this.onStateChanged(filterValues, true))
+    }, () => this.onStateChanged({filterValues}, true))
   }
 
   handleCancelClick() {
     this.onSearchQueryChange('') // reset search query
     this.setState({
       filterValues: this.props.columnState.filterValues
-    })
-    this.props.onClose()
+    }, () => this.props.onClose())
   }
   
   render() {
