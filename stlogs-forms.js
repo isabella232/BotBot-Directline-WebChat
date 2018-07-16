@@ -311,97 +311,64 @@
       heading: "Today's Operations:",
       groups: [
         {
-          label: '>FUPO (D)',
-          name: '>FUPO (D)'
+          label: 'FUPO (D)',
+          name: 'FUPO',
+          required: true
         },
         {
-          label: 'MHA Mailroom (D) ',
-          name: 'MHA Mailroom (D) '
-        },
-        {
-          label: 'MOE (N)',
-          name: 'MOE (N)t'
-        },
-        {
-          label: 'MOM (N)',
-          name: 'MOM (N)'
-        },
-        {
-          label: 'Events (N) ',
-          name: 'Events (N) '
-        },
-        {
-          label: 'MLAW (N) ',
-          name: 'MLAW (N) '
-        },
-        {
-          label: 'PLB Offsite Stores (N)',
-          name: 'PLB Offsite Stores (N)'
-        },
-        {
-          label: 'SCDF Offsite Stores (N) ',
-          name: 'SCDF Offsite Stores (N) '
-        },
-        {
-          label: 'Courier Services (N)',
-          name: 'Courier Services (N)'
-        },
-        {
-          label: 'NLB (N)',
-          name: 'NLB (N)'
-        },
-        {
-          label: 'Procurement (N) ',
-          name: 'Procurement (N) '
-        }
-      ]
-    },
-    {
-      heading: 'Key Highlight For Next Day',
-      groups: [
-        {
-          label: '>FUPO (D)',
-          name: '>FUPO (D)'
-        },
-        {
-          label: 'MHA Mailroom (D) ',
-          name: 'MHA Mailroom (D) '
+          label: 'MHA Mailroom (D)',
+          name: 'MHAMailroom',
+          required: true
         },
         {
           label: 'MOE (N)',
-          name: 'MOE (N)t'
+          name: 'MOE',
+          required: true
         },
         {
           label: 'MOM (N)',
-          name: 'MOM (N)'
+          name: 'MOM',
+          required: true
         },
         {
           label: 'Events (N) ',
-          name: 'Events (N) '
+          name: 'Events',
+          required: true
         },
         {
           label: 'MLAW (N) ',
-          name: 'MLAW (N) '
+          name: 'MLAW',
+          required: true
         },
         {
           label: 'PLB Offsite Stores (N)',
-          name: 'PLB Offsite Stores (N)'
+          name: 'PLBOffsiteStores',
+          required: true
         },
         {
           label: 'SCDF Offsite Stores (N) ',
-          name: 'SCDF Offsite Stores (N) '
+          name: 'SCDFOffsiteStores',
+          required: true
         },
         {
           label: 'Courier Services (N)',
-          name: 'Courier Services (N)'
+          name: 'CourierServices',
+          required: true
         },
         {
           label: 'NLB (N)',
-          name: 'NLB (N)'
+          name: 'NLB',
+          required: true
         },
         {
           label: 'Procurement (N) ',
-          name: 'Procurement (N) '
+          name: 'Procurement',
+          required: true
+        },
+        {
+          label: 'Key Highlight For Next Day',
+          name: 'NextdayHighlighting',
+          required: true
         }
       ]
     }
@@ -692,7 +659,6 @@
       doDefenceOperationSubmit: function() {
         var self = this;
         self.defenceOperation.submitting = true;
-
         this.defenceOperation.model.Date = getToday();
 
         callApi({
@@ -742,24 +708,25 @@
         callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          data: this.healthcareManpower.model
-        })
-          .then(function(resp) {
-            self.healthcareManpower.submitting = false;
+          data: this.healthcareManpower.model,
+          success: function(resp) {
             self.healthcareManpower.model = resetModel(self.healthcareManpower.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.healthcareManpower.submitting = false;
+          },
+          error: function(error) {
             self.notifications.push({
               type: 'error',
               message: 'Something went wrong. Please try again'
             });
-          });
+          }
+        }).then(function(resp) {
+          self.healthcareManpower.submitting = false;
+        });
       },
       doHealthcareOperationSubmit: function() {
         var self = this;
         self.healthcareOperation.submitting = true;
+        this.healthcareOperation.model.Date = getToday();
 
         callApi({
           url: API + '/api/form/opshighlight',
@@ -782,6 +749,7 @@
       doPssOperationSubmit: function() {
         var self = this;
         self.pssOperation.submitting = true;
+        this.pssOperation.model.Date = getToday();
 
         callApi({
           url: API + '/api/form/opshighlight',
