@@ -108,12 +108,12 @@
                 <legend>{{item.title}}</legend>
                 <p v-for="field in item.fields" class="form-group">
                   <label>{{field.label}}</label>
-                  <input type="text" autocomplete="off" v-model="defenceOperation.model[field.name]" :name="field.name" value="" />
+                  <input type="text" autocomplete="off" v-model="defenceOperation.model[field.name]" :name="field.name" :required="field.required" />
                 </p>
               </fieldset>
               <p v-for="item in block.groups" v-if="!item.title" class="form-group">
                 <label>{{item.label}}</label>
-                <input type="text" autocomplete="off" v-model="defenceOperation.model[item.name]" :name="item.name" value="" />
+                <input type="text" autocomplete="off" v-model="defenceOperation.model[item.name]" :name="item.name" :required="item.required" />
               </p>
             </template>
 
@@ -134,12 +134,12 @@
                 <legend>{{item.title}}</legend>
                 <p v-for="field in item.fields" class="form-group">
                   <label>{{field.label}}</label>
-                  <input type="text" autocomplete="off" v-model="healthcareOperation.model[field.name]" :name="field.name" value="" />
+                  <input type="text" autocomplete="off" v-model="healthcareOperation.model[field.name]" :name="field.name" :required="field.required" />
                 </p>
               </fieldset>
               <p v-for="item in block.groups" v-if="!item.title" class="form-group">
                 <label>{{item.label}}</label>
-                <input type="text" autocomplete="off" v-model="healthcareOperation.model[item.name]" :name="item.name" value="" />
+                <input type="text" autocomplete="off" v-model="healthcareOperation.model[item.name]" :name="item.name" :required="item.required" />
               </p>
             </template>
 
@@ -160,12 +160,12 @@
                 <legend>{{item.title}}</legend>
                 <p v-for="field in item.fields" class="form-group">
                   <label>{{field.label}}</label>
-                  <input type="text" autocomplete="off" v-model="pssOperation.model[field.name]" :name="field.name" value="" />
+                  <input type="text" autocomplete="off" v-model="pssOperation.model[field.name]" :name="field.name" :required="field.required" />
                 </p>
               </fieldset>
               <p v-for="item in block.groups" v-if="!item.title" class="form-group">
                 <label>{{item.label}}</label>
-                <input type="text" autocomplete="off" v-model="pssOperation.model[item.name]" :name="item.name" value="" />
+                <input type="text" autocomplete="off" v-model="pssOperation.model[item.name]" :name="item.name" :required="item.required" />
               </p>
             </div>
 

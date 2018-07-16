@@ -252,20 +252,29 @@
       heading: "Today's Operations:",
       groups: [
         {
-          label: 'Army Delivery (Milkrun): 105 Pallets deliver across Units.',
-          name: 'ArmyDelivery'
+          label: 'Army Delivery (Milkrun)',
+          name: 'DefArmyDelivery',
+          required: true
         },
         {
-          label: 'E-mart Delivery: Delivery Date Order for 25 April 18 – All orders completed.',
-          name: 'EMartDelivery'
+          label: 'E-mart Delivery',
+          name: 'DefEMartDelivery',
+          required: true
         },
         {
           label: 'Supported',
-          name: 'Supported'
+          name: 'DefSupported',
+          required: true
         },
         {
           label: 'Incident',
-          name: 'Incident'
+          name: 'DefIncident',
+          required: true
+        },
+        {
+          label: 'Key Highlight For Next Day',
+          name: 'NextdayHighlighting',
+          required: true
         }
       ]
     }
@@ -433,6 +442,17 @@
     return !!token && availabelDepartments.indexOf(department) > -1;
   };
 
+  var getToday = function() {
+    var today = new Date();
+
+    today.setHours(0);
+    today.setMinutes(0);
+    today.setSeconds(0);
+    today.setMilliseconds(0);
+
+    return today.getTime() / 1000;
+  };
+
   var app = new Vue({
     el: '#app',
     data: {
@@ -453,59 +473,12 @@
       aviationManpower: {
         submitting: false,
         fields: AVIATION_MANPOWER_FORM,
-        model: {
-          OverallStrength: '',
-          OverallPresent: '',
-          OverallOverseas: '',
-          OverallLeave: '',
-          OverallMedical: '',
-          OverallMpcon: '',
-          StarsStrength: '',
-          StarsPresent: '',
-          StarsOverseas: '',
-          StarsLeave: '',
-          StarsMedical: '',
-          StarsMpcon: '',
-          AmlStrength: '',
-          AmlPresent: '',
-          AmlOverseas: '',
-          AmlLeave: '',
-          AmlMedical: '',
-          AmlMpcon: '',
-          FreightStrength: '',
-          FreightPresent: '',
-          FreightOverseas: '',
-          FreightLeave: '',
-          FreightMedical: '',
-          FreightMpcon: ''
-        }
+        model: {}
       },
       aviationRedcon: {
         submitting: false,
         fields: AVIATION_REDCON_FORM,
-        model: {
-          OverallFleet: '',
-          OverallServiceable: '',
-          OverallUnserviceable: '',
-          OverallWorkshop: '',
-          OverallRedcon: '',
-          StarsFleet: '',
-          StarsServiceable: '',
-          StarsUnserviceable: '',
-          StarsWorkshop: '',
-          StarsRedcon: '',
-          AmlFleet: '',
-          AmlServiceable: '',
-          AmlUnserviceable: '',
-          AmlWorkshop: '',
-          AmlRedcon: '',
-          FreightFleet: '',
-          FreightServiceable: '',
-          FreightUnserviceable: '',
-          FreightWorkshop: '',
-          FreightRedcon: '',
-          Impact: ''
-        }
+        model: {}
       },
       aviationOperation: {
         submitting: false,
@@ -515,45 +488,22 @@
       defenceManpower: {
         submitting: false,
         fields: DEFENCE_MANPOWER_FORM,
-        model: {
-          OverallStrength: '',
-          OverallPresent: '',
-          OverallOverseas: '',
-          OverallLeave: '',
-          OverallMedical: '',
-          OverallMpcon: ''
-        }
+        model: {}
       },
       defenceRedcon: {
         submitting: false,
         fields: DEFENCE_REDCON_FORM,
-        model: {
-          OverallFleet: '',
-          OverallServiceable: '',
-          OverallUnserviceable: '',
-          OverallWorkshop: '',
-          OverallRedcon: '',
-          Impact: ''
-        }
+        model: {}
       },
       defenceOperation: {
         submitting: false,
         fields: DEFENCE_OPERATION_FORM,
-        model: {
-          ArmyDelivery: '',
-          EMartDelivery: '',
-          Supported: '',
-          Incident: ''
-        }
+        model: {}
       },
       healthcareOperation: {
         submitting: false,
         fields: HEALTHCARE_OPERATION_FORM,
-        model: {
-          Sthc: '',
-          Thc: '',
-          Incident: ''
-        }
+        model: {}
       },
       pssOperation: {
         submitting: false,
@@ -662,14 +612,10 @@
       },
       doAvivationOperationSubmit: function() {
         var self = this;
-        var today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        today.setMilliseconds(0);
+        var today = getToday();
 
         self.aviationOperation.submitting = true;
-        this.aviationOperation.model.Date = today.getTime() / 1000; // second
+        this.aviationOperation.model.Date = today; // second
 
         callApi({
           url: API + '/api/form/opshighlight',
@@ -719,43 +665,45 @@
         callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          data: Object.assign(this.defenceRedcon.model, this.defenceManpower.model)
-        })
-          .then(function(resp) {
-            self.defenceManpower.submitting = false;
+          data: Object.assign(this.defenceRedcon.model, this.defenceManpower.model),
+          success: function(resp) {
             self.defenceManpower.model = resetModel(self.defenceManpower.model);
             self.defenceRedcon.model = resetModel(self.defenceRedcon.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.defenceManpower.submitting = false;
+          },
+          error: function(error) {
             self.notifications.push({
               type: 'error',
               message: 'Something went wrong. Please try again'
             });
-          });
+          }
+        }).then(function(resp) {
+          self.defenceManpower.submitting = false;
+        });
       },
       doDefenceOperationSubmit: function() {
         var self = this;
         self.defenceOperation.submitting = true;
 
+        this.defenceOperation.model.Date = getToday();
+
         callApi({
-          url: API + '/api/form/mpcon',
+          url: API + '/api/form/opshighlight',
           method: 'POST',
-          data: this.defenceOperation.model
-        })
-          .then(function(resp) {
-            self.defenceOperation.submitting = false;
+          data: this.defenceOperation.model,
+          success: function(resp) {
             self.defenceOperation.model = resetModel(self.defenceOperation.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.defenceOperation.submitting = false;
+          },
+          error: function(error) {
             self.notifications.push({
               type: 'error',
               message: 'Something went wrong. Please try again'
             });
-          });
+          }
+        }).then(function() {
+          self.defenceOperation.submitting = false;
+        });
       },
       doHealthcareRedconSubmit: function() {
         var self = this;
