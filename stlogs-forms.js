@@ -285,15 +285,23 @@
       groups: [
         {
           label: 'STHC: All delivery completed.',
-          name: 'Sthc'
+          name: 'STHC',
+          required: true
         },
         {
           label: 'THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.',
-          name: 'Thc'
+          name: 'THC',
+          required: true
         },
         {
           label: 'Incident',
-          name: 'Incident'
+          name: 'HCIncident',
+          required: true
+        },
+        {
+          label: 'Key Highlight For Next Day',
+          name: 'NextdayHighlighting',
+          required: true
         }
       ]
     }
@@ -754,44 +762,45 @@
         self.healthcareOperation.submitting = true;
 
         callApi({
-          url: API + '/api/form/mpcon',
+          url: API + '/api/form/opshighlight',
           method: 'POST',
-          data: this.healthcareOperation.model
-        })
-          .then(function(resp) {
-            self.healthcareOperation.submitting = false;
+          data: this.healthcareOperation.model,
+          success: function(resp) {
             self.healthcareOperation.model = resetModel(self.healthcareOperation.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.healthcareOperation.submitting = false;
+          },
+          error: function(error) {
             self.notifications.push({
               type: 'error',
               message: 'Something went wrong. Please try again'
             });
-          });
+          }
+        }).then(function(resp) {
+          self.healthcareOperation.submitting = false;
+        });
       },
       doPssOperationSubmit: function() {
         var self = this;
         self.pssOperation.submitting = true;
 
         callApi({
-          url: API + '/api/form/mpcon',
+          url: API + '/api/form/opshighlight',
           method: 'POST',
-          data: this.pssOperation.model
-        })
-          .then(function(resp) {
+          data: this.pssOperation.model,
+          success: function(resp) {
             self.pssOperation.submitting = false;
             self.pssOperation.model = resetModel(self.pssOperation.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.pssOperation.submitting = false;
+          },
+          error: function(error) {
             self.notifications.push({
               type: 'error',
               message: 'Something went wrong. Please try again'
             });
-          });
+          }
+        }).then(function(resp) {
+          self.pssOperation.submitting = false;
+        });
       },
       removeNotification: function(index) {
         this.notifications.splice(index, 1);
