@@ -17,7 +17,8 @@ body {
   display: flex;
   align-items: center;
   box-shadow: none;
-
+  justify-content: flex-end;
+  
   img {
     margin-right: 20px;
     max-height: 100%;
@@ -368,4 +369,20 @@ body {
 mark, .mark {
   color: $c_brand;
   background: none;
+}
+
+.contact-link {
+  background-color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  color: white;
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+
+  img {
+    display: block;
+    max-height: 100%;
+  }
 }
