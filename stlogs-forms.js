@@ -211,7 +211,6 @@
     {
       heading: 'Manpower Status - Aviation',
       groups: [
-        { label: 'MPCON', name: 'Mpcon', required: true, type: 'number' },
         { label: 'Overall Strength', name: 'OverallStrength', required: true, type: 'number' },
         { label: 'Overall Present', name: 'OverallPresent', required: true, type: 'number' },
         { label: 'Overall Overseas', name: 'OverallOverseas', required: true, type: 'number' },
@@ -243,7 +242,6 @@
     {
       heading: 'REDCON',
       groups: [
-        { label: 'REDCON', name: 'Redcon', required: true, type: 'number' },
         { label: 'Overall Fleet', name: 'OverallFleet', required: true, type: 'number' },
         { label: 'Overall Serviceable', name: 'OverallServiceable', required: true, type: 'number' },
         { label: 'Overall Unserviceable', name: 'OverallUnserviceable', required: true, type: 'number' },
@@ -272,7 +270,6 @@
     {
       heading: 'Manpower Status',
       groups: [
-        { label: 'MPCON', name: 'Mpcon', required: true, type: 'number' },
         { label: 'Overall Strength', name: 'OverallStrength', required: true, type: 'number' },
         { label: 'Overall Present', name: 'OverallPresent', required: true, type: 'number' },
         { label: 'Overall Overseas', name: 'OverallOverseas', required: true, type: 'number' },
@@ -286,7 +283,6 @@
     {
       heading: 'REDCON',
       groups: [
-        { label: 'REDCON', name: 'Redcon', required: true, type: 'number' },
         { label: 'Overall Fleet', name: 'OverallFleet', required: true, type: 'number' },
         { label: 'Overall Serviceable', name: 'OverallServiceable', required: true, type: 'number' },
         { label: 'Overall Unserviceable', name: 'OverallUnserviceable', required: true, type: 'number' },
@@ -496,7 +492,6 @@
         submitting: false,
         fields: AVIVATION_MANPOWER_FORM,
         model: {
-          Mpcon: '',
           OverallStrength: '',
           OverallPresent: '',
           OverallOverseas: '',
@@ -527,7 +522,6 @@
         submitting: false,
         fields: AVIVATION_REDCON_FORM,
         model: {
-          Redcon: '',
           OverallFleet: '',
           OverallServiceable: '',
           OverallUnserviceable: '',
@@ -560,7 +554,6 @@
         submitting: false,
         fields: DEFENCE_MANPOWER_FORM,
         model: {
-          Mpcon: '',
           OverallStrength: '',
           OverallPresent: '',
           OverallOverseas: '',
@@ -573,7 +566,6 @@
         submitting: false,
         fields: DEFENCE_REDCON_FORM,
         model: {
-          Redcon: '',
           OverallFleet: '',
           OverallServiceable: '',
           OverallUnserviceable: '',
