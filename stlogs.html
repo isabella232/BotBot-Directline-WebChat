@@ -74,25 +74,25 @@
         <!-- AVIVATION FORM -->
         <div v-if="isAvivation">
           <h2>Aviation/Freight</h2>
-          <form id="today_avivation" class="form-wrapper form-2-col" @submit.prevent="doAvivationOperationSubmit">
-            <div class="block" v-for="block in avivationOperation.fields">
+          <form id="today_aviation" class="form-wrapper form-2-col" @submit.prevent="doAvivationOperationSubmit">
+            <div class="block" v-for="block in aviationOperation.fields">
               <h3>{{block.heading}}</h3>
 
               <fieldset v-for="item in block.groups" v-if="item.title">
                 <legend>{{item.title}}</legend>
                 <p v-for="field in item.fields" class="form-group">
                   <label>{{field.label}}</label>
-                  <input type="text" autocomplete="off" v-model="avivationOperation.model[field.name]" :name="field.name" value="" />
+                  <input type="text" autocomplete="off" v-model="aviationOperation.model[field.name]" :name="field.name" :required="field.required" />
                 </p>
               </fieldset>
               <p v-for="item in block.groups" v-if="!item.title" class="form-group">
                 <label>{{item.label}}</label>
-                <input type="text" autocomplete="off" v-model="avivationOperation.model[item.name]" :name="item.name" value="" />
+                <input type="text" autocomplete="off" v-model="aviationOperation.model[item.name]" :name="item.name" :required="item.required" />
               </p>
             </div>
 
             <div class="actions">
-              <button :disabled="avivationOperation.submitting" class="btn-primary" type="submit">{{avivationOperationFormSubmitText}}</button>
+              <button :disabled="aviationOperation.submitting" class="btn-primary" type="submit">{{aviationOperationFormSubmitText}}</button>
             </div>
           </form>
         </div>
@@ -183,26 +183,26 @@
         <div v-if="isAvivation">
           <!-- <h2>Manpower Status - Aviation</h2> -->
           <form class="form-wrapper" @submit.prevent="doAvivationManpowerSubmit">
-            <template v-for="block in avivationManpower.fields">
+            <template v-for="block in aviationManpower.fields">
               <h2>{{block.heading}}</h2>
 
               <p v-for="item in block.groups" class="form-group">
                 <label :class="item.required ? 'required' : ''">{{item.label}}</label>
-                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="avivationManpower.model[item.name]" :name="item.name" :required="item.required" />
+                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="aviationManpower.model[item.name]" :name="item.name" :required="item.required" />
               </p>
             </template>
 
-            <template v-for="block in avivationRedcon.fields">
+            <template v-for="block in aviationRedcon.fields">
               <h2>{{block.heading}}</h2>
 
               <p v-for="item in block.groups" class="form-group">
                 <label :class="item.required ? 'required' : ''">{{item.label}}</label>
-                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="avivationRedcon.model[item.name]" :name="item.name" :required="item.required" />
+                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="aviationRedcon.model[item.name]" :name="item.name" :required="item.required" />
               </p>
             </template>
             
             <div class="actions">
-              <button :disabled="avivationManpower.submitting" class="btn-primary" type="submit">{{avivationManpowerFormSubmitText}}</button>
+              <button :disabled="aviationManpower.submitting" class="btn-primary" type="submit">{{aviationManpowerFormSubmitText}}</button>
             </div>
           </form>
         </div>
@@ -244,7 +244,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
-  <script src="./stlogs-forms.min.js"></script>
+  <script src="./stlogs-forms.js"></script>
 </body>
 
 </html>

@@ -229,19 +229,18 @@ form {
 
 .notifications {
   position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 60px;
+  right: 0;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
 
   .noti-item {
-    padding: 5px 10px;
-    border-radius: 50px;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
     background: #fff;
-    box-shadow: 0 3px 8px #ddd,3px 0 8px #ddd, -3px 0 8px #ddd;
+    box-shadow: 2px 3px 0 #ddd;
     display: flex;
     align-items: center;
 
@@ -249,12 +248,22 @@ form {
       margin-top: 10px;
     }
 
-    &.success .icon path {
-      fill: #0bd20b;
+    &.success {
+      background: #ddffdd;
+      box-shadow: 2px 3px 0 #6fd272;
+
+      .icon path {
+        fill: #0bd20b;
+      }
     }
 
-    &.error .icon path {
-      fill: red;
+    &.error {
+      background: #fbd4d4;
+      box-shadow: 2px 3px 0 #ff9595;
+      
+      .icon path {
+        fill: red;
+      }
     }
   }
 

@@ -4,24 +4,27 @@
   var DEPARTMENT_KEY = ')(*)*)(#)$*(()';
   var NAME_KEY = ')(*)*)(#)$*(()*^*@(#&';
 
-  var API = '';
+  var API = 'https://stlogs-staging.azurewebsites.net';
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill
   if (typeof Object.assign != 'function') {
     // Must be writable: true, enumerable: false, configurable: true
-    Object.defineProperty(Object, "assign", {
-      value: function assign(target, varArgs) { // .length of function is 2
+    Object.defineProperty(Object, 'assign', {
+      value: function assign(target, varArgs) {
+        // .length of function is 2
         'use strict';
-        if (target == null) { // TypeError if undefined or null
+        if (target == null) {
+          // TypeError if undefined or null
           throw new TypeError('Cannot convert undefined or null to object');
         }
-  
+
         var to = Object(target);
-  
+
         for (var index = 1; index < arguments.length; index++) {
           var nextSource = arguments[index];
-  
-          if (nextSource != null) { // Skip over if undefined or null
+
+          if (nextSource != null) {
+            // Skip over if undefined or null
             for (var nextKey in nextSource) {
               // Avoid bugs when hasOwnProperty is shadowed
               if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
@@ -45,30 +48,34 @@
   };
 
   var DEPARTMENTS = {
-    AVIVATION: 'STLogsAviation',
+    AVIATION: 'STLogsAviation',
     DEFENCE: 'STLogsDefence',
     HEALTHCARE: 'STLogsHealthcare',
     PSS: 'STLogsPSS'
   };
 
-  var AVIVATION_OPERATION_FORM = [
+  var AVIATION_OPERATION_FORM = [
     {
       heading: "Today's Operations:",
+      name: 'today',
       groups: [
         {
           title: 'Air freight',
           fields: [
             {
-              label: 'Import:',
-              name: 'today_air_freight_import'
+              label: 'Import',
+              name: 'AFImport',
+              required: true
             },
             {
               label: 'Export',
-              name: 'today_air_freight_export'
+              name: 'AFExport',
+              required: true
             },
             {
               label: 'Traffic',
-              name: 'today_air_freight_traffic'
+              name: 'AFTraffic',
+              required: true
             }
           ]
         },
@@ -76,16 +83,19 @@
           title: 'Sea freight',
           fields: [
             {
-              label: 'Import:',
-              name: 'today_atoday_sea_freight_import'
+              label: 'Import',
+              name: 'SFImport',
+              required: true
             },
             {
               label: 'Export',
-              name: 'today_sea_freight_export'
+              name: 'SFExport',
+              required: true
             },
             {
               label: 'Traffic',
-              name: 'today_sea_freight_traffic'
+              name: 'SFTraffic',
+              required: true
             }
           ]
         },
@@ -93,16 +103,29 @@
           title: 'Stars',
           fields: [
             {
-              label: 'Refuelling:',
-              name: 'today_stars_refuelling'
+              label: 'Refuelling',
+              name: 'StarrRefuelling',
+              required: true
             },
             {
-              label: 'AMC:',
-              name: 'today_stars_amc'
+              label: 'AMC',
+              name: 'AM',
+              required: true
             },
             {
-              label: 'DSR Refuelling: Defuelling: Bridging:',
-              name: 'today_stars_dsr_refuelling_defuelling_bridging'
+              label: 'DSR Refuelling',
+              name: 'SDSRRefuelling',
+              required: true
+            },
+            {
+              label: 'DSR Defuelling',
+              name: 'SDSRDefuelling',
+              required: true
+            },
+            {
+              label: 'DSR Bridging',
+              name: 'SDSRBridging',
+              required: true
             }
           ]
         },
@@ -110,104 +133,36 @@
           title: 'Aml',
           fields: [
             {
-              label: 'RSAF Tech Log:',
-              name: 'today_aml_rsaf_tech_log'
+              label: 'RSAF Tech Log',
+              name: 'AMLRSAFTechLog',
+              required: true
             },
             {
-              label: 'RSN ShipHusbandry:',
-              name: 'today_aml_rsn_shiphusbandry'
+              label: 'RSN ShipHusbandry',
+              name: 'AMLRSNShipHusbandry',
+              required: true
             },
             {
-              label: 'Other Ops:',
-              name: 'today_aml_other_ops'
+              label: 'Other Ops',
+              name: 'AMLOtherOps',
+              required: true
             }
           ]
         },
         {
-          label: 'Incident:',
-          name: 'today_incident'
-        }
-      ]
-    },
-    {
-      heading: 'Key Highlight For Next Day:',
-      groups: [
-        {
-          title: 'Air freight',
-          fields: [
-            {
-              label: 'Import:',
-              name: 'today_air_freight_import'
-            },
-            {
-              label: 'Export',
-              name: 'today_air_freight_export'
-            },
-            {
-              label: 'Traffic',
-              name: 'today_air_freight_traffic'
-            }
-          ]
+          label: 'Incident',
+          name: 'AviationIncident',
+          required: true
         },
         {
-          title: 'Sea freight',
-          fields: [
-            {
-              label: 'Import:',
-              name: 'today_atoday_sea_freight_import'
-            },
-            {
-              label: 'Export',
-              name: 'today_sea_freight_export'
-            },
-            {
-              label: 'Traffic',
-              name: 'today_sea_freight_traffic'
-            }
-          ]
-        },
-        {
-          title: 'Stars',
-          fields: [
-            {
-              label: 'Refuelling:',
-              name: 'today_stars_refuelling'
-            },
-            {
-              label: 'AMC:',
-              name: 'today_stars_amc'
-            },
-            {
-              label: 'DSR Refuelling: Defuelling: Bridging:',
-              name: 'today_stars_dsr_refuelling_defuelling_bridging'
-            }
-          ]
-        },
-        {
-          title: 'Aml',
-          fields: [
-            {
-              label: 'RSAF Tech Log:',
-              name: 'today_aml_rsaf_tech_log'
-            },
-            {
-              label: 'RSN ShipHusbandry:',
-              name: 'today_aml_rsn_shiphusbandry'
-            },
-            {
-              label: 'Other Ops:',
-              name: 'today_aml_other_ops'
-            }
-          ]
-        },
-        {
-          label: 'Incident:',
-          name: 'today_incident'
+          label: 'Key Highlight For Next Day',
+          name: 'NextdayHighlighting',
+          required: true
         }
       ]
     }
   ];
-  var AVIVATION_MANPOWER_FORM = [
+  var AVIATION_MANPOWER_FORM = [
     {
       heading: 'Manpower Status - Aviation',
       groups: [
@@ -238,7 +193,7 @@
       ]
     }
   ];
-  var AVIVATION_REDCON_FORM = [
+  var AVIATION_REDCON_FORM = [
     {
       heading: 'REDCON',
       groups: [
@@ -305,11 +260,11 @@
           name: 'EMartDelivery'
         },
         {
-          label: 'Supported:',
+          label: 'Supported',
           name: 'Supported'
         },
         {
-          label: 'Incident:',
+          label: 'Incident',
           name: 'Incident'
         }
       ]
@@ -324,12 +279,11 @@
           name: 'Sthc'
         },
         {
-          label:
-            'THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.',
+          label: 'THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.',
           name: 'Thc'
         },
         {
-          label: 'Incident:',
+          label: 'Incident',
           name: 'Incident'
         }
       ]
@@ -386,7 +340,7 @@
       ]
     },
     {
-      heading: 'Key Highlight For Next Day:',
+      heading: 'Key Highlight For Next Day',
       groups: [
         {
           label: '>FUPO (D)',
@@ -444,14 +398,22 @@
       options.headers.Authorization = authStr;
     }
 
-    return axios(options).catch(function(error) {
-      if (error.response.status === 401) {
-        localStorage.clear();
-        window.location.reload();
-      }
-
-      return error;
-    });
+    return axios(options)
+      .then(function(resp) {
+        if (typeof options.success === 'function') {
+          options.success(resp);
+        }
+      })
+      .catch(function(error) {
+        if (error.response.status === 401) {
+          localStorage.clear();
+          window.location.reload();
+        } else {
+          if (typeof options.error === 'function') {
+            options.error(error);
+          }
+        }
+      });
   };
 
   var resetModel = function resetModel(model) {
@@ -488,9 +450,9 @@
         userDepartment: isLoggedIn() ? localStorage.getItem(DEPARTMENT_KEY) : ''
       },
       tabActive: TABS.MANPOWER,
-      avivationManpower: {
+      aviationManpower: {
         submitting: false,
-        fields: AVIVATION_MANPOWER_FORM,
+        fields: AVIATION_MANPOWER_FORM,
         model: {
           OverallStrength: '',
           OverallPresent: '',
@@ -518,9 +480,9 @@
           FreightMpcon: ''
         }
       },
-      avivationRedcon: {
+      aviationRedcon: {
         submitting: false,
-        fields: AVIVATION_REDCON_FORM,
+        fields: AVIATION_REDCON_FORM,
         model: {
           OverallFleet: '',
           OverallServiceable: '',
@@ -545,9 +507,9 @@
           Impact: ''
         }
       },
-      avivationOperation: {
+      aviationOperation: {
         submitting: false,
-        fields: AVIVATION_OPERATION_FORM,
+        fields: AVIATION_OPERATION_FORM,
         model: {}
       },
       defenceManpower: {
@@ -607,7 +569,7 @@
         return this.tabActive === TABS.MANPOWER;
       },
       isAvivation: function() {
-        return this.user.userDepartment === DEPARTMENTS.AVIVATION;
+        return this.user.userDepartment === DEPARTMENTS.AVIATION;
       },
       isDefence: function() {
         return this.user.userDepartment === DEPARTMENTS.DEFENCE;
@@ -621,14 +583,14 @@
       loginBtnText: function() {
         return this.user.logining ? 'Logining...' : 'Login';
       },
-      avivationManpowerFormSubmitText: function() {
-        return this.avivationManpower.submitting ? 'Submitting...' : 'Submit';
+      aviationManpowerFormSubmitText: function() {
+        return this.aviationManpower.submitting ? 'Submitting...' : 'Submit';
       },
-      avivationRedconFormSubmitText: function() {
-        return this.avivationRedcon.submitting ? 'Submitting...' : 'Submit';
+      aviationRedconFormSubmitText: function() {
+        return this.aviationRedcon.submitting ? 'Submitting...' : 'Submit';
       },
-      avivationOperationFormSubmitText: function() {
-        return this.avivationOperation.submitting ? 'Submitting...' : 'Submit';
+      aviationOperationFormSubmitText: function() {
+        return this.aviationOperation.submitting ? 'Submitting...' : 'Submit';
       },
       defenceManpowerFormSubmitText: function() {
         return this.defenceManpower.submitting ? 'Submitting...' : 'Submit';
@@ -658,12 +620,7 @@
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
           },
-          data:
-            'username=' +
-            this.user.username +
-            '&password=' +
-            this.user.password +
-            '&client_id=botbotclient&client_secret=botbotsecret&grant_type=password'
+          data: 'username=' + this.user.username + '&password=' + this.user.password + '&client_id=botbotclient&client_secret=botbotsecret&grant_type=password'
         })
           .then(function(resp) {
             var roles = resp.data.roles;
@@ -689,7 +646,7 @@
 
             self.notifications.push({
               type: 'error',
-              message: 'Something went wrong. Please try again'
+              message: error.response.data.error_description
             });
           });
       },
@@ -705,70 +662,55 @@
       },
       doAvivationOperationSubmit: function() {
         var self = this;
-        self.avivationOperation.submitting = true;
+        var today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        today.setMilliseconds(0);
+
+        self.aviationOperation.submitting = true;
+        this.aviationOperation.model.Date = today.getTime() / 1000; // second
 
         callApi({
-          url: API + '/api/form/redcon',
+          url: API + '/api/form/opshighlight',
           method: 'POST',
-          data: this.avivationOperation.model
-        })
-          .then(function(resp) {
-            self.avivationOperation.submitting = false;
-            self.avivationOperation.model = resetModel(self.avivationOperation.model);
+          data: this.aviationOperation.model,
+          success: function(resp) {
+            if (resp) self.aviationOperation.model = resetModel(self.aviationOperation.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.avivationOperation.submitting = false;
+          },
+          error: function(error) {
             self.notifications.push({
               type: 'error',
               message: 'Something went wrong. Please try again'
             });
-          });
-      },
-      doAvivationRedconSubmit: function() {
-        var self = this;
-        self.avivationRedcon.submitting = true;
-
-        callApi({
-          url: API + '/api/form/redcon',
-          method: 'POST',
-          data: this.avivationRedcon.model
-        })
-          .then(function(resp) {
-            self.avivationRedcon.submitting = false;
-            self.avivationRedcon.model = resetModel(self.avivationRedcon.model);
-            self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.avivationRedcon.submitting = false;
-            self.notifications.push({
-              type: 'error',
-              message: 'Something went wrong. Please try again'
-            });
-          });
+          }
+        }).then(function() {
+          self.aviationOperation.submitting = false;
+        });
       },
       doAvivationManpowerSubmit: function() {
         var self = this;
-        self.avivationManpower.submitting = true;
+        self.aviationManpower.submitting = true;
 
         callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          data: Object.assign(this.avivationRedcon.model ,this.avivationManpower.model)
-        })
-          .then(function(resp) {
-            self.avivationManpower.submitting = false;
-            self.avivationManpower.model = resetModel(self.avivationManpower.model);
-            self.avivationRedcon.model = resetModel(self.avivationRedcon.model);
+          data: Object.assign(this.aviationRedcon.model, this.aviationManpower.model),
+          success: function(resp) {
+            self.aviationManpower.model = resetModel(self.aviationManpower.model);
+            self.aviationRedcon.model = resetModel(self.aviationRedcon.model);
             self.notifications.push({ type: 'success', message: 'Submit form success' });
-          })
-          .catch(function(error) {
-            self.avivationManpower.submitting = false;
+          },
+          error: function(error) {
             self.notifications.push({
               type: 'error',
               message: 'Something went wrong. Please try again'
             });
-          });
+          }
+        }).then(function(resp) {
+          self.aviationManpower.submitting = false;
+        });
       },
       doDefenceManpowerSubmit: function() {
         var self = this;
