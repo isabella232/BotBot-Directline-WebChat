@@ -182,7 +182,7 @@ export class Chat extends React.Component<ChatProps, {}> {
         let header: JSX.Element;
         if (state.format.options.showHeader) header =
             <div className="wc-header">
-                <img src="./avatar.jpg" />
+                <img src="./avatar.png" />
                 <h1>{ state.format.strings.title }</h1>
             </div>;
 

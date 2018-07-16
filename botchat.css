@@ -737,3 +737,13 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   display: flex; }
   .wc-carousel .wc-hscroll > ul > li + li {
     border-left: 2px solid #ddd; }
+
+.format-markdown table {
+  border-collapse: collapse; }
+  .format-markdown table th {
+    background-color: #ddd;
+    padding: 2px 5px;
+    border: 1px solid #a9a7a7; }
+  .format-markdown table td {
+    border: 1px solid #a9a7a7;
+    padding: 2px 5px; }

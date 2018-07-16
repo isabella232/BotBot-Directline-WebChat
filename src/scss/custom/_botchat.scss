@@ -204,3 +204,20 @@ $header-height: 72px;
     border-left: 2px solid #ddd;
   }
 }
+
+.format-markdown {
+  table {
+    border-collapse: collapse;
+
+    th {
+      background-color: #ddd;
+      padding: 2px 5px;
+      border: 1px solid #a9a7a7;
+    }
+
+    td {
+      border: 1px solid #a9a7a7;
+      padding: 2px 5px;
+    }
+  }
+}

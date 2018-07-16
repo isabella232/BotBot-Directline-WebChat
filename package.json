@@ -37,7 +37,7 @@
     "axios": "^0.18.0",
     "botframework-directlinejs": "0.9.13",
     "core-js": "2.4.1",
-    "dompurify": "^1.0.4",
+    "dompurify": "^1.0.5",
     "markdown-it": "8.3.1",
     "microsoft-adaptivecards": "0.6.1",
     "microsoft-speech-browser-sdk": "0.0.1",
