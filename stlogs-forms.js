@@ -151,13 +151,11 @@
         },
         {
           label: 'Incident',
-          name: 'AviationIncident',
-          required: true
+          name: 'AviationIncident'
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'TomorrowKeyHighlight',
-          required: true
+          name: 'TomorrowKeyHighlight'
         }
       ]
     }
@@ -268,13 +266,11 @@
         },
         {
           label: 'Incident',
-          name: 'DefIncident',
-          required: true
+          name: 'DefIncident'
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'TomorrowKeyHighlight',
-          required: true
+          name: 'TomorrowKeyHighlight'
         }
       ]
     }
@@ -295,13 +291,11 @@
         },
         {
           label: 'Incident',
-          name: 'HCIncident',
-          required: true
+          name: 'HCIncident'
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'TomorrowKeyHighlight',
-          required: true
+          name: 'TomorrowKeyHighlight'
         }
       ]
     }
@@ -367,8 +361,7 @@
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'TomorrowKeyHighlight',
-          required: true
+          name: 'TomorrowKeyHighlight'
         }
       ]
     }
