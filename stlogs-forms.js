@@ -156,7 +156,7 @@
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'NextdayHighlighting',
+          name: 'TomorrowKeyHighlight',
           required: true
         }
       ]
@@ -273,7 +273,7 @@
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'NextdayHighlighting',
+          name: 'TomorrowKeyHighlight',
           required: true
         }
       ]
@@ -300,7 +300,7 @@
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'NextdayHighlighting',
+          name: 'TomorrowKeyHighlight',
           required: true
         }
       ]
@@ -367,7 +367,7 @@
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'NextdayHighlighting',
+          name: 'TomorrowKeyHighlight',
           required: true
         }
       ]
