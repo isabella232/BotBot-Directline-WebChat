@@ -208,7 +208,12 @@ $header-height: 72px;
 .format-markdown {
   table {
     border-collapse: collapse;
-
+    
+    th, th {
+      &:first-child {
+        width: 10%;
+      }
+    }
     th {
       background-color: #ddd;
       padding: 2px 5px;
