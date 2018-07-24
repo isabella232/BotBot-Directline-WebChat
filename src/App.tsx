@@ -3,9 +3,9 @@ import * as ReactDOM from 'react-dom';
 import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
 import axios from 'axios';
-
 import Login from './Login';
 import { requestCustomiseUI } from './helpers';
+import { queryParams } from './BotChat'
 
 export type AppProps = ChatProps;
 const PRODUCTION_SHORT_URL = 'gicpublicsite.azurewebsites.net';
@@ -32,7 +32,7 @@ function uuidv4(): string {
 }
 
 function getAppProps(): Object {
-    var params = BotChat.queryParams(location.search);
+    var params = queryParams(location.search);
 
     var user = {
         id: params['userid'] || uuidv4(),

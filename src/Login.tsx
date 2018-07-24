@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FormEventHandler } from 'react-dom/node_modules/@types/react';
 
 export interface LoginProps {
   onSubmit: Function,
@@ -29,7 +28,7 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
 
   handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const name = e.target.name;
-    const nextState = {
+    const nextState: any = {
       [name]: e.target.value
     };
 

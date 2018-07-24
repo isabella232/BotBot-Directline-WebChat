@@ -333,7 +333,7 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
         const contentClassName = classList('wc-message-content', this.props.selected && 'selected');
 
         const specialMessage: Boolean =
-            this.props.activity.attachments && this.props.activity.attachments.length > 0;
+            (this.props.activity as Message).attachments && (this.props.activity as Message).attachments.length > 0;
 
         return (
             <div
