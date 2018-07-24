@@ -212,18 +212,20 @@ export class TableView extends React.Component < TableProps, TableState > {
               {data.length && data[0]
               .map((hcell : string, idx : number) => 
                 <th key={idx}>
-                  <FormattedText text={hcell} />
-                  <button 
-                    ref={(element: HTMLElement) => this.menuContainers[idx] = element}
-                    onClick={(event: any) => this.onContextMenu(event, idx, true)}>
-                    {columnStates[idx].filterValues && columnStates[idx].filterValues.length
-                      ? (<svg width="8" height="8">
-                          <g>
-                            <path stroke="null" fill="#243A81" d="m3.07149,3.76966c0.08268,0.08997 0.12807,0.2075 0.12807,0.32909l0,3.58271c0,0.21562 0.26019,0.32505 0.4142,0.17346l0.99943,-1.14534c0.13374,-0.16049 0.2075,-0.23994 0.2075,-0.3988l0,-2.21123c0,-0.12158 0.0462,-0.23911 0.12807,-0.3291l2.86778,-3.11176c0.2148,-0.23344 0.04946,-0.61198 -0.2683,-0.61198l-7.07626,0c-0.31774,0 -0.48391,0.37773 -0.2683,0.61198l2.8678,3.11096l0,0l0.00001,0.00001z"/>
-                          </g>
-                        </svg>)
-                      : '▾'}
-                  </button>
+                  <div>
+                    <FormattedText text={hcell} />
+                    <button 
+                      ref={(element: HTMLElement) => this.menuContainers[idx] = element}
+                      onClick={(event: any) => this.onContextMenu(event, idx, true)}>
+                      {columnStates[idx].filterValues && columnStates[idx].filterValues.length
+                        ? (<svg width="8" height="8">
+                            <g>
+                              <path stroke="null" fill="#243A81" d="m3.07149,3.76966c0.08268,0.08997 0.12807,0.2075 0.12807,0.32909l0,3.58271c0,0.21562 0.26019,0.32505 0.4142,0.17346l0.99943,-1.14534c0.13374,-0.16049 0.2075,-0.23994 0.2075,-0.3988l0,-2.21123c0,-0.12158 0.0462,-0.23911 0.12807,-0.3291l2.86778,-3.11176c0.2148,-0.23344 0.04946,-0.61198 -0.2683,-0.61198l-7.07626,0c-0.31774,0 -0.48391,0.37773 -0.2683,0.61198l2.8678,3.11096l0,0l0.00001,0.00001z"/>
+                            </g>
+                          </svg>)
+                        : '▾'}
+                    </button>
+                  </div>
                   <TableFilterMenu 
                     container={this.menuContainers[idx]}
                     columnState={columnStates[idx]}

@@ -146,7 +146,7 @@ export class Chat extends React.Component<ChatProps, {}> {
             this.selectedActivitySubscription = this.props.selectedActivity.subscribe(activityOrID => {
                 this.store.dispatch<ChatActions>({
                     type: 'Select_Activity',
-                    selectedActivity: activityOrID.activity || this.store.getState().history.activities.find(activity => activity.id === activityOrID.id)
+                    selectedActivity: activityOrID.activity || this.store.getState().history.activities.find((activity: Activity) => activity.id === activityOrID.id)
                 });
             });
         }
