@@ -4,6 +4,7 @@ import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
 import axios from 'axios';
 import { PRODUCTION_SHORT_URL, SECRET, DASHBOARD_API_URL, BOT_API_URL } from './Constants';
+import { queryParams } from './BotChat'
 
 export type AppProps = ChatProps;
 
@@ -21,7 +22,7 @@ function uuidv4(): string {
 }
 
 function getAppProps(): Object {
-    var params = BotChat.queryParams(location.search);
+    var params = queryParams(location.search);
 
     var user = {
         id: params['userid'] || uuidv4(),
