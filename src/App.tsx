@@ -8,10 +8,10 @@ import { requestCustomiseUI } from './helpers';
 import { queryParams } from './BotChat'
 
 export type AppProps = ChatProps;
-const PRODUCTION_SHORT_URL = 'gicpublicsite.azurewebsites.net';
+// const PRODUCTION_SHORT_URL = 'gicpublicsite.azurewebsites.net';
 let SECRET = {
-    STAGING: '', // 'hWhA3IfZkGA.cwA.058.GhnhDXs43TpcG9z6p3XZFAXSGeSxT8nmWyvPNoan9vw',
-    PRODUCTION: '' //'rMjwcSJUrS0.cwA.6Gw.vBMKKOrGWxIcb9FpjrdGoRpVbESov5D0V9OUSKuuOk8'
+    STAGING: 'O7nVPvqlHNA.cwA.dXs.2g6u8u3OmUuM3idEtfRbJhLd8VIpjp76aW2py_KPh2g', // 'hWhA3IfZkGA.cwA.058.GhnhDXs43TpcG9z6p3XZFAXSGeSxT8nmWyvPNoan9vw',
+    PRODUCTION: 'O7nVPvqlHNA.cwA.dXs.2g6u8u3OmUuM3idEtfRbJhLd8VIpjp76aW2py_KPh2g' //'rMjwcSJUrS0.cwA.6Gw.vBMKKOrGWxIcb9FpjrdGoRpVbESov5D0V9OUSKuuOk8'
 };
 
 export const App = (props: AppProps, container: HTMLElement) => {
@@ -19,9 +19,9 @@ export const App = (props: AppProps, container: HTMLElement) => {
     ReactDOM.render(React.createElement(AppContainer, props), container);
 };
 
-function isProduction() {
-    return !(window.location.hostname.indexOf(PRODUCTION_SHORT_URL) === -1);
-}
+// functi on isProduction() {
+//     return !(window.location.hostname.indexOf(PRODUCTION_SHORT_URL) === -1);
+// }
 
 function uuidv4(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -31,12 +31,12 @@ function uuidv4(): string {
     });
 }
 
-function getAppProps(): Object {
+function getAppProps(username?: string): Object {
     var params = queryParams(location.search);
 
     var user = {
         id: params['userid'] || uuidv4(),
-        name: params['username'] || 'user'
+        name: username || 'user'
     };
 
     var bot = {
@@ -46,7 +46,8 @@ function getAppProps(): Object {
 
     return {
         directLine: {
-            secret: isProduction() ? SECRET.PRODUCTION : SECRET.STAGING,
+            // secret: isProduction() ? SECRET.PRODUCTION : SECRET.STAGING,
+            secret: 'O7nVPvqlHNA.cwA.dXs.2g6u8u3OmUuM3idEtfRbJhLd8VIpjp76aW2py_KPh2g',
             token: params['t'],
             domain: params['domain'],
             webSocket: params['webSocket'] && params['webSocket'] === 'true'
@@ -63,13 +64,15 @@ export interface ChatState {
     loggedIn: boolean;
     loggingIn: boolean;
     error: boolean;
+    username: string;
 }
 
 class AppContainer extends React.PureComponent<ChatProps, ChatState> {
     state: ChatState = {
         loggedIn: false,
         error: false,
-        loggingIn: false
+        loggingIn: false,
+        username: ''
     };
 
     constructor(p: ChatProps) {
@@ -79,31 +82,12 @@ class AppContainer extends React.PureComponent<ChatProps, ChatState> {
     }
 
     handleSubmit(username: string, password: string) {
-        this.setState({ loggingIn: true });
-        let url = '';
-        if (isProduction()) {
-            url = '/api/form/secret';
-        } else {
-            url = 'https://gicpublicsitebot-staging.azurewebsites.net/api/form/secret';
+        if (password === 'admin') {
+            this.setState({ loggedIn: true, loggingIn: false, error: false, username });
         }
-
-        axios
-            .post(url, {
-                username,
-                password
-            })
-            .then(resp => {
-                if (isProduction()) {
-                    SECRET.PRODUCTION = resp.data;
-                } else {
-                    SECRET.STAGING = resp.data;
-                }
-
-                this.setState({ loggedIn: true, loggingIn: false, error: false });
-            })
-            .catch(error => {
-                this.setState({ loggedIn: false, loggingIn: false, error: true });
-            });
+        else {
+            this.setState({ loggedIn: false, loggingIn: false, error: true });
+        }
     }
 
     render() {
@@ -120,7 +104,7 @@ class AppContainer extends React.PureComponent<ChatProps, ChatState> {
         requestCustomiseUI();
         return (
             <div className="wc-app">
-                <Chat {...this.props} {...getAppProps()} />
+                <Chat {...this.props} {...getAppProps(this.state.username)} />
             </div>
         );
     }

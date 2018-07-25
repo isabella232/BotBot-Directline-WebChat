@@ -43,7 +43,7 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
   render() {
     return <main className="wc-login-page">
       <form onSubmit={this.hanldeSubmit}>
-        <img src="./avatar.png" className="wc-login-avatar" />
+        <img src="./avatar.jpg" className="wc-login-avatar" />
         <h1>Login</h1>
         <p className="form-group">
           <label htmlFor="username">Username</label>

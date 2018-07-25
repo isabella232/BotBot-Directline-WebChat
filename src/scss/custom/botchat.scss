@@ -268,14 +268,15 @@ body {
   }
 
   input {
-    padding: 8px 0;
+    padding: 8px;
     line-height: 1.4;
     width: 100%;
-    border: 0;
-    border-bottom: 2px solid $c10;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     outline: none;
     font-size: inherit;
     transition: all 0.2s ease;
+    box-sizing: border-box;
 
     &:focus {
       border-color: $c04;
@@ -284,22 +285,21 @@ body {
 
   button {
     min-width: 88px;
-    padding: 8px 16px;
-    background: #039be5;
-    color: #fff;
-    border: 0;
+    padding: 8px;
+    background-color: #fff;
+    color: $c_brand;
+    border: 1px solid #e1e1e1;
     font-size: inherit;
     cursor: pointer;
     outline: none;
-    border-radius: 2px;
-    text-transform: uppercase;
-    box-shadow: 0 2px 4px #757575;
+    border-radius: 4px;
     transition: all 0.2s ease;
     float: right;
+    box-sizing: border-box;
 
-    &:active {
-      box-shadow: 0 4px 8px #757575;
-      background: #0277bd;
+    &:not([disabled]):hover {
+      border: 1px solid $c_brand;
+      user-select: none;
     }
 
     &[disabled] {

@@ -232,9 +232,9 @@ export class Chat extends React.Component<ChatProps, {}> {
                         <h2 className="js-botname">{state.format.strings.title}</h2>
                         <p className="subtext">Learning & Understand Cognitive Assist System</p>
                     </div>
-                    <a className="contact-link" target="_blank" href="https://www.gic.com.sg/contact-us/#Connect-with-us">
+                    {/* <a className="contact-link" target="_blank" href="https://www.gic.com.sg/contact-us/#Connect-with-us">
                         <img src="./CustService2.png" style={{ display: 'block', maxHeight: '100%' }} />
-                    </a>
+                    </a> */}
                 </div>
             );
 
