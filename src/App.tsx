@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
-import axios from 'axios';
 import { requestCustomiseUI } from './helpers';
 import { queryParams } from './BotChat'
 
