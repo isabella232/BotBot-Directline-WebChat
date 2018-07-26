@@ -350,7 +350,7 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
                     <div className={contentClassName}>{this.props.children}</div>
                 </div>
                 <div className={`wc-message-meta wc-message-meta-${who}`}>
-                    {who === 'bot' && <strong className="mark">GIC - </strong>}
+                    {who === 'bot' && <strong className="mark">Prudential - </strong>}
                     <span>{timeLine}</span>
                 </div>
             </div>
