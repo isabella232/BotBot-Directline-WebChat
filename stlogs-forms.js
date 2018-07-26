@@ -169,7 +169,7 @@
         { label: 'Overall Overseas', name: 'OverallOverseas', required: true, type: 'number' },
         { label: 'Overall Leave', name: 'OverallLeave', required: true, type: 'number' },
         { label: 'Overall Medical', name: 'OverallMedical', required: true, type: 'number' },
-        { label: 'Overall MPCON', name: 'OverallMpcon', required: true, type: 'number' },
+        { label: 'Overall MPCON', name: 'OverallMpcon', required: true, type: 'number', disabled: true },
         { label: 'STARS Strength', name: 'StarsStrength', required: true, type: 'number' },
         { label: 'STARS Present', name: 'StarsPresent', required: true, type: 'number' },
         { label: 'STARS Overseas', name: 'StarsOverseas', required: true, type: 'number' },
@@ -199,7 +199,7 @@
         { label: 'Overall Serviceable', name: 'OverallServiceable', required: true, type: 'number' },
         { label: 'Overall Unserviceable', name: 'OverallUnserviceable', required: true, type: 'number' },
         { label: 'Overall Workshop', name: 'OverallWorkshop', required: true, type: 'number' },
-        { label: 'Overall REDCON', name: 'OverallRedcon', required: true, type: 'number' },
+        { label: 'Overall REDCON', name: 'OverallRedcon', required: true, type: 'number', disabled: true },
         { label: 'STARS Fleet', name: 'StarsFleet', required: true, type: 'number' },
         { label: 'STARS Serviceable', name: 'StarsServiceable', required: true, type: 'number' },
         { label: 'STARS Unserviceable', name: 'StarsUnserviceable', required: true, type: 'number' },
@@ -228,7 +228,7 @@
         { label: 'Overall Overseas', name: 'OverallOverseas', required: true, type: 'number' },
         { label: 'Overall Leave', name: 'OverallLeave', required: true, type: 'number' },
         { label: 'Overall Medical', name: 'OverallMedical', required: true, type: 'number' },
-        { label: 'Overall MPCON', name: 'OverallMpcon', required: true, type: 'number' }
+        { label: 'Overall MPCON', name: 'OverallMpcon', required: true, type: 'number', disabled: true }
       ]
     }
   ];
@@ -240,7 +240,7 @@
         { label: 'Overall Serviceable', name: 'OverallServiceable', required: true, type: 'number' },
         { label: 'Overall Unserviceable', name: 'OverallUnserviceable', required: true, type: 'number' },
         { label: 'Overall Workshop', name: 'OverallWorkshop', required: true, type: 'number' },
-        { label: 'Overall REDCON', name: 'OverallRedcon', required: true, type: 'number' },
+        { label: 'Overall REDCON', name: 'OverallRedcon', required: true, type: 'number', disabled: true },
         { label: 'Impact', name: 'Impact' }
       ]
     }
@@ -477,6 +477,44 @@
         submitting: false,
         fields: PSS_OPERATION_FORM,
         model: {}
+      },
+      manpowerTime: '',
+      opsHighlightTime: ''
+    },
+    created: function() {
+      if (this.user.loggedin) {
+        this.getLastTime();
+      }
+    },
+    watch: {
+      'aviationManpower.model.OverallPresent': function(newData) {
+        this.aviationManpower.model.OverallMpcon = this.calcPercentage(newData, this.aviationManpower.model.OverallStrength);
+      },
+      'aviationManpower.model.OverallStrength': function(newData) {
+        this.aviationManpower.model.OverallMpcon = this.calcPercentage(this.aviationManpower.model.OverallPresent, newData);
+      },
+      'aviationRedcon.model.OverallServiceable': function(newData) {
+        this.aviationRedcon.model.OverallRedcon = this.calcPercentage(newData, this.aviationRedcon.model.OverallFleet);
+      },
+      'aviationRedcon.model.OverallFleet': function(newData) {
+        this.aviationRedcon.model.OverallRedcon = this.calcPercentage(this.aviationRedcon.model.OverallServiceable, newData);
+      },
+      'defenceManpower.model.OverallPresent': function(newData) {
+        this.defenceManpower.model.OverallMpcon = this.calcPercentage(newData, this.defenceManpower.model.OverallStrength);
+      },
+      'defenceManpower.model.OverallStrength': function(newData) {
+        this.defenceManpower.model.OverallMpcon = this.calcPercentage(this.defenceManpower.model.OverallPresent, newData);
+      },
+      'defenceRedcon.model.OverallServiceable': function(newData) {
+        this.defenceRedcon.model.OverallRedcon = this.calcPercentage(newData, this.defenceRedcon.model.OverallFleet);
+      },
+      'defenceRedcon.model.OverallFleet': function(newData) {
+        this.defenceRedcon.model.OverallRedcon = this.calcPercentage(this.defenceRedcon.model.OverallServiceable, newData);
+      },
+      'user.loggedin': function(loggedin) {
+        if (loggedin === true) {
+          this.getLastTime();
+        }
       }
     },
     computed: {
@@ -524,6 +562,17 @@
       },
       pssOperationFormSubmitText: function() {
         return this.pssOperation.submitting ? 'Submitting...' : 'Submit';
+      },
+      filledTimeStr: function() {
+        if (this.tabActive === TABS.MANPOWER && this.manpowerTime) {
+          return 'Last filled at ' + this.manpowerTime;
+        }
+
+        if (this.tabActive === TABS.OPERATION && this.opsHighlightTime) {
+          return 'Last filled at ' + this.opsHighlightTime;
+        }
+
+        return '';
       }
     },
     methods: {
@@ -531,7 +580,7 @@
         var self = this;
 
         this.user.logining = true;
-
+        this.user.loggedin = false;
         axios({
           url: 'https://botbotidentity.azurewebsites.net/connect/token',
           method: 'post',
@@ -560,6 +609,7 @@
           })
           .catch(function(error) {
             self.user.logining = false;
+            self.user.loggedin = false;
             self.user.userDepartment = '';
 
             self.notifications.push({
@@ -765,6 +815,33 @@
       },
       removeNotification: function(index) {
         this.notifications.splice(index, 1);
+      },
+      getLastTime: function() {
+        const self = this;
+
+        callApi({
+          url: API + '/api/form/getTime',
+          method: 'GET',
+          data: this.healthcareOperation.model,
+          success: function(resp) {
+            self.manpowerTime = resp.data.manpowerTime;
+            self.opsHighlightTime = resp.data.opsHighlightTime;
+          },
+          error: function(error) {
+            self.manpowerTime = '';
+            self.opsHighlightTime = '';
+          }
+        });
+      },
+      calcPercentage: function(a, b) {
+        const aNum = parseInt(a);
+        const bNum = parseInt(b);
+
+        if (aNum > 0 && bNum > 0) {
+          return Math.round(aNum / bNum * 100);
+        }
+
+        return 0;
       }
     }
   });
