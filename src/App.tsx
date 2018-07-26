@@ -4,6 +4,7 @@ import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
 import { requestCustomiseUI } from './helpers';
 import { queryParams } from './BotChat'
+import axios from 'axios';
 
 export type AppProps = ChatProps;
 const PRODUCTION_SHORT_URL = 'gicpublicsite.azurewebsites.net';
@@ -57,12 +58,47 @@ function getAppProps(): Object {
     };
 }
 
-class AppContainer extends React.PureComponent<ChatProps, {}> {
-    constructor(p: ChatProps) {
-        super(p);
+interface ChatState {
+    isCorrectIP: boolean,
+    error: string,
+}
+
+const ALLOWED_IPS = [
+    '203.116.80.0',
+    '203.126.225.0',
+    '80.169.164.0',
+    '65.223.191.160',
+    '206.169.170.240',
+    '203.116.205.128',
+    '118.201.225.61'
+]
+
+class AppContainer extends React.PureComponent<ChatProps, ChatState> {
+    state: ChatState = {
+        isCorrectIP: false,
+        error: ''
+    }
+
+    componentDidMount() {
+        axios
+            .get('https://api.ipify.org?format=json')
+            .then((resp: any) => {
+                console.log(resp.data)
+                if (resp.data.ip && ALLOWED_IPS.indexOf(resp.data.ip) > 1)
+                    this.setState({isCorrectIP: true})
+            })
+            .catch((err) => this.setState({error: err}))
     }
 
     render() {
+        if (!this.state.isCorrectIP) {
+            return <div>Access to this page is currently restricted</div>
+        }
+        
+        if (this.state.error) {
+            return <div>Error while querying API</div>
+        }
+
         requestCustomiseUI();
         return (
             <div className="wc-app">
