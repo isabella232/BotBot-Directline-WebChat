@@ -30,11 +30,45 @@ function uuidv4(): string {
     });
 }
 
+// https://www.w3schools.com/js/js_cookies.asp
+function setCookie(cname: string, cvalue: string, exdays: number) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname: string) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+const USER_ID_KEY: string = 'user_id'
+function getUserId(): string {
+    let userId = getCookie(USER_ID_KEY)
+    if (!userId) {
+        userId = uuidv4()
+        setCookie(USER_ID_KEY, userId, 365)
+    }
+    return userId
+}
+
 function getAppProps(): Object {
     var params = queryParams(location.search);
 
     var user = {
-        id: params['userid'] || uuidv4(),
+        id: params['userid'] || getUserId(),
         name: params['username'] || 'user'
     };
 
