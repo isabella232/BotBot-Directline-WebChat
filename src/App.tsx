@@ -104,11 +104,16 @@ class AppContainer extends React.PureComponent<ChatProps, ChatState> {
     }
 
     componentDidMount() {
-        this.setState({isCheckingIP: true})
-        axios
-            .post('https://gic-lucas.azurewebsites.net/api/access')
-            .then(() => this.setState({isCheckingIP: false, isCorrectIP: true}))
-            .catch(() => this.setState({isCheckingIP: false, isCorrectIP: false}))
+        if (isProduction()) {
+            this.setState({isCheckingIP: true})
+            axios
+                .post('https://gic-lucas.azurewebsites.net/api/access')
+                .then(() => this.setState({isCheckingIP: false, isCorrectIP: true}))
+                .catch(() => this.setState({isCheckingIP: false, isCorrectIP: false}))
+        }
+        else {
+            this.setState({isCorrectIP: true})
+        }
     }
 
     render() {
