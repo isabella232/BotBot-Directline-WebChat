@@ -93,44 +93,29 @@ function getAppProps(): Object {
 }
 
 interface ChatState {
+    isCheckingIP: boolean,
     isCorrectIP: boolean,
-    error: string,
 }
-
-const ALLOWED_IPS = [
-    '203.116.80.0',
-    '203.126.225.0',
-    '80.169.164.0',
-    '65.223.191.160',
-    '206.169.170.240',
-    '203.116.205.128',
-    '118.201.225.61'
-]
 
 class AppContainer extends React.PureComponent<ChatProps, ChatState> {
     state: ChatState = {
+        isCheckingIP: false,
         isCorrectIP: false,
-        error: ''
     }
 
     componentDidMount() {
+        this.setState({isCheckingIP: true})
         axios
-            .get('https://api.ipify.org?format=json')
-            .then((resp: any) => {
-                console.log(resp.data)
-                if (resp.data.ip && ALLOWED_IPS.indexOf(resp.data.ip) > 1)
-                    this.setState({isCorrectIP: true})
-            })
-            .catch((err) => this.setState({error: err}))
+            .post('https://gic-lucas.azurewebsites.net/api/access')
+            .then(() => this.setState({isCheckingIP: false, isCorrectIP: true}))
+            .catch(() => this.setState({isCheckingIP: false, isCorrectIP: false}))
     }
 
     render() {
+        if (this.state.isCheckingIP) return <div>Loading...</div>
+
         if (!this.state.isCorrectIP) {
             return <div>Access to this page is currently restricted</div>
-        }
-        
-        if (this.state.error) {
-            return <div>Error while querying API</div>
         }
 
         requestCustomiseUI();
