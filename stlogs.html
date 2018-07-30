@@ -189,7 +189,7 @@
 
               <p v-for="item in block.groups" class="form-group">
                 <label :class="item.required ? 'required' : ''">{{item.label}}</label>
-                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="aviationManpower.model[item.name]" :name="item.name" :required="item.required" :disabled="item.disabled" />
+                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="aviationManpower.model[item.name]" :name="item.name" :required="item.required" :disabled="checkAviationDisabled(item)" />
               </p>
             </template>
 
@@ -198,7 +198,7 @@
 
               <p v-for="item in block.groups" class="form-group">
                 <label :class="item.required ? 'required' : ''">{{item.label}}</label>
-                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="aviationRedcon.model[item.name]" :name="item.name" :required="item.required" :disabled="item.disabled" />
+                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="aviationRedcon.model[item.name]" :name="item.name" :required="item.required" :disabled="checkAviationDisabled(item)" />
               </p>
             </template>
             
@@ -216,7 +216,7 @@
 
               <p v-for="item in block.groups" class="form-group">
                 <label :class="item.required ? 'required' : ''">{{item.label}}</label>
-                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="defenceManpower.model[item.name]" :name="item.name" :required="item.required" :disabled="item.disabled" />
+                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="defenceManpower.model[item.name]" :name="item.name" :required="item.required" :disabled="checkDefencesDisabled(item)" />
               </p>
             </template>
 
@@ -225,7 +225,7 @@
 
               <p v-for="item in block.groups" class="form-group">
                 <label :class="item.required ? 'required' : ''">{{item.label}}</label>
-                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="defenceRedcon.model[item.name]" :name="item.name" :required="item.required" :disabled="item.disabled" />
+                <input :type="item.type ? item.type : 'text'" autocomplete="off" v-model="defenceRedcon.model[item.name]" :name="item.name" :required="item.required" :disabled="checkDefencesDisabled(item)" />
               </p>
             </template>
 
@@ -245,7 +245,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
-  <script src="./stlogs-forms.min.js"></script>
+  <script src="./stlogs-forms.js"></script>
 </body>
 
 </html>

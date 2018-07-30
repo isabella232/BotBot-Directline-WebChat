@@ -88,6 +88,11 @@ form {
     font-size: inherit;
     transition: all 0.2s ease;
     background: none;
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
 
   input:focus {

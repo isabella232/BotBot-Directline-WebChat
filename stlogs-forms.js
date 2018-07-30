@@ -215,7 +215,7 @@
         { label: 'Freight Unserviceable', name: 'FreightUnserviceable', required: true, type: 'number' },
         { label: 'Freight Workshop', name: 'FreightWorkshop', required: true, type: 'number' },
         { label: 'Freight REDCON', name: 'FreightRedcon', required: true, type: 'number' },
-        { label: 'Impact', name: 'Impact' }
+        { label: 'Impact', name: 'Impact', disabled: true }
       ]
     }
   ];
@@ -489,15 +489,19 @@
     watch: {
       'aviationManpower.model.OverallPresent': function(newData) {
         this.aviationManpower.model.OverallMpcon = this.calcPercentage(newData, this.aviationManpower.model.OverallStrength);
+        // this.toggleAviationImpact();
       },
       'aviationManpower.model.OverallStrength': function(newData) {
         this.aviationManpower.model.OverallMpcon = this.calcPercentage(this.aviationManpower.model.OverallPresent, newData);
+        // this.toggleAviationImpact();
       },
       'aviationRedcon.model.OverallServiceable': function(newData) {
         this.aviationRedcon.model.OverallRedcon = this.calcPercentage(newData, this.aviationRedcon.model.OverallFleet);
+        // this.toggleAviationImpact();
       },
       'aviationRedcon.model.OverallFleet': function(newData) {
         this.aviationRedcon.model.OverallRedcon = this.calcPercentage(this.aviationRedcon.model.OverallServiceable, newData);
+        // this.toggleAviationImpact();
       },
       'defenceManpower.model.OverallPresent': function(newData) {
         this.defenceManpower.model.OverallMpcon = this.calcPercentage(newData, this.defenceManpower.model.OverallStrength);
@@ -515,7 +519,13 @@
         if (loggedin === true) {
           this.getLastTime();
         }
-      }
+      },
+      'aviationManpower.model.OverallMpcon': function(newData) {
+        console.log('new data', this.aviationManpower.model.OverallMpcon);
+        // this.enableImpact(newData, this.aviationRedcon.model.)
+      },
+
+      'aviationRedcon.model.OverallRedcon': function(newData) {}
     },
     computed: {
       operationTabActive: function() {
@@ -838,10 +848,40 @@
         const bNum = parseInt(b);
 
         if (aNum > 0 && bNum > 0) {
-          return Math.round(aNum / bNum * 100);
+          return Math.round((aNum / bNum) * 100);
         }
 
         return 0;
+      },
+      checkAviationDisabled: function(item) {
+        if (item.name === 'Impact') {
+          const mpcon = this.aviationManpower.model.OverallMpcon;
+          const redcon = this.aviationRedcon.model.OverallRedcon;
+
+          if (mpcon <= 85 || redcon <= 85) {
+            return false;
+          } else {
+            this.aviationRedcon.model.Impact = '';
+            return true;
+          }
+        }
+
+        return item.disabled;
+      },
+      checkDefencesDisabled: function(item) {
+        if (item.name === 'Impact') {
+          const mpcon = this.defenceManpower.model.OverallMpcon;
+          const redcon = this.defenceRedcon.model.OverallRedcon;
+
+          if (mpcon <= 85 || redcon <= 85) {
+            return false;
+          } else {
+            this.defenceRedcon.model.Impact = '';
+            return true;
+          }
+        }
+
+        return item.disabled;
       }
     }
   });
