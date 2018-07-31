@@ -40,10 +40,10 @@
     "microsoft-speech-browser-sdk": "0.0.1",
     "moment": "^2.18.1",
     "papaparse": "^4.5.1",
-    "react-datetime": "^2.10.1",
-    "react-redux": "^5.0.7",
     "react": "^16.4.1",
+    "react-datetime": "^2.10.1",
     "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-observable": "^0.13.0",
     "rxjs": "5.3.3",
@@ -84,7 +84,8 @@
     "source-map-loader": "0.2.1",
     "typescript": "2.3",
     "vo": "4.0.2",
-    "webpack": "2.3.3",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0"
   }
 }
