@@ -981,12 +981,12 @@
         bottom: 0px;
     }
 
-    button { // Show more/less button
-        &.overlay {
-            position: absolute;
-            bottom: 8px;
-        }
+    .btn-overlay {
+        position: absolute;
+        bottom: 8px;
+    }
 
+    button { // Show more/less button
         user-select: none;
         min-width: 80px;
         background-color: #fff;
@@ -995,6 +995,8 @@
         border-radius: 1px;
         border: 1px solid #ccc;
         margin-top: 5px;
+        margin-right: 10px;
+        display: inline-block;
     }
 
     table {
