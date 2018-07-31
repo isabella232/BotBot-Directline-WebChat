@@ -2,6 +2,8 @@ var webpack = require('webpack');
 require("expose-loader");
 
 var coreConfig = {
+    mode: 'production',
+
     devtool: "source-map",
 
     resolve: {
@@ -15,12 +17,6 @@ var coreConfig = {
                 'NODE_ENV': JSON.stringify('production')
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false
-            }
-        }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
     ],
 
     module: {
@@ -45,9 +41,10 @@ var coreConfig = {
 var chatConfig = {
     entry: "./src/BotChat.ts",
     output: {
+        path: __dirname,
         libraryTarget: "umd",
         library: "BotChat",
-        filename: "./botchat.js"
+        filename: "botchat.js"
     }
 }
 
@@ -57,9 +54,10 @@ var featureConfig = {
         CognitiveServices: "./src/CognitiveServices/lib.ts"
     },
     output: {
+        path: __dirname,
         libraryTarget: "umd",
         library: "[name]",
-        filename: "./[name].js",
+        filename: "[name].js",
     }
 }
 
