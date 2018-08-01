@@ -125,11 +125,12 @@ export class Chat extends React.Component<ChatProps, {}> {
     }
 
     private setSize() {
-        this.store.dispatch<ChatActions>({
-            type: 'Set_Size',
-            width: this.chatviewPanel.offsetWidth,
-            height: this.chatviewPanel.offsetHeight
-        });
+        if (this.chatviewPanel)
+            this.store.dispatch<ChatActions>({
+                type: 'Set_Size',
+                width: this.chatviewPanel.offsetWidth,
+                height: this.chatviewPanel.offsetHeight
+            });
     }
 
     private handleKeyDownCapture(evt: React.KeyboardEvent<HTMLDivElement>) {
@@ -157,7 +158,7 @@ export class Chat extends React.Component<ChatProps, {}> {
     }
 
     private saveShellRef(shellWrapper: any) {
-        this.shellRef = shellWrapper.getWrappedInstance();
+        if (shellWrapper) this.shellRef = shellWrapper.getWrappedInstance();
     }
 
     componentDidMount() {
