@@ -415,7 +415,7 @@ export const history: Reducer<HistoryState> = (
         case 'Take_SuggestedAction':
             const i = state.activities.findIndex(activity => activity === action.message);
             const activity = state.activities[i];
-            const newActivity = {
+            const newActivity: Activity = {
                 ... activity,
                 suggestedActions: undefined
             };
@@ -633,19 +633,52 @@ const sendTypingEpic: Epic<ChatActions, ChatState> = (action$, store) =>
 
 // Now we put it all together into a store with middleware
 
-import { Store, createStore as reduxCreateStore, combineReducers } from 'redux';
+import { Store, createStore as reduxCreateStore, combineReducers, compose } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
+import { persistStore, persistReducer, BoostrappedCallback, createMigrate } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-export const createStore = () =>
-    reduxCreateStore(
-        combineReducers<ChatState>({
-            shell,
-            format,
-            size,
-            connection,
-            history
-        }),
-        applyMiddleware(createEpicMiddleware(combineEpics(
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const rootReducer = combineReducers<ChatState>({
+    shell,
+    format,
+    size,
+    connection,
+    history
+})
+
+const ACTIVITIES_LIMIT = 100
+const migrations = {
+    0: (state: ChatState) => { // Keeps the activities list under limit
+        if (state.history) {
+            const {activities} = state.history;
+            if (activities.length > ACTIVITIES_LIMIT) {
+                return {
+                    ...state,
+                    history: {
+                        ...state.history,
+                        activities: activities.slice(activities.length - ACTIVITIES_LIMIT)
+                    }
+                }
+            }
+        }
+        return state
+    }
+}
+
+const persistConfig = {
+    key: 'root',
+    storage,
+    blacklist: ['connection', 'size', 'format'],
+    migrate: createMigrate(migrations as any, { debug: false }),
+}
+  
+const persistedReducer = persistReducer(persistConfig, rootReducer)  
+
+export const createStore = (callback?: () => any) => {
+    const store: Store<ChatState> = reduxCreateStore(
+        persistedReducer,
+        composeEnhancers(applyMiddleware(createEpicMiddleware(combineEpics(
             updateSelectedActivityEpic,
             sendMessageEpic,
             trySendMessageEpic,
@@ -658,8 +691,11 @@ export const createStore = () =>
             stopListeningEpic,
             stopSpeakingEpic,
             listeningSilenceTimeoutEpic
-        )))
-    );
+        ))))
+    ) as Store<ChatState>
+    const persistor = persistStore(store, null, callback as BoostrappedCallback)
+    return {store, persistor}
+}
 
 export type ChatStore = Store<ChatState>;
 
