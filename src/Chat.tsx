@@ -12,7 +12,7 @@ import {
     DirectLineOptions,
     CardActionTypes
 } from 'botframework-directlinejs';
-import { createStore, ChatActions, ChatState } from './Store';
+import { createChatStore, ChatActions, ChatState } from './Store';
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider, Store } from 'react-redux';
 import { SpeechOptions } from './SpeechOptions';
@@ -66,7 +66,7 @@ export class Chat extends React.Component<ChatProps, {}> {
 
         konsole.log('BotChat.Chat props', props);
 
-        const {store, persistor} = createStore(() => {
+        const {store, persistor} = createChatStore(() => {
              // Set rehydrated when loading complete
             this.rehydrated = true
             if (this.mounted) {

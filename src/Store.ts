@@ -633,7 +633,7 @@ const sendTypingEpic: Epic<ChatActions, ChatState> = (action$, store) =>
 
 // Now we put it all together into a store with middleware
 
-import { Store, createStore as reduxCreateStore, combineReducers, compose } from 'redux';
+import { Store, createStore, combineReducers, compose } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import { persistStore, persistReducer, BoostrappedCallback, createMigrate } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -675,8 +675,8 @@ const persistConfig = {
   
 const persistedReducer = persistReducer(persistConfig, rootReducer)  
 
-export const createStore = (callback?: () => any) => {
-    const store: Store<ChatState> = reduxCreateStore(
+export const createChatStore = (callback?: () => any) => {
+    const store: Store<ChatState> = createStore(
         persistedReducer,
         composeEnhancers(applyMiddleware(createEpicMiddleware(combineEpics(
             updateSelectedActivityEpic,
