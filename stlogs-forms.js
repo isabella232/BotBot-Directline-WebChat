@@ -670,11 +670,32 @@
         callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          data: Object.assign(this.aviationRedcon.model, this.aviationManpower.model),
+          data: Object.assign(this.aviationManpower.model, {
+            Impact: this.aviationRedcon.model.Impact
+          }),
           success: function(resp) {
             self.aviationManpower.model = resetModel(self.aviationManpower.model);
+            // self.aviationRedcon.model = resetModel(self.aviationRedcon.model);
+            self.notifications.push({ type: 'success', message: 'Submit Manpower form success' });
+          },
+          error: function(error) {
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
+          }
+        }).then(function(resp) {
+          self.aviationManpower.submitting = false;
+        });
+
+        callApi({
+          url: API + '/api/form/redcon',
+          method: 'POST',
+          data: this.aviationRedcon.model,
+          success: function(resp) {
+            // self.aviationManpower.model = resetModel(self.aviationManpower.model);
             self.aviationRedcon.model = resetModel(self.aviationRedcon.model);
-            self.notifications.push({ type: 'success', message: 'Submit form success' });
+            self.notifications.push({ type: 'success', message: 'Submit REDCON form success' });
           },
           error: function(error) {
             self.notifications.push({
@@ -693,11 +714,30 @@
         callApi({
           url: API + '/api/form/mpcon',
           method: 'POST',
-          data: Object.assign(this.defenceRedcon.model, this.defenceManpower.model),
+          data: Object.assign(this.defenceManpower.model, {
+            Impact: self.defenceRedcon.model.Impact
+          }),
           success: function(resp) {
             self.defenceManpower.model = resetModel(self.defenceManpower.model);
+            self.notifications.push({ type: 'success', message: 'Submit MPCON form success' });
+          },
+          error: function(error) {
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
+          }
+        }).then(function(resp) {
+          self.defenceManpower.submitting = false;
+        });
+
+        callApi({
+          url: API + '/api/form/redcon',
+          method: 'POST',
+          data: this.defenceRedcon.model,
+          success: function(resp) {
             self.defenceRedcon.model = resetModel(self.defenceRedcon.model);
-            self.notifications.push({ type: 'success', message: 'Submit form success' });
+            self.notifications.push({ type: 'success', message: 'Submit REDCON form success' });
           },
           error: function(error) {
             self.notifications.push({
