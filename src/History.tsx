@@ -43,7 +43,7 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
     }
 
     componentDidUpdate() {
-        if (this.props.format.carouselMargin == undefined) {
+        if (this.props.format.carouselMargin == undefined && this.carouselActivity.messageDiv && this.carouselActivity.messageDiv.offsetParent) {
             // After our initial render we need to measure the carousel width
 
             // Measure the message padding by subtracting the known large width

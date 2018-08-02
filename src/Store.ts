@@ -635,7 +635,7 @@ const sendTypingEpic: Epic<ChatActions, ChatState> = (action$, store) =>
 
 import { Store, createStore, combineReducers, compose } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import { persistStore, persistReducer, BoostrappedCallback, createMigrate } from 'redux-persist'
+import {  Persistor, persistStore, persistReducer, BoostrappedCallback, createMigrate } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -693,7 +693,7 @@ export const createChatStore = (callback?: () => any) => {
             listeningSilenceTimeoutEpic
         ))))
     ) as Store<ChatState>
-    const persistor = persistStore(store, null, callback as BoostrappedCallback)
+    const persistor: Persistor = persistStore(store, null, callback as BoostrappedCallback)
     return {store, persistor}
 }
 

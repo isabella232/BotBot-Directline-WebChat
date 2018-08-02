@@ -20,6 +20,7 @@ import { Speech } from './SpeechModule';
 import { ActivityOrID, FormatOptions } from './Types';
 import * as konsole from './Konsole';
 import { getTabIndex } from './getTabIndex';
+import { Persistor } from 'redux-persist';
 
 export interface ChatProps {
     user: User;
@@ -40,7 +41,7 @@ import { Shell, ShellFunctions } from './Shell';
 
 export class Chat extends React.Component<ChatProps, {}> {
     private store: Store<ChatState> = null;
-    private persistor: any;
+    private persistor: Persistor;
 
     private botConnection: IBotConnection;
 

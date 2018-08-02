@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
 import { requestCustomiseUI } from './helpers';
-import { queryParams } from './BotChat'
+import { queryParams } from './BotChat';
 import axios from 'axios';
 
 export type AppProps = ChatProps;
