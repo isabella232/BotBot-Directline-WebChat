@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
-import { requestCustomiseUI } from './helpers';
+import { requestCustomiseUI, isProduction } from './helpers';
 import { queryParams } from './BotChat';
 import axios from 'axios';
 
 export type AppProps = ChatProps;
-const PRODUCTION_SHORT_URL = 'gicpublicsite.azurewebsites.net';
+
 let SECRET = {
     STAGING: 'hWhA3IfZkGA.cwA.058.GhnhDXs43TpcG9z6p3XZFAXSGeSxT8nmWyvPNoan9vw',
     PRODUCTION: 'rMjwcSJUrS0.cwA.6Gw.vBMKKOrGWxIcb9FpjrdGoRpVbESov5D0V9OUSKuuOk8'
@@ -17,10 +17,6 @@ export const App = (props: AppProps, container: HTMLElement) => {
     konsole.log('BotChat.App props', props);
     ReactDOM.render(React.createElement(AppContainer, props), container);
 };
-
-function isProduction() {
-    return !(window.location.hostname.indexOf(PRODUCTION_SHORT_URL) === -1);
-}
 
 function uuidv4(): string {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -104,16 +100,11 @@ class AppContainer extends React.PureComponent<ChatProps, ChatState> {
     }
 
     componentDidMount() {
-        if (isProduction()) {
-            this.setState({isCheckingIP: true})
-            axios
-                .post('https://gic-investment-staging.azurewebsites.net/api/access')
-                .then(() => this.setState({isCheckingIP: false, isCorrectIP: true}))
-                .catch(() => this.setState({isCheckingIP: false, isCorrectIP: false}))
-        }
-        else {
-            this.setState({isCorrectIP: true})
-        }
+      this.setState({isCheckingIP: true})
+      axios
+          .post('https://gic-investment-staging.azurewebsites.net/api/access')
+          .then(() => this.setState({isCheckingIP: false, isCorrectIP: true}))
+          .catch(() => this.setState({isCheckingIP: false, isCorrectIP: false}))
     }
 
     render() {

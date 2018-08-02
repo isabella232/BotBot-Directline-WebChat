@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-export const DASHBOARD_API_URL = ' https://botbotapi-staging.azurewebsites.net/api';
-export const BOT_API_URL = 'https://gicpublicsitebot-staging.azurewebsites.net/api';
+export const DASHBOARD_API_URL = {
+    'staging': 'https://botbotapi-staging.azurewebsites.net/api',
+    'production': 'https://botbotapi.azurewebsites.net/api'
+};
+export const BOT_API_URL = '/api';
+const PRODUCTION_SHORT_URL = 'gicpublicsite.azurewebsites.net';
 
 export interface IConfig {
     fontUrl: string;
@@ -95,8 +99,12 @@ const compileStyle = (config: IConfig) => {
 export function requestCustomiseUI() {
     axios
         .get(`${BOT_API_URL}/dashboard/botid`)
-        .then(resp => axios.get(`${DASHBOARD_API_URL}/feconfig/get?botid=${resp.data.id}`))
+        .then(resp => axios.get(`${isProduction() ? DASHBOARD_API_URL.production : DASHBOARD_API_URL.staging}/feconfig/get?botid=${resp.data.id}`))
         .then(resp => {
             compileStyle(resp.data);
         });
+}
+
+export function isProduction() {
+    return !(window.location.hostname.indexOf(PRODUCTION_SHORT_URL) === -1);
 }
