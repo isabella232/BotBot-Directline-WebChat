@@ -64,17 +64,17 @@
           fields: [
             {
               label: 'Import',
-              name: 'AFImport',
+              name: 'aFImport',
               required: true
             },
             {
               label: 'Export',
-              name: 'AFExport',
+              name: 'aFExport',
               required: true
             },
             {
               label: 'Traffic',
-              name: 'AFTraffic',
+              name: 'aFTraffic',
               required: true
             }
           ]
@@ -84,17 +84,17 @@
           fields: [
             {
               label: 'Import',
-              name: 'SFImport',
+              name: 'sFImport',
               required: true
             },
             {
               label: 'Export',
-              name: 'SFExport',
+              name: 'sFExport',
               required: true
             },
             {
               label: 'Traffic',
-              name: 'SFTraffic',
+              name: 'sFTraffic',
               required: true
             }
           ]
@@ -104,27 +104,27 @@
           fields: [
             {
               label: 'Refuelling',
-              name: 'StarrRefuelling',
+              name: 'starrRefuelling',
               required: true
             },
             {
               label: 'AMC',
-              name: 'AM',
+              name: 'aM',
               required: true
             },
             {
               label: 'DSR Refuelling',
-              name: 'SDSRRefuelling',
+              name: 'sDSRRefuelling',
               required: true
             },
             {
               label: 'DSR Defuelling',
-              name: 'SDSRDefuelling',
+              name: 'sDSRDefuelling',
               required: true
             },
             {
               label: 'DSR Bridging',
-              name: 'SDSRBridging',
+              name: 'sDSRBridging',
               required: true
             }
           ]
@@ -134,28 +134,28 @@
           fields: [
             {
               label: 'RSAF Tech Log',
-              name: 'AMLRSAFTechLog',
+              name: 'aMLRSAFTechLog',
               required: true
             },
             {
               label: 'RSN ShipHusbandry',
-              name: 'AMLRSNShipHusbandry',
+              name: 'aMLRSNShipHusbandry',
               required: true
             },
             {
               label: 'Other Ops',
-              name: 'AMLOtherOps',
+              name: 'aMLOtherOps',
               required: true
             }
           ]
         },
         {
           label: 'Incident',
-          name: 'AviationIncident'
+          name: 'aviationIncident'
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'TomorrowKeyHighlight'
+          name: 'tomorrowKeyHighlight'
         }
       ]
     }
@@ -164,30 +164,30 @@
     {
       heading: 'Manpower Status - Aviation',
       groups: [
-        { label: 'Overall Strength', name: 'OverallStrength', required: true, type: 'number' },
-        { label: 'Overall Present', name: 'OverallPresent', required: true, type: 'number' },
-        { label: 'Overall Overseas', name: 'OverallOverseas', required: true, type: 'number' },
-        { label: 'Overall Leave', name: 'OverallLeave', required: true, type: 'number' },
-        { label: 'Overall Medical', name: 'OverallMedical', required: true, type: 'number' },
-        { label: 'Overall MPCON', name: 'OverallMpcon', required: true, type: 'number', disabled: true },
-        { label: 'STARS Strength', name: 'StarsStrength', required: true, type: 'number' },
-        { label: 'STARS Present', name: 'StarsPresent', required: true, type: 'number' },
-        { label: 'STARS Overseas', name: 'StarsOverseas', required: true, type: 'number' },
-        { label: 'STARS Leave', name: 'StarsLeave', required: true, type: 'number' },
-        { label: 'STARS Medical', name: 'StarsMedical', required: true, type: 'number' },
-        { label: 'STARS MPCON', name: 'StarsMpcon', required: true, type: 'number' },
-        { label: 'AML Strength', name: 'AmlStrength', required: true, type: 'number' },
-        { label: 'AML Present', name: 'AmlPresent', required: true, type: 'number' },
-        { label: 'AML Overseas', name: 'AmlOverseas', required: true, type: 'number' },
-        { label: 'AML Leave', name: 'AmlLeave', required: true, type: 'number' },
-        { label: 'AML Medical', name: 'AmlMedical', required: true, type: 'number' },
-        { label: 'AML MPCON', name: 'AmlMpcon', required: true, type: 'number' },
-        { label: 'Freight Strength', name: 'FreightStrength', required: true, type: 'number' },
-        { label: 'Freight Present', name: 'FreightPresent', required: true, type: 'number' },
-        { label: 'Freight Overseas', name: 'FreightOverseas', required: true, type: 'number' },
-        { label: 'Freight Leave', name: 'FreightLeave', required: true, type: 'number' },
-        { label: 'Freight Medical', name: 'FreightMedical', required: true, type: 'number' },
-        { label: 'Freight MPCON', name: 'FreightMpcon', required: true, type: 'number' }
+        { label: 'Overall Strength', name: 'overallStrength', required: true, type: 'number' },
+        { label: 'Overall Present', name: 'overallPresent', required: true, type: 'number' },
+        { label: 'Overall Overseas', name: 'overallOverseas', required: true, type: 'number' },
+        { label: 'Overall Leave', name: 'overallLeave', required: true, type: 'number' },
+        { label: 'Overall Medical', name: 'overallMedical', required: true, type: 'number' },
+        { label: 'Overall MPCON', name: 'overallMpcon', required: true, type: 'number', disabled: true },
+        { label: 'STARS Strength', name: 'starsStrength', required: true, type: 'number' },
+        { label: 'STARS Present', name: 'starsPresent', required: true, type: 'number' },
+        { label: 'STARS Overseas', name: 'starsOverseas', required: true, type: 'number' },
+        { label: 'STARS Leave', name: 'starsLeave', required: true, type: 'number' },
+        { label: 'STARS Medical', name: 'starsMedical', required: true, type: 'number' },
+        { label: 'STARS MPCON', name: 'starsMpcon', required: true, type: 'number' },
+        { label: 'AML Strength', name: 'amlStrength', required: true, type: 'number' },
+        { label: 'AML Present', name: 'amlPresent', required: true, type: 'number' },
+        { label: 'AML Overseas', name: 'amlOverseas', required: true, type: 'number' },
+        { label: 'AML Leave', name: 'amlLeave', required: true, type: 'number' },
+        { label: 'AML Medical', name: 'amlMedical', required: true, type: 'number' },
+        { label: 'AML MPCON', name: 'amlMpcon', required: true, type: 'number' },
+        { label: 'Freight Strength', name: 'freightStrength', required: true, type: 'number' },
+        { label: 'Freight Present', name: 'freightPresent', required: true, type: 'number' },
+        { label: 'Freight Overseas', name: 'freightOverseas', required: true, type: 'number' },
+        { label: 'Freight Leave', name: 'freightLeave', required: true, type: 'number' },
+        { label: 'Freight Medical', name: 'freightMedical', required: true, type: 'number' },
+        { label: 'Freight MPCON', name: 'freightMpcon', required: true, type: 'number' }
       ]
     }
   ];
@@ -195,27 +195,27 @@
     {
       heading: 'REDCON',
       groups: [
-        { label: 'Overall Fleet', name: 'OverallFleet', required: true, type: 'number' },
-        { label: 'Overall Serviceable', name: 'OverallServiceable', required: true, type: 'number' },
-        { label: 'Overall Unserviceable', name: 'OverallUnserviceable', required: true, type: 'number' },
-        { label: 'Overall Workshop', name: 'OverallWorkshop', required: true, type: 'number' },
-        { label: 'Overall REDCON', name: 'OverallRedcon', required: true, type: 'number', disabled: true },
-        { label: 'STARS Fleet', name: 'StarsFleet', required: true, type: 'number' },
-        { label: 'STARS Serviceable', name: 'StarsServiceable', required: true, type: 'number' },
-        { label: 'STARS Unserviceable', name: 'StarsUnserviceable', required: true, type: 'number' },
-        { label: 'STARS Workshop', name: 'StarsWorkshop', required: true, type: 'number' },
-        { label: 'STARS REDCON', name: 'StarsRedcon', required: true, type: 'number' },
-        { label: 'AML Fleet', name: 'AmlFleet', required: true, type: 'number' },
-        { label: 'AML Serviceable', name: 'AmlServiceable', required: true, type: 'number' },
-        { label: 'AML Unserviceable', name: 'AmlUnserviceable', required: true, type: 'number' },
-        { label: 'AML Workshop', name: 'AmlWorkshop', required: true, type: 'number' },
-        { label: 'AML REDCON', name: 'AmlRedcon', required: true, type: 'number' },
-        { label: 'Freight Fleet', name: 'FreightFleet', required: true, type: 'number' },
-        { label: 'Freight Serviceable', name: 'FreightServiceable', required: true, type: 'number' },
-        { label: 'Freight Unserviceable', name: 'FreightUnserviceable', required: true, type: 'number' },
-        { label: 'Freight Workshop', name: 'FreightWorkshop', required: true, type: 'number' },
-        { label: 'Freight REDCON', name: 'FreightRedcon', required: true, type: 'number' },
-        { label: 'Impact', name: 'Impact', disabled: true }
+        { label: 'Overall Fleet', name: 'overallFleet', required: true, type: 'number' },
+        { label: 'Overall Serviceable', name: 'overallServiceable', required: true, type: 'number' },
+        { label: 'Overall Unserviceable', name: 'overallUnserviceable', required: true, type: 'number' },
+        { label: 'Overall Workshop', name: 'overallWorkshop', required: true, type: 'number' },
+        { label: 'Overall REDCON', name: 'overallRedcon', required: true, type: 'number', disabled: true },
+        { label: 'STARS Fleet', name: 'starsFleet', required: true, type: 'number' },
+        { label: 'STARS Serviceable', name: 'starsServiceable', required: true, type: 'number' },
+        { label: 'STARS Unserviceable', name: 'starsUnserviceable', required: true, type: 'number' },
+        { label: 'STARS Workshop', name: 'starsWorkshop', required: true, type: 'number' },
+        { label: 'STARS REDCON', name: 'starsRedcon', required: true, type: 'number' },
+        { label: 'AML Fleet', name: 'amlFleet', required: true, type: 'number' },
+        { label: 'AML Serviceable', name: 'amlServiceable', required: true, type: 'number' },
+        { label: 'AML Unserviceable', name: 'amlUnserviceable', required: true, type: 'number' },
+        { label: 'AML Workshop', name: 'amlWorkshop', required: true, type: 'number' },
+        { label: 'AML REDCON', name: 'amlRedcon', required: true, type: 'number' },
+        { label: 'Freight Fleet', name: 'freightFleet', required: true, type: 'number' },
+        { label: 'Freight Serviceable', name: 'freightServiceable', required: true, type: 'number' },
+        { label: 'Freight Unserviceable', name: 'freightUnserviceable', required: true, type: 'number' },
+        { label: 'Freight Workshop', name: 'freightWorkshop', required: true, type: 'number' },
+        { label: 'Freight REDCON', name: 'freightRedcon', required: true, type: 'number' },
+        { label: 'Impact', name: 'impact', disabled: true }
       ]
     }
   ];
@@ -223,12 +223,12 @@
     {
       heading: 'Manpower Status',
       groups: [
-        { label: 'Overall Strength', name: 'OverallStrength', required: true, type: 'number' },
-        { label: 'Overall Present', name: 'OverallPresent', required: true, type: 'number' },
-        { label: 'Overall Overseas', name: 'OverallOverseas', required: true, type: 'number' },
-        { label: 'Overall Leave', name: 'OverallLeave', required: true, type: 'number' },
-        { label: 'Overall Medical', name: 'OverallMedical', required: true, type: 'number' },
-        { label: 'Overall MPCON', name: 'OverallMpcon', required: true, type: 'number', disabled: true }
+        { label: 'Overall Strength', name: 'overallStrength', required: true, type: 'number' },
+        { label: 'Overall Present', name: 'overallPresent', required: true, type: 'number' },
+        { label: 'Overall Overseas', name: 'overallOverseas', required: true, type: 'number' },
+        { label: 'Overall Leave', name: 'overallLeave', required: true, type: 'number' },
+        { label: 'Overall Medical', name: 'overallMedical', required: true, type: 'number' },
+        { label: 'Overall MPCON', name: 'overallMpcon', required: true, type: 'number', disabled: true }
       ]
     }
   ];
@@ -236,12 +236,12 @@
     {
       heading: 'REDCON',
       groups: [
-        { label: 'Overall Fleet', name: 'OverallFleet', required: true, type: 'number' },
-        { label: 'Overall Serviceable', name: 'OverallServiceable', required: true, type: 'number' },
-        { label: 'Overall Unserviceable', name: 'OverallUnserviceable', required: true, type: 'number' },
-        { label: 'Overall Workshop', name: 'OverallWorkshop', required: true, type: 'number' },
-        { label: 'Overall REDCON', name: 'OverallRedcon', required: true, type: 'number', disabled: true },
-        { label: 'Impact', name: 'Impact' }
+        { label: 'Overall Fleet', name: 'overallFleet', required: true, type: 'number' },
+        { label: 'Overall Serviceable', name: 'overallServiceable', required: true, type: 'number' },
+        { label: 'Overall Unserviceable', name: 'overallUnserviceable', required: true, type: 'number' },
+        { label: 'Overall Workshop', name: 'overallWorkshop', required: true, type: 'number' },
+        { label: 'Overall REDCON', name: 'overallRedcon', required: true, type: 'number', disabled: true },
+        { label: 'Impact', name: 'impact' }
       ]
     }
   ];
@@ -251,26 +251,26 @@
       groups: [
         {
           label: 'Army Delivery (Milkrun)',
-          name: 'DefArmyDelivery',
+          name: 'defArmyDelivery',
           required: true
         },
         {
           label: 'E-mart Delivery',
-          name: 'DefEMartDelivery',
+          name: 'defEMartDelivery',
           required: true
         },
         {
           label: 'Supported',
-          name: 'DefSupported',
+          name: 'defSupported',
           required: true
         },
         {
           label: 'Incident',
-          name: 'DefIncident'
+          name: 'defIncident'
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'TomorrowKeyHighlight'
+          name: 'tomorrowKeyHighlight'
         }
       ]
     }
@@ -281,21 +281,21 @@
       groups: [
         {
           label: 'STHC: All delivery completed.',
-          name: 'STHC',
+          name: 'sTHC',
           required: true
         },
         {
           label: 'THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.',
-          name: 'THC',
+          name: 'tHC',
           required: true
         },
         {
           label: 'Incident',
-          name: 'HCIncident'
+          name: 'hCIncident'
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'TomorrowKeyHighlight'
+          name: 'tomorrowKeyHighlight'
         }
       ]
     }
@@ -306,62 +306,62 @@
       groups: [
         {
           label: 'FUPO (D)',
-          name: 'FUPO',
+          name: 'fUPO',
           required: true
         },
         {
           label: 'MHA Mailroom (D)',
-          name: 'MHAMailroom',
+          name: 'mHAMailroom',
           required: true
         },
         {
           label: 'MOE (N)',
-          name: 'MOE',
+          name: 'mOE',
           required: true
         },
         {
           label: 'MOM (N)',
-          name: 'MOM',
+          name: 'mOM',
           required: true
         },
         {
           label: 'Events (N) ',
-          name: 'Events',
+          name: 'events',
           required: true
         },
         {
           label: 'MLAW (N) ',
-          name: 'MLAW',
+          name: 'mLAW',
           required: true
         },
         {
           label: 'PLB Offsite Stores (N)',
-          name: 'PLBOffsiteStores',
+          name: 'pLBOffsiteStores',
           required: true
         },
         {
           label: 'SCDF Offsite Stores (N) ',
-          name: 'SCDFOffsiteStores',
+          name: 'sCDFOffsiteStores',
           required: true
         },
         {
           label: 'Courier Services (N)',
-          name: 'CourierServices',
+          name: 'courierServices',
           required: true
         },
         {
           label: 'NLB (N)',
-          name: 'NLB',
+          name: 'nLB',
           required: true
         },
         {
           label: 'Procurement (N) ',
-          name: 'Procurement',
+          name: 'procurement',
           required: true
         },
         {
           label: 'Key Highlight For Next Day',
-          name: 'TomorrowKeyHighlight'
+          name: 'tomorrowKeyHighlight'
         }
       ]
     }
@@ -484,48 +484,44 @@
     created: function() {
       if (this.user.loggedin) {
         this.getLastTime();
+        this.getPreviousData();
       }
     },
     watch: {
-      'aviationManpower.model.OverallPresent': function(newData) {
-        this.aviationManpower.model.OverallMpcon = this.calcPercentage(newData, this.aviationManpower.model.OverallStrength);
+      'aviationManpower.model.overallPresent': function(newData) {
+        this.aviationManpower.model.overallMpcon = this.calcPercentage(newData, this.aviationManpower.model.overallStrength);
         // this.toggleAviationImpact();
       },
-      'aviationManpower.model.OverallStrength': function(newData) {
-        this.aviationManpower.model.OverallMpcon = this.calcPercentage(this.aviationManpower.model.OverallPresent, newData);
+      'aviationManpower.model.overallStrength': function(newData) {
+        this.aviationManpower.model.overallMpcon = this.calcPercentage(this.aviationManpower.model.overallPresent, newData);
         // this.toggleAviationImpact();
       },
-      'aviationRedcon.model.OverallServiceable': function(newData) {
-        this.aviationRedcon.model.OverallRedcon = this.calcPercentage(newData, this.aviationRedcon.model.OverallFleet);
+      'aviationRedcon.model.overallServiceable': function(newData) {
+        this.aviationRedcon.model.overallRedcon = this.calcPercentage(newData, this.aviationRedcon.model.overallFleet);
         // this.toggleAviationImpact();
       },
-      'aviationRedcon.model.OverallFleet': function(newData) {
-        this.aviationRedcon.model.OverallRedcon = this.calcPercentage(this.aviationRedcon.model.OverallServiceable, newData);
+      'aviationRedcon.model.overallFleet': function(newData) {
+        this.aviationRedcon.model.overallRedcon = this.calcPercentage(this.aviationRedcon.model.overallServiceable, newData);
         // this.toggleAviationImpact();
       },
-      'defenceManpower.model.OverallPresent': function(newData) {
-        this.defenceManpower.model.OverallMpcon = this.calcPercentage(newData, this.defenceManpower.model.OverallStrength);
+      'defenceManpower.model.overallPresent': function(newData) {
+        this.defenceManpower.model.overallMpcon = this.calcPercentage(newData, this.defenceManpower.model.overallStrength);
       },
-      'defenceManpower.model.OverallStrength': function(newData) {
-        this.defenceManpower.model.OverallMpcon = this.calcPercentage(this.defenceManpower.model.OverallPresent, newData);
+      'defenceManpower.model.overallStrength': function(newData) {
+        this.defenceManpower.model.overallMpcon = this.calcPercentage(this.defenceManpower.model.overallPresent, newData);
       },
-      'defenceRedcon.model.OverallServiceable': function(newData) {
-        this.defenceRedcon.model.OverallRedcon = this.calcPercentage(newData, this.defenceRedcon.model.OverallFleet);
+      'defenceRedcon.model.overallServiceable': function(newData) {
+        this.defenceRedcon.model.overallRedcon = this.calcPercentage(newData, this.defenceRedcon.model.overallFleet);
       },
-      'defenceRedcon.model.OverallFleet': function(newData) {
-        this.defenceRedcon.model.OverallRedcon = this.calcPercentage(this.defenceRedcon.model.OverallServiceable, newData);
+      'defenceRedcon.model.overallFleet': function(newData) {
+        this.defenceRedcon.model.overallRedcon = this.calcPercentage(this.defenceRedcon.model.overallServiceable, newData);
       },
       'user.loggedin': function(loggedin) {
         if (loggedin === true) {
           this.getLastTime();
+          this.getPreviousData();
         }
-      },
-      'aviationManpower.model.OverallMpcon': function(newData) {
-        console.log('new data', this.aviationManpower.model.OverallMpcon);
-        // this.enableImpact(newData, this.aviationRedcon.model.)
-      },
-
-      'aviationRedcon.model.OverallRedcon': function(newData) {}
+      }
     },
     computed: {
       operationTabActive: function() {
@@ -643,7 +639,7 @@
         var today = getToday();
 
         self.aviationOperation.submitting = true;
-        this.aviationOperation.model.Date = today; // second
+        this.aviationOperation.model.date = today; // second
 
         callApi({
           url: API + '/api/form/opshighlight',
@@ -671,7 +667,7 @@
           url: API + '/api/form/mpcon',
           method: 'POST',
           data: Object.assign(this.aviationManpower.model, {
-            Impact: this.aviationRedcon.model.Impact
+            Impact: this.aviationRedcon.model.impact
           }),
           success: function(resp) {
             self.aviationManpower.model = resetModel(self.aviationManpower.model);
@@ -715,7 +711,7 @@
           url: API + '/api/form/mpcon',
           method: 'POST',
           data: Object.assign(this.defenceManpower.model, {
-            Impact: self.defenceRedcon.model.Impact
+            Impact: self.defenceRedcon.model.impact
           }),
           success: function(resp) {
             self.defenceManpower.model = resetModel(self.defenceManpower.model);
@@ -752,7 +748,7 @@
       doDefenceOperationSubmit: function() {
         var self = this;
         self.defenceOperation.submitting = true;
-        this.defenceOperation.model.Date = getToday();
+        this.defenceOperation.model.date = getToday();
 
         callApi({
           url: API + '/api/form/opshighlight',
@@ -819,7 +815,7 @@
       doHealthcareOperationSubmit: function() {
         var self = this;
         self.healthcareOperation.submitting = true;
-        this.healthcareOperation.model.Date = getToday();
+        this.healthcareOperation.model.date = getToday();
 
         callApi({
           url: API + '/api/form/opshighlight',
@@ -842,7 +838,7 @@
       doPssOperationSubmit: function() {
         var self = this;
         self.pssOperation.submitting = true;
-        this.pssOperation.model.Date = getToday();
+        this.pssOperation.model.date = getToday();
 
         callApi({
           url: API + '/api/form/opshighlight',
@@ -872,7 +868,6 @@
         callApi({
           url: API + '/api/form/getTime',
           method: 'GET',
-          data: this.healthcareOperation.model,
           success: function(resp) {
             self.manpowerTime = resp.data.manpowerTime;
             self.opsHighlightTime = resp.data.opsHighlightTime;
@@ -880,6 +875,23 @@
           error: function(error) {
             self.manpowerTime = '';
             self.opsHighlightTime = '';
+          }
+        });
+      },
+      getPreviousData: function() {
+        const self = this;
+
+        callApi({
+          url: API + '/api/form/getData',
+          method: 'GET',
+          success: function(resp) {
+            // self.manpowerTime = resp.data.manpowerTime;
+            // self.opsHighlightTime = resp.data.opsHighlightTime;
+            console.log('resp', resp);
+          },
+          error: function(error) {
+            // self.manpowerTime = '';
+            // self.opsHighlightTime = '';
           }
         });
       },
@@ -895,13 +907,13 @@
       },
       checkAviationDisabled: function(item) {
         if (item.name === 'Impact') {
-          const mpcon = this.aviationManpower.model.OverallMpcon;
-          const redcon = this.aviationRedcon.model.OverallRedcon;
+          const mpcon = this.aviationManpower.model.overallMpcon;
+          const redcon = this.aviationRedcon.model.overallRedcon;
 
           if (mpcon <= 85 || redcon <= 85) {
             return false;
           } else {
-            this.aviationRedcon.model.Impact = '';
+            this.aviationRedcon.model.impact = '';
             return true;
           }
         }
@@ -910,13 +922,13 @@
       },
       checkDefencesDisabled: function(item) {
         if (item.name === 'Impact') {
-          const mpcon = this.defenceManpower.model.OverallMpcon;
-          const redcon = this.defenceRedcon.model.OverallRedcon;
+          const mpcon = this.defenceManpower.model.overallMpcon;
+          const redcon = this.defenceRedcon.model.overallRedcon;
 
           if (mpcon <= 85 || redcon <= 85) {
             return false;
           } else {
-            this.defenceRedcon.model.Impact = '';
+            this.defenceRedcon.model.impact = '';
             return true;
           }
         }
