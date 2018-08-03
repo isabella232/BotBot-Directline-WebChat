@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Chat, ChatProps } from './Chat';
 import axios from 'axios';
 
-export const DASHBOARD_API_URL = ' https://botbotapi-staging.azurewebsites.net/api';
+export const DASHBOARD_API_URL = 'https://botbotapi-staging.azurewebsites.net/api';
 export const BOT_API_URL = 'https://gic-investment-staging.azurewebsites.net/api';
 
 export type AppProps = ChatProps;
