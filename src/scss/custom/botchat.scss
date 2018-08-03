@@ -288,6 +288,6 @@ mark, .mark {
   }
 }
 
-.wc-card button {
-  font-family: inherit;
+body .wc-app * {
+  font-family: inherit !important;
 }
