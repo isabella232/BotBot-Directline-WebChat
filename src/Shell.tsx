@@ -83,7 +83,6 @@ class ShellContainer extends React.Component<Props, {}> {
 
         return (
             <div className={className}>
-                <div className="wc-bot-name">GIC Lucas</div>
                 <input id="wc-upload-input" type="file" ref={ input => this.fileInput = input } multiple onChange={ () => this.onChangeFile() } />
                 <label className="wc-upload" htmlFor="wc-upload-input">
                     <svg>
