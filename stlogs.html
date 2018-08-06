@@ -73,7 +73,7 @@
       <!-- TODAY OPERATIONS FORMS -->
       <div v-if="operationTabActive">
         <!-- AVIVATION FORM -->
-        <div v-if="isAvivation">
+        <div v-if="isAviation">
           <h2>Aviation/Freight</h2>
           <form id="today_aviation" class="form-wrapper form-2-col" @submit.prevent="doAvivationOperationSubmit">
             <div class="block" v-for="block in aviationOperation.fields">
@@ -181,7 +181,7 @@
       <!-- MAINPOWER FORM -->
       <div v-if="manpowerTabActive">
         <!-- MANPOWER AVIVATION FORM -->
-        <div v-if="isAvivation">
+        <div v-if="isAviation">
           <!-- <h2>Manpower Status - Aviation</h2> -->
           <form class="form-wrapper" @submit.prevent="doAvivationManpowerSubmit">
             <template v-for="block in aviationManpower.fields">
@@ -245,7 +245,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
 
-  <script src="./stlogs-forms.js"></script>
+  <script src="./stlogs-forms.min.js"></script>
 </body>
 
 </html>

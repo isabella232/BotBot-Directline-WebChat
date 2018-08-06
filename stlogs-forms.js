@@ -530,7 +530,7 @@
       manpowerTabActive: function() {
         return this.tabActive === TABS.MANPOWER;
       },
-      isAvivation: function() {
+      isAviation: function() {
         return this.user.userDepartment === DEPARTMENTS.AVIATION;
       },
       isDefence: function() {
@@ -667,7 +667,7 @@
           url: API + '/api/form/mpcon',
           method: 'POST',
           data: Object.assign(this.aviationManpower.model, {
-            Impact: this.aviationRedcon.model.impact
+            impact: this.aviationRedcon.model.impact
           }),
           success: function(resp) {
             self.aviationManpower.model = resetModel(self.aviationManpower.model);
@@ -711,7 +711,7 @@
           url: API + '/api/form/mpcon',
           method: 'POST',
           data: Object.assign(this.defenceManpower.model, {
-            Impact: self.defenceRedcon.model.impact
+            impact: self.defenceRedcon.model.impact
           }),
           success: function(resp) {
             self.defenceManpower.model = resetModel(self.defenceManpower.model);
@@ -887,6 +887,14 @@
           success: function(resp) {
             // self.manpowerTime = resp.data.manpowerTime;
             // self.opsHighlightTime = resp.data.opsHighlightTime;
+            if (self.isAviation) {
+              self.aviationManpower.model = resp.data.manpowerData;
+              self.aviationRedcon.model = resp.data.redStatusData;
+            } else {
+              self.defenceManpower.model = resp.data.manpowerData;
+              self.defenceRedcon.model = resp.data.redStatusData;
+            }
+
             console.log('resp', resp);
           },
           error: function(error) {
@@ -906,7 +914,7 @@
         return 0;
       },
       checkAviationDisabled: function(item) {
-        if (item.name === 'Impact') {
+        if (item.name === 'impact') {
           const mpcon = this.aviationManpower.model.overallMpcon;
           const redcon = this.aviationRedcon.model.overallRedcon;
 
@@ -921,7 +929,7 @@
         return item.disabled;
       },
       checkDefencesDisabled: function(item) {
-        if (item.name === 'Impact') {
+        if (item.name === 'impact') {
           const mpcon = this.defenceManpower.model.overallMpcon;
           const redcon = this.defenceRedcon.model.overallRedcon;
 
