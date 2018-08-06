@@ -284,11 +284,11 @@
           name: 'sTHC',
           required: true
         },
-        {
-          label: 'THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.',
-          name: 'tHC',
-          required: true
-        },
+        // {
+        //   label: 'THC: Outbound to Expo for EYS – completed. Inbound of 10 pallets from ICM – completed.',
+        //   name: 'tHC',
+        //   required: true
+        // },
         {
           label: 'Incident',
           name: 'hCIncident'
