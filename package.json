@@ -34,6 +34,7 @@
     "@types/redux-persist": "^4.3.1",
     "botframework-directlinejs": "0.9.13",
     "core-js": "2.4.1",
+    "date-fns": "^1.29.0",
     "dompurify": "^1.0.5",
     "markdown-it": "8.3.1",
     "microsoft-adaptivecards": "0.6.1",
