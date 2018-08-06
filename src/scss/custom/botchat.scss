@@ -61,6 +61,7 @@ body {
   // padding-left: 15px;
   // margin-left: 0;
   background-color: $c_bot_reply_bg;
+  max-width: 75%;
 
   .wc-message-content {
     background: none;
@@ -265,6 +266,10 @@ body {
 
 .wc-carousel li .wc-adaptive-card p {
   font-size: 14px;
+}
+
+.wc-adaptive-card p {
+  white-space: normal;
 }
 
 mark, .mark {

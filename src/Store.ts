@@ -303,7 +303,7 @@ export const history: Reducer<HistoryState> = (
         clientActivityCounter: 0,
         selectedActivity: null
     },
-    action: HistoryAction
+    action: HistoryAction | ConnectionAction
 ) => {
     konsole.log("history action", action);
     switch (action.type) {
@@ -425,6 +425,14 @@ export const history: Reducer<HistoryState> = (
                 selectedActivity: state.selectedActivity === activity ? newActivity : state.selectedActivity
             }
 
+        case 'Connection_Change':
+            return {
+                ... state,
+                clientActivityCounter: action.connectionStatus === ConnectionStatus.Online
+                    ? state.clientActivityCounter + 1
+                    : state.clientActivityCounter
+            }
+
         default:
             return state;
     }
@@ -486,6 +494,39 @@ import 'rxjs/add/observable/bindCallback';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 
+import * as differenceInDays from 'date-fns/difference_in_days';
+
+let welcomeMessageSent = false
+const onConnectedEpic: Epic<ChatActions, ChatState> = (action$, store) =>
+    action$.ofType('Connection_Change')
+    .filter((action: ConnectionAction) => {
+        const state = store.getState()
+        const activities = state.history.activities
+        return action.type === 'Connection_Change' 
+            && !welcomeMessageSent
+            && action.connectionStatus == ConnectionStatus.Online
+            && (activities.length === 0 
+                || differenceInDays(activities[activities.length - 1].timestamp, (new Date()).toISOString()) >= 1)
+    })
+    .flatMap(_ => {
+        const state = store.getState();
+        const botConnection = state.connection.botConnection;
+        const activity: Activity = {
+            type: 'message',
+            from: state.connection.user,
+            timestamp: (new Date()).toISOString(),
+            text: "WelcomeMessage",
+            value: null,
+            textFormat: 'plain',
+            locale: state.format.locale || (window.navigator as any)["userLanguage"] || window.navigator.language || 'en',
+            channelData: { clientActivityId: state.history.clientActivityBase + state.history.clientActivityCounter }
+        }
+        console.log('Connection established. Pinging server', activity)
+        welcomeMessageSent = true
+        return botConnection.postActivity(activity)
+            .map(_ => nullAction)
+            .catch(error => Observable.of(nullAction))
+    })
 
 const sendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
     action$.ofType('Send_Message')
@@ -637,6 +678,7 @@ import { Store, createStore, combineReducers, compose } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import {  Persistor, persistStore, persistReducer, BoostrappedCallback, createMigrate } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { ActionOpenUrl } from '../node_modules/microsoft-adaptivecards/built/schema';
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers<ChatState>({
@@ -679,6 +721,7 @@ export const createChatStore = (callback?: () => any) => {
     const store: Store<ChatState> = createStore(
         persistedReducer,
         composeEnhancers(applyMiddleware(createEpicMiddleware(combineEpics(
+            onConnectedEpic,
             updateSelectedActivityEpic,
             sendMessageEpic,
             trySendMessageEpic,
