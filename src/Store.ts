@@ -519,7 +519,8 @@ const onConnectedEpic: Epic<ChatActions, ChatState> = (action$, store) =>
             value: null,
             textFormat: 'plain',
             locale: state.format.locale || (window.navigator as any)["userLanguage"] || window.navigator.language || 'en',
-            channelData: { clientActivityId: state.history.clientActivityBase + state.history.clientActivityCounter }
+            // no channel data - shortcut for not adding to history
+            // channelData: { clientActivityId: state.history.clientActivityBase + state.history.clientActivityCounter }
         }
         console.log('Connection established. Pinging server', activity)
         welcomeMessageSent = true
