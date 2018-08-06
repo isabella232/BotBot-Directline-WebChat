@@ -30,7 +30,6 @@
   "author": "Microsoft Corp",
   "license": "MIT",
   "dependencies": {
-    "@types/react": "15.0.38",
     "@types/redux-persist": "^4.3.1",
     "botframework-directlinejs": "0.9.13",
     "core-js": "2.4.1",
