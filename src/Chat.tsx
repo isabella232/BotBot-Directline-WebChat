@@ -13,14 +13,12 @@ import {
     CardActionTypes
 } from 'botframework-directlinejs';
 import { createChatStore, ChatActions, ChatState } from './Store';
-import { PersistGate } from 'redux-persist/integration/react'
 import { Provider, Store } from 'react-redux';
 import { SpeechOptions } from './SpeechOptions';
 import { Speech } from './SpeechModule';
 import { ActivityOrID, FormatOptions } from './Types';
 import * as konsole from './Konsole';
 import { getTabIndex } from './getTabIndex';
-import { Persistor } from 'redux-persist';
 
 export interface ChatProps {
     user: User;
@@ -41,7 +39,6 @@ import { Shell, ShellFunctions } from './Shell';
 
 export class Chat extends React.Component<ChatProps, {}> {
     private store: Store<ChatState> = null;
-    private persistor: Persistor;
 
     private botConnection: IBotConnection;
 
@@ -59,24 +56,12 @@ export class Chat extends React.Component<ChatProps, {}> {
     private _handleScrollToTop = this.handleScrollToTop.bind(this);
     private _handleGetRef = this.handleGetRef.bind(this);
 
-    private rehydrated: boolean = false
-    private mounted: boolean = false
-
     constructor(props: ChatProps) {
         super(props);
 
         konsole.log('BotChat.Chat props', props);
 
-        const {store, persistor} = createChatStore(() => {
-             // Set rehydrated when loading complete
-            this.rehydrated = true
-            if (this.mounted) {
-                this.setSize()
-            }
-        })
-
-        this.store = store
-        this.persistor = persistor
+        this.store = createChatStore()
 
         this.store.dispatch<ChatActions>({
             type: 'Set_Locale',
@@ -166,10 +151,7 @@ export class Chat extends React.Component<ChatProps, {}> {
         // Now that we're mounted, we know our dimensions. Put them in the store (this will force a re-render)
         // this.setSize();
         // This flag is to indicate - if mounted, we can safely setSize when store is rehydrated
-        this.mounted = true;
-        if (this.rehydrated) {
-            this.setSize();
-        }
+        this.setSize();
 
         const botConnection = this.props.directLine
             ? (this.botConnection = new DirectLine(this.props.directLine))
@@ -266,40 +248,38 @@ export class Chat extends React.Component<ChatProps, {}> {
 
         return (
             <Provider store={this.store}>
-                <PersistGate loading={null} persistor={this.persistor}>
-                    <div
-                        className="wc-chatview-panel"
-                        onKeyDownCapture={this._handleKeyDownCapture}
-                        ref={div => (this.chatviewPanel = div)}
-                        tabIndex={0}
-                    >
-                        {header}
-                        <MessagePane>
-                            <History getRef={this._handleGetRef} />
-                        </MessagePane>
-                        <Shell ref={this._saveShellRef} />
-                        {resize}
-                        <button className="wc-back-top" onClick={this._handleScrollToTop}>
-                            <svg
-                                version="1.1"
-                                xmlns="http://www.w3.org/2000/svg"
-                                xmlnsXlink="http://www.w3.org/1999/xlink"
-                                width="20"
-                                height="20"
-                                viewBox="0 0 20 20"
-                            >
-                                <path
-                                    fill="#000000"
-                                    d="M2.782 3.782c-1.794 1.794-2.782 4.18-2.782 6.718s0.988 4.923 2.782 6.718 4.18 2.782 6.718 2.782 4.923-0.988 6.718-2.782 2.782-4.18 2.782-6.717-0.988-4.923-2.782-6.718-4.18-2.782-6.718-2.782-4.923 0.988-6.718 2.782zM18 10.5c0 4.687-3.813 8.5-8.5 8.5s-8.5-3.813-8.5-8.5c0-4.687 3.813-8.5 8.5-8.5s8.5 3.813 8.5 8.5z"
-                                />
-                                <path
-                                    fill="#000000"
-                                    d="M9.147 4.647l-4 4c-0.195 0.195-0.195 0.512 0 0.707s0.512 0.195 0.707 0l3.146-3.147v10.293c0 0.276 0.224 0.5 0.5 0.5s0.5-0.224 0.5-0.5v-10.293l3.147 3.146c0.195 0.195 0.512 0.195 0.707 0 0.098-0.098 0.146-0.226 0.146-0.353s-0.049-0.256-0.147-0.353l-4-4c-0.195-0.195-0.512-0.195-0.707 0z"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                </PersistGate>
+                <div
+                    className="wc-chatview-panel"
+                    onKeyDownCapture={this._handleKeyDownCapture}
+                    ref={div => (this.chatviewPanel = div)}
+                    tabIndex={0}
+                >
+                    {header}
+                    <MessagePane>
+                        <History getRef={this._handleGetRef} />
+                    </MessagePane>
+                    <Shell ref={this._saveShellRef} />
+                    {resize}
+                    <button className="wc-back-top" onClick={this._handleScrollToTop}>
+                        <svg
+                            version="1.1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlnsXlink="http://www.w3.org/1999/xlink"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                fill="#000000"
+                                d="M2.782 3.782c-1.794 1.794-2.782 4.18-2.782 6.718s0.988 4.923 2.782 6.718 4.18 2.782 6.718 2.782 4.923-0.988 6.718-2.782 2.782-4.18 2.782-6.717-0.988-4.923-2.782-6.718-4.18-2.782-6.718-2.782-4.923 0.988-6.718 2.782zM18 10.5c0 4.687-3.813 8.5-8.5 8.5s-8.5-3.813-8.5-8.5c0-4.687 3.813-8.5 8.5-8.5s8.5 3.813 8.5 8.5z"
+                            />
+                            <path
+                                fill="#000000"
+                                d="M9.147 4.647l-4 4c-0.195 0.195-0.195 0.512 0 0.707s0.512 0.195 0.707 0l3.146-3.147v10.293c0 0.276 0.224 0.5 0.5 0.5s0.5-0.224 0.5-0.5v-10.293l3.147 3.146c0.195 0.195 0.512 0.195 0.707 0 0.098-0.098 0.146-0.226 0.146-0.353s-0.049-0.256-0.147-0.353l-4-4c-0.195-0.195-0.512-0.195-0.707 0z"
+                            />
+                        </svg>
+                    </button>
+                </div>
             </Provider>
         );
     }
