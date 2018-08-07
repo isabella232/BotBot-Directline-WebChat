@@ -97,10 +97,6 @@
   version "16.0.23"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.23.tgz#f0f713b07912c6fd8e10c9ccc539443ceb06dbca"
 
-"@types/react@15.0.38":
-  version "15.0.38"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.38.tgz#6afea31a9fe66304af474106ba372ddaba449995"
-
 "@types/redux-persist@^4.3.1":
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/@types/redux-persist/-/redux-persist-4.3.1.tgz#aa4c876859e0bea5155e5f7980e5b8c4699dc2e6"
@@ -4188,7 +4184,7 @@ react-dom@^16.4.1:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-redux@^5.0.5:
+react-redux@^5.0.7:
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
   dependencies:

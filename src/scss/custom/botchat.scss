@@ -103,6 +103,11 @@ body {
   float: right;
 }
 
+.wc-adaptive-card,
+.wc-card {
+  width: auto;
+}
+
 .wc-card.hero {
   background: none;
 
