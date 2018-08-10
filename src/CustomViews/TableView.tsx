@@ -197,18 +197,20 @@ export class TableView extends React.Component < TableProps, TableState > {
           .map((row: any[]) => row.filter((_: any, colIdx: number) => colIdx !== this.state.highlightIdx))
         : data
       const unparsed = Papa.unparse(csvData)
-
+      const filename = new Date().toLocaleTimeString() + '.csv'
       // Download
-      const element = document.createElement('a')
-      element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(unparsed))
-      element.setAttribute('download', new Date().toLocaleTimeString() + '.csv');
-
-      element.style.display = 'none';
-      document.body.appendChild(element);
-
-      element.click();
-
-      document.body.removeChild(element)
+      const blob = new Blob([unparsed], {type: 'text/csv'});
+      if(window.navigator.msSaveOrOpenBlob) {
+          window.navigator.msSaveBlob(blob, filename);
+      }
+      else {
+          const elem = window.document.createElement('a');
+          elem.href = window.URL.createObjectURL(blob);
+          elem.download = filename;        
+          document.body.appendChild(elem);
+          elem.click();        
+          document.body.removeChild(elem);
+      }
     }
   }
 
