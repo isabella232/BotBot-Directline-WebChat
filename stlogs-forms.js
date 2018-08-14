@@ -51,7 +51,8 @@
     AVIATION: 'STLogsAviation',
     DEFENCE: 'STLogsDefence',
     HEALTHCARE: 'STLogsHealthcare',
-    PSS: 'STLogsPSS'
+    PSS: 'STLogsPSS',
+    TCH: 'STLogsTHC'
   };
 
   var AVIATION_OPERATION_FORM = [
@@ -169,7 +170,7 @@
         { label: 'Overall Overseas', name: 'overallOverseas', required: true, type: 'number' },
         { label: 'Overall Leave', name: 'overallLeave', required: true, type: 'number' },
         { label: 'Overall Medical', name: 'overallMedical', required: true, type: 'number' },
-        { label: 'Overall MPCON', name: 'overallMpcon', required: true, type: 'number', disabled: true },
+        { label: 'Overall MPCON', name: 'overallMpcon', required: true, disabled: true },
         { label: 'STARS Strength', name: 'starsStrength', required: true, type: 'number' },
         { label: 'STARS Present', name: 'starsPresent', required: true, type: 'number' },
         { label: 'STARS Overseas', name: 'starsOverseas', required: true, type: 'number' },
@@ -199,7 +200,7 @@
         { label: 'Overall Serviceable', name: 'overallServiceable', required: true, type: 'number' },
         { label: 'Overall Unserviceable', name: 'overallUnserviceable', required: true, type: 'number' },
         { label: 'Overall Workshop', name: 'overallWorkshop', required: true, type: 'number' },
-        { label: 'Overall REDCON', name: 'overallRedcon', required: true, type: 'number', disabled: true },
+        { label: 'Overall REDCON', name: 'overallRedcon', required: true, disabled: true },
         { label: 'STARS Fleet', name: 'starsFleet', required: true, type: 'number' },
         { label: 'STARS Serviceable', name: 'starsServiceable', required: true, type: 'number' },
         { label: 'STARS Unserviceable', name: 'starsUnserviceable', required: true, type: 'number' },
@@ -228,7 +229,7 @@
         { label: 'Overall Overseas', name: 'overallOverseas', required: true, type: 'number' },
         { label: 'Overall Leave', name: 'overallLeave', required: true, type: 'number' },
         { label: 'Overall Medical', name: 'overallMedical', required: true, type: 'number' },
-        { label: 'Overall MPCON', name: 'overallMpcon', required: true, type: 'number', disabled: true }
+        { label: 'Overall MPCON', name: 'overallMpcon', required: true, disabled: true }
       ]
     }
   ];
@@ -240,7 +241,7 @@
         { label: 'Overall Serviceable', name: 'overallServiceable', required: true, type: 'number' },
         { label: 'Overall Unserviceable', name: 'overallUnserviceable', required: true, type: 'number' },
         { label: 'Overall Workshop', name: 'overallWorkshop', required: true, type: 'number' },
-        { label: 'Overall REDCON', name: 'overallRedcon', required: true, type: 'number', disabled: true },
+        { label: 'Overall REDCON', name: 'overallRedcon', required: true, disabled: true },
         { label: 'Impact', name: 'impact' }
       ]
     }
@@ -367,6 +368,19 @@
     }
   ];
 
+  var TCH_FORM = [
+    {
+      heading: "Today's Operations:",
+      groups: [
+        {
+          label: 'THC',
+          name: 'THC',
+          required: true
+        }
+      ]
+    }
+  ];
+
   var callApi = function callApi(options) {
     if (localStorage.getItem(TOKEN_KEY)) {
       var authStr = 'Bearer ' + localStorage.getItem(TOKEN_KEY);
@@ -438,6 +452,7 @@
         userDepartment: isLoggedIn() ? localStorage.getItem(DEPARTMENT_KEY) : ''
       },
       tabActive: TABS.MANPOWER,
+      isHideManPower: false,
       aviationManpower: {
         submitting: false,
         fields: AVIATION_MANPOWER_FORM,
@@ -478,6 +493,11 @@
         fields: PSS_OPERATION_FORM,
         model: {}
       },
+      tchOperation: {
+        submitting: false,
+        fields: TCH_FORM,
+        model: {}
+      },
       manpowerTime: '',
       opsHighlightTime: ''
     },
@@ -485,6 +505,7 @@
       if (this.user.loggedin) {
         this.getLastTime();
         this.getPreviousData();
+        this.checkTCH(this.user.userDepartment)
       }
     },
     watch: {
@@ -542,6 +563,9 @@
       isPSS: function() {
         return this.user.userDepartment === DEPARTMENTS.PSS;
       },
+      isTCH: function() {
+        return this.user.userDepartment === DEPARTMENTS.TCH;
+      },
       loginBtnText: function() {
         return this.user.logining ? 'Logining...' : 'Login';
       },
@@ -568,6 +592,9 @@
       },
       pssOperationFormSubmitText: function() {
         return this.pssOperation.submitting ? 'Submitting...' : 'Submit';
+      },
+      tchOperationFormSubmitText: function() {
+        return this.tchOperation.submitting ? 'Submitting...' : 'Submit';
       },
       filledTimeStr: function() {
         if (this.tabActive === TABS.MANPOWER && this.manpowerTime) {
@@ -612,6 +639,8 @@
               type: 'success',
               message: 'Login success'
             });
+
+            self.checkTCH(userDepartment);
           })
           .catch(function(error) {
             self.user.logining = false;
@@ -859,6 +888,30 @@
           self.pssOperation.submitting = false;
         });
       },
+      doTCHOperationSubmit: function() {
+        var self = this;
+        self.tchOperation.submitting = true;
+        this.tchOperation.model.date = getToday();
+
+        callApi({
+          url: API + '/api/form/opshighlight',
+          method: 'POST',
+          data: this.tchOperation.model,
+          success: function(resp) {
+            self.tchOperation.submitting = false;
+            self.tchOperation.model = resetModel(self.tchOperation.model);
+            self.notifications.push({ type: 'success', message: 'Submit form success' });
+          },
+          error: function(error) {
+            self.notifications.push({
+              type: 'error',
+              message: 'Something went wrong. Please try again'
+            });
+          }
+        }).then(function(resp) {
+          self.pssOperation.submitting = false;
+        });
+      },
       removeNotification: function(index) {
         this.notifications.splice(index, 1);
       },
@@ -908,7 +961,7 @@
         const bNum = parseInt(b);
 
         if (aNum > 0 && bNum > 0) {
-          return Math.round((aNum / bNum) * 100);
+          return Math.round((aNum / bNum) * 100) + '%';
         }
 
         return 0;
@@ -942,6 +995,12 @@
         }
 
         return item.disabled;
+      },
+      checkTCH: function(userDepartment) {
+        if (userDepartment === DEPARTMENTS.TCH) {
+          this.tabActive = TABS.OPERATION;
+          this.isHideManPower = true;
+        }
       }
     }
   });

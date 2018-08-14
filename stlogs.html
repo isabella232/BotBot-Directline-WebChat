@@ -65,7 +65,7 @@
         <li>
           <button v-bind:class="{ active: operationTabActive }" @click="showOperation">Today Ops & Next Day Highlights</button>
         </li>
-        <li>
+        <li v-if="!isHideManPower">
           <button v-bind:class="{ active: manpowerTabActive }" @click="showManpower">Manpower</button>
         </li>
       </ul>
@@ -172,6 +172,31 @@
 
             <div class="actions">
               <button :disabled="pssOperation.submitting" class="btn-primary" type="submit">{{pssOperationFormSubmitText}}</button>
+            </div>
+          </form>
+        </div>
+
+        <div v-if="isTCH">
+          <h2>TollHealthCare</h2>
+          <form action="" class="form-wrapper" @submit.prevent="doTCHOperationSubmit">
+            <div class="block" v-for="block in tchOperation.fields">
+              <h3>{{block.heading}}</h3>
+
+              <fieldset v-for="item in block.groups" v-if="item.title">
+                <legend>{{item.title}}</legend>
+                <p v-for="field in item.fields" class="form-group">
+                  <label :class="field.required ? 'required' : ''">{{field.label}}</label>
+                  <input type="text" autocomplete="off" v-model="tchOperation.model[field.name]" :name="field.name" :required="field.required" :disabled="field.disabled" />
+                </p>
+              </fieldset>
+              <p v-for="item in block.groups" v-if="!item.title" class="form-group">
+                <label :class="item.required ? 'required' : ''">{{item.label}}</label>
+                <input type="text" autocomplete="off" v-model="tchOperation.model[item.name]" :name="item.name" :required="item.required" :disabled="item.disabled" />
+              </p>
+            </div>
+
+            <div class="actions">
+              <button :disabled="tchOperation.submitting" class="btn-primary" type="submit">{{tchOperationFormSubmitText}}</button>
             </div>
           </form>
         </div>
