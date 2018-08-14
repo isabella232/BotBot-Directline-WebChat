@@ -312,7 +312,7 @@ export class TableView extends React.Component < TableProps, TableState > {
                   {trow
                     .filter((_ : any, idx : number) => !(idx === highlightIdx))
                     .map((cell : any, idx : number) => 
-                      <td key={idx}>{<FormattedText text = {String(cell)} />}</td>)}
+                      <td key={idx}>{<FormattedText isTableCell={true} text = {String(cell)} />}</td>)}
               </tr>)}
           </tbody>
         </table>

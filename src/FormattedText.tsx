@@ -4,7 +4,8 @@ import * as React from 'react';
 export interface IFormattedTextProps {
     text: string,
     format?: string,
-    onImageLoad?: () => void
+    onImageLoad?: () => void,
+    isTableCell?: boolean,
 }
 
 export const FormattedText = (props: IFormattedTextProps) => {
@@ -15,7 +16,7 @@ export const FormattedText = (props: IFormattedTextProps) => {
         case "plain":
             return renderPlainText(props.text);
         default:
-            return renderMarkdown(props.text, props.onImageLoad);
+            return renderMarkdown(props.text, props.onImageLoad, props.isTableCell);
     }
 }
 
@@ -26,6 +27,10 @@ const renderPlainText = (text: string) => {
 }
 
 const markdownIt = new MarkdownIt({ html: false, linkify: true, typographer: true });
+
+// used for the TableView control
+const markdownIt_table = new MarkdownIt({ html: false, linkify: false, typographer: true })
+    .disable([ 'link' ])
 
 //configure MarkdownIt to open links in new tab
 //from https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
@@ -51,13 +56,14 @@ markdownIt.renderer.rules.link_open = (tokens, idx, options, env, self) => {
 
 const renderMarkdown = (
     text: string,
-    onImageLoad: () => void
+    onImageLoad: () => void,
+    isTableCell?: boolean
 ) => {
     const src = text
                 // convert <br> tags to blank lines for markdown
                  .replace(/<br\s*\/?>/ig, '\r\n\r\n')
                 // URL encode all links
                  .replace(/\[(.*?)\]\((.*?)\)/ig, (match, text, url) => `[${text}](${markdownIt.normalizeLink(url)})`);
-    const __html = markdownIt.render(src);
+    const __html = isTableCell ? markdownIt_table.render(src) : markdownIt.render(src);
     return <div className="format-markdown" dangerouslySetInnerHTML={{ __html }} />;
 }
