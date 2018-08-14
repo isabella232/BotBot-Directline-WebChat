@@ -494,41 +494,6 @@ import 'rxjs/add/observable/bindCallback';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 
-import * as differenceInDays from 'date-fns/difference_in_days';
-
-let welcomeMessageSent = false
-const onConnectedEpic: Epic<ChatActions, ChatState> = (action$, store) =>
-    action$.ofType('Connection_Change')
-    .filter((action: ConnectionAction) => {
-        const state = store.getState()
-        const activities = state.history.activities
-        return action.type === 'Connection_Change' 
-            && !welcomeMessageSent
-            && action.connectionStatus == ConnectionStatus.Online
-            && (activities.length === 0 
-                || differenceInDays(activities[activities.length - 1].timestamp, (new Date()).toISOString()) >= 1)
-    })
-    .flatMap(_ => {
-        const state = store.getState();
-        const botConnection = state.connection.botConnection;
-        const activity: Activity = {
-            type: 'message',
-            from: state.connection.user,
-            timestamp: (new Date()).toISOString(),
-            text: "WelcomeMessage",
-            value: null,
-            textFormat: 'plain',
-            locale: state.format.locale || (window.navigator as any)["userLanguage"] || window.navigator.language || 'en',
-            // no channel data - shortcut for not adding to history
-            // channelData: { clientActivityId: state.history.clientActivityBase + state.history.clientActivityCounter }
-        }
-        console.log('Connection established. Pinging server', activity)
-        welcomeMessageSent = true
-        return botConnection.postActivity(activity)
-            .map(_ => nullAction)
-            .catch(error => Observable.of(nullAction))
-    })
-
 const sendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
     action$.ofType('Send_Message')
     .map(action => {
@@ -677,9 +642,6 @@ const sendTypingEpic: Epic<ChatActions, ChatState> = (action$, store) =>
 
 import { Store, createStore, combineReducers, compose } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import {  Persistor, persistStore, persistReducer, BoostrappedCallback, createMigrate } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { ActionOpenUrl } from '../node_modules/microsoft-adaptivecards/built/schema';
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const rootReducer = combineReducers<ChatState>({
@@ -690,39 +652,10 @@ const rootReducer = combineReducers<ChatState>({
     history
 })
 
-const ACTIVITIES_LIMIT = 100
-const migrations = {
-    0: (state: ChatState) => { // Keeps the activities list under limit
-        if (state.history) {
-            const {activities} = state.history;
-            if (activities.length > ACTIVITIES_LIMIT) {
-                return {
-                    ...state,
-                    history: {
-                        ...state.history,
-                        activities: activities.slice(activities.length - ACTIVITIES_LIMIT)
-                    }
-                }
-            }
-        }
-        return state
-    }
-}
-
-const persistConfig = {
-    key: 'root',
-    storage,
-    blacklist: ['connection', 'size', 'format'],
-    migrate: createMigrate(migrations as any, { debug: false }),
-}
-  
-const persistedReducer = persistReducer(persistConfig, rootReducer)  
-
-export const createChatStore = (callback?: () => any) => {
+export const createChatStore = () => {
     const store: Store<ChatState> = createStore(
-        persistedReducer,
+        rootReducer,
         composeEnhancers(applyMiddleware(createEpicMiddleware(combineEpics(
-            onConnectedEpic,
             updateSelectedActivityEpic,
             sendMessageEpic,
             trySendMessageEpic,
@@ -737,9 +670,7 @@ export const createChatStore = (callback?: () => any) => {
             listeningSilenceTimeoutEpic
         ))))
     ) as Store<ChatState>
-    const persistor: Persistor = persistStore(store, null, callback as BoostrappedCallback)
-    return {store, persistor}
+    return store
 }
 
 export type ChatStore = Store<ChatState>;
-
