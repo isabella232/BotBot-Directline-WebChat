@@ -968,8 +968,8 @@
       },
       checkAviationDisabled: function(item) {
         if (item.name === 'impact') {
-          const mpcon = this.aviationManpower.model.overallMpcon;
-          const redcon = this.aviationRedcon.model.overallRedcon;
+          const mpcon = parseInt(this.aviationManpower.model.overallMpcon);
+          const redcon = parseInt(this.aviationRedcon.model.overallRedcon);
 
           if (mpcon <= 85 || redcon <= 85) {
             return false;
@@ -983,8 +983,8 @@
       },
       checkDefencesDisabled: function(item) {
         if (item.name === 'impact') {
-          const mpcon = this.defenceManpower.model.overallMpcon;
-          const redcon = this.defenceRedcon.model.overallRedcon;
+          const mpcon = parseInt(this.defenceManpower.model.overallMpcon);
+          const redcon = parseInt(this.defenceRedcon.model.overallRedcon);
 
           if (mpcon <= 85 || redcon <= 85) {
             return false;
