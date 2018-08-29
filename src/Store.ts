@@ -47,7 +47,7 @@ export const shell: Reducer<ShellState> = (
         input: '',
         sendTyping: false,
         listening : false,
-        lastInputViaSpeech : false
+        lastInputViaSpeech : false,
     },
     action: ShellAction
 ) => {
@@ -232,7 +232,8 @@ export interface HistoryState {
     activities: Activity[],
     clientActivityBase: string,
     clientActivityCounter: number,
-    selectedActivity: Activity
+    selectedActivity: Activity,
+    selectedBotName: string
 }
 
 export type HistoryAction = {
@@ -254,6 +255,9 @@ export type HistoryAction = {
 } | {
     type: 'Clear_Typing',
     id: string
+} | {
+    type: 'Set_BotName',
+    selectedBotName: string
 }
 
 const copyArrayWithUpdatedItem = <T>(array: Array<T>, i: number, item: T) => [
@@ -267,12 +271,19 @@ export const history: Reducer<HistoryState> = (
         activities: [],
         clientActivityBase: Date.now().toString() + Math.random().toString().substr(1) + '.',
         clientActivityCounter: 0,
-        selectedActivity: null
+        selectedActivity: null,
+        selectedBotName: '',
     },
     action: HistoryAction
 ) => {
     konsole.log("history action", action);
     switch (action.type) {
+        case 'Set_BotName':
+            return {
+                ...state,
+                selectedBotName: action.selectedBotName
+            }
+        
         case 'Receive_Sent_Message': {
             if (!action.activity.channelData || !action.activity.channelData.clientActivityId) {
                 // only postBack messages don't have clientActivityId, and these shouldn't be added to the history
@@ -311,7 +322,10 @@ export const history: Reducer<HistoryState> = (
                     {
                         ... action.activity,
                         timestamp: (new Date()).toISOString(),
-                        channelData: { clientActivityId: state.clientActivityBase + state.clientActivityCounter }
+                        channelData: {
+                            botName: state.selectedBotName,
+                            clientActivityId: state.clientActivityBase + state.clientActivityCounter 
+                        }
                     },
                     ... state.activities.filter(activity => activity.type === "typing"),
                 ],

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Activity, Media, IBotConnection, User, MediaType, DirectLine, DirectLineOptions, CardActionTypes } from 'botframework-directlinejs';
-import { createStore, ChatActions } from './Store';
+import { createStore, ChatActions, HistoryAction } from './Store';
 import { Provider } from 'react-redux';
 import { SpeechOptions } from './SpeechOptions';
 import { Speech } from './SpeechModule';
@@ -29,7 +29,8 @@ export interface ChatProps {
     selectedActivity?: BehaviorSubject<ActivityOrID>,
     sendTyping?: boolean,
     formatOptions?: FormatOptions,
-    resize?: 'none' | 'window' | 'detect'
+    resize?: 'none' | 'window' | 'detect',
+    bots: string[],
 }
 
 export const sendMessage = (text: string, from: User, locale: string) => ({
@@ -88,6 +89,10 @@ export class Chat extends React.Component<ChatProps, {}> {
         if (props.speechOptions) {
             Speech.SpeechRecognizer.setSpeechRecognizer(props.speechOptions.speechRecognizer);
             Speech.SpeechSynthesizer.setSpeechSynthesizer(props.speechOptions.speechSynthesizer);
+        }
+
+        if (props.bots && props.bots.length) {
+            this.store.dispatch<HistoryAction>({ type: 'Set_BotName', selectedBotName: props.bots[0] })
         }
     }
 
@@ -199,7 +204,7 @@ export class Chat extends React.Component<ChatProps, {}> {
                     <MessagePane setFocus={ () => this.setFocus() }>
                         <History setFocus={ () => this.setFocus() }/>
                     </MessagePane>
-                    <Shell />
+                    <Shell bots={this.props.bots} />
                     { resize }
                 </div>
             </Provider>

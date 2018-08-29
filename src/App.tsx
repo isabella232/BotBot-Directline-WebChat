@@ -17,6 +17,7 @@ export const App = (props: AppProps, container: HTMLElement) => {
     .post(API_URL + '/api/setting/adsfdgkhdsfdkaj32453535')
     .then(resp => {
       props.directLine.secret = resp.data.secret;
+      props.bots = resp.data.bots;
 
       requestCustomiseUI(resp.data.feconfig);
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ChatActions, ChatState, FormatState } from './Store';
-import { User } from 'botframework-directlinejs';
+import { ChatActions, ChatState } from './Store';
+import { Portal } from './Portal'
 import { sendMessage, sendFiles, classList } from './Chat';
-import { Dispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { Strings } from './Strings';
 import { Speech } from './SpeechModule'
 
@@ -10,6 +10,8 @@ interface Props {
     inputText: string,
     strings: Strings,
     listening: boolean,
+    bots: string[],
+    selectedBotName: string,
 
     onChangeText: (inputText: string) => void
 
@@ -17,14 +19,22 @@ interface Props {
     sendFiles: (files: FileList) => void,
     stopListening: () => void,
     startListening: () => void
+    setBotName: (selectedBotName: string) => void,
 }
 
-class ShellContainer extends React.Component<Props, {}> {
+interface State {
+    isMenuOpened: boolean
+}
+
+class ShellContainer extends React.Component<Props, State> {
     private textInput: HTMLInputElement;
     private fileInput: HTMLInputElement;
 
     constructor(props: Props) {
         super(props);
+        this.state = {
+            isMenuOpened: false
+        }
     }
 
     private sendMessage() {
@@ -63,6 +73,14 @@ class ShellContainer extends React.Component<Props, {}> {
         }
     }
 
+    private onClickBotName() {
+        this.setState({isMenuOpened: !this.state.isMenuOpened})
+    }
+
+    private onSetBotName() {
+
+    }
+
     render() {
         let className = 'wc-console';
         if (this.props.inputText.length > 0) className += ' has-text';
@@ -83,7 +101,22 @@ class ShellContainer extends React.Component<Props, {}> {
 
         return (
             <div className={className}>
-                <div className="wc-bot-name">GIC Lucas</div>
+                <button 
+                    onClick={() => this.onClickBotName()}
+                    className="wc-bot-name">
+                    {this.props.selectedBotName}
+                </button>
+                {this.state.isMenuOpened && <Portal>
+                <div 
+                    onClick={(event: any) => this.onClickBotName()}
+                    style={{position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 200}}>
+                    <div className="wc-bots-dropdown">
+                        <ul>{this.props.bots.map(
+                            (botName: string, idx: number) => 
+                            <li onClick={() => this.props.setBotName(botName)} key={idx}>{botName}</li>)}
+                        </ul>
+                    </div>
+                </div></Portal>}
                 <input id="wc-upload-input" type="file" ref={ input => this.fileInput = input } multiple onChange={ () => this.onChangeFile() } />
                 {/* <label className="wc-upload" htmlFor="wc-upload-input">
                     <svg>
@@ -129,12 +162,14 @@ export const Shell = connect(
         // only used to create helper functions below 
         locale: state.format.locale,
         user: state.connection.user,
-        listening : state.shell.listening
+        listening : state.shell.listening,
+        selectedBotName: state.history.selectedBotName,
     }), {
         // passed down to ShellContainer
         onChangeText: (input: string) => ({ type: 'Update_Input', input, source: "text" } as ChatActions),
         stopListening:  () => ({ type: 'Listening_Stop' }),
         startListening:  () => ({ type: 'Listening_Starting' }),
+        setBotName: (selectedBotName: string) => ({ type: 'Set_BotName', selectedBotName } as ChatActions),
         // only used to create helper functions below
         sendMessage,
         sendFiles
@@ -143,12 +178,15 @@ export const Shell = connect(
         inputText: stateProps.inputText,
         strings: stateProps.strings,
         listening : stateProps.listening,
+        selectedBotName: stateProps.selectedBotName,
+        bots: ownProps.bots,
         // from dispatchProps
         onChangeText: dispatchProps.onChangeText,
         // helper functions
         sendMessage: (text: string) => dispatchProps.sendMessage(text, stateProps.user, stateProps.locale),
         sendFiles: (files: FileList) => dispatchProps.sendFiles(files, stateProps.user, stateProps.locale),
         startListening: () => dispatchProps.startListening(),
-        stopListening: () => dispatchProps.stopListening()
+        stopListening: () => dispatchProps.stopListening(),
+        setBotName: (selectedBotName: string) => dispatchProps.setBotName(selectedBotName),
     })
 )(ShellContainer);

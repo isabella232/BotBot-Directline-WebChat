@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Portal } from './Portal';
+import { Portal } from '../Portal';
 
 export enum SortDirection {
   Unsorted = 0,
