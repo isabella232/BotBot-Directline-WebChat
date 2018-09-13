@@ -25,17 +25,12 @@ export const FormattedText = (props: IFormattedTextProps) => {
 
 const renderPlainText = (text: string) => {
     const lines = text.replace('\r', '').split('\n');
-    const elements = lines.map((line, i) => {
-        // format link to a tag
-        let str = line.replace(reg, `[$1]($1)`);
+    const elements = lines.map((line, i) => <span key={i}>{line}<br /></span>);
 
-        const __html = markdownIt.render(str);
-        return <span key={i}><span dangerouslySetInnerHTML={{ __html }} /><br /></span>
-    });
     return <span className="format-plain">{elements}</span>;
 }
 
-const markdownIt = new MarkdownIt({ html: false, linkify: true, typographer: true });
+const markdownIt = new MarkdownIt({ html: true, linkify: true, typographer: true });
 
 //configure MarkdownIt to open links in new tab
 //from https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
