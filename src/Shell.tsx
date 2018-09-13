@@ -102,6 +102,7 @@ class ShellContainer extends React.Component<Props, State> {
         return (
             <div className={className}>
                 <button 
+                    tabIndex={0}
                     onClick={() => this.onClickBotName()}
                     className="wc-bot-name">
                     {this.props.selectedBotName}

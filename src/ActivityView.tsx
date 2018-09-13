@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Activity, Attachment, AttachmentLayout } from 'botframework-directlinejs';
+import { Activity as DirectLineActivity, IActivity, Attachment, AttachmentLayout } from 'botframework-directlinejs';
 import { AttachmentView } from './Attachment';
 import { Carousel } from './Carousel';
 import { FormattedText } from './FormattedText';
@@ -9,6 +9,13 @@ import { IDoCardAction } from './Chat';
 import { FormView } from './CustomViews/FormView';
 import { TableView } from './CustomViews/TableView';
 import { ChartView } from './CustomViews/ChartView';
+
+export interface BotChange extends IActivity {
+    type: "bot-change";
+    botName: string;
+    isLatest: boolean;
+}
+export type Activity = DirectLineActivity | BotChange
 
 const Attachments = (props: {
     attachments: Attachment[],
@@ -179,6 +186,11 @@ export class ActivityView extends React.Component<ActivityViewProps, ActivityVie
 
             case 'typing':
                 return <div className="wc-typing"/>;
+
+            case 'bot-change':
+                return <div className="wc-bot-change">{activity.isLatest
+                        ? `You are currently in ${activity.botName} topic`
+                        : activity.botName}</div>;
         }
     }
 }

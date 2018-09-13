@@ -1,8 +1,9 @@
-import { Activity, IBotConnection, User, ConnectionStatus, Message } from 'botframework-directlinejs';
+import { IBotConnection, User, ConnectionStatus, Message, Activity as DirectLineActivity } from 'botframework-directlinejs';
 import { FormatOptions, ActivityOrID, konsole, sendMessage as sendChatMessage } from './Chat';
 import { strings, defaultStrings, Strings } from './Strings';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Speech } from './SpeechModule';
+import { Activity } from './ActivityView';
 
 // Reducers - perform state transformations
 
@@ -279,9 +280,22 @@ export const history: Reducer<HistoryState> = (
     konsole.log("history action", action);
     switch (action.type) {
         case 'Set_BotName':
-            return {
+            return action.selectedBotName === state.selectedBotName
+            ? state
+            : {
                 ...state,
-                selectedBotName: action.selectedBotName
+                selectedBotName: action.selectedBotName,
+                activities: [
+                    ...state.activities.map((activity: Activity) => 
+                        activity.type === 'bot-change'
+                        ? { ...activity, isLatest: false }
+                        : activity),
+                    ({
+                        type: 'bot-change',
+                        botName: action.selectedBotName,
+                        isLatest: true,
+                    } as Activity)
+                ]
             }
         
         case 'Receive_Sent_Message': {
@@ -310,7 +324,7 @@ export const history: Reducer<HistoryState> = (
                 activities: [
                     ... state.activities.filter(activity => activity.type !== "typing"),
                     action.activity,
-                    ... state.activities.filter(activity => activity.from.id !== action.activity.from.id && activity.type === "typing"),
+                    ... state.activities.filter(activity => activity.from && activity.from.id !== action.activity.from.id && activity.type === "typing"),
                 ]
             };
 
@@ -373,7 +387,7 @@ export const history: Reducer<HistoryState> = (
                 ... state, 
                 activities: [
                     ... state.activities.filter(activity => activity.type !== "typing"),
-                    ... state.activities.filter(activity => activity.from.id !== action.activity.from.id && activity.type === "typing"),
+                    ... state.activities.filter(activity => activity.from && activity.from.id !== action.activity.from.id && activity.type === "typing"),
                     action.activity
                 ]
             };
@@ -497,7 +511,7 @@ const trySendMessage: Epic<ChatActions, ChatState> = (action$, store) =>
             (<any>activity).entities  =(<any>activity).entities == null ? [capabilities] :  [...(<any>activity).entities, capabilities];
         }
 
-        return state.connection.botConnection.postActivity(activity)
+        return state.connection.botConnection.postActivity(activity as DirectLineActivity)
         .map(id => ({ type: 'Send_Message_Succeed', clientActivityId, id } as HistoryAction))
         .catch(error => Observable.of({ type: 'Send_Message_Fail', clientActivityId } as HistoryAction))
     });
@@ -586,7 +600,7 @@ const updateSelectedActivity: Epic<ChatActions, ChatState> = (action$, store) =>
     .map(action => {
         const state = store.getState();
         if (state.connection.selectedActivity)
-            state.connection.selectedActivity.next({ activity: state.history.selectedActivity });
+            state.connection.selectedActivity.next({ activity: state.history.selectedActivity as DirectLineActivity });
         return nullAction;
     });
 

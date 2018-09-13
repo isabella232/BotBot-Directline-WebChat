@@ -235,6 +235,18 @@
         }
     }
 
+    .wc-bot-change {
+        left: 50%;
+        margin: 5px;
+        background: #999;
+        padding: 3px 8px;
+        border-radius: 20px;
+        color: white;
+        display: inline-block;
+        position: relative;
+        transform: translateX(-50%);
+    }
+
     .wc-message {
         max-width: 85%;
         background: #fff;
@@ -694,32 +706,49 @@
     }
 
     button.wc-bot-name {
+        outline: none;
+        font-size: 18px;
         text-transform: uppercase;
-        border-radius: 1px;
-        margin: 8px 10px;
-        color: $c_brand;
+        margin: 4px 10px;
+        color: $c_button_text;
         position: absolute;
         top: 0px;
-        width: 160px;
+        width: 321px;
+        height: 40px;
         padding: 5px;
         box-sizing: border-box;
         user-select: none;
         cursor: pointer;
         text-align: center;
-        transition: background-color .2s ease;
-        background-color: #fff;
+        background-color: $c_brand;
+        border-right: 49px solid $c_brand_light;
+        transition: border-color .2s ease;
 
-        &:hover {
-            background-color: #eee;
+        &:hover, &:active {
+            // background-color: #eee;
+            border-right: 49px solid $c_brand;
+        }
+
+        &::after {
+            position: absolute;
+            width: 49px;
+            right: -64px;
+            top: 10px;
+            bottom: 0px;
+            background: url("data:image/svg+xml;utf8,<svg width='15' height='18' viewBox='0 0 15 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 9L15 0.339746L15 17.6603L0 9Z' fill='#F2F2F2'/></svg>");
+            background-repeat: no-repeat;
+            content: '';
+            z-index: 10;
         }
     }
 
     .wc-bots-dropdown {
+        font-size: 18px;
         box-sizing: border-box;
         position: absolute;
         bottom: 49px;
         left: 2px;
-        width: 176px;
+        width: 333px;
         background-color: white;
         text-transform: uppercase;
         text-align: center;
@@ -771,7 +800,7 @@
     .wc-textbox {
         padding-left: 10px;
         bottom: 0;
-        left: 168px;
+        left: 329px;
         right: 49px;
         top: 0;
         position: absolute;

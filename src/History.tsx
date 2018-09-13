@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Activity, Message, User, CardActionTypes } from 'botframework-directlinejs';
+import { Message, User, CardActionTypes } from 'botframework-directlinejs';
 import { ChatState, FormatState, SizeState } from './Store';
 import { Dispatch, connect } from 'react-redux';
-import { ActivityView } from './ActivityView';
+import { ActivityView, Activity } from './ActivityView';
 import { konsole, classList, doCardAction, IDoCardAction, sendMessage } from './Chat';
 
 export interface HistoryProps {
@@ -222,7 +222,7 @@ export const History = connect(
         setFocus: ownProps.setFocus,
         // helper functions
         doCardAction: doCardAction(stateProps.botConnection, stateProps.user, stateProps.format.locale, dispatchProps.sendMessage),
-        isFromMe: (activity: Activity) => activity.from.id === stateProps.user.id,
+        isFromMe: (activity: Activity) => activity.from && activity.from.id === stateProps.user.id,
         isSelected: (activity: Activity) => activity === stateProps.selectedActivity,
         onClickActivity: (activity: Activity) => stateProps.connectionSelectedActivity && (() => stateProps.connectionSelectedActivity.next({ activity }))
     })
@@ -268,7 +268,12 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
     }
 
     render () {
+        if (this.props.activity.type == 'bot-change') {
+            return <div>{this.props.children}</div>
+        }
+        
         let timeLine: JSX.Element;
+
         switch (this.props.activity.id) {
             case undefined:
                 timeLine = <span>{ this.props.format.strings.messageSending }</span>;

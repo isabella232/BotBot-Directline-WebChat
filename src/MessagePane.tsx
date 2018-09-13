@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Activity, CardAction, User, Message } from 'botframework-directlinejs';
+import { CardAction, Message } from 'botframework-directlinejs';
+import { Activity } from './ActivityView'
 import { ChatActions, ChatState } from './Store';
 import { connect } from 'react-redux';
 import { HScroll } from './HScroll';
