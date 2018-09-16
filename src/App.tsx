@@ -110,7 +110,7 @@ function requestCustomiseUI() {
 
 const AppContainer = (props: AppProps) => {
     // requestCustomiseUI();
-
+    console.log('here', getAppProps());
     return (
         <div className="wc-app">
             <Chat {...props} {...getAppProps()} />

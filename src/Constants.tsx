@@ -1,4 +1,4 @@
-export const PRODUCTION_SHORT_URL = 'sacombankbot-staging.azurewebsites.net';
+export const PRODUCTION_SHORT_URL = 'sacombankbot.azurewebsites.net';
 export const SECRET = {
   STAGING: 'U54b4elRIGc.cwA.mWE.GPDofxFPXpnpy_rWeiPOKqUX7iakhMsrrAZ8xhV0Ddg',
   PRODUCTION: ''
