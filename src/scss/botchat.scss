@@ -235,6 +235,16 @@
         }
     }
 
+    button.help-button {
+        border-radius: 50% !important;
+        width: 50px;
+        height: 50px;
+        font-size: 24px !important;
+        position: absolute;
+        right: 24px;
+        top: 16px;
+    }
+
     .wc-bot-change {
         left: 50%;
         margin: 5px;

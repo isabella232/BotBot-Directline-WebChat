@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
-
+import { connect } from 'react-redux';
 import { Activity, Media, IBotConnection, User, MediaType, DirectLine, DirectLineOptions, CardActionTypes } from 'botframework-directlinejs';
 import { createStore, ChatActions, HistoryAction } from './Store';
 import { Provider } from 'react-redux';
@@ -177,6 +177,22 @@ export class Chat extends React.Component<ChatProps, {}> {
         (this.chatviewPanel.querySelector(".wc-shellinput") as HTMLInputElement).focus();
     }
 
+    private postHelpMessage() {
+        const state = this.store.getState();
+        // sendPostBack(
+        //     state.connection.botConnection, 
+        //     'Button: Help', 
+        //     null, 
+        //     state.connection.user, 
+        //     state.format.locale
+        // );
+        this.store.dispatch(sendMessage(
+            'Button: Help',
+            state.connection.user,
+            state.format.locale
+        ))
+    }
+
     render() {
         const state = this.store.getState();
         konsole.log("BotChat.Chat state", state);
@@ -190,6 +206,7 @@ export class Chat extends React.Component<ChatProps, {}> {
                     <h2 className="js-botname">{ state.format.strings.title }</h2>
                     <p className="subtext">Learning & Understand Cognitive Assist System</p>
                 </div>
+                <button className="help-button" onClick={() => this.postHelpMessage()}>?</button>
             </div>;
 
         let resize: JSX.Element;
