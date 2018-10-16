@@ -88,33 +88,12 @@ function getAppProps(): Object {
     };
 }
 
-interface ChatState {
-    isCheckingIP: boolean,
-    isCorrectIP: boolean,
-}
-
-class AppContainer extends React.PureComponent<ChatProps, ChatState> {
-    state: ChatState = {
-        isCheckingIP: false,
-        isCorrectIP: false,
+class AppContainer extends React.PureComponent<ChatProps> {
+    constructor() {
+        super()
+        requestCustomiseUI()
     }
-
-    componentDidMount() {
-      this.setState({isCheckingIP: true})
-      axios
-          .post('https://gic-investment-staging.azurewebsites.net/api/access')
-          .then(() => this.setState({isCheckingIP: false, isCorrectIP: true}))
-          .catch(() => this.setState({isCheckingIP: false, isCorrectIP: false}))
-    }
-
     render() {
-        if (this.state.isCheckingIP) return <div>Loading...</div>
-
-        if (!this.state.isCorrectIP) {
-            return <div>Access to this page is currently restricted</div>
-        }
-
-        requestCustomiseUI();
         return (
             <div className="wc-app">
                 <Chat {...this.props} {...getAppProps()} />
