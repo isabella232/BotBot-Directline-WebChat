@@ -49,7 +49,7 @@ const FONTS = {
 class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionState> {
   private _handleBotChange = this.handleBotChange.bind(this);
 
-  private handleBotChange(lang) {
+  private handleBotChange(lang: string) {
     // change fonts
     const code = getLanguageCode(lang);
     const config = FONTS[code];
