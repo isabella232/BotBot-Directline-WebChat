@@ -354,13 +354,19 @@ export const history: Reducer<HistoryState> = (
   konsole.log('history action', action);
   switch (action.type) {
     case 'Set_Selected_Bot':
-      const activities = [...state.activities];
+      let activities = [...state.activities];
+      activities = activities.map(activity => {
+        if (activity.type === 'botName') {
+          activity.hide = true;
+        }
+
+        return activity;
+      });
+
       activities.push({
         botName: action.selectedBotName,
         type: 'botName',
-        from: {
-          id: new Date()
-        }
+        from: new Date()
       });
 
       return {

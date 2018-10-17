@@ -72,11 +72,6 @@ export class Chat extends React.Component<ChatProps, {}> {
       bots: props.bots || []
     });
 
-    this.store.dispatch<HistoryAction>({
-      type: 'Set_Selected_Bot',
-      selectedBotName: props.bots && props.bots[0]
-    });
-
     if (props.formatOptions)
       this.store.dispatch<ChatActions>({
         type: 'Set_Format_Options',
@@ -90,6 +85,23 @@ export class Chat extends React.Component<ChatProps, {}> {
       Speech.SpeechRecognizer.setSpeechRecognizer(props.speechOptions.speechRecognizer);
       Speech.SpeechSynthesizer.setSpeechSynthesizer(props.speechOptions.speechSynthesizer);
     }
+
+    this.setActiveBot();
+  }
+
+  private setActiveBot() {
+    // get active bot
+    const bots = this.props.bots;
+    const localLanguage = window.navigator.language;
+    const arr = localLanguage.split('-');
+    const code = arr[0];
+    const filteredBots = bots.filter(item => item.indexOf(`${code}-`) > -1);
+    const activeBot = filteredBots[0] || bots[0];
+
+    this.store.dispatch<HistoryAction>({
+      type: 'Set_Selected_Bot',
+      selectedBotName: activeBot
+    });
   }
 
   private handleIncomingActivity(activity: Activity) {
@@ -149,7 +161,6 @@ export class Chat extends React.Component<ChatProps, {}> {
   }
 
   private handleChangeBot(botName: string) {
-    console.log('botname', botName);
     this.store.dispatch<HistoryAction>({
       type: 'Set_Selected_Bot',
       selectedBotName: botName
@@ -219,7 +230,7 @@ export class Chat extends React.Component<ChatProps, {}> {
 
   render() {
     const state = this.store.getState();
-    console.log('BotChat.Chat state', state);
+    konsole.log('BotChat.Chat state', state);
 
     // only render real stuff after we know our dimensions
     let header: JSX.Element;

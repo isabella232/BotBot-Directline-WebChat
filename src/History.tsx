@@ -132,7 +132,7 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
             return (
               <div key={index}>
                 <div className="wc-botname">
-                  {this.props.selectedBotName === activity.botName
+                  {this.props.selectedBotName === activity.botName && !activity.hide
                     ? `Your current language is ${getLanguageTitle(activity.botName)}`
                     : getLanguageTitle(activity.botName)}
                 </div>
