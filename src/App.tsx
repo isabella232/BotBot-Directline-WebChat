@@ -9,64 +9,81 @@ import { queryParams } from './BotChat';
 export type AppProps = ChatProps;
 
 export const App = (props: AppProps, container: HTMLElement) => {
-    konsole.log('BotChat.App props', props);
-    ReactDOM.render(React.createElement(AppContainer, props), container);
+  // konsole.log('BotChat.App props', props);
+  // ReactDOM.render(React.createElement(AppContainer, props), container);
+
+  const API_URL =
+    process.env.NODE_ENV === 'development' ? 'https://kc-emea-staging.azurewebsites.net' : '';
+
+  axios.post(API_URL + '/api/setting/adsfdgkhdsfdkaj32453535').then(resp => {
+    props.directLine = {
+      secret: resp.data.secret
+    };
+
+    props.bots = resp.data.bots;
+
+    // requestCustomiseUI(resp.data.feconfig);
+
+    ReactDOM.render(
+      React.createElement(AppContainer, {
+        ...getAppProps(),
+        ...props
+      }),
+      container
+    );
+  });
 };
 
 function uuidv4(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (Math.random() * 16) | 0,
-            v = c == 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
 }
 
 function getAppProps(): Object {
-    var params = queryParams(location.search);
+  var params = queryParams(location.search);
 
-    var user = {
-        id: params['userid'] || uuidv4(),
-        name: params['username'] || 'user'
-    };
+  var user = {
+    id: params['userid'] || uuidv4(),
+    name: params['username'] || 'user'
+  };
 
-    var bot = {
-        id: params['botid'] || 'botid',
-        name: params['botname'] || 'botname'
-    };
+  var bot = {
+    id: params['botid'] || 'botid',
+    name: params['botname'] || 'botname'
+  };
 
-    return {
-        directLine: {
-            secret:
-                window.location.hostname.indexOf(PRODUCTION_SHORT_URL) === -1
-                    ? SECRET.STAGING
-                    : SECRET.PRODUCTION,
-            token: params['t'],
-            domain: params['domain'],
-            webSocket: params['webSocket'] && params['webSocket'] === 'true'
-        },
-        user: user,
-        bot: bot,
-        locale: params['locale'],
-        resize: 'window'
-        // sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
-    };
+  return {
+    directLine: {
+      token: params['t'],
+      domain: params['domain'],
+      webSocket: params['webSocket'] && params['webSocket'] === 'true'
+    },
+    user: user,
+    bot: bot,
+    locale: params['locale'],
+    resize: 'window'
+    // sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
+  };
 }
 
 export interface IConfig {
-    fontUrl: string;
-    fontFamily: string;
-    textColor: string;
-    brandColor: string;
-    headerBg: string;
-    textProfileColor: string;
-    logo: string;
+  fontUrl: string;
+  fontFamily: string;
+  textColor: string;
+  brandColor: string;
+  headerBg: string;
+  textProfileColor: string;
+  logo: string;
 }
 
 const compileStyle = (config: IConfig) => {
-    let style;
+  let style;
 
-    const styleTag = document.createElement('style');
-    styleTag.innerHTML = `
+  const styleTag = document.createElement('style');
+  styleTag.innerHTML = `
     @import url(${config.fontUrl});
     body .wc-app {
       font-family: "${config.fontFamily}", sans-serif;
@@ -89,31 +106,28 @@ const compileStyle = (config: IConfig) => {
     .wc-suggested-actions .wc-hscroll > ul > li button { color: ${config.brandColor} }
     `;
 
-    document.head.appendChild(styleTag);
+  document.head.appendChild(styleTag);
 
-    // change logo
-    const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
+  // change logo
+  const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
 
-    if (config.logo) {
-        logoEl.setAttribute('src', config.logo);
-    }
+  if (config.logo) {
+    logoEl.setAttribute('src', config.logo);
+  }
 };
 
-function requestCustomiseUI() {
-    axios
-        .get(`${BOT_API_URL}/dashboard/botid`)
-        .then(resp => axios.get(`${DASHBOARD_API_URL}/feconfig/get?botid=${resp.data.id}`))
-        .then(resp => {
-            compileStyle(resp.data);
-        });
+function requestCustomiseUI(url: string) {
+  axios.get(url).then(resp => {
+    compileStyle(resp.data);
+  });
 }
 
 const AppContainer = (props: AppProps) => {
-    // requestCustomiseUI();
+  // requestCustomiseUI();
 
-    return (
-        <div className="wc-app">
-            <Chat {...props} {...getAppProps()} />
-        </div>
-    );
+  return (
+    <div className="wc-app">
+      <Chat {...props} />
+    </div>
+  );
 };

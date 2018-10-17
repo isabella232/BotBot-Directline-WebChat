@@ -25,7 +25,15 @@ var coreConfig = {
         use: [{ loader: 'expose-loader', options: 'AdaptiveCards' }]
       }
     ]
-  }
+  },
+
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      }
+    })
+  ]
 };
 
 var chatConfig = {
