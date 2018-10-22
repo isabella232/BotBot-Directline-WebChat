@@ -63,4 +63,15 @@ var featureConfig = {
   }
 };
 
-module.exports = [Object.assign(chatConfig, coreConfig), Object.assign(featureConfig, coreConfig)];
+var integrationConfig = {
+  entry: './botbot-integration.js',
+  output: {
+    filename: './botbot-integration-min.js'
+  }
+};
+
+module.exports = [
+  Object.assign(chatConfig, coreConfig),
+  Object.assign(featureConfig, coreConfig),
+  Object.assign(integrationConfig, coreConfig)
+];

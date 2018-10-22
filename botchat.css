@@ -1,6 +1,6 @@
 /* reset */
 body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
-  font-family: Avenir, sans-serif;
+  font-family: "Museo", sans-serif;
   font-size: 15px; }
 
 .wc-app button {
@@ -582,6 +582,63 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#ffffff" fill-rule="evenodd"/></svg>');
     background-repeat: no-repeat; }
 
+@font-face {
+  font-family: 'Museo';
+  font-weight: normal;
+  src: url("./font/museo300-webfont.eot");
+  src: url("./font/museo300-webfont.eot?#iefix") format("embedded-opentype"), url("./font/museo300-webfont.woff") format("woff"), url("./font/museo300-webfont.ttf") format("truetype"), url("./font/museo300-webfont#svgFontName") format("svg"); }
+
+@font-face {
+  font-family: 'Museo';
+  font-weight: 500;
+  src: url("./font/museo500-webfont.eot");
+  src: url("./font/museo500-webfont.eot?#iefix") format("embedded-opentype"), url("./font/museo500-webfont.woff") format("woff"), url("./font/museo500-webfont.ttf") format("truetype"), url("./font/museo500-webfont#svgFontName") format("svg"); }
+
+@font-face {
+  font-family: 'Museo';
+  font-weight: 700;
+  src: url("./font/museo700-webfont.eot");
+  src: url("./font/museo700-webfont.eot?#iefix") format("embedded-opentype"), url("./font/museo700-webfont.woff") format("woff"), url("./font/museo700-webfont.ttf") format("truetype"), url("./font/museo700-webfont#svgFontName") format("svg"); }
+
+@font-face {
+  font-family: 'Museo Cyrl';
+  font-weight: normal;
+  src: url("./font/MuseoCyrl-300.eot");
+  src: url("./font/MuseoCyrl-300.eot?#iefix") format("embedded-opentype"), url("./font/MuseoCyrl-300.woff2") format("woff2"), url("./font/MuseoCyrl-300.woff") format("woff"), url("./font/MuseoCyrl-300.ttf") format("truetype"), url("./font/MuseoCyrl-300#svgFontName") format("svg"); }
+
+@font-face {
+  font-family: 'Museo Cyrl';
+  font-weight: normal;
+  font-style: italic;
+  src: url("./font/MuseoCyrl-300Italic.eot");
+  src: url("./font/MuseoCyrl-300Italic.eot?#iefix") format("embedded-opentype"), url("./font/MuseoCyrl-300Italic.woff2") format("woff2"), url("./font/MuseoCyrl-300Italic.woff") format("woff"), url("./font/MuseoCyrl-300Italic.ttf") format("truetype"), url("./font/MuseoCyrl-300Italic#svgFontName") format("svg"); }
+
+@font-face {
+  font-family: 'Museo Cyrl';
+  font-weight: 500;
+  src: url("./font/MuseoCyrl-500.eot");
+  src: url("./font/MuseoCyrl-500.eot?#iefix") format("embedded-opentype"), url("./font/MuseoCyrl-500.woff2") format("woff2"), url("./font/MuseoCyrl-500.woff") format("woff"), url("./font/MuseoCyrl-500.ttf") format("truetype"), url("./font/MuseoCyrl-500#svgFontName") format("svg"); }
+
+@font-face {
+  font-family: 'Museo Cyrl';
+  font-weight: 500;
+  font-style: italic;
+  src: url("./font/MuseoCyrl-500Italic.eot");
+  src: url("./font/MuseoCyrl-500Italic.eot?#iefix") format("embedded-opentype"), url("./font/MuseoCyrl-500Italic.woff2") format("woff2"), url("./font/MuseoCyrl-500Italic.woff") format("woff"), url("./font/MuseoCyrl-500Italic.ttf") format("truetype"), url("./font/MuseoCyrl-500Italic#svgFontName") format("svg"); }
+
+@font-face {
+  font-family: 'Museo Cyrl';
+  font-weight: 700;
+  src: url("./font/MuseoCyrl-700.eot");
+  src: url("./font/MuseoCyrl-700.eot?#iefix") format("embedded-opentype"), url("./font/MuseoCyrl-700.woff2") format("woff2"), url("./font/MuseoCyrl-700.woff") format("woff"), url("./font/MuseoCyrl-700.ttf") format("truetype"), url("./font/MuseoCyrl-700#svgFontName") format("svg"); }
+
+@font-face {
+  font-family: 'Museo Cyrl';
+  font-weight: 700;
+  font-style: italic;
+  src: url("./font/MuseoCyrl-700Italic.eot");
+  src: url("./font/MuseoCyrl-700Italic.eot?#iefix") format("embedded-opentype"), url("./font/MuseoCyrl-700Italic.woff2") format("woff2"), url("./font/MuseoCyrl-700Italic.woff") format("woff"), url("./font/MuseoCyrl-700Italic.ttf") format("truetype"), url("./font/MuseoCyrl-700Italic#svgFontName") format("svg"); }
+
 @keyframes dots {
   0% {
     box-shadow: 10px 0 transparent, 20px 0 rgba(0, 71, 186, 0.2), 30px 0 transparent, 40px 0 rgba(0, 71, 186, 0.4), 50px 0 transparent, 60px 0 rgba(0, 71, 186, 0.6), 70px 0 transparent, 80px 0 rgba(0, 71, 186, 0.8), 90px 0 transparent, 100px 0 #0047ba; }
@@ -616,9 +673,10 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   justify-content: space-between; }
   .wc-header img {
     margin-right: 20px;
-    max-height: 30px; }
+    max-height: 60px; }
   .wc-header h1 {
-    font-size: 24px; }
+    font-size: 24px;
+    display: none; }
 
 .wc-message-groups {
   top: 72px;
@@ -742,26 +800,14 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 .bot-selection {
   position: relative;
-  float: right; }
+  float: right;
+  margin-left: 10px; }
   .bot-selection .flag {
     display: inline-block;
-    height: 20px; }
-  .bot-selection .value {
-    border: 1px solid #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    line-height: 1;
-    box-shadow: 2px 2px #ddd;
-    background-color: white; }
-    .bot-selection .value:hover + .bot-list {
-      display: block; }
-    .bot-selection .value .caret {
-      border: 4px solid transparent;
-      border-bottom: 0;
-      border-top-color: #333;
-      display: block;
-      margin-left: 15px; }
+    height: 20px;
+    margin: 0; }
+  .bot-selection .language-name {
+    margin-left: 10px; }
   .bot-selection button {
     padding: 10px 20px;
     color: #333;
@@ -772,6 +818,23 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     text-align: left; }
     .bot-selection button:hover {
       background-color: #f4f4f4; }
+  .bot-selection .value {
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 1;
+    box-shadow: 2px 2px #ddd;
+    background-color: white;
+    padding: 5px 10px; }
+    .bot-selection .value:hover + .bot-list {
+      display: block; }
+    .bot-selection .value .caret {
+      border: 4px solid transparent;
+      border-bottom: 0;
+      border-top-color: #333;
+      display: block;
+      margin-left: 15px; }
   .bot-selection .bot-list {
     list-style-type: none;
     margin: 0;
@@ -796,6 +859,11 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
         background-color: #f4f4f4; }
     .bot-selection .bot-list:hover {
       display: block; }
+  @media screen and (max-width: 768px) {
+    .bot-selection .language-name {
+      display: none; }
+    .bot-selection .bot-list {
+      min-width: 0; } }
 
 .wc-botname {
   left: 50%;

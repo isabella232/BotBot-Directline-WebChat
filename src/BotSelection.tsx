@@ -37,26 +37,31 @@ export interface BotSelectionProps {
 interface BotSelectionState {}
 
 const FONTS = {
-  nl: { url: '', fontFamily: '' },
-  de: { url: '', fontFamily: '' },
-  en: { url: '', fontFamily: '' },
-  es: { url: '', fontFamily: '' },
-  fr: { url: '', fontFamily: '' },
-  it: { url: '', fontFamily: '' },
-  ru: { url: '', fontFamily: '' }
+  nl: { fontFamily: 'Museo' },
+  de: { fontFamily: 'Museo' },
+  en: { fontFamily: 'Museo' },
+  es: { fontFamily: 'Museo' },
+  fr: { fontFamily: 'Museo' },
+  it: { fontFamily: 'Museo' },
+  ru: { fontFamily: 'Museo Cyrl' }
 };
 
 class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionState> {
   private _handleBotChange = this.handleBotChange.bind(this);
 
-  private handleBotChange(lang: string) {
+  constructor(props: BotSelectionProps) {
+    super(props);
+
+    this.updateFont(props.selectedBotName);
+  }
+
+  updateFont(lang: string) {
     // change fonts
     const code = getLanguageCode(lang);
     const config = FONTS[code];
     const style = `
-    @import url(${config.url});
     body .wc-app {
-      font-family: "${config.fontdFamily}", sans-serif;
+      font-family: "${config.fontFamily}", sans-serif;
     }
     `;
 
@@ -69,6 +74,10 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
     }
 
     styleTag.innerHTML = style;
+  }
+
+  private handleBotChange(lang: string) {
+    this.updateFont(lang);
 
     this.props.onChange(lang);
   }
@@ -80,7 +89,7 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
       <div className="bot-selection">
         <button className="value">
           <img src={`./img/${getLanguageCode(selectedBotName)}.svg`} alt="Flag" className="flag" />
-          <span>{getLanguageTitle(selectedBotName)}</span>
+          <span className="language-name">{getLanguageTitle(selectedBotName)}</span>
           <span className="caret" />
         </button>
         <ul className="bot-list">
@@ -90,7 +99,7 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
               <li key={lang}>
                 <button onClick={() => this.handleBotChange(lang)}>
                   <img src={`./img/${getLanguageCode(lang)}.svg`} alt="Flag" className="flag" />
-                  <span>{getLanguageTitle(lang)}</span>
+                  <span className="language-name">{getLanguageTitle(lang)}</span>
                 </button>
               </li>
             ))}

@@ -237,7 +237,7 @@ export class Chat extends React.Component<ChatProps, {}> {
     if (state.format.options.showHeader)
       header = (
         <div className="wc-header">
-          {/*<img src="./avatar.png" />*/}
+          {<img src="./avatar.png" />}
           <h1>{state.format.strings.title}</h1>
           <BotSelection bots={state.format.bots} />
         </div>
