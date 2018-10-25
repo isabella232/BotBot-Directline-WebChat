@@ -5,6 +5,7 @@ import * as konsole from './Konsole';
 import axios from 'axios';
 import { PRODUCTION_SHORT_URL, SECRET, DASHBOARD_API_URL, BOT_API_URL } from './Constants';
 import { queryParams } from './BotChat';
+import { HubConnectionBuilder } from '@aspnet/signalr';
 
 export type AppProps = ChatProps;
 
@@ -16,13 +17,19 @@ export const App = (props: AppProps, container: HTMLElement) => {
     process.env.NODE_ENV === 'development' ? 'https://kc-emea-staging.azurewebsites.net' : '';
 
   axios.post(API_URL + '/api/setting/adsfdgkhdsfdkaj32453535').then(resp => {
-    props.directLine = {
-      secret: resp.data.secret
-    };
+    // props.directLine = {
+    //   secret: resp.data.secret
+    // };
 
     props.bots = resp.data.bots;
 
     // requestCustomiseUI(resp.data.feconfig);
+
+    const botConnection = new HubConnectionBuilder()
+      .withUrl('https://webhook.botbot.ai/botbot-api/chat')
+      .build();
+
+    props.botConnection = botConnection;
 
     ReactDOM.render(
       React.createElement(AppContainer, {
@@ -43,10 +50,14 @@ function uuidv4(): string {
 }
 
 function getAppProps(): Object {
+  const localUserId = localStorage.getItem('userid');
   var params = queryParams(location.search);
+  const userid = localUserId || params['userid'] || uuidv4();
+
+  localStorage.setItem('userid', userid);
 
   var user = {
-    id: params['userid'] || uuidv4(),
+    id: userid,
     name: params['username'] || 'user'
   };
 
@@ -56,11 +67,11 @@ function getAppProps(): Object {
   };
 
   return {
-    directLine: {
-      token: params['t'],
-      domain: params['domain'],
-      webSocket: params['webSocket'] && params['webSocket'] === 'true'
-    },
+    // directLine: {
+    //   token: params['t'],
+    //   domain: params['domain'],
+    //   webSocket: params['webSocket'] && params['webSocket'] === 'true'
+    // },
     user: user,
     bot: bot,
     locale: params['locale'],

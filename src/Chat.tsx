@@ -174,34 +174,54 @@ export class Chat extends React.Component<ChatProps, {}> {
       selectedActivity: this.props.selectedActivity
     });
 
-    this.connectionStatusSubscription = botConnection.connectionStatus$.subscribe(
-      connectionStatus => {
-        if (this.props.speechOptions && this.props.speechOptions.speechRecognizer) {
-          let refGrammarId = botConnection.referenceGrammarId;
-          if (refGrammarId)
-            this.props.speechOptions.speechRecognizer.referenceGrammarId = refGrammarId;
-        }
-        this.store.dispatch<ChatActions>({ type: 'Connection_Change', connectionStatus });
-      }
-    );
+    botConnection.on('ReceiveMessage', (name, message) => {
+      console.log('ReceiveMessage', name, message);
 
-    this.activitySubscription = botConnection.activity$.subscribe(
-      activity => this.handleIncomingActivity(activity),
-      error => konsole.log('activity$ error', error)
-    );
+      // this.handleIncomingActivity(message);
+    });
 
-    if (this.props.selectedActivity) {
-      this.selectedActivitySubscription = this.props.selectedActivity.subscribe(activityOrID => {
-        this.store.dispatch<ChatActions>({
-          type: 'Select_Activity',
-          selectedActivity:
-            activityOrID.activity ||
-            this.store
-              .getState()
-              .history.activities.find(activity => activity.id === activityOrID.id)
-        });
+    // Create a function that the hub can call to broadcast messages.
+    botConnection.on('broadcastMessage', activity => {
+      console.log('broadcastMessage', activity);
+      this.handleIncomingActivity(activity);
+    });
+    // this.connectionStatusSubscription = botConnection.connectionStatus$.subscribe(
+    //   connectionStatus => {
+    //     if (this.props.speechOptions && this.props.speechOptions.speechRecognizer) {
+    //       let refGrammarId = botConnection.referenceGrammarId;
+    //       if (refGrammarId)
+    //         this.props.speechOptions.speechRecognizer.referenceGrammarId = refGrammarId;
+    //     }
+    //     this.store.dispatch<ChatActions>({ type: 'Connection_Change', connectionStatus });
+    //   }
+    // );
+
+    // this.activitySubscription = botConnection.activity$.subscribe(
+    //   activity => this.handleIncomingActivity(activity),
+    //   error => konsole.log('activity$ error', error)
+    // );
+
+    // if (this.props.selectedActivity) {
+    //   this.selectedActivitySubscription = this.props.selectedActivity.subscribe(activityOrID => {
+    //     this.store.dispatch<ChatActions>({
+    //       type: 'Select_Activity',
+    //       selectedActivity:
+    //         activityOrID.activity ||
+    //         this.store
+    //           .getState()
+    //           .history.activities.find(activity => activity.id === activityOrID.id)
+    //     });
+    //   });
+    // }
+
+    botConnection
+      .start()
+      .then(() => {
+        console.log('connection started');
+      })
+      .catch(error => {
+        console.log('connection fail');
       });
-    }
   }
 
   componentWillUnmount() {

@@ -17,6 +17,14 @@ import * as konsole from './Konsole';
 
 import { Reducer } from 'redux';
 
+const generateUuid = () => {
+  const s4 = () =>
+    Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+};
 export const sendMessage = (text: string, from: User, locale: string) =>
   ({
     type: 'Send_Message',
@@ -247,6 +255,7 @@ export interface ConnectionState {
   selectedActivity: BehaviorSubject<ActivityOrID>;
   user: User;
   bot: User;
+  uuid: string;
 }
 
 export type ConnectionAction =
@@ -268,7 +277,8 @@ export const connection: Reducer<ConnectionState> = (
     botConnection: undefined,
     selectedActivity: undefined,
     user: undefined,
-    bot: undefined
+    bot: undefined,
+    uuid: generateUuid()
   },
   action: ConnectionAction
 ) => {
@@ -404,7 +414,10 @@ export const history: Reducer<HistoryState> = (
         ]
       };
 
-    case 'Send_Message':
+    case 'Send_Message': {
+      // const botConnection = state.connection.botConnection;
+      // botConnection.send('sendmessage', activity);
+
       return {
         ...state,
         activities: [
@@ -421,6 +434,7 @@ export const history: Reducer<HistoryState> = (
         ],
         clientActivityCounter: state.clientActivityCounter + 1
       };
+    }
 
     case 'Send_Message_Retry': {
       const activity = state.activities.find(
@@ -610,12 +624,23 @@ const trySendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
           : [...(<any>activity).entities, capabilities];
     }
 
-    return state.connection.botConnection
-      .postActivity(activity)
-      .map(id => ({ type: 'Send_Message_Succeed', clientActivityId, id } as HistoryAction))
-      .catch(error =>
-        Observable.of({ type: 'Send_Message_Fail', clientActivityId } as HistoryAction)
-      );
+    state.connection.botConnection.invoke(
+      'ReceiveMessage',
+      state.connection.user.id,
+      'testpage', // state.connection.uuid,
+      activity.text
+    );
+
+    return [{ type: '' }];
+    // return state.connection.botConnection
+    //   .send('sendmessage', activity)
+    //   .then(id => {
+    //     console.log('jere', id);
+    //     store.dispatch({ type: 'Send_Message_Succeed', clientActivityId, id } as HistoryAction);
+    //   })
+    //   .catch(error =>
+    //     Observable.of({ type: 'Send_Message_Fail', clientActivityId } as HistoryAction)
+    //   );
   });
 
 const speakObservable = Observable.bindCallback<string, string, {}, {}>(
@@ -737,13 +762,10 @@ const sendTypingEpic: Epic<ChatActions, ChatState> = (action$, store) =>
     .throttleTime(3000)
     .do(_ => konsole.log('sending typing'))
     .flatMap(state =>
-      state.connection.botConnection
-        .postActivity({
-          type: 'typing',
-          from: state.connection.user
-        })
-        .map(_ => nullAction)
-        .catch(error => Observable.of(nullAction))
+      state.connection.botConnection.send('sendmessage', {
+        type: 'typing',
+        from: state.connection.user
+      })
     );
 
 // Now we put it all together into a store with middleware

@@ -65,7 +65,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
         switch (activity.type) {
             case 'message':
                 return (
-                    <div>
+                    <div className="wc-message-content-inner">
                         <FormattedText
                             text={ activity.text }
                             format={ activity.textFormat }
