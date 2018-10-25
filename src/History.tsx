@@ -132,7 +132,7 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
             return (
               <div key={index}>
                 <div className="wc-botname">
-                  {this.props.selectedBotName === activity.botName && !activity.hide
+                  {this.props.selectedBotName === activity.botName
                     ? `Your current language is ${getLanguageTitle(activity.botName)}`
                     : getLanguageTitle(activity.botName)}
                 </div>
@@ -282,11 +282,25 @@ export interface WrappedActivityProps {
   onClickRetry: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
-export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
+interface WrappedActivityState {
+  mounted: boolean;
+}
+
+export class WrappedActivity extends React.Component<WrappedActivityProps, WrappedActivityState> {
   public messageDiv: HTMLDivElement;
 
   constructor(props: WrappedActivityProps) {
     super(props);
+
+    this.state = {
+      mounted: false
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      mounted: true
+    });
   }
 
   render() {
@@ -329,7 +343,8 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
     const wrapperClassName = classList(
       'wc-message-wrapper',
       (this.props.activity as Message).attachmentLayout || 'list',
-      this.props.onClickActivity && 'clickable'
+      this.props.onClickActivity && 'clickable',
+      this.state.mounted ? 'show' : ''
     );
 
     const contentClassName = classList('wc-message-content', this.props.selected && 'selected');
