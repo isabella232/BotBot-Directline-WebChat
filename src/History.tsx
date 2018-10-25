@@ -348,6 +348,9 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, Wrapp
     );
 
     const contentClassName = classList('wc-message-content', this.props.selected && 'selected');
+    const specialMessage: Boolean =
+      (this.props.activity as Message).attachments &&
+      (this.props.activity as Message).attachments.length > 0;
 
     return (
       <div
@@ -355,7 +358,12 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, Wrapp
         className={wrapperClassName}
         onClick={this.props.onClickActivity}
       >
-        <div className={'wc-message wc-message-from-' + who} ref={div => (this.messageDiv = div)}>
+        <div
+          className={`wc-message wc-message-from-${who} ${
+            specialMessage ? 'wc-message-special' : ''
+          }`}
+          ref={div => (this.messageDiv = div)}
+        >
           <div className={contentClassName}>
             {this.props.children}
             <div className="wc-message-meta">{timeLine}</div>

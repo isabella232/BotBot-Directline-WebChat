@@ -22869,8 +22869,10 @@ var WrappedActivity = (function (_super) {
         var who = this.props.fromMe ? 'me' : 'bot';
         var wrapperClassName = Chat_1.classList('wc-message-wrapper', this.props.activity.attachmentLayout || 'list', this.props.onClickActivity && 'clickable', this.state.mounted ? 'show' : '');
         var contentClassName = Chat_1.classList('wc-message-content', this.props.selected && 'selected');
+        var specialMessage = this.props.activity.attachments &&
+            this.props.activity.attachments.length > 0;
         return (React.createElement("div", { "data-activity-id": this.props.activity.id, className: wrapperClassName, onClick: this.props.onClickActivity },
-            React.createElement("div", { className: 'wc-message wc-message-from-' + who, ref: function (div) { return (_this.messageDiv = div); } },
+            React.createElement("div", { className: "wc-message wc-message-from-" + who + " " + (specialMessage ? 'wc-message-special' : ''), ref: function (div) { return (_this.messageDiv = div); } },
                 React.createElement("div", { className: contentClassName },
                     this.props.children,
                     React.createElement("div", { className: "wc-message-meta" }, timeLine)))));
