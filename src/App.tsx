@@ -101,7 +101,7 @@ class AppContainer extends React.PureComponent<ChatProps, ChatState> {
             );
         }
 
-        requestCustomiseUI();
+        // requestCustomiseUI();
         return (
             <div className="wc-app">
                 <Chat {...this.props} {...getAppProps(this.state.username)} />

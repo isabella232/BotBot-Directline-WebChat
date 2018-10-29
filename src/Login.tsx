@@ -44,7 +44,7 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
     return <main className="wc-login-page">
       <form onSubmit={this.hanldeSubmit}>
         <img src="./avatar.jpg" className="wc-login-avatar" />
-        <h1>Login</h1>
+        <h1>BOTBOT.AI</h1>
         <p className="form-group">
           <label htmlFor="username">Username</label>
           <input disabled={this.props.loggingIn} required id="username" type="text" value={this.state.username} name="username" placeholder="Enter username..." onChange={this.handleChange} />
@@ -55,7 +55,7 @@ class Login extends React.PureComponent<LoginProps, LoginState> {
           {this.props.error && <span className="error-message">Password is invalid</span>}
         </p>
         <button disabled={this.props.loggingIn || !(this.state.username && this.state.password)}>
-          {this.props.loggingIn ? 'Logging In...' : 'Login'}
+          {this.props.loggingIn ? 'LOGGING IN...' : 'LOGIN'}
         </button>
       </form>
     </main>

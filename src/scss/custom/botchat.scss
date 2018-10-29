@@ -18,7 +18,7 @@ body {
   align-items: center;
   box-shadow: none;
   justify-content: flex-end;
-  
+
   img {
     margin-right: 20px;
     max-height: 100%;
@@ -39,8 +39,8 @@ body {
 }
 
 .wc-message {
-  padding: 8px 15px;
-  border-radius: $radius;
+  padding: 0.5em 1.2em;
+  // border-radius: $radius;
 }
 
 .wc-message-groups {
@@ -51,7 +51,7 @@ body {
 .wc-message-content {
   box-shadow: none;
   border-radius: 0;
-  min-width: 100px;
+  // min-width: 100px;
   padding: 0;
 }
 
@@ -59,8 +59,9 @@ body {
   float: left;
   // border-left: 6px solid $c_brand;
   // padding-left: 15px;
-  // margin-left: 0;
+  margin-left: 1em;
   background-color: $c_bot_reply_bg;
+  border-radius: 1.3em 1.3em 1.3em 4px;
 
   .wc-message-content {
     background: none;
@@ -74,9 +75,11 @@ body {
 
 .wc-message-from-me {
   float: right;
+  margin-right: 1em;
   // border-right: 6px solid lighten($c_brand, 30); // #00b4ff;
   // padding: 0 15px;
   background-color: $c_me_reply_bg;
+  border-radius: 1.3em 1.3em 4px 1.3em;
 
   .wc-message-content {
     background: none;
@@ -91,10 +94,10 @@ body {
 .wc-message-meta {
   clear: both;
   color: $c_timestamp;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 300;
   padding-top: 5px;
-  margin: 0 25px;
+  margin: 0 1em;
   float: left;
 }
 
@@ -359,7 +362,7 @@ body {
   }
 
   svg {
-    fill: #666
+    fill: #666;
   }
 }
 
@@ -367,7 +370,8 @@ body {
   font-size: 14px;
 }
 
-mark, .mark {
+mark,
+.mark {
   color: $c_brand;
   background: none;
 }
