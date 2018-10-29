@@ -1,46 +1,43 @@
 @import '../includes/colors';
 @import '../includes/settings';
-@import './_functions.scss';
+@import './_functions';
 
-$header-height: 52px;
+$header-height: 72px;
 
-body {
-  margin: 0;
+.wc-app button,
+.wc-app input,
+.wc-app textarea {
+  font-family: inherit;
+}
+
+.wc-shellinput::placeholder {
+  font-family: inherit;
 }
 
 .wc-header {
-  background-color: $c_brand;
-  color: #fff;
+  background-color: #faf9f4;
+  color: $c_brand;
   font-weight: 700;
   height: $header-height;
-  padding: 0;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   box-shadow: none;
-  justify-content: flex-end;
+  justify-content: space-between;
+  background-image: linear-gradient(60deg, #0d47a1, #1565c0);
+  box-shadow: 0 1px 1px 0 #bbdefb;
 
   img {
     margin-right: 20px;
-    max-height: 100%;
-    display: none;
+    max-height: 50px;
   }
 
-  h2 {
+  h1 {
+    display: none;
     font-size: 24px;
-    display: none;
+    color: white;
+    // display: none;
   }
-
-  .subtext {
-    width: 100%;
-    color: #bca480;
-    font-weight: normal;
-    display: none;
-  }
-}
-
-.wc-message {
-  padding: 0.5em 1.2em;
-  // border-radius: $radius;
 }
 
 .wc-message-groups {
@@ -57,33 +54,47 @@ body {
 
 .wc-message-from-bot {
   float: left;
-  // border-left: 6px solid $c_brand;
-  // padding-left: 15px;
-  margin-left: 1em;
-  background-color: $c_bot_reply_bg;
-  border-radius: 1.3em 1.3em 1.3em 4px;
+  border-left: 6px solid $c_brand;
+  padding-left: 15px;
+  margin-left: 0;
 
   .wc-message-content {
     background: none;
     color: #231f20;
   }
-}
 
-.wc-message-special {
-  background: none;
+  .wc-message-content-inner {
+    background: $c_messageFromThem;
+    border-radius: 1.3em 1.3em 1.3em 4px;
+    box-shadow: none;
+  }
+
+  &.wc-message-special .wc-message-content-inner {
+    background: none;
+    box-shadow: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .wc-message-from-me {
   float: right;
-  margin-right: 1em;
-  // border-right: 6px solid lighten($c_brand, 30); // #00b4ff;
-  // padding: 0 15px;
-  background-color: $c_me_reply_bg;
-  border-radius: 1.3em 1.3em 4px 1.3em;
+  border-right: 6px solid lighten($c_brand, 30); // #00b4ff;
+  padding-right: 15px;
+  margin-right: 0;
+  text-align: right;
 
   .wc-message-content {
     background: none;
-    color: #fff;
+    // color: #231f20;
+  }
+
+  .wc-message-content-inner {
+    background: $c_messageFromMe;
+  }
+
+  .wc-message-meta {
+    text-align: right;
   }
 }
 
@@ -94,24 +105,18 @@ body {
 .wc-message-meta {
   clear: both;
   color: $c_timestamp;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 300;
   padding-top: 5px;
-  margin: 0 1em;
-  float: left;
-}
-
-.wc-message-meta-me {
-  float: right;
 }
 
 .wc-card.hero {
   background: none;
 
   button {
-    background-color: $c_button; //;
-    border: 0px;
-    // color: #fff;
+    // background-color: $c_button;
+    // border: 0px;
+    color: $c_brand;
     font-weight: 500;
     line-height: 1.29;
     text-align: left;
@@ -119,24 +124,24 @@ body {
     padding-bottom: 10px;
     outline: none;
     white-space: normal !important;
-    // font-size: 18px;
+    border: 1px solid #ddd;
+    background: none;
 
     &:active {
       background-color: $c06;
     }
 
     &:hover {
-      background-color: $c_button_hover;
-      color: #fff;
+      background-color: #dad7ce;
     }
   }
 
   .ac-pushButton:first-of-type {
-    border-radius: $radius $radius 0 0;
+    border-radius: 5px 5px 0 0;
   }
 
   .ac-pushButton:last-of-type {
-    border-radius: 0 0 $radius $radius;
+    border-radius: 0 0 5px 5px;
   }
 
   &.hero h1 {
@@ -191,7 +196,13 @@ body {
 }
 
 .wc-message-wrapper {
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
+  transform: translateY(50px);
+  transition: 0.3s ease all;
+
+  &.show {
+    transform: translateY(0);
+  }
 }
 
 .wc-suggested-actions {
@@ -263,13 +274,11 @@ body {
     box-sizing: border-box;
     width: 100%;
   }
-
   label {
     color: #9e9e9e;
     font-size: 12px;
     font-style: italic;
   }
-
   input {
     padding: 8px;
     line-height: 1.4;
@@ -280,12 +289,10 @@ body {
     font-size: inherit;
     transition: all 0.2s ease;
     box-sizing: border-box;
-
     &:focus {
       border-color: $c04;
     }
   }
-
   button {
     min-width: 88px;
     padding: 8px;
@@ -304,7 +311,6 @@ body {
       border: 1px solid $c_brand;
       user-select: none;
     }
-
     &[disabled] {
       background: #bdbdbd;
       opacity: 0.5;
@@ -312,26 +318,20 @@ body {
       box-shadow: none;
       cursor: not-allowed;
     }
-  }
+    .form-group {
+      position: relative;
+      z-index: 0;
+      margin-bottom: 20px;
+    }
 
-  .form-group {
-    position: relative;
-    z-index: 0;
-    margin-bottom: 20px;
+    .error-message {
+      color: #d32f2f;
+      font-size: 12px;
+      font-style: italic;
+      bottom: -20px;
+      left: 0;
+    }
   }
-
-  .error-message {
-    color: #d32f2f;
-    font-size: 12px;
-    font-style: italic;
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-  }
-}
-
-.wc-message-wrapper.carousel .wc-message {
-  max-width: 75%;
 }
 
 .wc-app .wc-back-top {
@@ -342,9 +342,7 @@ body {
   border: 0;
   opacity: 0.3;
   outline: none;
-
   svg {
-    display: block;
     width: 30px;
     height: 30px;
   }
@@ -354,40 +352,119 @@ body {
   }
 }
 
-.wc-carousel button.scroll {
-  background: #fff;
+.bot-selection {
+  position: relative;
+  float: right;
 
-  &:hover {
-    background: #ddd;
+  .flag {
+    display: inline-block;
+    height: 20px;
   }
 
-  svg {
-    fill: #666;
+  .value {
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    line-height: 1;
+    // box-shadow: 2px 2px #ddd;
+    border-radius: 2px;
+    background-color: white;
+
+    &:hover + .bot-list {
+      display: block;
+    }
+
+    .caret {
+      border: 4px solid transparent;
+      border-bottom: 0;
+      border-top-color: #333;
+      display: block;
+      margin-left: 15px;
+    }
   }
-}
 
-.wc-carousel li .wc-adaptive-card p {
-  font-size: 14px;
-}
-
-mark,
-.mark {
-  color: $c_brand;
-  background: none;
-}
-
-.contact-link {
-  background-color: white;
-  border-radius: 50%;
-  text-decoration: none;
-  color: white;
-  display: block;
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-
-  img {
+  button {
+    padding: 10px 20px;
+    color: #333;
     display: block;
-    max-height: 100%;
+    width: 100%;
+    background: none;
+    border: 0;
+    text-align: left;
+
+    &:hover {
+      background-color: #f4f4f4;
+    }
   }
+
+  .bot-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    // box-shadow: 4px 4px 5px #ddd, -1px 4px 5px #ddd;
+    border: 1px solid #ddd;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 200px;
+    display: none;
+
+    img {
+      display: block;
+    }
+
+    > li {
+      padding: 0;
+
+      + li {
+        border-top: 1px solid #ddd;
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        background-color: #f4f4f4;
+      }
+    }
+
+    &:hover {
+      display: block;
+    }
+  }
+}
+
+.wc-botname {
+  left: 50%;
+  margin: 5px;
+  background: #999;
+  padding: 3px 8px;
+  border-radius: 20px;
+  color: white;
+  display: inline-block;
+  position: relative;
+  transform: translateX(-50%);
+}
+
+.wc-message {
+  border: 0;
+}
+
+.wc-message-wrapper::after {
+  content: '';
+  display: table;
+  clear: both;
+  overflow: visible;
+}
+
+.wc-message-content-inner {
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 1.3em 1.3em 4px 1.3em;
+  box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.2);
+  display: inline-block;
 }

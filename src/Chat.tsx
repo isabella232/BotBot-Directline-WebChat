@@ -43,9 +43,9 @@ export class Chat extends React.Component<ChatProps, {}> {
 
     private botConnection: IBotConnection;
 
-    private activitySubscription: Subscription;
-    private connectionStatusSubscription: Subscription;
-    private selectedActivitySubscription: Subscription;
+    private activitySubscription: any;
+    private connectionStatusSubscription: any;
+    private selectedActivitySubscription: any;
     private shellRef: React.Component & ShellFunctions;
 
     private scrollContent: HTMLElement;
@@ -228,10 +228,10 @@ export class Chat extends React.Component<ChatProps, {}> {
             header = (
                 <div className="wc-header">
                     <img src="./avatar.png" alt="Logo" />
-                    <div>
+                    {/*<div>
                         <h2 className="js-botname">{state.format.strings.title}</h2>
                         <p className="subtext">Learning & Understand Cognitive Assist System</p>
-                    </div>
+                    </div>*/}
                     {/* <a className="contact-link" target="_blank" href="https://www.gic.com.sg/contact-us/#Connect-with-us">
                         <img src="./CustService2.png" style={{ display: 'block', maxHeight: '100%' }} />
                     </a> */}

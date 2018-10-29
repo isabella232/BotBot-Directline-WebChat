@@ -15,7 +15,7 @@
     "scss-watch": "node-sass ./src/scss/ -w -o . && rimraf ./includes/ && rimraf ./custom/",
     "tsc-watch": "tsc -w",
     "webpack": "webpack",
-    "webpack-watch": "webpack --progress --watch",
+    "webpack-watch": "webpack --progress --watch --color",
     "clean": "rimraf built",
     "prepublish": "tsc && npm run build-css && webpack --progress --config webpack.production.config.js",
     "build-js": "webpack --progress --config webpack.production.config.js",
@@ -30,7 +30,6 @@
   "author": "Microsoft Corp",
   "license": "MIT",
   "dependencies": {
-    "@types/react": "15.0.38",
     "botframework-directlinejs": "0.9.13",
     "core-js": "2.4.1",
     "dompurify": "^1.0.5",
@@ -43,6 +42,7 @@
     "redux": "^3.7.2",
     "redux-observable": "^0.13.0",
     "rxjs": "5.3.3",
+    "ts-loader": "^5.2.2",
     "tslib": "1.7.1"
   },
   "devDependencies": {
