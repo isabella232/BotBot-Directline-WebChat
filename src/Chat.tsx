@@ -20,7 +20,7 @@ import { Speech } from './SpeechModule';
 import { ActivityOrID, FormatOptions } from './Types';
 import * as konsole from './Konsole';
 import { getTabIndex } from './getTabIndex';
-import BotSelection from './BotSelection';
+// import BotSelection from './BotSelection';
 
 export interface ChatProps {
   user: User;
@@ -72,10 +72,10 @@ export class Chat extends React.Component<ChatProps, {}> {
       bots: props.bots || []
     });
 
-    this.store.dispatch<HistoryAction>({
-      type: 'Set_Selected_Bot',
-      selectedBotName: props.bots && props.bots[0]
-    });
+    // this.store.dispatch<HistoryAction>({
+    //   type: 'Set_Selected_Bot',
+    //   selectedBotName: props.bots && props.bots[0]
+    // });
 
     if (props.formatOptions)
       this.store.dispatch<ChatActions>({
@@ -228,7 +228,7 @@ export class Chat extends React.Component<ChatProps, {}> {
         <div className="wc-header">
           {/*<img src="./avatar.png" />*/}
           <h1>{state.format.strings.title}</h1>
-          <BotSelection bots={state.format.bots} />
+          {/*<BotSelection bots={state.format.bots} />*/}
         </div>
       );
 

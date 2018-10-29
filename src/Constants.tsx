@@ -5,4 +5,4 @@ export const SECRET = {
 };
 export const DASHBOARD_API_URL = ' https://botbotapi-staging.azurewebsites.net/api';
 export const BOT_API_URL = 'http://daimlerbot-staging.azurewebsites.net/api';
-export const CHATBOT_NAME = 'Kimberly-Clark Professional®';
+export const CHATBOT_NAME = 'MOMO';
