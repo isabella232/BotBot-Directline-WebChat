@@ -20,7 +20,7 @@ export interface HistoryProps {
 
   isFromMe: (activity: Activity) => boolean;
   isSelected: (activity: Activity) => boolean;
-  onClickActivity: (activity: Activity) => React.MouseEventHandler<HTMLDivElement>;
+  // onClickActivity: (activity: Activity) => React.MouseEventHandler<HTMLDivElement>;
   doCardAction: IDoCardAction;
 }
 
@@ -99,7 +99,7 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
       }}
       format={null}
       fromMe={false}
-      onClickActivity={null}
+      // onClickActivity={null}
       onClickRetry={null}
       selected={false}
       showTimestamp={false}
@@ -152,7 +152,7 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
               }
               selected={this.props.isSelected(activity)}
               fromMe={this.props.isFromMe(activity)}
-              onClickActivity={this.props.onClickActivity(activity)}
+              // onClickActivity={this.props.onClickActivity(activity)}
               onClickRetry={e => {
                 // Since this is a click on an anchor, we need to stop it
                 // from trying to actually follow a (nonexistant) link
@@ -241,10 +241,10 @@ export const History = connect(
       dispatchProps.sendMessage
     ),
     isFromMe: (activity: Activity) => activity.from.id === stateProps.user.id,
-    isSelected: (activity: Activity) => activity === stateProps.selectedActivity,
-    onClickActivity: (activity: Activity) =>
-      stateProps.connectionSelectedActivity &&
-      (() => stateProps.connectionSelectedActivity.next({ activity }))
+    isSelected: (activity: Activity) => activity === stateProps.selectedActivity
+    // onClickActivity: (activity: Activity) =>
+    //   stateProps.connectionSelectedActivity &&
+    //   (() => stateProps.connectionSelectedActivity.next({ activity }))
   })
 )(HistoryView);
 
@@ -278,50 +278,67 @@ export interface WrappedActivityProps {
   selected: boolean;
   fromMe: boolean;
   format: FormatState;
-  onClickActivity: React.MouseEventHandler<HTMLDivElement>;
+  // onClickActivity: React.MouseEventHandler<HTMLDivElement>;
   onClickRetry: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
-export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
+interface WrappedActivityState {
+  mounted: boolean;
+}
+
+export class WrappedActivity extends React.Component<WrappedActivityProps, WrappedActivityState> {
   public messageDiv: HTMLDivElement;
 
   constructor(props: WrappedActivityProps) {
     super(props);
+
+    this.state = {
+      mounted: false
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      mounted: true
+    });
   }
 
   render() {
     let timeLine: JSX.Element;
-    switch (this.props.activity.id) {
-      case undefined:
-        timeLine = <span>{this.props.format.strings.messageSending}</span>;
-        break;
-      case null:
-        timeLine = <span>{this.props.format.strings.messageFailed}</span>;
-        break;
-      case 'retry':
-        timeLine = (
-          <span>
-            {this.props.format.strings.messageFailed}{' '}
-            <a href="." onClick={this.props.onClickRetry}>
-              {this.props.format.strings.messageRetry}
-            </a>
-          </span>
-        );
-        break;
-      default:
-        /* let sent: string;
+
+    if (this.props.activity.type !== 'typing') {
+      switch (this.props.activity.id) {
+        case undefined:
+          timeLine = <span>{this.props.format.strings.messageSending}</span>;
+          break;
+        case null:
+          timeLine = <span>{this.props.format.strings.messageFailed}</span>;
+          break;
+        case 'retry':
+          timeLine = (
+            <span>
+              {this.props.format.strings.messageFailed}{' '}
+              <a href="." onClick={this.props.onClickRetry}>
+                {this.props.format.strings.messageRetry}
+              </a>
+            </span>
+          );
+          break;
+        default:
+          /* let sent: string;
                 if (this.props.showTimestamp)
                     sent = this.props.format.strings.timeSent.replace('%1', (new Date(this.props.activity.timestamp)).toLocaleTimeString());
                 timeLine = <span>{ this.props.activity.from.name || this.props.activity.from.id }{ sent }</span>; */
-        let time: string;
-        time = new Date(this.props.activity.timestamp).toLocaleTimeString('en-us', {
-          hour12: true,
-          hour: '2-digit',
-          minute: '2-digit'
-        });
-        timeLine = <span>{time}</span>;
+          let time: string;
+          time = new Date(this.props.activity.timestamp).toLocaleTimeString('en-us', {
+            hour12: true,
+            hour: '2-digit',
+            minute: '2-digit'
+          });
+          timeLine = <span>{time}</span>;
 
-        break;
+          break;
+      }
     }
 
     const who = this.props.fromMe ? 'me' : 'bot';
@@ -329,18 +346,27 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, {}> {
     const wrapperClassName = classList(
       'wc-message-wrapper',
       (this.props.activity as Message).attachmentLayout || 'list',
-      this.props.onClickActivity && 'clickable'
+      // this.props.onClickActivity && 'clickable',
+      this.state.mounted ? 'show' : ''
     );
 
     const contentClassName = classList('wc-message-content', this.props.selected && 'selected');
+    const specialMessage: Boolean =
+      (this.props.activity as Message).attachments &&
+      (this.props.activity as Message).attachments.length > 0;
 
     return (
       <div
         data-activity-id={this.props.activity.id}
         className={wrapperClassName}
-        onClick={this.props.onClickActivity}
+        // onClick={this.props.onClickActivity}
       >
-        <div className={'wc-message wc-message-from-' + who} ref={div => (this.messageDiv = div)}>
+        <div
+          className={`wc-message wc-message-from-${who} ${
+            specialMessage ? 'wc-message-special' : ''
+          }`}
+          ref={div => (this.messageDiv = div)}
+        >
           <div className={contentClassName}>
             {this.props.children}
             <div className="wc-message-meta">{timeLine}</div>

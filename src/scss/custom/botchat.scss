@@ -23,6 +23,8 @@ $header-height: 72px;
   align-items: center;
   box-shadow: none;
   justify-content: space-between;
+  background-image: linear-gradient(60deg, #0d47a1, #1565c0);
+  box-shadow: 0 1px 1px 0 #bbdefb;
 
   img {
     margin-right: 20px;
@@ -31,6 +33,7 @@ $header-height: 72px;
 
   h1 {
     font-size: 24px;
+    color: white;
     // display: none;
   }
 }
@@ -43,7 +46,7 @@ $header-height: 72px;
 .wc-message-content {
   box-shadow: none;
   border-radius: 0;
-  min-width: 100px;
+  // min-width: 100px;
   padding: 0;
 }
 
@@ -57,6 +60,19 @@ $header-height: 72px;
     background: none;
     color: #231f20;
   }
+
+  .wc-message-content-inner {
+    background: $c_messageFromThem;
+    border-radius: 1.3em 1.3em 1.3em 4px;
+    box-shadow: none;
+  }
+
+  &.wc-message-special .wc-message-content-inner {
+    background: none;
+    box-shadow: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .wc-message-from-me {
@@ -64,10 +80,19 @@ $header-height: 72px;
   border-right: 6px solid lighten($c_brand, 30); // #00b4ff;
   padding-right: 15px;
   margin-right: 0;
+  text-align: right;
 
   .wc-message-content {
     background: none;
-    color: #231f20;
+    // color: #231f20;
+  }
+
+  .wc-message-content-inner {
+    background: $c_messageFromMe;
+  }
+
+  .wc-message-meta {
+    text-align: right;
   }
 }
 
@@ -87,8 +112,8 @@ $header-height: 72px;
   background: none;
 
   button {
-    background-color: $c_button;
-    border: 0px;
+    // background-color: $c_button;
+    // border: 0px;
     color: $c_brand;
     font-weight: 500;
     line-height: 1.29;
@@ -97,6 +122,8 @@ $header-height: 72px;
     padding-bottom: 10px;
     outline: none;
     white-space: normal !important;
+    border: 1px solid #ddd;
+    background: none;
 
     &:active {
       background-color: $c06;
@@ -167,7 +194,13 @@ $header-height: 72px;
 }
 
 .wc-message-wrapper {
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
+  transform: translateY(50px);
+  transition: 0.3s ease all;
+
+  &.show {
+    transform: translateY(0);
+  }
 }
 
 .wc-suggested-actions {
@@ -221,7 +254,8 @@ $header-height: 72px;
     align-items: center;
     justify-content: space-between;
     line-height: 1;
-    box-shadow: 2px 2px #ddd;
+    // box-shadow: 2px 2px #ddd;
+    border-radius: 2px;
     background-color: white;
 
     &:hover + .bot-list {
@@ -256,7 +290,8 @@ $header-height: 72px;
     margin: 0;
     padding: 0;
     background-color: white;
-    box-shadow: 4px 4px 5px #ddd, -1px 4px 5px #ddd;
+    // box-shadow: 4px 4px 5px #ddd, -1px 4px 5px #ddd;
+    border: 1px solid #ddd;
     position: absolute;
     top: 100%;
     right: 0;
@@ -278,7 +313,7 @@ $header-height: 72px;
     button {
       display: flex;
       align-items: center;
-      
+
       &:hover {
         background-color: #f4f4f4;
       }
@@ -300,4 +335,23 @@ $header-height: 72px;
   display: inline-block;
   position: relative;
   transform: translateX(-50%);
+}
+
+.wc-message {
+  border: 0;
+}
+
+.wc-message-wrapper::after {
+  content: '';
+  display: table;
+  clear: both;
+  overflow: visible;
+}
+
+.wc-message-content-inner {
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 1.3em 1.3em 4px 1.3em;
+  box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.2);
+  display: inline-block;
 }
