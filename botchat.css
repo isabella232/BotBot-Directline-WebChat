@@ -388,11 +388,11 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   margin-left: 8px; }
 
 .wc-message-from-bot .wc-message-content {
-  background-color: #2196F3;
+  background-color: #f1f0f0;
   color: #000000; }
 
 .wc-message-from-bot svg.wc-message-callout path {
-  fill: #2196F3; }
+  fill: #f1f0f0; }
 
 .wc-message-from-bot svg.wc-message-callout path.point-right {
   display: none; }
@@ -641,7 +641,14 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background: none;
     color: #231f20; }
   .wc-message-from-bot .wc-message-content-inner {
-    background: #2196F3; }
+    background: #f1f0f0;
+    border-radius: 1.3em 1.3em 1.3em 4px;
+    box-shadow: none; }
+  .wc-message-from-bot.wc-message-special .wc-message-content-inner {
+    background: none;
+    box-shadow: none;
+    padding-left: 0;
+    padding-right: 0; }
 
 .wc-message-from-me {
   float: right;
@@ -669,8 +676,6 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 .wc-card.hero {
   background: none; }
   .wc-card.hero button {
-    background-color: #f5f2e9;
-    border: 0px;
     color: #0d47a1;
     font-weight: 500;
     line-height: 1.29;
@@ -678,7 +683,9 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     padding-top: 10px;
     padding-bottom: 10px;
     outline: none;
-    white-space: normal !important; }
+    white-space: normal !important;
+    border: 1px solid #ddd;
+    background: none; }
     .wc-card.hero button:active {
       background-color: #7ba1ab; }
     .wc-card.hero button:hover {
@@ -831,5 +838,6 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 .wc-message-content-inner {
   padding: 10px 20px;
   border: 0;
-  border-radius: 30px 30px 10px 30px;
-  box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.2); }
+  border-radius: 1.3em 1.3em 4px 1.3em;
+  box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.2);
+  display: inline-block; }

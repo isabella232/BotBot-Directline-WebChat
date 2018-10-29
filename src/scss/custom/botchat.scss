@@ -63,6 +63,15 @@ $header-height: 72px;
 
   .wc-message-content-inner {
     background: $c_messageFromThem;
+    border-radius: 1.3em 1.3em 1.3em 4px;
+    box-shadow: none;
+  }
+
+  &.wc-message-special .wc-message-content-inner {
+    background: none;
+    box-shadow: none;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
@@ -103,8 +112,8 @@ $header-height: 72px;
   background: none;
 
   button {
-    background-color: $c_button;
-    border: 0px;
+    // background-color: $c_button;
+    // border: 0px;
     color: $c_brand;
     font-weight: 500;
     line-height: 1.29;
@@ -113,6 +122,8 @@ $header-height: 72px;
     padding-bottom: 10px;
     outline: none;
     white-space: normal !important;
+    border: 1px solid #ddd;
+    background: none;
 
     &:active {
       background-color: $c06;
@@ -340,6 +351,7 @@ $header-height: 72px;
 .wc-message-content-inner {
   padding: 10px 20px;
   border: 0;
-  border-radius: 30px 30px 10px 30px;
+  border-radius: 1.3em 1.3em 4px 1.3em;
   box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.2);
+  display: inline-block;
 }

@@ -29,7 +29,7 @@ export interface ChatProps {
   directLine?: DirectLineOptions;
   speechOptions?: SpeechOptions;
   locale?: string;
-  selectedActivity?: BehaviorSubject<ActivityOrID>;
+  // selectedActivity?: BehaviorSubject<ActivityOrID>;
   sendTyping?: boolean;
   formatOptions?: FormatOptions;
   resize?: 'none' | 'window' | 'detect';
@@ -47,7 +47,7 @@ export class Chat extends React.Component<ChatProps, {}> {
 
   private activitySubscription: Subscription;
   private connectionStatusSubscription: Subscription;
-  private selectedActivitySubscription: Subscription;
+  // private selectedActivitySubscription: Subscription;
   private shellRef: React.Component & ShellFunctions;
 
   private chatviewPanel: HTMLElement;
@@ -56,6 +56,7 @@ export class Chat extends React.Component<ChatProps, {}> {
   private _handleKeyDownCapture = this.handleKeyDownCapture.bind(this);
   private _saveShellRef = this.saveShellRef.bind(this);
   private _handleChangeBot = this.handleChangeBot.bind(this);
+  private _handleIncomingActivity = this.handleIncomingActivity.bind(this);
 
   constructor(props: ChatProps) {
     super(props);
@@ -92,23 +93,19 @@ export class Chat extends React.Component<ChatProps, {}> {
     }
   }
 
-  private handleIncomingActivity(activity: Activity) {
-    let state = this.store.getState();
-    switch (activity.type) {
-      case 'message':
-        this.store.dispatch<ChatActions>({
-          type:
-            activity.from.id === state.connection.user.id
-              ? 'Receive_Sent_Message'
-              : 'Receive_Message',
-          activity
-        });
-        break;
+  // bot send response message only
+  private handleIncomingActivity(activityJson: string) {
+    try {
+      const activity: Activity = JSON.parse(activityJson);
+      activity.type = 'message';
 
-      case 'typing':
-        if (activity.from.id !== state.connection.user.id)
-          this.store.dispatch<ChatActions>({ type: 'Show_Typing', activity });
-        break;
+      // let state = this.store.getState();
+      this.store.dispatch<ChatActions>({
+        type: 'Receive_Message',
+        activity
+      });
+    } catch (error) {
+      console.log('error', error);
     }
   }
 
@@ -160,9 +157,7 @@ export class Chat extends React.Component<ChatProps, {}> {
     // Now that we're mounted, we know our dimensions. Put them in the store (this will force a re-render)
     this.setSize();
 
-    const botConnection = this.props.directLine
-      ? (this.botConnection = new DirectLine(this.props.directLine))
-      : this.props.botConnection;
+    const botConnection = this.props.botConnection;
 
     if (this.props.resize === 'window') window.addEventListener('resize', this.resizeListener);
 
@@ -170,21 +165,27 @@ export class Chat extends React.Component<ChatProps, {}> {
       type: 'Start_Connection',
       user: this.props.user,
       bot: this.props.bot,
-      botConnection,
-      selectedActivity: this.props.selectedActivity
+      botConnection
+      // selectedActivity: this.props.selectedActivity
     });
 
-    botConnection.on('ReceiveMessage', (name, message) => {
-      console.log('ReceiveMessage', name, message);
+    this.store.dispatch<ChatActions>({ type: 'Connection_Change', connected: false });
 
-      // this.handleIncomingActivity(message);
+    botConnection.onclose(() => {
+      this.store.dispatch<ChatActions>({ type: 'Connection_Change', connected: false });
+      this.connect();
     });
 
-    // Create a function that the hub can call to broadcast messages.
-    botConnection.on('broadcastMessage', activity => {
-      console.log('broadcastMessage', activity);
-      this.handleIncomingActivity(activity);
-    });
+    // receive message
+    botConnection.on('broadcastMessage', this._handleIncomingActivity);
+
+    // activity => {
+    //   // console.log('broadcastMessage', JSON.parse(activity));
+    //   const activity = JSON.parse(activity);
+    //   activity.type = 'message';
+
+    //   this.handleIncomingActivity(activity);
+    // });
     // this.connectionStatusSubscription = botConnection.connectionStatus$.subscribe(
     //   connectionStatus => {
     //     if (this.props.speechOptions && this.props.speechOptions.speechRecognizer) {
@@ -214,21 +215,33 @@ export class Chat extends React.Component<ChatProps, {}> {
     //   });
     // }
 
-    botConnection
+    this.connect();
+  }
+
+  private connect() {
+    this.props.botConnection
       .start()
       .then(() => {
         console.log('connection started');
+        this.store.dispatch<ChatActions>({ type: 'Connection_Change', connected: true });
       })
       .catch(error => {
         console.log('connection fail');
+        this.store.dispatch<ChatActions>({ type: 'Connection_Change', connected: false });
       });
   }
 
   componentWillUnmount() {
-    this.connectionStatusSubscription.unsubscribe();
-    this.activitySubscription.unsubscribe();
-    if (this.selectedActivitySubscription) this.selectedActivitySubscription.unsubscribe();
-    if (this.botConnection) this.botConnection.end();
+    const botConnection = this.props.botConnection;
+    if (botConnection) {
+      botConnection.off('broadcastMessage', this._handleIncomingActivity);
+
+      botConnection.stop();
+      // this.connectionStatusSubscription.unsubscribe();
+      // this.activitySubscription.unsubscribe();
+      // if (this.selectedActivitySubscription) this.selectedActivitySubscription.unsubscribe();
+      if (this.botConnection) this.botConnection.end();
+    }
     window.removeEventListener('resize', this.resizeListener);
   }
 
@@ -319,22 +332,17 @@ export const sendPostBack = (
   from: User,
   locale: string
 ) => {
-  botConnection
-    .postActivity({
-      type: 'message',
-      text,
-      value,
-      from,
-      locale
-    })
-    .subscribe(
-      id => {
-        konsole.log('success sending postBack', id);
-      },
-      error => {
-        konsole.log('failed to send postBack', error);
-      }
-    );
+  postMessageToServer(
+    botConnection,
+    from.id,
+    text,
+    () => {
+      konsole.log('success sending postBack');
+    },
+    error => {
+      konsole.log('failed to send postBack', error);
+    }
+  );
 };
 
 export const renderIfNonempty = (value: any, renderer: (value: any) => JSX.Element) => {
