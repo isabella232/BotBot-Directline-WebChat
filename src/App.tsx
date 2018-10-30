@@ -12,26 +12,13 @@ export const App = (props: AppProps, container: HTMLElement) => {
   // konsole.log('BotChat.App props', props);
   // ReactDOM.render(React.createElement(AppContainer, props), container);
 
-  const API_URL =
-    process.env.NODE_ENV === 'development' ? 'https://kc-emea-staging.azurewebsites.net' : '';
-
-  axios.post(API_URL + '/api/setting/adsfdgkhdsfdkaj32453535').then(resp => {
-    props.directLine = {
-      secret: resp.data.secret
-    };
-
-    props.bots = resp.data.bots;
-
-    // requestCustomiseUI(resp.data.feconfig);
-
-    ReactDOM.render(
-      React.createElement(AppContainer, {
-        ...getAppProps(),
-        ...props
-      }),
-      container
-    );
-  });
+  ReactDOM.render(
+    React.createElement(AppContainer, {
+      ...getAppProps(),
+      ...props
+    }),
+    container
+  );
 };
 
 function uuidv4(): string {
@@ -57,6 +44,7 @@ function getAppProps(): Object {
 
   return {
     directLine: {
+      secret: process.env.SECRET,
       token: params['t'],
       domain: params['domain'],
       webSocket: params['webSocket'] && params['webSocket'] === 'true'

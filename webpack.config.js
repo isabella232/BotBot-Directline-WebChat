@@ -12,7 +12,7 @@ var coreConfig = {
   module: {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-      { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
+      { test: /\.tsx?$/, loader: 'ts-loader' },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
         enforce: 'pre',
@@ -30,7 +30,10 @@ var coreConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('development'),
+        SECRET:
+          process.env.SECRET ||
+          JSON.stringify('BXaEw4_juQg.cwA.MDQ.n_iF4s39hH0WNLUj0acYL6jCmCUPjcp02oo8KfmCaYM')
       }
     })
   ]

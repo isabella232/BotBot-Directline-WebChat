@@ -12,7 +12,10 @@ var coreConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production'),
+        SECRET:
+          process.env.SECRET ||
+          JSON.stringify('BXaEw4_juQg.cwA.MDQ.n_iF4s39hH0WNLUj0acYL6jCmCUPjcp02oo8KfmCaYM')
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
