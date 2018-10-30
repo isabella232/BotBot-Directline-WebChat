@@ -109,12 +109,19 @@ function requestCustomiseUI(url: string) {
   });
 }
 
-class AppContainer extends React.PureComponent<AppProps> {
+interface AppState {
+  bots: Array<string>;
+  directLine: any;
+  loading: boolean;
+}
+class AppContainer extends React.PureComponent<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
 
     this.state = {
-      loading: true
+      loading: true,
+      directLine: null,
+      bots: null
     };
   }
 
