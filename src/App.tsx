@@ -44,7 +44,6 @@ function getAppProps(): Object {
 
   return {
     directLine: {
-      secret: process.env.SECRET,
       token: params['t'],
       domain: params['domain'],
       webSocket: params['webSocket'] && params['webSocket'] === 'true'
@@ -110,12 +109,52 @@ function requestCustomiseUI(url: string) {
   });
 }
 
-const AppContainer = (props: AppProps) => {
-  // requestCustomiseUI();
+class AppContainer extends React.PureComponent<AppProps> {
+  constructor(props: AppProps) {
+    super(props);
 
-  return (
-    <div className="wc-app">
-      <Chat {...props} />
-    </div>
-  );
-};
+    this.state = {
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    this.setState({ loading: true });
+    const API_URL =
+      process.env.NODE_ENV === 'development' ? 'https://momo-staging.azurewebsites.net' : '';
+
+    axios.post(API_URL + '/api/setting/adsfdgkhdsfdkaj32453535').then(resp => {
+      // props.directLine = {
+      //   secret: resp.data.secret
+      // };
+
+      // props.bots = resp.data.bots;
+
+      // requestCustomiseUI(resp.data.feconfig);
+
+      this.setState({
+        loading: false,
+        bots: resp.data.bots,
+        directLine: {
+          secret: resp.data.secret
+        }
+      });
+    });
+  }
+
+  render() {
+    // if (this.state.loading) {
+      return (
+        <div>
+          <img src="./loading.svg" />
+        </div>
+      );
+    // }
+
+    return (
+      <div className="wc-app">
+        <Chat {...this.props} bots={this.state.bots} directLine={this.state.directLine} />
+      </div>
+    );
+  }
+}

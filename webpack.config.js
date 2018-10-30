@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 require('expose-loader');
+const { CheckerPlugin } = require('awesome-typescript-loader');
 
 var coreConfig = {
   devtool: 'source-map',
@@ -14,11 +15,7 @@ var coreConfig = {
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          declaration: true,
-          outDir: true
-        }
+        loader: 'awesome-typescript-loader'
       },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
@@ -42,7 +39,8 @@ var coreConfig = {
           process.env.SECRET ||
           JSON.stringify('BXaEw4_juQg.cwA.MDQ.n_iF4s39hH0WNLUj0acYL6jCmCUPjcp02oo8KfmCaYM')
       }
-    })
+    }),
+    new CheckerPlugin()
   ]
 };
 

@@ -324,10 +324,6 @@ export type HistoryAction =
   | {
       type: 'Clear_Typing';
       id: string;
-    }
-  | {
-      type: 'Set_Selected_Bot';
-      selectedBotName: string;
     };
 
 const copyArrayWithUpdatedItem = <T>(array: Array<T>, i: number, item: T) => [
@@ -353,22 +349,6 @@ export const history: Reducer<HistoryState> = (
 ) => {
   konsole.log('history action', action);
   switch (action.type) {
-    case 'Set_Selected_Bot':
-      const activities = [...state.activities];
-      activities.push({
-        botName: action.selectedBotName,
-        type: 'botName',
-        from: {
-          id: new Date()
-        }
-      });
-
-      return {
-        ...state,
-        selectedBotName: action.selectedBotName,
-        activities
-      };
-
     case 'Receive_Sent_Message': {
       if (!action.activity.channelData || !action.activity.channelData.clientActivityId) {
         // only postBack messages don't have clientActivityId, and these shouldn't be added to the history
@@ -413,7 +393,6 @@ export const history: Reducer<HistoryState> = (
             ...action.activity,
             timestamp: new Date().toISOString(),
             channelData: {
-              botName: state.selectedBotName || 'English',
               clientActivityId: state.clientActivityBase + state.clientActivityCounter
             }
           },

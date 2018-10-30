@@ -55,7 +55,6 @@ export class Chat extends React.Component<ChatProps, {}> {
 
   private _handleKeyDownCapture = this.handleKeyDownCapture.bind(this);
   private _saveShellRef = this.saveShellRef.bind(this);
-  private _handleChangeBot = this.handleChangeBot.bind(this);
 
   constructor(props: ChatProps) {
     super(props);
@@ -71,11 +70,6 @@ export class Chat extends React.Component<ChatProps, {}> {
         'en',
       bots: props.bots || []
     });
-
-    // this.store.dispatch<HistoryAction>({
-    //   type: 'Set_Selected_Bot',
-    //   selectedBotName: props.bots && props.bots[0]
-    // });
 
     if (props.formatOptions)
       this.store.dispatch<ChatActions>({
@@ -146,14 +140,6 @@ export class Chat extends React.Component<ChatProps, {}> {
 
   private saveShellRef(shellWrapper: any) {
     this.shellRef = shellWrapper.getWrappedInstance();
-  }
-
-  private handleChangeBot(botName: string) {
-    // console.log('botname', botName);
-    this.store.dispatch<HistoryAction>({
-      type: 'Set_Selected_Bot',
-      selectedBotName: botName
-    });
   }
 
   componentDidMount() {

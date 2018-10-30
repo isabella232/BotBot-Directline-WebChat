@@ -6,13 +6,11 @@ import { ActivityView } from './ActivityView';
 import { classList, doCardAction, IDoCardAction } from './Chat';
 import * as konsole from './Konsole';
 import { sendMessage } from './Store';
-import { getLanguageTitle } from './BotSelection';
 
 export interface HistoryProps {
   format: FormatState;
   size: SizeState;
   activities: Activity[];
-  selectedBotName: string;
 
   setMeasurements: (carouselMargin: number) => void;
   onClickRetry: (activity: Activity) => void;
@@ -127,52 +125,38 @@ export class HistoryView extends React.Component<HistoryProps, {}> {
         this.largeWidth = this.props.size.width * 2;
         content = <this.measurableCarousel />;
       } else {
-        content = this.props.activities.map((activity, index) => {
-          if (activity.type === 'botName') {
-            return (
-              <div key={index}>
-                <div className="wc-botname">
-                  {this.props.selectedBotName === activity.botName
-                    ? `Your current language is ${getLanguageTitle(activity.botName)}`
-                    : getLanguageTitle(activity.botName)}
-                </div>
-              </div>
-            );
-          }
-
-          return (
-            <WrappedActivity
+        content = this.props.activities.map((activity, index) => (
+          <WrappedActivity
+            format={this.props.format}
+            key={'message' + index}
+            activity={activity}
+            showTimestamp={
+              index === this.props.activities.length - 1 ||
+              (index + 1 < this.props.activities.length &&
+                suitableInterval(activity, this.props.activities[index + 1]))
+            }
+            selected={this.props.isSelected(activity)}
+            fromMe={this.props.isFromMe(activity)}
+            // onClickActivity={this.props.onClickActivity(activity)}
+            onClickRetry={e => {
+              // Since this is a click on an anchor, we need to stop it
+              // from trying to actually follow a (nonexistant) link
+              e.preventDefault();
+              e.stopPropagation();
+              this.props.onClickRetry(activity);
+            }}
+          >
+            <ActivityView
               format={this.props.format}
-              key={'message' + index}
+              size={this.props.size}
               activity={activity}
-              showTimestamp={
-                index === this.props.activities.length - 1 ||
-                (index + 1 < this.props.activities.length &&
-                  suitableInterval(activity, this.props.activities[index + 1]))
+              onCardAction={(type: CardActionTypes, value: string | object) =>
+                this.doCardAction(type, value)
               }
-              selected={this.props.isSelected(activity)}
-              fromMe={this.props.isFromMe(activity)}
-              // onClickActivity={this.props.onClickActivity(activity)}
-              onClickRetry={e => {
-                // Since this is a click on an anchor, we need to stop it
-                // from trying to actually follow a (nonexistant) link
-                e.preventDefault();
-                e.stopPropagation();
-                this.props.onClickRetry(activity);
-              }}
-            >
-              <ActivityView
-                format={this.props.format}
-                size={this.props.size}
-                activity={activity}
-                onCardAction={(type: CardActionTypes, value: string | object) =>
-                  this.doCardAction(type, value)
-                }
-                onImageLoad={() => this.autoscroll()}
-              />
-            </WrappedActivity>
-          );
-        });
+              onImageLoad={() => this.autoscroll()}
+            />
+          </WrappedActivity>
+        ));
       }
     }
 
@@ -210,8 +194,7 @@ export const History = connect(
     connectionSelectedActivity: state.connection.selectedActivity,
     selectedActivity: state.history.selectedActivity,
     botConnection: state.connection.botConnection,
-    user: state.connection.user,
-    selectedBotName: state.history.selectedBotName
+    user: state.connection.user
   }),
   {
     setMeasurements: (carouselMargin: number) => ({ type: 'Set_Measurements', carouselMargin }),
@@ -228,7 +211,7 @@ export const History = connect(
     format: stateProps.format,
     size: stateProps.size,
     activities: stateProps.activities,
-    selectedBotName: stateProps.selectedBotName,
+
     // from dispatchProps
     setMeasurements: dispatchProps.setMeasurements,
     onClickRetry: dispatchProps.onClickRetry,
