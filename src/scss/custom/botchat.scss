@@ -2,6 +2,8 @@
 @import './_fonts';
 @import './_functions';
 
+@import './_form';
+
 $header-height: 72px;
 
 .wc-app button,
@@ -13,6 +15,8 @@ $header-height: 72px;
 .wc-shellinput::placeholder {
   font-family: inherit;
 }
+
+
 
 .wc-header {
   background-color: #faf9f4;
