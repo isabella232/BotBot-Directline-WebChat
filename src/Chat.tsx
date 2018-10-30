@@ -45,9 +45,9 @@ export class Chat extends React.Component<ChatProps, {}> {
 
   private botConnection: IBotConnection;
 
-  private activitySubscription: Subscription;
-  private connectionStatusSubscription: Subscription;
-  private selectedActivitySubscription: Subscription;
+  private activitySubscription: any;
+  private connectionStatusSubscription: any;
+  private selectedActivitySubscription: any;
   private shellRef: React.Component & ShellFunctions;
 
   private chatviewPanel: HTMLElement;
@@ -149,7 +149,7 @@ export class Chat extends React.Component<ChatProps, {}> {
   }
 
   private handleChangeBot(botName: string) {
-    console.log('botname', botName);
+    // console.log('botname', botName);
     this.store.dispatch<HistoryAction>({
       type: 'Set_Selected_Bot',
       selectedBotName: botName
