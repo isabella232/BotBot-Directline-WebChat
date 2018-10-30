@@ -21999,10 +21999,10 @@ var AppContainer = (function (_super) {
         });
     };
     AppContainer.prototype.render = function () {
-        // if (this.state.loading) {
-        return (React.createElement("div", null,
-            React.createElement("img", { src: "./loading.svg" })));
-        // }
+        if (this.state.loading) {
+            return (React.createElement("div", { className: "loading-wrapper" },
+                React.createElement("img", { src: "./loading.svg" })));
+        }
         return (React.createElement("div", { className: "wc-app" },
             React.createElement(Chat_1.Chat, tslib_1.__assign({}, this.props, { bots: this.state.bots, directLine: this.state.directLine }))));
     };

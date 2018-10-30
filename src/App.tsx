@@ -143,13 +143,13 @@ class AppContainer extends React.PureComponent<AppProps> {
   }
 
   render() {
-    // if (this.state.loading) {
+    if (this.state.loading) {
       return (
-        <div>
+        <div className="loading-wrapper">
           <img src="./loading.svg" />
         </div>
       );
-    // }
+    }
 
     return (
       <div className="wc-app">
