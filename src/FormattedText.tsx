@@ -5,30 +5,34 @@ import * as DOMPurify from 'dompurify';
 const reg = /((?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#/%=~_|$?!:,.]*\)|[A-Z0-9+&@#/%=~_|$]))/gi;
 
 export interface IFormattedTextProps {
-    text: string,
-    format: string,
-    onImageLoad: () => void
+  text: string;
+  format: string;
+  onImageLoad: () => void;
 }
 
 export const FormattedText = (props: IFormattedTextProps) => {
-    if (!props.text || props.text === '')
-        return null;
+  if (!props.text || props.text === '') return null;
 
-    switch (props.format) {
-        case "xml":
-        case "plain":
-            return renderPlainText(props.text);
-        default:
-            return renderMarkdown(props.text, props.onImageLoad);
-    }
-}
+  switch (props.format) {
+    case 'xml':
+    case 'plain':
+      return renderPlainText(props.text);
+    default:
+      return renderMarkdown(props.text, props.onImageLoad);
+  }
+};
 
 const renderPlainText = (text: string) => {
-    const lines = text.replace('\r', '').split('\n');
-    const elements = lines.map((line, i) => <span key={i}>{line}<br /></span>);
+  const lines = text.replace('\r', '').split('\n');
+  const elements = lines.map((line, i) => (
+    <span key={i}>
+      {line}
+      <br />
+    </span>
+  ));
 
-    return <span className="format-plain">{elements}</span>;
-}
+  return <span className="format-plain">{elements}</span>;
+};
 
 const markdownIt = new MarkdownIt({ html: true, linkify: true, typographer: true });
 
@@ -36,34 +40,36 @@ const markdownIt = new MarkdownIt({ html: true, linkify: true, typographer: true
 //from https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
 
 // Remember old renderer, if overriden, or proxy to default renderer
-const defaultRender = markdownIt.renderer.rules.link_open || ((tokens, idx, options, env, self) => {
+const defaultRender =
+  markdownIt.renderer.rules.link_open ||
+  ((tokens, idx, options, env, self) => {
     return self.renderToken(tokens, idx, options);
-});
+  });
 
 markdownIt.renderer.rules.link_open = (tokens, idx, options, env, self) => {
-    // If you are sure other plugins can't add `target` - drop check below
-    const targetIndex = tokens[idx].attrIndex('target');
+  // If you are sure other plugins can't add `target` - drop check below
+  const targetIndex = tokens[idx].attrIndex('target');
 
-    if (targetIndex < 0) {
-        tokens[idx].attrPush(['target', '_blank']); // add new attribute
-    } else {
-        tokens[idx].attrs[targetIndex][1] = '_blank';    // replace value of existing attr
-    }
+  if (targetIndex < 0) {
+    tokens[idx].attrPush(['target', '_blank']); // add new attribute
+  } else {
+    tokens[idx].attrs[targetIndex][1] = '_blank'; // replace value of existing attr
+  }
 
-    // pass token to default renderer.
-    return defaultRender(tokens, idx, options, env, self);
+  // pass token to default renderer.
+  return defaultRender(tokens, idx, options, env, self);
 };
 
-const renderMarkdown = (
-    text: string,
-    onImageLoad: () => void
-) => {
-    const src = text
-                // convert <br> tags to blank lines for markdown
-                 .replace(/<br\s*\/?>/ig, '\r\n\r\n')
-                // URL encode all links
-                 .replace(/\[(.*?)\]\((.*?)\)/ig, (match, text, url) => `[${text}](${markdownIt.normalizeLink(url)})`);
-    let __html = markdownIt.render(src);
-    __html = DOMPurify.sanitize(__html);
-    return <div className="format-markdown" dangerouslySetInnerHTML={{ __html }} />;
-}
+const renderMarkdown = (text: string, onImageLoad: () => void) => {
+  const src = text
+    // convert <br> tags to blank lines for markdown
+    .replace(/<br\s*\/?>/gi, '\r\n\r\n')
+    // URL encode all links
+    .replace(
+      /\[(.*?)\]\((.*?)\)/gi,
+      (match, text, url) => `[${text}](${markdownIt.normalizeLink(url)})`
+    );
+  let __html = markdownIt.render(src);
+  __html = DOMPurify.sanitize(__html, { ADD_ATTR: ['target'] });
+  return <div className="format-markdown" dangerouslySetInnerHTML={{ __html }} />;
+};
