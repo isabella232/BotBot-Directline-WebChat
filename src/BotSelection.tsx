@@ -43,7 +43,8 @@ const FONTS: any = {
   es: { url: '', fontFamily: '' },
   fr: { url: '', fontFamily: '' },
   it: { url: '', fontFamily: '' },
-  ru: { url: '', fontFamily: '' }
+  ru: { url: '', fontFamily: '' },
+  th: { url: '', fontFamily: '' }
 };
 
 class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionState> {
