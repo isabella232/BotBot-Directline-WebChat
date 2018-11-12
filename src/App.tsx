@@ -11,37 +11,13 @@ export type AppProps = ChatProps;
 export const App = (props: AppProps, container: HTMLElement) => {
   // konsole.log('BotChat.App props', props);
   // ReactDOM.render(React.createElement(AppContainer, props), container);
-  if (process.env.APP_SETTINGS_API) {
-    axios.post(process.env.APP_SETTINGS_API).then(resp => {
-      props.directLine = {
-        secret: resp.data.secret
-      };
-
-      props.bots = resp.data.bots;
-
-      // requestCustomiseUI(resp.data.feconfig);
-
-      ReactDOM.render(
-        React.createElement(AppContainer, {
-          ...getAppProps(),
-          ...props
-        }),
-        container
-      );
-    });
-  } else {
-    props.directLine = {
-      secret: process.env.SECRET
-    };
-
-    ReactDOM.render(
-      React.createElement(AppContainer, {
-        ...getAppProps(),
-        ...props
-      }),
-      container
-    );
-  }
+  ReactDOM.render(
+    React.createElement(AppContainer, {
+      ...getAppProps(),
+      ...props
+    }),
+    container
+  );
 };
 
 function uuidv4(): string {
@@ -132,6 +108,12 @@ function requestCustomiseUI(url: string) {
   });
 }
 
+interface AppState {
+  bots: Array<string>;
+  directLine: any;
+  loading: boolean;
+}
+
 const AppContainer = (props: AppProps) => {
   // requestCustomiseUI();
 
@@ -141,3 +123,61 @@ const AppContainer = (props: AppProps) => {
     </div>
   );
 };
+
+class AppContainer extends React.PureComponent<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+
+    this.state = {
+      loading: true,
+      directLine: null,
+      bots: null
+    };
+  }
+
+  componentDidMount() {
+    if (process.env.APP_SETTINGS_API) {
+      this.setState({ loading: true });
+
+      axios.post(process.env.APP_SETTINGS_API).then(resp => {
+        // props.directLine = {
+        //   secret: resp.data.secret
+        // };
+
+        // props.bots = resp.data.bots;
+
+        // requestCustomiseUI(resp.data.feconfig);
+
+        this.setState({
+          loading: false,
+          bots: resp.data.bots,
+          directLine: {
+            secret: resp.data.secret
+          }
+        });
+      });
+    } else {
+      this.setState({
+        directLine: {
+          secret: process.env.SECRET
+        }
+      });
+    }
+  }
+
+  render() {
+    if (this.state.loading) {
+      return (
+        <div className="loading-wrapper">
+          <img src="./loading.svg" />
+        </div>
+      );
+    }
+
+    return (
+      <div className="wc-app">
+        <Chat {...this.props} bots={this.state.bots} directLine={this.state.directLine} />
+      </div>
+    );
+  }
+}
