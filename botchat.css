@@ -4,7 +4,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   font-size: 15px; }
 
 .wc-app button {
-  background-color: #f3c422;
+  background-color: #c02228;
   border: 1px solid #cccccc;
   border-radius: 1px;
   color: #ffffff;
@@ -23,7 +23,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   visibility: hidden; }
 
 .wc-header {
-  background-color: #f3c422;
+  background-color: #c02228;
   box-shadow: 0 1px rgba(0, 0, 0, 0.2);
   box-sizing: content-box;
   color: #ffffff;
@@ -76,7 +76,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
       max-width: 40%; }
       .wc-suggested-actions .wc-hscroll > ul > li button {
         background-color: #fff;
-        color: #f3c422;
+        color: #c02228;
         min-height: 32px;
         overflow: hidden;
         padding: 0 16px;
@@ -86,11 +86,11 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
       .wc-suggested-actions .wc-hscroll > ul > li button:focus,
       .wc-suggested-actions .wc-hscroll > ul > li button:hover {
         background-color: #fff;
-        border-color: #f3c422;
-        color: #f3c422; }
+        border-color: #c02228;
+        color: #c02228; }
       .wc-suggested-actions .wc-hscroll > ul > li button:active {
-        background-color: #f3c422;
-        border-color: #f3c422;
+        background-color: #c02228;
+        border-color: #c02228;
         color: #ffffff; }
   .wc-suggested-actions button.scroll {
     background-color: #d2dde5;
@@ -200,17 +200,17 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     margin: 8px 8px 0 8px; }
   .wc-card button {
     background-color: transparent;
-    color: #f3c422;
+    color: #c02228;
     min-height: 32px;
     width: 100%;
     padding: 0 16px; }
   .wc-card button:hover {
     background-color: transparent;
-    border-color: #f3c422;
-    color: #f3c422; }
+    border-color: #c02228;
+    color: #c02228; }
   .wc-card button:active {
-    background-color: #f3c422;
-    border-color: #f3c422;
+    background-color: #c02228;
+    border-color: #c02228;
     color: #ffffff; }
   .wc-card.receipt table {
     border-collapse: collapse;
@@ -370,11 +370,11 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   text-align: right; }
 
 .wc-message-from-me .wc-message-content {
-  background-color: #f6d152;
+  background-color: #dc393f;
   color: #ffffff; }
 
 .wc-message-from-me svg.wc-message-callout path {
-  fill: #f6d152; }
+  fill: #dc393f; }
 
 .wc-message-from-me svg.wc-message-callout path.point-left {
   display: none; }
@@ -432,7 +432,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     resize: none;
     width: 100%; }
   .wc-console.has-text .wc-send svg {
-    fill: #f3c422; }
+    fill: #c02228; }
   .wc-console .wc-upload {
     cursor: pointer;
     position: relative; }
@@ -476,7 +476,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     visibility: hidden; }
 
 .wc-console.has-text .wc-send svg {
-  fill: #f3c422; }
+  fill: #c02228; }
 
 /* animation */
 .wc-typing {
@@ -548,17 +548,17 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-repeat: no-repeat; }
 
 .wc-message-from-bot a.wc-link-download:hover {
-  color: #f3c422;
+  color: #c02228;
   opacity: 1; }
   .wc-message-from-bot a.wc-link-download:hover .wc-icon-download {
-    background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#f3c422" fill-rule="evenodd"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#c02228" fill-rule="evenodd"/></svg>');
     background-repeat: no-repeat; }
 
 .wc-message-from-bot a.wc-link-download:active {
-  color: #f3c422;
+  color: #c02228;
   opacity: 0.8; }
   .wc-message-from-bot a.wc-link-download:active .wc-icon-download {
-    background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#f3c422" fill-rule="evenodd"/></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#c02228" fill-rule="evenodd"/></svg>');
     background-repeat: no-repeat; }
 
 .wc-message-from-me a.wc-link-download:link, .wc-message-from-me a.wc-link-download:visited {
@@ -584,17 +584,17 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 @keyframes dots {
   0% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(243, 196, 34, 0.2), 30px 0 transparent, 40px 0 rgba(243, 196, 34, 0.4), 50px 0 transparent, 60px 0 rgba(243, 196, 34, 0.6), 70px 0 transparent, 80px 0 rgba(243, 196, 34, 0.8), 90px 0 transparent, 100px 0 #f3c422; }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.2), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.4), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.6), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.8), 90px 0 transparent, 100px 0 #c02228; }
   20% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(243, 196, 34, 0), 30px 0 transparent, 40px 0 rgba(243, 196, 34, 0.2), 50px 0 transparent, 60px 0 rgba(243, 196, 34, 0.4), 70px 0 transparent, 80px 0 rgba(243, 196, 34, 0.6), 90px 0 transparent, 100px 0 rgba(243, 196, 34, 0.8); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.2), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.4), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.6), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0.8); }
   40% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(243, 196, 34, 0.2), 30px 0 transparent, 40px 0 rgba(243, 196, 34, 0), 50px 0 transparent, 60px 0 rgba(243, 196, 34, 0.2), 70px 0 transparent, 80px 0 rgba(243, 196, 34, 0.4), 90px 0 transparent, 100px 0 rgba(243, 196, 34, 0.6); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.2), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.2), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.4), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0.6); }
   60% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(243, 196, 34, 0.4), 30px 0 transparent, 40px 0 rgba(243, 196, 34, 0.2), 50px 0 transparent, 60px 0 rgba(243, 196, 34, 0), 70px 0 transparent, 80px 0 rgba(243, 196, 34, 0.2), 90px 0 transparent, 100px 0 rgba(243, 196, 34, 0.4); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.4), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.2), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.2), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0.4); }
   80% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(243, 196, 34, 0.6), 30px 0 transparent, 40px 0 rgba(243, 196, 34, 0.4), 50px 0 transparent, 60px 0 rgba(243, 196, 34, 0.2), 70px 0 transparent, 80px 0 rgba(243, 196, 34, 0), 90px 0 transparent, 100px 0 rgba(243, 196, 34, 0.2); }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.6), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.4), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.2), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0.2); }
   100% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(243, 196, 34, 0.8), 30px 0 transparent, 40px 0 rgba(243, 196, 34, 0.6), 50px 0 transparent, 60px 0 rgba(243, 196, 34, 0.4), 70px 0 transparent, 80px 0 rgba(243, 196, 34, 0.2), 90px 0 transparent, 100px 0 rgba(243, 196, 34, 0); } }
+    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.8), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.6), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.4), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.2), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0); } }
 
 .wc-app button,
 .wc-app input,
@@ -606,7 +606,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 .wc-header {
   background-color: #faf9f4;
-  color: #f3c422;
+  color: #c02228;
   font-weight: 700;
   height: 72px;
   padding: 0 16px;
@@ -634,7 +634,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 .wc-message-from-bot {
   float: left;
-  border-left: 6px solid #f3c422;
+  border-left: 6px solid #c02228;
   padding-left: 15px;
   margin-left: 0; }
   .wc-message-from-bot .wc-message-content {
@@ -652,14 +652,14 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 .wc-message-from-me {
   float: right;
-  border-right: 6px solid #fbebb3;
+  border-right: 6px solid #eb9093;
   padding-right: 15px;
   margin-right: 0;
   text-align: right; }
   .wc-message-from-me .wc-message-content {
     background: none; }
   .wc-message-from-me .wc-message-content-inner {
-    background: #f6d152; }
+    background: #dc393f; }
   .wc-message-from-me .wc-message-meta {
     text-align: right; }
 
@@ -676,7 +676,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 .wc-card.hero {
   background: none; }
   .wc-card.hero button {
-    color: #f3c422;
+    color: #c02228;
     font-weight: 500;
     line-height: 1.29;
     text-align: left;
@@ -708,7 +708,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   .wc-console .wc-textbox {
     left: 20px; }
   .wc-console #wc-send-icon {
-    fill: #f3c422;
+    fill: #c02228;
     fill-opacity: 0.4; }
   .wc-console.has-text #wc-send-icon {
     fill-opacity: 1; }
@@ -725,7 +725,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     border-radius: 10px;
     height: 10px;
     width: 10px;
-    box-shadow: 10px 0 transparent, 20px 0 rgba(243, 196, 34, 0.2), 30px 0 transparent, 40px 0 rgba(243, 196, 34, 0.4), 50px 0 transparent, 60px 0 rgba(243, 196, 34, 0.6), 70px 0 transparent, 80px 0 rgba(243, 196, 34, 0.8), 90px 0 transparent, 100px 0 #f3c422;
+    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.2), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.4), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.6), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.8), 90px 0 transparent, 100px 0 #c02228;
     animation: dots infinite 1s;
     margin-left: -10px; }
 
@@ -742,15 +742,15 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-color: #f5f2e9;
     border-radius: 5px;
     border: 0px;
-    color: #f3c422;
+    color: #c02228;
     font-weight: 500; }
     .wc-suggested-actions .wc-hscroll > ul > li button:active {
       background-color: #7ba1ab; }
     .wc-suggested-actions .wc-hscroll > ul > li button:focus, .wc-suggested-actions .wc-hscroll > ul > li button:hover {
       background-color: #dad7ce; }
     .wc-suggested-actions .wc-hscroll > ul > li button :active {
-      background-color: #f3c422;
-      border-color: #f3c422;
+      background-color: #c02228;
+      border-color: #c02228;
       color: #ffffff; }
 
 .wc-carousel .wc-hscroll > ul {
