@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 require('expose-loader');
+const Dotenv = require('dotenv-webpack');
 
 var coreConfig = {
   devtool: 'source-map',
@@ -10,10 +11,8 @@ var coreConfig = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
+    new Dotenv({
+      path: './.env.production' // load this now instead of the ones in '.env',
     }),
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
@@ -26,7 +25,7 @@ var coreConfig = {
   module: {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-      { test: /\.tsx?$/, loader: 'ts-loader' },
+      { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       {
         enforce: 'pre',

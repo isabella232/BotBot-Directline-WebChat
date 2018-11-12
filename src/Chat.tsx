@@ -45,9 +45,9 @@ export class Chat extends React.Component<ChatProps, {}> {
 
   private botConnection: IBotConnection;
 
-  private activitySubscription: Subscription;
-  private connectionStatusSubscription: Subscription;
-  private selectedActivitySubscription: Subscription;
+  private activitySubscription: any;
+  private connectionStatusSubscription: any;
+  private selectedActivitySubscription: any;
   private shellRef: React.Component & ShellFunctions;
 
   private chatviewPanel: HTMLElement;
@@ -71,11 +71,12 @@ export class Chat extends React.Component<ChatProps, {}> {
         'en',
       bots: props.bots || []
     });
-
-    this.store.dispatch<HistoryAction>({
-      type: 'Set_Selected_Bot',
-      selectedBotName: props.bots && props.bots[0]
-    });
+    if (props.bots && props.bots.length > 0) {
+      this.store.dispatch<HistoryAction>({
+        type: 'Set_Selected_Bot',
+        selectedBotName: props.bots && props.bots[0]
+      });
+    }
 
     if (props.formatOptions)
       this.store.dispatch<ChatActions>({
@@ -219,16 +220,16 @@ export class Chat extends React.Component<ChatProps, {}> {
 
   render() {
     const state = this.store.getState();
-    console.log('BotChat.Chat state', state);
+    console.log('BotChat.Chat state', process.env.SHOW_AVATAR);
 
     // only render real stuff after we know our dimensions
     let header: JSX.Element;
     if (state.format.options.showHeader)
       header = (
         <div className="wc-header">
-          {/*<img src="./avatar.png" />*/}
-          <h1>{state.format.strings.title}</h1>
-          <BotSelection bots={state.format.bots} />
+          {process.env.SHOW_AVATAR === 'true' ? <img src="./avatar.png" /> : <h1>{process.env.BOT_NAME}</h1>}
+          {state.format.bots &&
+            state.format.bots.length > 0 && <BotSelection bots={state.format.bots} />}
         </div>
       );
 

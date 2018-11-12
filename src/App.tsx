@@ -11,18 +11,28 @@ export type AppProps = ChatProps;
 export const App = (props: AppProps, container: HTMLElement) => {
   // konsole.log('BotChat.App props', props);
   // ReactDOM.render(React.createElement(AppContainer, props), container);
+  if (process.env.APP_SETTINGS_API) {
+    axios.post(process.env.APP_SETTINGS_API).then(resp => {
+      props.directLine = {
+        secret: resp.data.secret
+      };
 
-  const API_URL =
-    process.env.NODE_ENV === 'development' ? 'https://kc-emea-staging.azurewebsites.net' : '';
+      props.bots = resp.data.bots;
 
-  axios.post(API_URL + '/api/setting/adsfdgkhdsfdkaj32453535').then(resp => {
+      // requestCustomiseUI(resp.data.feconfig);
+
+      ReactDOM.render(
+        React.createElement(AppContainer, {
+          ...getAppProps(),
+          ...props
+        }),
+        container
+      );
+    });
+  } else {
     props.directLine = {
-      secret: resp.data.secret
+      secret: process.env.SECRET
     };
-
-    props.bots = resp.data.bots;
-
-    // requestCustomiseUI(resp.data.feconfig);
 
     ReactDOM.render(
       React.createElement(AppContainer, {
@@ -31,7 +41,7 @@ export const App = (props: AppProps, container: HTMLElement) => {
       }),
       container
     );
-  });
+  }
 };
 
 function uuidv4(): string {

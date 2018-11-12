@@ -36,7 +36,7 @@ export interface BotSelectionProps {
 
 interface BotSelectionState {}
 
-const FONTS = {
+const FONTS: any = {
   nl: { url: '', fontFamily: '' },
   de: { url: '', fontFamily: '' },
   en: { url: '', fontFamily: '' },
@@ -49,7 +49,7 @@ const FONTS = {
 class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionState> {
   private _handleBotChange = this.handleBotChange.bind(this);
 
-  private handleBotChange(lang) {
+  private handleBotChange(lang: string) {
     // change fonts
     const code = getLanguageCode(lang);
     const config = FONTS[code];
@@ -101,7 +101,7 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
 }
 
 export default connect(
-  (state: BotSelectionState) => ({
+  (state: any) => ({
     selectedBotName: state.history.selectedBotName,
     bots: state.format.bots
   }),

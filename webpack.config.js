@@ -1,4 +1,6 @@
-var webpack = require('webpack');
+const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
+
 require('expose-loader');
 
 var coreConfig = {
@@ -28,10 +30,8 @@ var coreConfig = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('development')
-      }
+    new Dotenv({
+      path: './.env.development' // load this now instead of the ones in '.env'
     })
   ]
 };
