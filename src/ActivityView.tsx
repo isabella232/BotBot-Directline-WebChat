@@ -5,6 +5,7 @@ import { Carousel } from './Carousel';
 import { FormattedText } from './FormattedText';
 import { FormatState, SizeState } from './Store';
 import { IDoCardAction } from './Chat';
+import Form from './Form';
 
 const Attachments = (props: {
   attachments: Attachment[];
@@ -14,11 +15,18 @@ const Attachments = (props: {
   onCardAction: IDoCardAction;
   onImageLoad: () => void;
 }) => {
-  const { attachments, attachmentLayout, ...otherProps } = props;
+  const { channelData, attachments, attachmentLayout, ...otherProps } = props;
+  if (channelData && channelData.form) {
+    return <Form {...channelData.form} />;
+  }
+
   if (!attachments || attachments.length === 0) return null;
-  return attachmentLayout === 'carousel' ? (
-    <Carousel attachments={attachments} {...otherProps} />
-  ) : (
+
+  if (attachmentLayout === 'carousel') {
+    return <Carousel attachments={attachments} {...otherProps} />;
+  }
+
+  return (
     <div className="wc-list">
       {attachments.map((attachment, index) => (
         <AttachmentView
@@ -77,6 +85,7 @@ export class ActivityView extends React.Component<ActivityViewProps, {}> {
               onCardAction={props.onCardAction}
               onImageLoad={props.onImageLoad}
               size={props.size}
+              channelData={activity.channelData}
             />
           </div>
         );
