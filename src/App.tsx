@@ -158,6 +158,7 @@ class AppContainer extends React.PureComponent<AppProps, AppState> {
       });
     } else {
       this.setState({
+        loading: false,
         directLine: {
           secret: process.env.SECRET
         }
