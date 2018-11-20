@@ -56,7 +56,7 @@ class Form extends React.Component<FormProps> {
     this.setState({
       data: {
         ...this.state.data,
-        [e.target.name]: e.target.value
+        [e.target.name]: value
       }
     });
   }
