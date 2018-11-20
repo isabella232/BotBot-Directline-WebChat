@@ -4,11 +4,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   font-size: 15px; }
 
 .wc-app button {
-<<<<<<< HEAD
   background-color: #f3c322;
-=======
-  background-color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
   border: 1px solid #cccccc;
   border-radius: 1px;
   color: #ffffff;
@@ -27,11 +23,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   visibility: hidden; }
 
 .wc-header {
-<<<<<<< HEAD
   background-color: #f3c322;
-=======
-  background-color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
   box-shadow: 0 1px rgba(0, 0, 0, 0.2);
   box-sizing: content-box;
   color: #ffffff;
@@ -84,11 +76,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
       max-width: 40%; }
       .wc-suggested-actions .wc-hscroll > ul > li button {
         background-color: #fff;
-<<<<<<< HEAD
         color: #f3c322;
-=======
-        color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
         min-height: 32px;
         overflow: hidden;
         padding: 0 16px;
@@ -98,19 +86,11 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
       .wc-suggested-actions .wc-hscroll > ul > li button:focus,
       .wc-suggested-actions .wc-hscroll > ul > li button:hover {
         background-color: #fff;
-<<<<<<< HEAD
         border-color: #f3c322;
         color: #f3c322; }
       .wc-suggested-actions .wc-hscroll > ul > li button:active {
         background-color: #f3c322;
         border-color: #f3c322;
-=======
-        border-color: #c02228;
-        color: #c02228; }
-      .wc-suggested-actions .wc-hscroll > ul > li button:active {
-        background-color: #c02228;
-        border-color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
         color: #ffffff; }
   .wc-suggested-actions button.scroll {
     background-color: #d2dde5;
@@ -220,29 +200,17 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     margin: 8px 8px 0 8px; }
   .wc-card button {
     background-color: transparent;
-<<<<<<< HEAD
     color: #f3c322;
-=======
-    color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
     min-height: 32px;
     width: 100%;
     padding: 0 16px; }
   .wc-card button:hover {
     background-color: transparent;
-<<<<<<< HEAD
     border-color: #f3c322;
     color: #f3c322; }
   .wc-card button:active {
     background-color: #f3c322;
     border-color: #f3c322;
-=======
-    border-color: #c02228;
-    color: #c02228; }
-  .wc-card button:active {
-    background-color: #c02228;
-    border-color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
     color: #ffffff; }
   .wc-card.receipt table {
     border-collapse: collapse;
@@ -402,19 +370,11 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   text-align: right; }
 
 .wc-message-from-me .wc-message-content {
-<<<<<<< HEAD
   background-color: #f6d052;
   color: #ffffff; }
 
 .wc-message-from-me svg.wc-message-callout path {
   fill: #f6d052; }
-=======
-  background-color: #dc393f;
-  color: #ffffff; }
-
-.wc-message-from-me svg.wc-message-callout path {
-  fill: #dc393f; }
->>>>>>> create-new-chatbot-from-this-branch
 
 .wc-message-from-me svg.wc-message-callout path.point-left {
   display: none; }
@@ -472,11 +432,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     resize: none;
     width: 100%; }
   .wc-console.has-text .wc-send svg {
-<<<<<<< HEAD
     fill: #f3c322; }
-=======
-    fill: #c02228; }
->>>>>>> create-new-chatbot-from-this-branch
   .wc-console .wc-upload {
     cursor: pointer;
     position: relative; }
@@ -520,11 +476,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     visibility: hidden; }
 
 .wc-console.has-text .wc-send svg {
-<<<<<<< HEAD
   fill: #f3c322; }
-=======
-  fill: #c02228; }
->>>>>>> create-new-chatbot-from-this-branch
 
 /* animation */
 .wc-typing {
@@ -596,7 +548,6 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-repeat: no-repeat; }
 
 .wc-message-from-bot a.wc-link-download:hover {
-<<<<<<< HEAD
   color: #f3c322;
   opacity: 1; }
   .wc-message-from-bot a.wc-link-download:hover .wc-icon-download {
@@ -608,19 +559,6 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   opacity: 0.8; }
   .wc-message-from-bot a.wc-link-download:active .wc-icon-download {
     background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#f3c322" fill-rule="evenodd"/></svg>');
-=======
-  color: #c02228;
-  opacity: 1; }
-  .wc-message-from-bot a.wc-link-download:hover .wc-icon-download {
-    background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#c02228" fill-rule="evenodd"/></svg>');
-    background-repeat: no-repeat; }
-
-.wc-message-from-bot a.wc-link-download:active {
-  color: #c02228;
-  opacity: 0.8; }
-  .wc-message-from-bot a.wc-link-download:active .wc-icon-download {
-    background-image: url('data:image/svg+xml;utf8,<svg width="12" height="20" viewBox="0 0 12 20" xmlns="http://www.w3.org/2000/svg"><path d="M.435 20v-1.25h11.13V20H.435zM12 10.44l-6 6.113-6-6.114.87-.88 4.512 4.59V0h1.236v14.15l4.512-4.59.87.88z" fill="#c02228" fill-rule="evenodd"/></svg>');
->>>>>>> create-new-chatbot-from-this-branch
     background-repeat: no-repeat; }
 
 .wc-message-from-me a.wc-link-download:link, .wc-message-from-me a.wc-link-download:visited {
@@ -646,7 +584,6 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 @keyframes dots {
   0% {
-<<<<<<< HEAD
     box-shadow: 10px 0 transparent, 20px 0 rgba(243, 195, 34, 0.2), 30px 0 transparent, 40px 0 rgba(243, 195, 34, 0.4), 50px 0 transparent, 60px 0 rgba(243, 195, 34, 0.6), 70px 0 transparent, 80px 0 rgba(243, 195, 34, 0.8), 90px 0 transparent, 100px 0 #f3c322; }
   20% {
     box-shadow: 10px 0 transparent, 20px 0 rgba(243, 195, 34, 0), 30px 0 transparent, 40px 0 rgba(243, 195, 34, 0.2), 50px 0 transparent, 60px 0 rgba(243, 195, 34, 0.4), 70px 0 transparent, 80px 0 rgba(243, 195, 34, 0.6), 90px 0 transparent, 100px 0 rgba(243, 195, 34, 0.8); }
@@ -658,18 +595,6 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     box-shadow: 10px 0 transparent, 20px 0 rgba(243, 195, 34, 0.6), 30px 0 transparent, 40px 0 rgba(243, 195, 34, 0.4), 50px 0 transparent, 60px 0 rgba(243, 195, 34, 0.2), 70px 0 transparent, 80px 0 rgba(243, 195, 34, 0), 90px 0 transparent, 100px 0 rgba(243, 195, 34, 0.2); }
   100% {
     box-shadow: 10px 0 transparent, 20px 0 rgba(243, 195, 34, 0.8), 30px 0 transparent, 40px 0 rgba(243, 195, 34, 0.6), 50px 0 transparent, 60px 0 rgba(243, 195, 34, 0.4), 70px 0 transparent, 80px 0 rgba(243, 195, 34, 0.2), 90px 0 transparent, 100px 0 rgba(243, 195, 34, 0); } }
-=======
-    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.2), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.4), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.6), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.8), 90px 0 transparent, 100px 0 #c02228; }
-  20% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.2), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.4), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.6), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0.8); }
-  40% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.2), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.2), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.4), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0.6); }
-  60% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.4), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.2), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.2), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0.4); }
-  80% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.6), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.4), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.2), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0.2); }
-  100% {
-    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.8), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.6), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.4), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.2), 90px 0 transparent, 100px 0 rgba(192, 34, 40, 0); } }
 
 .custom-form * {
   box-sizing: border-box; }
@@ -745,7 +670,6 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 .custom-form .checkbox-group label {
   width: 89%;
   color: #231f20; }
->>>>>>> create-new-chatbot-from-this-branch
 
 .wc-app button,
 .wc-app input,
@@ -757,11 +681,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 .wc-header {
   background-color: #faf9f4;
-<<<<<<< HEAD
   color: #f3c322;
-=======
-  color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
   font-weight: 700;
   height: 72px;
   padding: 0 16px;
@@ -789,11 +709,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 .wc-message-from-bot {
   float: left;
-<<<<<<< HEAD
   border-left: 6px solid #f3c322;
-=======
-  border-left: 6px solid #c02228;
->>>>>>> create-new-chatbot-from-this-branch
   padding-left: 15px;
   margin-left: 0; }
   .wc-message-from-bot .wc-message-content {
@@ -811,22 +727,14 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 
 .wc-message-from-me {
   float: right;
-<<<<<<< HEAD
   border-right: 6px solid #fbeab3;
-=======
-  border-right: 6px solid #eb9093;
->>>>>>> create-new-chatbot-from-this-branch
   padding-right: 15px;
   margin-right: 0;
   text-align: right; }
   .wc-message-from-me .wc-message-content {
     background: none; }
   .wc-message-from-me .wc-message-content-inner {
-<<<<<<< HEAD
     background: #f6d052; }
-=======
-    background: #dc393f; }
->>>>>>> create-new-chatbot-from-this-branch
   .wc-message-from-me .wc-message-meta {
     text-align: right; }
 
@@ -843,11 +751,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 .wc-card.hero {
   background: none; }
   .wc-card.hero button {
-<<<<<<< HEAD
     color: #f3c322;
-=======
-    color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
     font-weight: 500;
     line-height: 1.29;
     text-align: left;
@@ -879,11 +783,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   .wc-console .wc-textbox {
     left: 20px; }
   .wc-console #wc-send-icon {
-<<<<<<< HEAD
     fill: #f3c322;
-=======
-    fill: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
     fill-opacity: 0.4; }
   .wc-console.has-text #wc-send-icon {
     fill-opacity: 1; }
@@ -900,11 +800,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     border-radius: 10px;
     height: 10px;
     width: 10px;
-<<<<<<< HEAD
     box-shadow: 10px 0 transparent, 20px 0 rgba(243, 195, 34, 0.2), 30px 0 transparent, 40px 0 rgba(243, 195, 34, 0.4), 50px 0 transparent, 60px 0 rgba(243, 195, 34, 0.6), 70px 0 transparent, 80px 0 rgba(243, 195, 34, 0.8), 90px 0 transparent, 100px 0 #f3c322;
-=======
-    box-shadow: 10px 0 transparent, 20px 0 rgba(192, 34, 40, 0.2), 30px 0 transparent, 40px 0 rgba(192, 34, 40, 0.4), 50px 0 transparent, 60px 0 rgba(192, 34, 40, 0.6), 70px 0 transparent, 80px 0 rgba(192, 34, 40, 0.8), 90px 0 transparent, 100px 0 #c02228;
->>>>>>> create-new-chatbot-from-this-branch
     animation: dots infinite 1s;
     margin-left: -10px; }
 
@@ -921,24 +817,15 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
     background-color: #f5f2e9;
     border-radius: 5px;
     border: 0px;
-<<<<<<< HEAD
     color: #f3c322;
-=======
-    color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
     font-weight: 500; }
     .wc-suggested-actions .wc-hscroll > ul > li button:active {
       background-color: #7ba1ab; }
     .wc-suggested-actions .wc-hscroll > ul > li button:focus, .wc-suggested-actions .wc-hscroll > ul > li button:hover {
       background-color: #dad7ce; }
     .wc-suggested-actions .wc-hscroll > ul > li button :active {
-<<<<<<< HEAD
       background-color: #f3c322;
       border-color: #f3c322;
-=======
-      background-color: #c02228;
-      border-color: #c02228;
->>>>>>> create-new-chatbot-from-this-branch
       color: #ffffff; }
 
 .wc-carousel .wc-hscroll > ul {
