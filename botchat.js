@@ -4437,7 +4437,8 @@ var Chat = (function (_super) {
                 window.navigator['userLanguage'] ||
                 window.navigator.language ||
                 'en',
-            bots: props.bots || []
+            bots: props.bots || [],
+            botId: props.botId
         });
         _this.store.dispatch({
             type: 'Set_Selected_Bot',
@@ -6761,7 +6762,7 @@ exports.format = function (state, action) {
         case 'Set_Format_Options':
             return tslib_1.__assign({}, state, { options: tslib_1.__assign({}, state.options, action.options) });
         case 'Set_Locale':
-            return tslib_1.__assign({}, state, { locale: action.locale, bots: action.bots, strings: Strings_1.strings(action.locale) });
+            return tslib_1.__assign({}, state, { locale: action.locale, bots: action.bots, strings: Strings_1.strings(action.locale), botId: action.botId });
         case 'Set_Measurements':
             return tslib_1.__assign({}, state, { carouselMargin: action.carouselMargin });
         default:
@@ -7133,7 +7134,7 @@ var sendMessageMiddleware = function (store) { return function (dispatch) { retu
             if (action.type === 'Send_Message_Retry') {
                 activity = state.history.activities.find(function (a) { return a.channelData && a.channelData.clientActivityId === action.clientActivityId; });
             }
-            WebSocketActions_1.postMessageToServer(state.connection.botConnection, state.connection.user.id, activity.text, function () {
+            WebSocketActions_1.postMessageToServer(state.format.botId, state.connection.botConnection, state.connection.user.id, activity.text, function () {
                 // this.props.receiveSentMessage(uuidv4(), clientActivityId);
                 dispatch(exports.receiveSentMessage(App_1.uuidv4(), clientActivityId_1));
             }, function () {
@@ -7145,6 +7146,7 @@ var sendMessageMiddleware = function (store) { return function (dispatch) { retu
     return dispatch(action);
 }; }; };
 var redux_2 = __webpack_require__(105);
+var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux_2.compose;
 exports.createStore = function () {
     return redux_2.createStore(redux_2.combineReducers({
         shell: exports.shell,
@@ -7152,7 +7154,7 @@ exports.createStore = function () {
         size: exports.size,
         connection: exports.connection,
         history: exports.history
-    }), redux_1.applyMiddleware(sendMessageMiddleware
+    }), composeEnhancers(redux_1.applyMiddleware(sendMessageMiddleware
     // createEpicMiddleware(
     //   combineEpics()
     //   // updateSelectedActivityEpic,
@@ -7168,7 +7170,7 @@ exports.createStore = function () {
     //   // stopSpeakingEpic,
     //   // listeningSilenceTimeoutEpic
     // )
-    ));
+    )));
 };
 
 
@@ -12944,9 +12946,10 @@ exports.App = function (props, container) {
         props.bots = resp.data.bots;
         // requestCustomiseUI(resp.data.feconfig);
         var botConnection = new signalr_1.HubConnectionBuilder()
-            .withUrl('https://webhook.botbot.ai/botbot-api/chat')
+            .withUrl('https://webhook.botbot.ai/user/chat/')
             .build();
         // botConnection.serverTimeoutInMilliseconds = 2000;
+        props.botId = 'acb0e4d4-4525-421b-9cee-a99d00b7dd45';
         props.botConnection = botConnection;
         ReactDOM.render(React.createElement(AppContainer, tslib_1.__assign({}, getAppProps(), props)), container);
     });
@@ -25102,14 +25105,14 @@ exports.strings = function (locale) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postMessageToServer = function (botConnection, userid, message, successCallback, failCallback) {
+exports.postMessageToServer = function (botId, botConnection, userid, message, successCallback, failCallback) {
     var timeout = setTimeout(function () {
         if (typeof failCallback === 'function') {
             failCallback.apply(null, arguments);
         }
     }, 5000);
     botConnection
-        .invoke('ReceiveMessage', userid, 'testpage', message)
+        .invoke('ReceiveMessage', userid, botId, message)
         .then(function () {
         clearTimeout(timeout);
         if (typeof successCallback === 'function') {

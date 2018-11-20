@@ -188,6 +188,7 @@ export type FormatAction =
       type: 'Set_Locale';
       locale: string;
       bots: Array<string>;
+      botId: string
     }
   | {
       type: 'Set_Measurements';
@@ -220,7 +221,8 @@ export const format: Reducer<FormatState> = (
         ...state,
         locale: action.locale,
         bots: action.bots,
-        strings: strings(action.locale)
+        strings: strings(action.locale),
+        botId: action.botId
       };
     case 'Set_Measurements':
       return {
@@ -814,6 +816,7 @@ const sendMessageMiddleware = store => dispatch => action => {
         );
       }
       postMessageToServer(
+        state.format.botId,
         state.connection.botConnection,
         state.connection.user.id,
         activity.text,
@@ -832,8 +835,9 @@ const sendMessageMiddleware = store => dispatch => action => {
   return dispatch(action);
 };
 
-import { Store, createStore as reduxCreateStore, combineReducers } from 'redux';
+import { Store, createStore as reduxCreateStore, combineReducers, compose } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const createStore = () =>
   reduxCreateStore(
@@ -844,23 +848,25 @@ export const createStore = () =>
       connection,
       history
     }),
-    applyMiddleware(
-      sendMessageMiddleware
-      // createEpicMiddleware(
-      //   combineEpics()
-      //   // updateSelectedActivityEpic,
-      //   // sendMessageEpic,
-      //   // trySendMessageEpic,
-      //   // retrySendMessageEpic,
-      //   // showTypingEpic,
-      //   // sendTypingEpic,
-      //   // speakSSMLEpic,
-      //   // speakOnMessageReceivedEpic,
-      //   // startListeningEpic,
-      //   // stopListeningEpic,
-      //   // stopSpeakingEpic,
-      //   // listeningSilenceTimeoutEpic
-      // )
+    composeEnhancers(
+      applyMiddleware(
+        sendMessageMiddleware
+        // createEpicMiddleware(
+        //   combineEpics()
+        //   // updateSelectedActivityEpic,
+        //   // sendMessageEpic,
+        //   // trySendMessageEpic,
+        //   // retrySendMessageEpic,
+        //   // showTypingEpic,
+        //   // sendTypingEpic,
+        //   // speakSSMLEpic,
+        //   // speakOnMessageReceivedEpic,
+        //   // startListeningEpic,
+        //   // stopListeningEpic,
+        //   // stopSpeakingEpic,
+        //   // listeningSilenceTimeoutEpic
+        // )
+      )
     )
   );
 

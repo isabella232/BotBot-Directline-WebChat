@@ -26,10 +26,10 @@ export const App = (props: AppProps, container: HTMLElement) => {
     // requestCustomiseUI(resp.data.feconfig);
 
     const botConnection = new HubConnectionBuilder()
-      .withUrl('https://webhook.botbot.ai/botbot-api/chat')
+      .withUrl('https://webhook.botbot.ai/user/chat/')
       .build();
     // botConnection.serverTimeoutInMilliseconds = 2000;
-
+    props.botId = 'acb0e4d4-4525-421b-9cee-a99d00b7dd45';
     props.botConnection = botConnection;
 
     ReactDOM.render(

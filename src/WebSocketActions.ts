@@ -1,4 +1,5 @@
 export const postMessageToServer = (
+  botId,
   botConnection,
   userid,
   message,
@@ -12,7 +13,7 @@ export const postMessageToServer = (
   }, 5000);
 
   botConnection
-    .invoke('ReceiveMessage', userid, 'testpage', message)
+    .invoke('ReceiveMessage', userid, botId, message)
     .then(() => {
       clearTimeout(timeout);
 

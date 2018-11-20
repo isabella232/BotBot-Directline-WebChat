@@ -70,7 +70,8 @@ export class Chat extends React.Component<ChatProps, {}> {
         (window.navigator as any)['userLanguage'] ||
         window.navigator.language ||
         'en',
-      bots: props.bots || []
+      bots: props.bots || [],
+      botId: props.botId
     });
 
     this.store.dispatch<HistoryAction>({
