@@ -138,8 +138,13 @@ class AppContainer extends React.PureComponent<AppProps, AppState> {
   componentDidMount() {
     if (process.env.APP_SETTINGS_API) {
       this.setState({ loading: true });
+      let url = process.env.APP_SETTINGS_API;
 
-      axios.post(process.env.APP_SETTINGS_API).then(resp => {
+      if (window.location.origin.indexOf(PRODUCTION_SHORT_URL) > -1) {
+        url = '/';
+      }
+
+      axios.post(url).then(resp => {
         // props.directLine = {
         //   secret: resp.data.secret
         // };

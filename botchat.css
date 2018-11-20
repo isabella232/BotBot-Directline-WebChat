@@ -370,11 +370,11 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   text-align: right; }
 
 .wc-message-from-me .wc-message-content {
-  background-color: #f6d052;
+  background-color: #d6a80c;
   color: #ffffff; }
 
 .wc-message-from-me svg.wc-message-callout path {
-  fill: #f6d052; }
+  fill: #d6a80c; }
 
 .wc-message-from-me svg.wc-message-callout path.point-left {
   display: none; }
@@ -644,7 +644,8 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   border-radius: 10px;
   font-size: 17px;
   font-weight: 800;
-  margin-top: 10px; }
+  margin-top: 10px;
+  border: 0; }
 
 .custom-form [type='submit'].disabled {
   opacity: 0.4;
@@ -734,7 +735,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   .wc-message-from-me .wc-message-content {
     background: none; }
   .wc-message-from-me .wc-message-content-inner {
-    background: #f6d052; }
+    background: #d6a80c; }
   .wc-message-from-me .wc-message-meta {
     text-align: right; }
 
