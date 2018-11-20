@@ -23885,16 +23885,18 @@ var React = __webpack_require__(11);
 var Attachment_1 = __webpack_require__(67);
 var Carousel_1 = __webpack_require__(227);
 var FormattedText_1 = __webpack_require__(229);
+var Form_1 = __webpack_require__(619);
 var Attachments = function (props) {
-    var attachments = props.attachments, attachmentLayout = props.attachmentLayout, otherProps = tslib_1.__rest(props, ["attachments", "attachmentLayout"]);
+    var channelData = props.channelData, attachments = props.attachments, attachmentLayout = props.attachmentLayout, otherProps = tslib_1.__rest(props, ["channelData", "attachments", "attachmentLayout"]);
+    if (channelData && channelData.form) {
+        return React.createElement(Form_1.default, tslib_1.__assign({}, channelData.form));
+    }
     if (!attachments || attachments.length === 0)
         return null;
-    return attachmentLayout === 'carousel' ?
-        React.createElement(Carousel_1.Carousel, tslib_1.__assign({ attachments: attachments }, otherProps))
-        :
-            React.createElement("div", { className: "wc-list" }, attachments.map(function (attachment, index) {
-                return React.createElement(Attachment_1.AttachmentView, { key: index, attachment: attachment, format: props.format, onCardAction: props.onCardAction, onImageLoad: props.onImageLoad });
-            }));
+    if (attachmentLayout === 'carousel') {
+        return React.createElement(Carousel_1.Carousel, tslib_1.__assign({ attachments: attachments }, otherProps));
+    }
+    return (React.createElement("div", { className: "wc-list" }, attachments.map(function (attachment, index) { return (React.createElement(Attachment_1.AttachmentView, { key: index, attachment: attachment, format: props.format, onCardAction: props.onCardAction, onImageLoad: props.onImageLoad })); })));
 };
 var ActivityView = (function (_super) {
     tslib_1.__extends(ActivityView, _super);
@@ -23903,11 +23905,13 @@ var ActivityView = (function (_super) {
     }
     ActivityView.prototype.shouldComponentUpdate = function (nextProps) {
         // if the activity changed, re-render
-        return this.props.activity !== nextProps.activity
-            || this.props.format !== nextProps.format
-            || (this.props.activity.type === 'message'
-                && this.props.activity.attachmentLayout === 'carousel'
-                && this.props.size !== nextProps.size);
+        return (this.props.activity !== nextProps.activity ||
+            // if the format changed, re-render
+            this.props.format !== nextProps.format ||
+            // if it's a carousel and the size changed, re-render
+            (this.props.activity.type === 'message' &&
+                this.props.activity.attachmentLayout === 'carousel' &&
+                this.props.size !== nextProps.size));
     };
     ActivityView.prototype.render = function () {
         var _a = this.props, activity = _a.activity, props = tslib_1.__rest(_a, ["activity"]);
@@ -23915,7 +23919,7 @@ var ActivityView = (function (_super) {
             case 'message':
                 return (React.createElement("div", { className: "wc-message-content-inner" },
                     React.createElement(FormattedText_1.FormattedText, { text: activity.text, format: activity.textFormat, onImageLoad: props.onImageLoad }),
-                    React.createElement(Attachments, { attachments: activity.attachments, attachmentLayout: activity.attachmentLayout, format: props.format, onCardAction: props.onCardAction, onImageLoad: props.onImageLoad, size: props.size })));
+                    React.createElement(Attachments, { attachments: activity.attachments, attachmentLayout: activity.attachmentLayout, format: props.format, onCardAction: props.onCardAction, onImageLoad: props.onImageLoad, size: props.size, channelData: activity.channelData })));
             case 'typing':
                 return React.createElement("div", { className: "wc-typing" });
         }
@@ -61060,6 +61064,81 @@ exports.toSubscriber = toSubscriber;
 /***/ (function(module, exports) {
 
 module.exports=/[\xAD\u0600-\u0605\u061C\u06DD\u070F\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804\uDCBD|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F]/
+
+/***/ }),
+/* 617 */,
+/* 618 */,
+/* 619 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var tslib_1 = __webpack_require__(13);
+var React = __webpack_require__(11);
+var axios_1 = __webpack_require__(236);
+var Form = (function (_super) {
+    tslib_1.__extends(Form, _super);
+    function Form(props) {
+        var _this = _super.call(this, props) || this;
+        var data = {};
+        if (props.inputs && props.inputs.length > 0) {
+            props.inputs.forEach(function (item) {
+                if (item.type === 'checkbox') {
+                    data[item.id] = item.checked;
+                }
+                else {
+                    data[item.id] = '';
+                }
+            });
+        }
+        _this.state = { data: data, submitted: false };
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.handleChange = _this.handleChange.bind(_this);
+        return _this;
+    }
+    Form.prototype.isValid = function () {
+        var _this = this;
+        var isValid = false;
+        isValid = this.props.inputs.findIndex(function (item) { return !_this.state.data[item]; });
+        return isValid === -1;
+    };
+    Form.prototype.handleSubmit = function (e) {
+        var _this = this;
+        e.preventDefault();
+        var formData = new FormData();
+        var keys = Object.keys(this.state.data);
+        keys.forEach(function (k) {
+            formData.append(k, _this.state.data[k]);
+        });
+        axios_1.default.post(this.props.action, formData).then(function (resp) {
+            _this.setState({
+                submitted: true
+            });
+        });
+    };
+    Form.prototype.handleChange = function (e) {
+        this.setState({
+            data: tslib_1.__assign({}, this.state.data, (_a = {}, _a[e.target.name] = e.target.value, _a))
+        });
+        var _a;
+    };
+    Form.prototype.render = function () {
+        var _this = this;
+        var inputs = this.props.inputs;
+        return (React.createElement("div", { className: "custom-form" },
+            React.createElement("form", { onSubmit: this.handleSubmit },
+                inputs &&
+                    inputs.map(function (item) { return (React.createElement("div", { key: item.id, className: item.type === 'checkbox' ? 'checkbox-group' : 'form-group' },
+                        item.type !== 'checkbox' && React.createElement("label", null, item.label),
+                        React.createElement("input", { name: item.id, type: item.type, placeholder: item.placeholder, onChange: _this.handleChange, disabled: _this.state.submitted }),
+                        item.type === 'checkbox' && React.createElement("label", null, item.label))); }),
+                React.createElement("button", { type: "submit", disabled: this.isValid() || this.state.submitted }, "Submit"))));
+    };
+    return Form;
+}(React.Component));
+exports.default = Form;
+
 
 /***/ })
 /******/ ]);
