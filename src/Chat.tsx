@@ -74,10 +74,12 @@ export class Chat extends React.Component<ChatProps, {}> {
       botId: props.botId
     });
 
-    this.store.dispatch<HistoryAction>({
-      type: 'Set_Selected_Bot',
-      selectedBotName: props.bots && props.bots[0]
-    });
+    if (props.bots && props.bots[0]) {
+      this.store.dispatch<HistoryAction>({
+        type: 'Set_Selected_Bot',
+        selectedBotName: props.bots[0]
+      });
+    }
 
     if (props.formatOptions)
       this.store.dispatch<ChatActions>({
@@ -262,7 +264,7 @@ export class Chat extends React.Component<ChatProps, {}> {
         <div className="wc-header">
           {/*<img src="./avatar.png" />*/}
           <h1>{state.format.strings.title}</h1>
-          <BotSelection bots={state.format.bots} />
+          {this.props.bots && this.props.bots.length > 0 && <BotSelection bots={state.format.bots} />}
         </div>
       );
 

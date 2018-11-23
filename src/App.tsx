@@ -10,36 +10,13 @@ import { HubConnectionBuilder } from '@aspnet/signalr';
 export type AppProps = ChatProps;
 
 export const App = (props: AppProps, container: HTMLElement) => {
-  // konsole.log('BotChat.App props', props);
-  // ReactDOM.render(React.createElement(AppContainer, props), container);
-
-  const API_URL =
-    process.env.NODE_ENV === 'development' ? 'https://kc-emea-staging.azurewebsites.net' : '';
-
-  axios.post(API_URL + '/api/setting/adsfdgkhdsfdkaj32453535').then(resp => {
-    // props.directLine = {
-    //   secret: resp.data.secret
-    // };
-
-    props.bots = resp.data.bots;
-
-    // requestCustomiseUI(resp.data.feconfig);
-
-    const botConnection = new HubConnectionBuilder()
-      .withUrl('https://webhook.botbot.ai/user/chat/')
-      .build();
-    // botConnection.serverTimeoutInMilliseconds = 2000;
-    props.botId = 'acb0e4d4-4525-421b-9cee-a99d00b7dd45';
-    props.botConnection = botConnection;
-
-    ReactDOM.render(
-      React.createElement(AppContainer, {
-        ...getAppProps(),
-        ...props
-      }),
-      container
-    );
-  });
+  ReactDOM.render(
+    React.createElement(AppContainer, {
+      ...getAppProps(),
+      ...props
+    }),
+    container
+  );
 };
 
 export function uuidv4(): string {
@@ -62,23 +39,7 @@ function getAppProps(): Object {
     name: params['username'] || 'user'
   };
 
-  var bot = {
-    id: params['botid'] || 'botid',
-    name: params['botname'] || 'botname'
-  };
-
-  return {
-    // directLine: {
-    //   token: params['t'],
-    //   domain: params['domain'],
-    //   webSocket: params['webSocket'] && params['webSocket'] === 'true'
-    // },
-    user: user,
-    bot: bot,
-    locale: params['locale'],
-    resize: 'window'
-    // sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
-  };
+  return { user };
 }
 
 export interface IConfig {
@@ -134,12 +95,58 @@ function requestCustomiseUI(url: string) {
   });
 }
 
-const AppContainer = (props: AppProps) => {
-  // requestCustomiseUI();
+interface AppState {
+  bots: Array<string>;
+  directLine: any;
+  loading: boolean;
+  botId: string;
+  botConnection: any;
+}
 
-  return (
-    <div className="wc-app">
-      <Chat {...props} />
-    </div>
-  );
-};
+class AppContainer extends React.PureComponent<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+
+    this.state = {
+      loading: true,
+      directLine: null,
+      bots: null
+    };
+  }
+
+  componentDidMount() {
+    const API_URL =
+      process.env.NODE_ENV === 'development' ? 'https://kc-emea-staging.azurewebsites.net' : '';
+
+    axios.get('https://webhook.botbot.ai/user/api/botname/Nhat pro bot').then(botResp => {
+      const botId = botResp.data && botResp.data.id;
+
+      const botConnection = new HubConnectionBuilder()
+        .withUrl('https://webhook.botbot.ai/user/chat/')
+        .build();
+
+      this.setState({
+        loading: false,
+        botConnection,
+        botId
+      });
+    });
+  }
+
+  render() {
+    const { loading, ...rest } = this.state;
+    if (loading) {
+      return (
+        <div className="loading-wrapper">
+          <img src="./loading.svg" />
+        </div>
+      );
+    }
+
+    return (
+      <div className="wc-app">
+        <Chat {...this.props} {...rest} />
+      </div>
+    );
+  }
+}
