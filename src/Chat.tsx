@@ -199,6 +199,8 @@ export class Chat extends React.Component<ChatProps, {}> {
         });
       });
     }
+
+    sendPostBack(this.botConnection, 'Hi', undefined, this.props.user, undefined, this.store.getState().selectedBotName);
   }
 
   componentWillUnmount() {

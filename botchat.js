@@ -4535,6 +4535,7 @@ var Chat = (function (_super) {
                 });
             });
         }
+        exports.sendPostBack(this.botConnection, 'Hi', undefined, this.props.user, undefined, this.store.getState().selectedBotName);
     };
     Chat.prototype.componentWillUnmount = function () {
         this.connectionStatusSubscription.unsubscribe();
@@ -13544,7 +13545,9 @@ var BotSelection = (function (_super) {
             document.head.appendChild(styleTag);
         }
         styleTag.innerHTML = style;
-        this.props.onChange(lang);
+        if (lang !== this.props.selectedBotName) {
+            this.props.onChange(lang);
+        }
     };
     BotSelection.prototype.render = function () {
         var _this = this;
