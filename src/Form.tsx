@@ -48,10 +48,15 @@ class Form extends React.Component<FormProps> {
   }
 
   handleChange(e) {
+    let value = e.target.value;
+    if (e.target.type === 'file') {
+      value = e.target.files[0];
+    }
+
     this.setState({
       data: {
         ...this.state.data,
-        [e.target.name]: e.target.value
+        [e.target.name]: value
       }
     });
   }
