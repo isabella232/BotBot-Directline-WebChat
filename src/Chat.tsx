@@ -71,12 +71,6 @@ export class Chat extends React.Component<ChatProps, {}> {
         'en',
       bots: props.bots || []
     });
-    if (props.bots && props.bots.length > 0) {
-      this.store.dispatch<HistoryAction>({
-        type: 'Set_Selected_Bot',
-        selectedBotName: props.bots && props.bots[0]
-      });
-    }
 
     if (props.formatOptions)
       this.store.dispatch<ChatActions>({
@@ -91,6 +85,27 @@ export class Chat extends React.Component<ChatProps, {}> {
       Speech.SpeechRecognizer.setSpeechRecognizer(props.speechOptions.speechRecognizer);
       Speech.SpeechSynthesizer.setSpeechSynthesizer(props.speechOptions.speechSynthesizer);
     }
+
+    this.setActiveBot();
+  }
+
+  private setActiveBot() {
+    // get active bot
+    const bots = this.props.bots;
+    if (!bots || bots.length === 0) {
+      return;
+    }
+
+    const localLanguage = window.navigator.language;
+    const arr = localLanguage.split('-');
+    const code = arr[0];
+    const filteredBots = bots.filter(item => item.indexOf(`${code}-`) > -1);
+    const activeBot = filteredBots[0] || bots[0];
+
+    this.store.dispatch<HistoryAction>({
+      type: 'Set_Selected_Bot',
+      selectedBotName: activeBot
+    });
   }
 
   private handleIncomingActivity(activity: Activity) {
@@ -199,8 +214,15 @@ export class Chat extends React.Component<ChatProps, {}> {
         });
       });
     }
-
-    sendPostBack(this.botConnection, 'Hi', undefined, this.props.user, undefined, this.store.getState().selectedBotName);
+    console.log('here', this.store.getState().history.selectedBotName)
+    sendPostBack(
+      this.botConnection,
+      'Hi',
+      undefined,
+      this.props.user,
+      undefined,
+      this.store.getState().history.selectedBotName
+    );
   }
 
   componentWillUnmount() {
