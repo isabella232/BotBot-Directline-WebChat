@@ -59,11 +59,14 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
     // change fonts
     const code = getLanguageCode(lang);
     const config = FONTS[code];
-    const style = `
+    const style = config
+      ? `
+    @import url(${config.url});
     body .wc-app {
       font-family: "${config.fontFamily}", sans-serif;
     }
-    `;
+    `
+      : '';
 
     let styleTag = document.getElementById('custom-font');
     if (!styleTag) {
@@ -79,7 +82,9 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
   private handleBotChange(lang: string) {
     this.updateFont(lang);
 
-    this.props.onChange(lang);
+    if (lang !== this.props.selectedBotName) {
+      this.props.onChange(lang);
+    }
   }
 
   render() {
@@ -123,6 +128,12 @@ export default connect(
   (stateProps: any, dispatchProps: any, ownProps: any): BotSelectionProps => ({
     selectedBotName: stateProps.selectedBotName,
     bots: stateProps.bots,
-    onChange: dispatchProps.onChange
+    onChange: botName => {
+      dispatchProps.onChange(botName);
+
+      if (typeof ownProps.onChange === 'function') {
+        ownProps.onChange(botName);
+      }
+    }
   })
 )(BotSelection);

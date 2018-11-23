@@ -161,10 +161,7 @@ export class Chat extends React.Component<ChatProps, {}> {
   }
 
   private handleChangeBot(botName: string) {
-    this.store.dispatch<HistoryAction>({
-      type: 'Set_Selected_Bot',
-      selectedBotName: botName
-    });
+    sendPostBack(this.botConnection, 'Hi', undefined, this.props.user, undefined, botName);
   }
 
   componentDidMount() {
@@ -213,6 +210,8 @@ export class Chat extends React.Component<ChatProps, {}> {
         });
       });
     }
+
+    sendPostBack(this.botConnection, 'Hi', undefined, this.props.user, undefined, this.store.getState().selectedBotName);
   }
 
   componentWillUnmount() {
@@ -239,7 +238,7 @@ export class Chat extends React.Component<ChatProps, {}> {
         <div className="wc-header">
           {<img src="./avatar.png" />}
           <h1>{state.format.strings.title}</h1>
-          <BotSelection bots={state.format.bots} />
+          <BotSelection bots={state.format.bots} onChange={this._handleChangeBot} />
         </div>
       );
 
@@ -308,7 +307,8 @@ export const sendPostBack = (
   text: string,
   value: object,
   from: User,
-  locale: string
+  locale: string,
+  botName: string
 ) => {
   botConnection
     .postActivity({
@@ -316,7 +316,10 @@ export const sendPostBack = (
       text,
       value,
       from,
-      locale
+      locale,
+      channelData: {
+        botName
+      }
     })
     .subscribe(
       id => {
