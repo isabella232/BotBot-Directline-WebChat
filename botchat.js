@@ -4433,12 +4433,6 @@ var Chat = (function (_super) {
                 'en',
             bots: props.bots || []
         });
-        if (props.bots && props.bots.length > 0) {
-            _this.store.dispatch({
-                type: 'Set_Selected_Bot',
-                selectedBotName: props.bots && props.bots[0]
-            });
-        }
         if (props.formatOptions)
             _this.store.dispatch({
                 type: 'Set_Format_Options',
@@ -4450,8 +4444,25 @@ var Chat = (function (_super) {
             SpeechModule_1.Speech.SpeechRecognizer.setSpeechRecognizer(props.speechOptions.speechRecognizer);
             SpeechModule_1.Speech.SpeechSynthesizer.setSpeechSynthesizer(props.speechOptions.speechSynthesizer);
         }
+        _this.setActiveBot();
         return _this;
     }
+    Chat.prototype.setActiveBot = function () {
+        // get active bot
+        var bots = this.props.bots;
+        if (!bots || bots.length === 0) {
+            return;
+        }
+        var localLanguage = window.navigator.language;
+        var arr = localLanguage.split('-');
+        var code = arr[0];
+        var filteredBots = bots.filter(function (item) { return item.indexOf(code + "-") > -1; });
+        var activeBot = filteredBots[0] || bots[0];
+        this.store.dispatch({
+            type: 'Set_Selected_Bot',
+            selectedBotName: activeBot
+        });
+    };
     Chat.prototype.handleIncomingActivity = function (activity) {
         var state = this.store.getState();
         switch (activity.type) {
@@ -4535,6 +4546,7 @@ var Chat = (function (_super) {
                 });
             });
         }
+        exports.sendPostBack(this.botConnection, 'Hi', undefined, this.props.user, undefined, this.store.getState().history.selectedBotName);
     };
     Chat.prototype.componentWillUnmount = function () {
         this.connectionStatusSubscription.unsubscribe();
@@ -22673,8 +22685,12 @@ var Form = (function (_super) {
         });
     };
     Form.prototype.handleChange = function (e) {
+        var value = e.target.value;
+        if (e.target.type === 'file') {
+            value = e.target.files[0];
+        }
         this.setState({
-            data: tslib_1.__assign({}, this.state.data, (_a = {}, _a[e.target.name] = e.target.value, _a))
+            data: tslib_1.__assign({}, this.state.data, (_a = {}, _a[e.target.name] = value, _a))
         });
         var _a;
     };
