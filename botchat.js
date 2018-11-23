@@ -13520,7 +13520,8 @@ var FONTS = {
     es: { url: '', fontFamily: '' },
     fr: { url: '', fontFamily: '' },
     it: { url: '', fontFamily: '' },
-    ru: { url: '', fontFamily: '' }
+    ru: { url: '', fontFamily: '' },
+    th: { url: '', fontFamily: '' }
 };
 var BotSelection = (function (_super) {
     tslib_1.__extends(BotSelection, _super);
@@ -13543,7 +13544,9 @@ var BotSelection = (function (_super) {
             document.head.appendChild(styleTag);
         }
         styleTag.innerHTML = style;
-        this.props.onChange(lang);
+        if (lang !== this.props.selectedBotName) {
+            this.props.onChange(lang);
+        }
     };
     BotSelection.prototype.render = function () {
         var _this = this;
