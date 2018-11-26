@@ -4587,7 +4587,7 @@ var Chat = (function (_super) {
     return Chat;
 }(React.Component));
 exports.Chat = Chat;
-exports.doCardAction = function (botConnection, from, locale, sendMessage) { return function (type, actionValue) {
+exports.doCardAction = function (botConnection, from, locale, sendMessage, botName) { return function (type, actionValue) {
     var text = typeof actionValue === 'string' ? actionValue : undefined;
     var value = typeof actionValue === 'object' ? actionValue : undefined;
     switch (type) {
@@ -4596,7 +4596,7 @@ exports.doCardAction = function (botConnection, from, locale, sendMessage) { ret
                 sendMessage(text, from, locale);
             break;
         case 'postBack':
-            exports.sendPostBack(botConnection, text, value, from, locale);
+            exports.sendPostBack(botConnection, text, value, from, locale, botName);
             break;
         case 'call':
         case 'openUrl':
@@ -22921,7 +22921,7 @@ exports.History = react_redux_1.connect(function (state) { return ({
     onClickRetry: dispatchProps.onClickRetry,
     onClickCardAction: dispatchProps.onClickCardAction,
     // helper functions
-    doCardAction: Chat_1.doCardAction(stateProps.botConnection, stateProps.user, stateProps.format.locale, dispatchProps.sendMessage),
+    doCardAction: Chat_1.doCardAction(stateProps.botConnection, stateProps.user, stateProps.format.locale, dispatchProps.sendMessage, stateProps.selectedBotName),
     isFromMe: function (activity) { return activity.from.id === stateProps.user.id; },
     isSelected: function (activity) { return activity === stateProps.selectedActivity; }
     // onClickActivity: (activity: Activity) =>

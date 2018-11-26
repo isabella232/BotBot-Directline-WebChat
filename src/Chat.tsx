@@ -290,7 +290,8 @@ export const doCardAction = (
   botConnection: IBotConnection,
   from: User,
   locale: string,
-  sendMessage: (value: string, user: User, locale: string) => void
+  sendMessage: (value: string, user: User, locale: string) => void,
+  botName: string
 ): IDoCardAction => (type, actionValue) => {
   const text = typeof actionValue === 'string' ? (actionValue as string) : undefined;
   const value = typeof actionValue === 'object' ? (actionValue as object) : undefined;
@@ -301,7 +302,7 @@ export const doCardAction = (
       break;
 
     case 'postBack':
-      sendPostBack(botConnection, text, value, from, locale);
+      sendPostBack(botConnection, text, value, from, locale, botName);
       break;
 
     case 'call':

@@ -238,7 +238,8 @@ export const History = connect(
       stateProps.botConnection,
       stateProps.user,
       stateProps.format.locale,
-      dispatchProps.sendMessage
+      dispatchProps.sendMessage,
+      stateProps.selectedBotName
     ),
     isFromMe: (activity: Activity) => activity.from.id === stateProps.user.id,
     isSelected: (activity: Activity) => activity === stateProps.selectedActivity
