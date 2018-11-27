@@ -82,6 +82,7 @@ class Form extends React.Component<FormProps> {
                   disabled={this.state.submitted}
                   value={item.value}
                   autoComplete="off"
+                  multiple={item.multiple}
                 />
                 {item.type === 'checkbox' && <label>{item.label}</label>}
               </div>
