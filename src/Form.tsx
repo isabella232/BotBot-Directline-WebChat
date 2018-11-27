@@ -80,13 +80,11 @@ class Form extends React.Component<FormProps> {
                   placeholder={item.placeholder}
                   onChange={this.handleChange}
                   disabled={this.state.submitted}
+                  value={item.value}
                 />
                 {item.type === 'checkbox' && <label>{item.label}</label>}
               </div>
             ))}
-          <button type="submit" disabled={this.isValid() || this.state.submitted}>
-            Submit
-          </button>
         </form>
       </div>
     );

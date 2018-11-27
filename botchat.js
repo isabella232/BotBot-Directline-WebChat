@@ -22699,13 +22699,11 @@ var Form = (function (_super) {
         var _this = this;
         var inputs = this.props.inputs;
         return (React.createElement("div", { className: "custom-form" },
-            React.createElement("form", { onSubmit: this.handleSubmit },
-                inputs &&
-                    inputs.map(function (item) { return (React.createElement("div", { key: item.id, className: item.type === 'checkbox' ? 'checkbox-group' : 'form-group' },
-                        item.type !== 'checkbox' && React.createElement("label", null, item.label),
-                        React.createElement("input", { name: item.id, type: item.type, placeholder: item.placeholder, onChange: _this.handleChange, disabled: _this.state.submitted }),
-                        item.type === 'checkbox' && React.createElement("label", null, item.label))); }),
-                React.createElement("button", { type: "submit", disabled: this.isValid() || this.state.submitted }, "Submit"))));
+            React.createElement("form", { onSubmit: this.handleSubmit }, inputs &&
+                inputs.map(function (item) { return (React.createElement("div", { key: item.id, className: item.type === 'checkbox' ? 'checkbox-group' : 'form-group' },
+                    item.type !== 'checkbox' && React.createElement("label", null, item.label),
+                    React.createElement("input", { name: item.id, type: item.type, placeholder: item.placeholder, onChange: _this.handleChange, disabled: _this.state.submitted, value: item.value }),
+                    item.type === 'checkbox' && React.createElement("label", null, item.label))); }))));
     };
     return Form;
 }(React.Component));
