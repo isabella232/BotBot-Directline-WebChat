@@ -1,11 +1,11 @@
-{
+﻿{
   "supportsInteractivity": true,
   "strongSeparation": {
     "spacing": 40,
     "lineThickness": 1,
     "lineColor": "#eeeeee"
   },
-  "fontFamily": "\"Avenir\", sans-serif",
+  "fontFamily": "Avenir, sans-serif",
   "fontSizes": {
     "small": 12,
     "normal": 13,
@@ -16,7 +16,7 @@
   "fontWeights": {
     "lighter": 200,
     "normal": 400,
-    "bolder": 500
+    "bolder": 700
   },
   "colors": {
     "dark": {
@@ -90,10 +90,10 @@
       "backgroundColor": "#eeeeee",
       "borderColor": "#aaaaaa",
       "borderThickness": {
-        "top": 1,
-        "right": 1,
-        "bottom": 1,
-        "left": 1
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
       },
       "padding": {
         "top": 8,
@@ -140,10 +140,10 @@
       "spacing": 8
     },
     "title": {
-      "color": "dark",
+      "color": "#7ba1ab",
       "size": "normal",
       "isSubtle": false,
-      "weight": "bolder",
+      "weight": "normal",
       "wrap": true,
       "maxWidth": 150
     },
