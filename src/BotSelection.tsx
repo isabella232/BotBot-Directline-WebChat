@@ -61,7 +61,7 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
     const config = FONTS[code];
     const style = config
       ? `
-    @import url(${config.url});
+    ${config.ur ? `@import url(${config.url});` : ''}
     body .wc-app {
       font-family: "${config.fontFamily}", sans-serif;
     }
