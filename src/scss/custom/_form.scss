@@ -40,6 +40,8 @@
     margin-top: 12px;
     margin-bottom: 18px;
     font-size: 13px;
+    padding: 0;
+    border: 0;
   }
   [type='submit'] {
     padding: 10px;
@@ -82,5 +84,10 @@
   [disabled] {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  .error {
+    color: red;
+    margin: 10px 0;
   }
 }

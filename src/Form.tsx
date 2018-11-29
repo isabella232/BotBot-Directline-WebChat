@@ -20,10 +20,16 @@ class Form extends React.Component<FormProps> {
         }
       });
     }
-    this.state = { data, submitted: false };
+    this.state = {
+      data,
+      submitted: false,
+      submitting: false,
+      errorMessage: ''
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    // this.handleInvalid = this.handleInvalid.bind(this);
   }
 
   isValid() {
@@ -47,14 +53,25 @@ class Form extends React.Component<FormProps> {
         formData.append(k, this.state.data[k]);
       }
     });
-    axios.post(this.props.action, formData).then(resp => {
-      this.setState({
-        submitted: true
+    this.setState({ submitting: true });
+    axios
+      .post(this.props.action, formData)
+      .then(resp => {
+        this.setState({
+          submitted: true
+        });
+      })
+      .catch(error => {
+        this.setState({
+          errorMessage: error.response.data.message
+        });
+      })
+      .then(() => {
+        this.setState({ submitting: false });
       });
-    });
   }
 
-  handleChange(e) {
+  handleChange(e, item) {
     let value = e.target.value;
     if (e.target.type === 'file') {
       value = e.target.files;
@@ -66,14 +83,32 @@ class Form extends React.Component<FormProps> {
         [e.target.name]: value
       }
     });
+
+    this.handleInvalid(e, item);
+  }
+
+  handleInvalid(e, item) {
+    const el = e.target;
+    const value = e.target.value;
+    if (!value && item.requiredMessage) {
+      el.setCustomValidity(item.requiredMessage);
+    } else if (el.validity.typeMismatch && item.typeMismatchMessage) {
+      el.setCustomValidity(item.typeMismatchMessage);
+    } else {
+      el.setCustomValidity('');
+    }
+
+    return false;
   }
 
   render() {
     const { inputs } = this.props;
+    const { submitted, submitting, errorMessage } = this.state;
 
     return (
       <div className="custom-form">
         <form onSubmit={this.handleSubmit}>
+          {errorMessage && <p className="error">{errorMessage}</p>}
           {inputs &&
             inputs.map(item => (
               <div
@@ -85,11 +120,13 @@ class Form extends React.Component<FormProps> {
                   name={item.id}
                   type={item.type}
                   placeholder={item.placeholder}
-                  onChange={this.handleChange}
-                  disabled={this.state.submitted}
+                  onChange={e => this.handleChange(e, item)}
+                  disabled={submitting || submitted}
                   value={item.value}
                   autoComplete="off"
                   multiple={item.multiple}
+                  required={item.required}
+                  onInvalid={e => this.handleInvalid(e, item)}
                 />
                 {item.type === 'checkbox' && <label>{item.label}</label>}
               </div>

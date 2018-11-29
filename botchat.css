@@ -691,7 +691,9 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   height: 20px;
   margin-top: 12px;
   margin-bottom: 18px;
-  font-size: 13px; }
+  font-size: 13px;
+  padding: 0;
+  border: 0; }
 
 .custom-form [type='submit'] {
   padding: 10px;
@@ -731,6 +733,10 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 .custom-form [disabled] {
   opacity: 0.5;
   cursor: not-allowed; }
+
+.custom-form .error {
+  color: red;
+  margin: 10px 0; }
 
 .wc-app button,
 .wc-app input,
