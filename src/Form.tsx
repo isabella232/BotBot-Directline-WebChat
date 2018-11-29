@@ -20,11 +20,15 @@ class Form extends React.Component<FormProps> {
         }
       });
     }
-    this.state = { data, submitted: false };
+    this.state = {
+      data,
+      submitted: false,
+      submitting: false,
+      errorMessage: ''
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleInvalid = this.handleInvalid.bind(this);
   }
 
   isValid() {
@@ -45,28 +49,49 @@ class Form extends React.Component<FormProps> {
           formData.append(k, values[i]);
         }
       } else {
-        formData.append(k, this.state.data[k]);
+        formData.append(k, this.state.data[k] === false ? '' : this.state.data[k]);
       }
     });
-    axios.post(this.props.action, formData).then(resp => {
-      this.setState({
-        submitted: true
+    this.setState({ submitting: true });
+    axios
+      .post(this.props.action, formData)
+      .then(resp => {
+        this.setState({
+          submitted: true
+        });
+      })
+      .catch(error => {
+        this.setState({
+          errorMessage: error.response.data.message
+        });
+      })
+      .then(() => {
+        this.setState({ submitting: false });
       });
-    });
   }
 
-  handleChange(e) {
-    let value = e.target.value;
+  handleChange(e, item) {
+    let value;
+    const data = {};
     if (e.target.type === 'file') {
       value = e.target.files;
+    } else {
+      value = e.target.value;
+    }
+
+    data[e.target.name] = value;
+    if (e.target.type === 'checkbox') {
+      data[e.target.name] = e.target.checked;
     }
 
     this.setState({
       data: {
         ...this.state.data,
-        [e.target.name]: value
+        ...data
       }
     });
+
+    this.handleInvalid(e, item);
   }
 
   handleInvalid(e, item) {
@@ -76,15 +101,21 @@ class Form extends React.Component<FormProps> {
       el.setCustomValidity(item.requiredMessage);
     } else if (el.validity.typeMismatch && item.typeMismatchMessage) {
       el.setCustomValidity(item.typeMismatchMessage);
+    } else {
+      el.setCustomValidity('');
     }
+
+    // return false;
   }
 
   render() {
     const { inputs } = this.props;
+    const { submitted, submitting, errorMessage } = this.state;
 
     return (
       <div className="custom-form">
         <form onSubmit={this.handleSubmit}>
+          {errorMessage && <p className="error">{errorMessage}</p>}
           {inputs &&
             inputs.map(item => (
               <div
@@ -96,13 +127,13 @@ class Form extends React.Component<FormProps> {
                   name={item.id}
                   type={item.type}
                   placeholder={item.placeholder}
-                  onChange={this.handleChange}
-                  disabled={this.state.submitted}
+                  onChange={e => this.handleChange(e, item)}
+                  disabled={submitting || submitted}
                   value={item.value}
                   autoComplete="off"
                   multiple={item.multiple}
                   required={item.required}
-                  onInvalid={this.handleInvalid}
+                  onInvalid={e => this.handleInvalid(e, item)}
                 />
                 {item.type === 'checkbox' && <label>{item.label}</label>}
               </div>
