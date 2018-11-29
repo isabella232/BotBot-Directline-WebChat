@@ -24,6 +24,7 @@ class Form extends React.Component<FormProps> {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleInvalid = this.handleInvalid.bind(this);
   }
 
   isValid() {
@@ -38,7 +39,14 @@ class Form extends React.Component<FormProps> {
     let formData = new FormData();
     const keys = Object.keys(this.state.data);
     keys.forEach(k => {
-      formData.append(k, this.state.data[k]);
+      const values = this.state.data[k];
+      if (typeof values === 'object' && values.length > 0) {
+        for (let i = 0; i < values.length; i++) {
+          formData.append(k, values[i]);
+        }
+      } else {
+        formData.append(k, this.state.data[k]);
+      }
     });
     axios.post(this.props.action, formData).then(resp => {
       this.setState({
@@ -50,7 +58,7 @@ class Form extends React.Component<FormProps> {
   handleChange(e) {
     let value = e.target.value;
     if (e.target.type === 'file') {
-      value = e.target.files[0];
+      value = e.target.files;
     }
 
     this.setState({
@@ -59,6 +67,16 @@ class Form extends React.Component<FormProps> {
         [e.target.name]: value
       }
     });
+  }
+
+  handleInvalid(e, item) {
+    const el = e.target;
+    const value = e.target.value;
+    if (!value && item.requiredMessage) {
+      el.setCustomValidity(item.requiredMessage);
+    } else if (el.validity.typeMismatch && item.typeMismatchMessage) {
+      el.setCustomValidity(item.typeMismatchMessage);
+    }
   }
 
   render() {
@@ -83,6 +101,8 @@ class Form extends React.Component<FormProps> {
                   value={item.value}
                   autoComplete="off"
                   multiple={item.multiple}
+                  required={item.required}
+                  onInvalid={this.handleInvalid}
                 />
                 {item.type === 'checkbox' && <label>{item.label}</label>}
               </div>
