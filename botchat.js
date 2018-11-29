@@ -22662,6 +22662,7 @@ var Form = (function (_super) {
         _this.state = { data: data, submitted: false };
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleInvalid = _this.handleInvalid.bind(_this);
         return _this;
     }
     Form.prototype.isValid = function () {
@@ -22676,7 +22677,15 @@ var Form = (function (_super) {
         var formData = new FormData();
         var keys = Object.keys(this.state.data);
         keys.forEach(function (k) {
-            formData.append(k, _this.state.data[k]);
+            var values = _this.state.data[k];
+            if (typeof values === 'object' && values.length > 0) {
+                for (var i = 0; i < values.length; i++) {
+                    formData.append(k, values[i]);
+                }
+            }
+            else {
+                formData.append(k, _this.state.data[k]);
+            }
         });
         axios_1.default.post(this.props.action, formData).then(function (resp) {
             _this.setState({
@@ -22687,24 +22696,32 @@ var Form = (function (_super) {
     Form.prototype.handleChange = function (e) {
         var value = e.target.value;
         if (e.target.type === 'file') {
-            value = e.target.files[0];
+            value = e.target.files;
         }
         this.setState({
             data: tslib_1.__assign({}, this.state.data, (_a = {}, _a[e.target.name] = value, _a))
         });
         var _a;
     };
+    Form.prototype.handleInvalid = function (e, item) {
+        var el = e.target;
+        var value = e.target.value;
+        if (!value && item.requiredMessage) {
+            el.setCustomValidity(item.requiredMessage);
+        }
+        else if (el.validity.typeMismatch && item.typeMismatchMessage) {
+            el.setCustomValidity(item.typeMismatchMessage);
+        }
+    };
     Form.prototype.render = function () {
         var _this = this;
         var inputs = this.props.inputs;
         return (React.createElement("div", { className: "custom-form" },
-            React.createElement("form", { onSubmit: this.handleSubmit },
-                inputs &&
-                    inputs.map(function (item) { return (React.createElement("div", { key: item.id, className: item.type === 'checkbox' ? 'checkbox-group' : 'form-group' },
-                        item.type !== 'checkbox' && React.createElement("label", null, item.label),
-                        React.createElement("input", { name: item.id, type: item.type, placeholder: item.placeholder, onChange: _this.handleChange, disabled: _this.state.submitted }),
-                        item.type === 'checkbox' && React.createElement("label", null, item.label))); }),
-                React.createElement("button", { type: "submit", disabled: this.isValid() || this.state.submitted }, "Submit"))));
+            React.createElement("form", { onSubmit: this.handleSubmit }, inputs &&
+                inputs.map(function (item) { return (React.createElement("div", { key: item.id, className: item.type === 'checkbox' ? 'checkbox-group' : 'form-group' },
+                    item.type !== 'checkbox' && React.createElement("label", null, item.label),
+                    React.createElement("input", { name: item.id, type: item.type, placeholder: item.placeholder, onChange: _this.handleChange, disabled: _this.state.submitted, value: item.value, autoComplete: "off", multiple: item.multiple, required: item.required, onInvalid: _this.handleInvalid }),
+                    item.type === 'checkbox' && React.createElement("label", null, item.label))); }))));
     };
     return Form;
 }(React.Component));

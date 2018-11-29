@@ -644,7 +644,8 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   border-radius: 10px;
   font-size: 17px;
   font-weight: 800;
-  margin-top: 10px; }
+  margin-top: 10px;
+  background-color: #c02228; }
 
 .custom-form [type='submit'].disabled {
   opacity: 0.4;

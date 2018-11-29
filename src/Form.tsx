@@ -24,6 +24,7 @@ class Form extends React.Component<FormProps> {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleInvalid = this.handleInvalid.bind(this);
   }
 
   isValid() {
@@ -68,6 +69,16 @@ class Form extends React.Component<FormProps> {
     });
   }
 
+  handleInvalid(e, item) {
+    const el = e.target;
+    const value = e.target.value;
+    if (!value && item.requiredMessage) {
+      el.setCustomValidity(item.requiredMessage);
+    } else if (el.validity.typeMismatch && item.typeMismatchMessage) {
+      el.setCustomValidity(item.typeMismatchMessage);
+    }
+  }
+
   render() {
     const { inputs } = this.props;
 
@@ -90,6 +101,8 @@ class Form extends React.Component<FormProps> {
                   value={item.value}
                   autoComplete="off"
                   multiple={item.multiple}
+                  required={item.required}
+                  onInvalid={this.handleInvalid}
                 />
                 {item.type === 'checkbox' && <label>{item.label}</label>}
               </div>
