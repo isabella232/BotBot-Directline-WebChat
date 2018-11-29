@@ -50,7 +50,7 @@ class Form extends React.Component<FormProps> {
           formData.append(k, values[i]);
         }
       } else {
-        formData.append(k, this.state.data[k]);
+        formData.append(k, this.state.data[k] === false ? '' : this.state.data[k]);
       }
     });
     this.setState({ submitting: true });
@@ -72,15 +72,23 @@ class Form extends React.Component<FormProps> {
   }
 
   handleChange(e, item) {
-    let value = e.target.value;
+    let value;
+    const data = {};
     if (e.target.type === 'file') {
       value = e.target.files;
+    } else {
+      value = e.target.value;
+    }
+
+    data[e.target.name] = value;
+    if (e.target.type === 'checkbox') {
+      data[e.target.name] = e.target.checked;
     }
 
     this.setState({
       data: {
         ...this.state.data,
-        [e.target.name]: value
+        ...data
       }
     });
 
@@ -98,7 +106,7 @@ class Form extends React.Component<FormProps> {
       el.setCustomValidity('');
     }
 
-    return false;
+    // return false;
   }
 
   render() {
