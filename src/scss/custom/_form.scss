@@ -46,12 +46,13 @@
   [type='submit'] {
     padding: 10px;
     color: white;
-    width: 102px;
+    width: auto;
     border-radius: 10px;
     font-size: 17px;
     font-weight: 800;
     margin-top: 10px;
     background-color: $c_brand;
+    line-height: 1;
   }
   [type='submit'].disabled {
     opacity: 0.4;
