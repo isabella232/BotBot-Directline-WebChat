@@ -698,12 +698,13 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
 .custom-form [type='submit'] {
   padding: 10px;
   color: white;
-  width: 102px;
+  width: auto;
   border-radius: 10px;
   font-size: 17px;
   font-weight: 800;
   margin-top: 10px;
-  background-color: #2196F3; }
+  background-color: #2196F3;
+  line-height: 1; }
 
 .custom-form [type='submit'].disabled {
   opacity: 0.4;
