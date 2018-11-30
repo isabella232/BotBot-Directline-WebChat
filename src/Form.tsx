@@ -53,7 +53,7 @@ class Form extends React.Component<FormProps> {
         formData.append(k, this.state.data[k] === false ? '' : this.state.data[k]);
       }
     });
-    this.setState({ submitting: true });
+    this.setState({ submitting: true, errorMessage: '' });
     axios
       .post(this.props.action, formData)
       .then(resp => {
@@ -98,7 +98,7 @@ class Form extends React.Component<FormProps> {
   handleInvalid(e, item) {
     const el = e.target;
     const value = e.target.value;
-    if (!value && item.requiredMessage) {
+    if (el.validity.valueMissing && item.requiredMessage) {
       el.setCustomValidity(item.requiredMessage);
     } else if (el.validity.typeMismatch && item.typeMismatchMessage) {
       el.setCustomValidity(item.typeMismatchMessage);
