@@ -665,6 +665,7 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   font-weight: 500;
   margin-bottom: 5px; }
 
+.custom-form select,
 .custom-form input,
 .custom-form textarea {
   width: 100%;
@@ -679,7 +680,8 @@ body .wc-app, .wc-app button, .wc-app input, .wc-app textarea {
   border: 1px solid #ddd;
   box-sizing: border-box;
   background: white;
-  border-radius: 8px; }
+  border-radius: 8px;
+  font-size: inherit; }
 
 .custom-form input::placeholder,
 .custom-form textarea::placeholder {

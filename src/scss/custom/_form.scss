@@ -12,7 +12,8 @@
     font-weight: 500;
     margin-bottom: 5px;
   }
-
+  
+  select,
   input,
   textarea {
     width: 100%;
@@ -28,6 +29,7 @@
     box-sizing: border-box;
     background: white;
     border-radius: 8px;
+    font-size: inherit;
   }
   input::placeholder,
   textarea::placeholder {
