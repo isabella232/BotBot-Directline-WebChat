@@ -20,6 +20,7 @@ class Form extends React.Component<FormProps> {
         }
       });
     }
+
     this.state = {
       data,
       submitted: false,
@@ -28,32 +29,19 @@ class Form extends React.Component<FormProps> {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    // this.handleInvalid = this.handleInvalid.bind(this);
+    this.formEl = null;
   }
 
-  isValid() {
-    let isValid = false;
-    isValid = this.props.inputs.findIndex(item => !this.state.data[item]);
-
-    return isValid === -1;
-  }
+  getFormRef = ref => {
+    this.formEl = ref;
+  };
 
   handleSubmit(e) {
     e.preventDefault();
-    let formData = new FormData();
-    const keys = Object.keys(this.state.data);
-    keys.forEach(k => {
-      const values = this.state.data[k];
-      if (typeof values === 'object' && values.length > 0) {
-        for (let i = 0; i < values.length; i++) {
-          formData.append(k, values[i]);
-        }
-      } else {
-        formData.append(k, this.state.data[k] === false ? '' : this.state.data[k]);
-      }
-    });
+    const formData = new FormData(this.formEl);
+
     this.setState({ submitting: true, errorMessage: '' });
+    
     axios
       .post(this.props.action, formData)
       .then(resp => {
@@ -71,30 +59,6 @@ class Form extends React.Component<FormProps> {
       });
   }
 
-  handleChange(e, item) {
-    let value;
-    const data = {};
-    if (e.target.type === 'file') {
-      value = e.target.files;
-    } else {
-      value = e.target.value;
-    }
-
-    data[e.target.name] = value;
-    if (e.target.type === 'checkbox') {
-      data[e.target.name] = e.target.checked;
-    }
-
-    this.setState({
-      data: {
-        ...this.state.data,
-        ...data
-      }
-    });
-
-    this.handleInvalid(e, item);
-  }
-
   handleInvalid(e, item) {
     const el = e.target;
     const value = e.target.value;
@@ -105,8 +69,6 @@ class Form extends React.Component<FormProps> {
     } else {
       el.setCustomValidity('');
     }
-
-    // return false;
   }
 
   render() {
@@ -115,7 +77,7 @@ class Form extends React.Component<FormProps> {
 
     return (
       <div className="custom-form">
-        <form onSubmit={this.handleSubmit}>
+        <form ref={this.getFormRef} onSubmit={this.handleSubmit}>
           {errorMessage && <p className="error">{errorMessage}</p>}
           {inputs &&
             inputs.map(item => (
@@ -124,18 +86,36 @@ class Form extends React.Component<FormProps> {
                 className={item.type === 'checkbox' ? 'checkbox-group' : 'form-group'}
               >
                 {item.type !== 'checkbox' && <label>{item.label}</label>}
-                <input
-                  name={item.id}
-                  type={item.type}
-                  placeholder={item.placeholder}
-                  onChange={e => this.handleChange(e, item)}
-                  disabled={submitting || submitted}
-                  value={item.value}
-                  autoComplete="off"
-                  multiple={item.multiple}
-                  required={item.required}
-                  onInvalid={e => this.handleInvalid(e, item)}
-                />
+                {item.type === 'select' ? (
+                  <select
+                    disabled={submitting || submitted}
+                    placeholder={item.placeholder}
+                    name={item.id}
+                    defaultValue={item.value}
+                    required={item.required}
+                    onInvalid={e => this.handleInvalid(e, item)}
+                    onChange={e => this.handleInvalid(e, item)}
+                  >
+                    {item.optionSelections.map(o => (
+                      <option key={o.value} value={o.value}>
+                        {o.label}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    name={item.id}
+                    type={item.type}
+                    placeholder={item.placeholder}
+                    onChange={e => this.handleInvalid(e, item)}
+                    disabled={submitting || submitted}
+                    defaultValue={item.value}
+                    autoComplete="off"
+                    multiple={item.multiple}
+                    required={item.required}
+                    onInvalid={e => this.handleInvalid(e, item)}
+                  />
+                )}
                 {item.type === 'checkbox' && <label>{item.label}</label>}
               </div>
             ))}
