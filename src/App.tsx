@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Chat, ChatProps } from './Chat';
 import * as konsole from './Konsole';
 import axios from 'axios';
-import { PRODUCTION_SHORT_URL, SECRET, DASHBOARD_API_URL, BOT_API_URL } from './Constants';
+import { PRODUCTION_SHORT_URL, SECRET } from './Constants';
 import { queryParams } from './BotChat';
 
 export type AppProps = ChatProps;
@@ -73,7 +73,6 @@ const compileStyle = (config: IConfig) => {
   styleTag.innerHTML = `
     @import url(${config.fontUrl});
     body .wc-app {
-      font-family: "${config.fontFamily}", sans-serif;
       color: ${config.textColor};
     }
     .wc-message { border-color: ${config.brandColor} }
@@ -86,11 +85,15 @@ const compileStyle = (config: IConfig) => {
       color: ${config.brandColor} !important;
     }
     .wc-header {
-      background-color: ${config.headerBg};
+      background-image: linear-gradient(60deg, ${config.headerBg}, ${config.headerBg}, ${
+    config.headerBg
+  });
       color: ${config.brandColor}
     }
     .wc-message-meta { color: ${config.textProfileColor} }
     .wc-suggested-actions .wc-hscroll > ul > li button { color: ${config.brandColor} }
+    .wc-message-from-me .wc-message-content-inner { background-color: ${config.userResponseBg}; }
+    .wc-message-from-bot .wc-message-content-inner { background-color: ${config.botResponseBg}; }
     `;
 
   document.head.appendChild(styleTag);
@@ -100,6 +103,10 @@ const compileStyle = (config: IConfig) => {
 
   if (config.logo) {
     logoEl.setAttribute('src', config.logo);
+  }
+
+  if (config.displayName) {
+    document.title = config.displayName;
   }
 };
 
@@ -137,7 +144,7 @@ class AppContainer extends React.PureComponent<AppProps, AppState> {
 
       // props.bots = resp.data.bots;
 
-      // requestCustomiseUI(resp.data.feconfig);
+      requestCustomiseUI(resp.data.feconfig);
 
       this.setState({
         loading: false,

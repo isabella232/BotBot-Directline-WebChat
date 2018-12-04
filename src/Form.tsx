@@ -42,7 +42,8 @@ class Form extends React.Component<FormProps> {
 
     this.setState({ submitting: true, errorMessage: '' });
     // call to saleforces
-    axios.post('https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8', formData);
+    // axios.post('https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8', formData);
+
     axios
       .post(this.props.action, formData)
       .then(resp => {
