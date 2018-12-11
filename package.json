@@ -7,7 +7,7 @@
   "scripts": {
     "build-test": "tsc -p ./test/mock_dl && tsc -p ./test && tsc -p ./test/mock_speech",
     "build-test-watch": "concurrently \"tsc -w -p ./test/mock_dl\" \"tsc -w -p ./test\"",
-    "build-css": "node-sass ./src/scss/ -o . && rimraf ./includes/ && rimraf ./custom/",
+    "build-css": "node-sass --output-style=compressed ./src/scss/ -o . && rimraf ./includes/ && rimraf ./custom/",
     "build-ac-config": "ac-scss2json ./src/scss/includes/adaptive-card-config.scss > adaptivecards-hostconfig.json",
     "build-all-style": "npm run build-css && npm run build-ac-config && webpack",
     "build": "npm run build-css && npm run build-js",
@@ -21,7 +21,8 @@
     "build-js": "webpack --progress --config webpack.production.config.js",
     "start": "http-server -p 8080",
     "test": "concurrently  \"node test/mock_dl/index.js\" \"mocha test\" ",
-    "mock": "node test/mock_dl/index.js"
+    "mock": "node test/mock_dl/index.js",
+    "build-form": "uglifyjs --define NODE_ENV=false ./src/kcc-form.js > ./form.js"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,8 @@
     "redux": "3.7.2",
     "redux-observable": "0.13.0",
     "rxjs": "5.3.3",
-    "tslib": "1.7.1"
+    "tslib": "1.7.1",
+    "uglify-js": "^1.3.5"
   },
   "devDependencies": {
     "@types/body-parser": "0.0.33",

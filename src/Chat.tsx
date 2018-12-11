@@ -211,7 +211,14 @@ export class Chat extends React.Component<ChatProps, {}> {
       });
     }
 
-    sendPostBack(this.botConnection, 'Hi', undefined, this.props.user, undefined, this.store.getState().selectedBotName);
+    sendPostBack(
+      this.botConnection,
+      'Hi',
+      undefined,
+      this.props.user,
+      undefined,
+      this.store.getState().selectedBotName
+    );
   }
 
   componentWillUnmount() {
@@ -236,8 +243,10 @@ export class Chat extends React.Component<ChatProps, {}> {
     if (state.format.options.showHeader)
       header = (
         <div className="wc-header">
-          {<img src="./avatar.png" />}
-          <h1>{state.format.strings.title}</h1>
+          <div>
+            <img src="./avatar.png" />
+            <h1>{state.format.strings.title}</h1>
+          </div>
           <BotSelection bots={state.format.bots} onChange={this._handleChangeBot} />
         </div>
       );

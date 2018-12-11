@@ -1,3 +1,24 @@
+@import '../includes/colors';
+@import './fonts';
+@import './functions';
+
+body {
+  font-family: "Museo", sans-serif;
+}
+
+svg {
+  fill: $c_brand;
+  height: 50px;
+}
+
+.loading {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .custom-form {
   * {
     box-sizing: border-box;
@@ -12,7 +33,7 @@
     font-weight: 500;
     margin-bottom: 5px;
   }
-  
+
   select,
   input,
   textarea {
@@ -45,7 +66,7 @@
     padding: 0;
     border: 0;
   }
-  [type='submit'] {
+  .submit-btn {
     padding: 10px;
     color: white;
     width: auto;
@@ -56,11 +77,11 @@
     background-color: $c_brand;
     line-height: 1;
   }
-  [type='submit'].disabled {
+  .submit-btn.disabled {
     opacity: 0.4;
     cursor: not-allowed !important;
   }
-  [type='submit']:not([disabled]):hover {
+  .submit-btn:not([disabled]):hover {
     opacity: 0.8;
   }
 
@@ -70,6 +91,7 @@
     height: 94px;
   }
   .checkbox-group {
+    display: flex;
     label {
       display: inline-block;
     }

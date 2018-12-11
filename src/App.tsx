@@ -64,6 +64,7 @@ export interface IConfig {
   headerBg: string;
   textProfileColor: string;
   logo: string;
+  displayName: string;
 }
 
 const compileStyle = (config: IConfig) => {
@@ -86,9 +87,8 @@ const compileStyle = (config: IConfig) => {
     }
     .wc-header {
       background-image: linear-gradient(60deg, ${config.headerBg}, ${config.headerBg}, ${
-    config.headerBg
-  });
-      color: ${config.brandColor}
+      config.headerBg
+    });
     }
     .wc-message-meta { color: ${config.textProfileColor} }
     .wc-suggested-actions .wc-hscroll > ul > li button { color: ${config.brandColor} }
@@ -100,6 +100,7 @@ const compileStyle = (config: IConfig) => {
 
   // change logo
   const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
+  const titleEL = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header h1');
 
   if (config.logo) {
     logoEl.setAttribute('src', config.logo);
@@ -107,6 +108,7 @@ const compileStyle = (config: IConfig) => {
 
   if (config.displayName) {
     document.title = config.displayName;
+    titleEL.innerText = config.displayName;
   }
 };
 

@@ -37,11 +37,14 @@ var coreConfig = {
 };
 
 var chatConfig = {
-  entry: './src/BotChat.ts',
+  entry: {
+    botchat: './src/BotChat.ts',
+    form: './src/kcc-form'
+  },
   output: {
     libraryTarget: 'umd',
     library: 'BotChat',
-    filename: './botchat.js'
+    filename: '[name].js'
   }
 };
 
