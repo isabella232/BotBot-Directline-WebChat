@@ -18,6 +18,7 @@ function qs(str) {
 
 var app = new Vue({
   el: '#app',
+  template: '#form',
   data: {
     labels: {
       comments: 'Comment',
@@ -59,15 +60,16 @@ var app = new Vue({
         el.setCustomValidity('');
       }
     },
-    handleSubmit: function() {
-      var formData = new FormData(this.$el);
+    handleSubmit: function(e) {
+      var formEl = e.currentTarget;
+      var formData = new FormData(formEl);
       var params = qs(window.location.search);
 
       axios
         .post(params.action, formData)
         .then(
           function(resp) {
-            this.$el.submit();
+            formEl.submit();
           }.bind(this)
         )
         .catch(

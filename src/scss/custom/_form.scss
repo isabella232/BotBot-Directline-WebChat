@@ -1,9 +1,11 @@
+@import '../includes/settings';
 @import '../includes/colors';
 @import './fonts';
 @import './functions';
 
 body {
-  font-family: "Museo", sans-serif;
+  font-family: $fontFamily;
+  font-size: $fontSize;
 }
 
 a {
