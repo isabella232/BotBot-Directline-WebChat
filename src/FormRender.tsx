@@ -2,6 +2,12 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 class FormRender extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    if (this.props.selectedBotName && nextProps.selectedBotName !== this.props.selectedBotName) {
+      return false;
+    }
+  }
+
   render() {
     const { action } = this.props;
 

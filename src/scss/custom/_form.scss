@@ -6,6 +6,10 @@ body {
   font-family: "Museo", sans-serif;
 }
 
+a {
+  color: $c_brand;
+}
+
 svg {
   fill: $c_brand;
   height: 50px;

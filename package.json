@@ -10,7 +10,7 @@
     "build-css": "node-sass --output-style=compressed ./src/scss/ -o . && rimraf ./includes/ && rimraf ./custom/",
     "build-ac-config": "ac-scss2json ./src/scss/includes/adaptive-card-config.scss > adaptivecards-hostconfig.json",
     "build-all-style": "npm run build-css && npm run build-ac-config && webpack",
-    "build": "npm run build-css && npm run build-js",
+    "build": "run-p build-css build-js ",
     "dev": "npm-run-all -p -r -l tsc-watch webpack-watch scss-watch",
     "scss-watch": "node-sass ./src/scss/ -w -o . && rimraf ./includes/ && rimraf ./custom/",
     "tsc-watch": "tsc -w",
