@@ -28,15 +28,18 @@ var app = new Vue({
       file_Upload: 'File Upload',
       name: 'Name',
       requiredMessage: 'should not be empty',
-      placeholder: 'Leave your comment here.',
+      placeholder: 'Leave your comment here. In order to resolve your query quickly, please provide as much detail as possible.',
       submissionConsentMessage: 'Please accept the consent condition.',
       typeMismatchMessage: 'is not in the correct format.',
       submit: 'Submit',
       policyLink: 'https://www.kcprofessional.co.uk/privacy-policy',
-      termLink: 'https://www.kcprofessional.co.uk/terms-of-use'
+      termLink: 'https://www.kcprofessional.co.uk/terms-of-use',
+      country: 'Country',
+      productCode: 'Product Code(s)'
     },
     errorMessage: '',
-    returnUrl: window.location.origin + '/success.html'
+    returnUrl: window.location.origin + '/success.html',
+    submitting: false
   },
   computed: {
     disclaimer: function() {
@@ -64,6 +67,7 @@ var app = new Vue({
       var formEl = e.currentTarget;
       var formData = new FormData(formEl);
       var params = qs(window.location.search);
+      this.submitting = true;
 
       axios
         .post(params.action, formData)
@@ -76,7 +80,10 @@ var app = new Vue({
           function(error) {
             this.errorMessage = error.response.data.message;
           }.bind(this)
-        );
+        )
+        .then(function() {
+          this.submitting = false;
+        });
     }
   }
 });
@@ -88,7 +95,11 @@ axios.get(API_URL + '/api/setting/languageSetting').then(function(resp) {
   var currentLanguageData = resp.data.find(function(d) {
     return d.languageCode === lang;
   });
+
   if (currentLanguageData) {
-    app.labels = currentLanguageData.formLabels;
+    var keys = Object.keys(currentLanguageData.formLabels);
+    keys.forEach(function(k) {
+      app.labels[k] = currentLanguageData.formLabels[k];
+    });
   }
 });

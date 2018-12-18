@@ -8,6 +8,13 @@ class FormRender extends React.Component {
     }
   }
 
+  handleLoad(e) {
+    const form = e.target;
+    if (form.contentDocument) {
+      form.style.minHeight = `${form.contentDocument.body.offsetHeight + 40}px`;
+    }
+  }
+
   render() {
     const { action } = this.props;
 
@@ -19,10 +26,11 @@ class FormRender extends React.Component {
         }&action=${action}`}
         style={{
           border: 0,
-          height: 450,
+          height: 490,
           display: 'block',
           width: '100%'
         }}
+        onLoad={this.handleLoad}
       />
     );
   }

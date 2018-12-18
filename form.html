@@ -23,34 +23,34 @@
 
         <div class="form-group">
             <label>{{labels.name}}</label>
-            <input :data-label="labels.name" type="text" name="00Nc0000003eKOP" placeholder="e.g. John Doe" autocomplete="off" required @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
+            <input :readonly="submitting" :data-label="labels.name" type="text" name="00Nc0000003eKOP" placeholder="e.g. John Doe" autocomplete="off" required @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
         </div>
         <div class="form-group">
             <label>{{labels.email}}</label>
-            <input :data-label="labels.email" type="email" name="00Nc0000003eKOU" placeholder="e.g. name@company.com" autocomplete="off" required @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
+            <input :readonly="submitting" :data-label="labels.email" type="email" name="00Nc0000003eKOU" placeholder="e.g. name@company.com" autocomplete="off" required @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
+        </div>
+        <div class="form-group">
+            <label>{{labels.productCode}}</label>
+            <input :readonly="submitting" :data-label="labels.productCode" type="text" name="productCode" placeholder="e.g. 6659, 6340, 90090" autocomplete="off" @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
+        </div>
+        <div class="form-group">
+            <label>{{labels.country}}</label>
+            <input :readonly="submitting" :data-label="labels.country" type="text" name="country" placeholder="e.g. United Kingdom" autocomplete="off" @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
         </div>
         <div class="form-group">
             <label>{{labels.comments}}</label>
-            <input :data-label="labels.comments" type="text" name="description" :placeholder="labels.placeholder" autocomplete="off" required @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
-        </div>
-        <div class="form-group">
-            <label>{{labels.file_Upload}}</label>
-            <input type="file" name="File_Upload" placeholder autocomplete="off" multiple>
+            <textarea :readonly="submitting" :data-label="labels.comments" type="text" name="description" :placeholder="labels.placeholder" autocomplete="off" required @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid"></textarea>
         </div>
         <div class="checkbox-group">
-            <input type="checkbox" name="accept" placeholder autocomplete="off" required value="on" @change="handleInvalid" @invalid="handleInvalid">
-            <label v-html="disclaimer"></label>
+            <input id="agreement-checkbox" :readonly="submitting" type="checkbox" name="accept" placeholder autocomplete="off" required value="on" @change="handleInvalid" @invalid="handleInvalid">
+            <label for="agreement-checkbox" v-html="disclaimer"></label>
         </div>
         <div class="form-group">
-          <button class="submit-btn" type="submit">{{labels.submit}}</button>
+          <button class="submit-btn" type="submit" :disabled="submitting">{{submitting ? labels.submit + '...' : labels.submit}}</button>
         </div>
       </form>
     </div>
   </script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.19/vue.min.js"></script>
-  <script src="./form.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.19/vue.min.js"></script>

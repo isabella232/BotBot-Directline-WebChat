@@ -364,7 +364,7 @@ export class WrappedActivity extends React.Component<WrappedActivityProps, Wrapp
           }`}
           ref={div => (this.messageDiv = div)}
         >
-          {who === 'bot' && <img className="logo" src="./bot-icon.jpeg" alt="Bot" />}
+          {who === 'bot' && <img className="logo" src="./boticon.png" alt="Bot" />}
           <div className={contentClassName}>
             {this.props.children}
             <div className="wc-message-meta">{timeLine}</div>
