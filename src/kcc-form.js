@@ -1,5 +1,45 @@
 var API_URL =
   process.env.NODE_ENV === 'development' ? 'https://kc-emea-staging.azurewebsites.net' : '';
+var COUNTRIES = [
+  'Austria',
+  'Bahrain',
+  'Belgium',
+  'Bulgaria',
+  'Croatia',
+  'Czech Republic',
+  'Denmark',
+  'Egypt',
+  'Finland',
+  'France',
+  'Germany',
+  'Greece',
+  'Hungary',
+  'Iceland',
+  'Ireland',
+  'Israel',
+  'Italy',
+  'Jordan',
+  'Kuwait',
+  'Lebanon',
+  'Netherlands',
+  'Norway',
+  'Oman',
+  'Poland',
+  'Portugal',
+  'Qatar',
+  'Romania',
+  'Russia',
+  'Saudi Arabia',
+  'Serbia',
+  'Slovenia',
+  'South Africa',
+  'Spain',
+  'Sweden',
+  'Switzerland',
+  'Turkey',
+  'United Arab Emirates',
+  'United Kingdom'
+];
 
 function qs(str) {
   var search = str;
@@ -28,7 +68,8 @@ var app = new Vue({
       file_Upload: 'File Upload',
       name: 'Name',
       requiredMessage: 'should not be empty',
-      placeholder: 'Leave your comment here. In order to resolve your query quickly, please provide as much detail as possible.',
+      placeholder:
+        'Leave your comment here. In order to resolve your query quickly, please provide as much detail as possible.',
       submissionConsentMessage: 'Please accept the consent condition.',
       typeMismatchMessage: 'is not in the correct format.',
       submit: 'Submit',
@@ -39,7 +80,8 @@ var app = new Vue({
     },
     errorMessage: '',
     returnUrl: window.location.origin + '/success.html',
-    submitting: false
+    submitting: false,
+    countries: COUNTRIES
   },
   computed: {
     disclaimer: function() {

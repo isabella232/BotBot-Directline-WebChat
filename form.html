@@ -31,15 +31,22 @@
         </div>
         <div class="form-group">
             <label>{{labels.productCode}}</label>
-            <input :readonly="submitting" :data-label="labels.productCode" type="text" name="productCode" placeholder="e.g. 6659, 6340, 90090" autocomplete="off" @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
+            <textarea :readonly="submitting" id="00NF000000838NC" name="00NF000000838NC" rows="3" wrap="soft" placeholder="e.g. 6659, 6340, 90090"></textarea>
         </div>
         <div class="form-group">
-            <label>{{labels.country}}</label>
-            <input :readonly="submitting" :data-label="labels.country" type="text" name="country" placeholder="e.g. United Kingdom" autocomplete="off" @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid">
+            <label for="00NF000000838Mb">{{labels.country}}</label>
+            <select 
+              name="00NF000000838Mb" 
+              id="00NF000000838Mb" 
+              :readonly="submitting" 
+            >
+              <option value="">--None--</option>
+              <option v-for="country in countries" :value="country">{{ country }}</option>
+            </select>
         </div>
         <div class="form-group">
             <label>{{labels.comments}}</label>
-            <textarea :readonly="submitting" :data-label="labels.comments" type="text" name="description" :placeholder="labels.placeholder" autocomplete="off" required @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid"></textarea>
+            <textarea :readonly="submitting" :data-label="labels.comments" type="text" name="description" rows="5" :placeholder="labels.placeholder" autocomplete="off" required @change="handleInvalid" @invalid="handleInvalid" @input="handleInvalid"></textarea>
         </div>
         <div class="checkbox-group">
             <input id="agreement-checkbox" :readonly="submitting" type="checkbox" name="accept" placeholder autocomplete="off" required value="on" @change="handleInvalid" @invalid="handleInvalid">
