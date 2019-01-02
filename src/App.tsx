@@ -63,6 +63,7 @@ export interface IConfig {
   headerBg: string;
   textProfileColor: string;
   logo: string;
+  displayName: string;
 }
 
 const compileStyle = (config: IConfig) => {
@@ -72,7 +73,6 @@ const compileStyle = (config: IConfig) => {
   styleTag.innerHTML = `
     @import url(${config.fontUrl});
     body .wc-app {
-      font-family: "${config.fontFamily}", sans-serif;
       color: ${config.textColor};
     }
     .wc-message { border-color: ${config.brandColor} }
@@ -85,20 +85,29 @@ const compileStyle = (config: IConfig) => {
       color: ${config.brandColor} !important;
     }
     .wc-header {
-      background-color: ${config.headerBg};
-      color: ${config.brandColor}
+      background-image: linear-gradient(60deg, ${config.headerBg}, ${config.headerBg}, ${
+    config.headerBg
+  });
     }
     .wc-message-meta { color: ${config.textProfileColor} }
     .wc-suggested-actions .wc-hscroll > ul > li button { color: ${config.brandColor} }
+    .wc-message-from-me .wc-message-content-inner { background-color: ${config.userResponseBg}; }
+    .wc-message-from-bot .wc-message-content-inner { background-color: ${config.botResponseBg}; }
     `;
 
   document.head.appendChild(styleTag);
 
   // change logo
   const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
+  const titleEL = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header h1');
 
-  if (config.logo) {
+  if (logoEl && config.logo) {
     logoEl.setAttribute('src', config.logo);
+  }
+
+  if (titleEL && config.displayName) {
+    document.title = config.displayName;
+    titleEL.innerText = config.displayName;
   }
 };
 
