@@ -102,11 +102,11 @@ const compileStyle = (config: IConfig) => {
   const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
   const titleEL = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header h1');
 
-  if (config.logo) {
+  if (logoEl && config.logo) {
     logoEl.setAttribute('src', config.logo);
   }
 
-  if (config.displayName) {
+  if (titleEL && config.displayName) {
     document.title = config.displayName;
     titleEL.innerText = config.displayName;
   }
