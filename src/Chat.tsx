@@ -247,11 +247,10 @@ export class Chat extends React.Component<ChatProps, {}> {
     if (state.format.options.showHeader)
       header = (
         <div className="wc-header">
-          {process.env.SHOW_AVATAR === 'true' ? (
-            <img src="./avatar.png" />
-          ) : (
-            <h1>{process.env.BOT_NAME}</h1>
-          )}
+          <div className="wc-logo-name">
+            {process.env.SHOW_AVATAR === 'true' && <img src="./avatar.png" />}
+            {process.env.BOT_NAME === 'true' && <h1>{process.env.BOT_NAME}</h1>}
+          </div>
           {state.format.bots &&
             state.format.bots.length > 0 && (
               <BotSelection bots={state.format.bots} onChange={this._handleChangeBot} />
