@@ -1,6 +1,7 @@
 var API_URL =
   process.env.NODE_ENV === 'development' ? 'https://kc-emea-staging.azurewebsites.net' : '';
 var COUNTRIES = [
+  'United Kingdom',
   'Austria',
   'Bahrain',
   'Belgium',
@@ -37,8 +38,7 @@ var COUNTRIES = [
   'Sweden',
   'Switzerland',
   'Turkey',
-  'United Arab Emirates',
-  'United Kingdom'
+  'United Arab Emirates'
 ];
 
 function qs(str) {
