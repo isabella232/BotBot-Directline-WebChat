@@ -76,7 +76,8 @@ var app = new Vue({
       policyLink: 'https://www.kcprofessional.co.uk/privacy-policy',
       termLink: 'https://www.kcprofessional.co.uk/terms-of-use',
       country: 'Country',
-      productCode: 'Product Code(s)'
+      productCode: 'Product Code(s)',
+      agreementMessage: 'I accept - Mandatory Field'
     },
     errorMessage: '',
     returnUrl: window.location.origin + '/success.html',
@@ -98,7 +99,11 @@ var app = new Vue({
       var el = e.target;
       var value = e.target.value;
       if (el.validity.valueMissing && this.labels.requiredMessage) {
-        el.setCustomValidity((el.dataset.label || el.name) + ' ' + this.labels.requiredMessage);
+        if (el.dataset.label === 'agreement') {
+          el.setCustomValidity(this.labels.agreementMessage);
+        } else {
+          el.setCustomValidity((el.dataset.label || el.name) + ' ' + this.labels.requiredMessage);
+        }
       } else if (el.validity.typeMismatch && this.labels.typeMismatchMessage) {
         el.setCustomValidity((el.dataset.label || el.name) + ' ' + this.labels.typeMismatchMessage);
       } else {
