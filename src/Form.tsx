@@ -8,6 +8,17 @@ interface FormState {
 }
 
 class Form extends React.Component<null, FormState> {
+  static POLICY_LINK = 'https://www.kcprofessional.co.uk/privacy-policy';
+  static TERM_LINK = 'https://www.kcprofessional.co.uk/terms-of-use';
+
+  static renderDisclaimer(str) {
+    var reg = /\{\{((\w+\s?)*)\}\}/;
+    str = str.replace(reg, '<a href="' + Form.POLICY_LINK + '" target="_blank">$1</a>');
+    str = str.replace(reg, '<a href="' + Form.TERM_LINK + '" target="_blank">$1</a>');
+
+    return <span dangerouslySetInnerHTML={{ __html: str }} />;
+  }
+
   constructor(props) {
     super(props);
 
@@ -30,32 +41,17 @@ class Form extends React.Component<null, FormState> {
     };
 
     this.formEl = null;
-    window.addEventListener('message', this._handleFormChange);
   }
 
-  private _handleFormChange = this.handleFormChange.bind(this);
   private _handleSubmitButtonClick = this.handleSubmitButtonClick.bind(this);
-
-  componentWillUnmount() {
-    window.removeListener('message', this._handleFormChange);
-  }
 
   getFormRef = ref => {
     this.formEl = ref;
   };
 
-  handleFormChange(event) {
-    if (event.origin === window.location.origin) {
-      this.setState(event.data, () => {
-        event.source.postMessage(document.body.offsetHeight);
-      });
-    }
-
-    return;
-  }
-
   handleSubmitButtonClick(e) {
-    // e.preventDefault();
+    e.preventDefault();
+
     const formData = new FormData(this.formEl);
 
     this.setState({ submitting: true, errorMessage: '' });
@@ -63,12 +59,11 @@ class Form extends React.Component<null, FormState> {
     // axios.post('https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8', formData);
 
     axios
-      .post(this.state.action, formData)
+      .post(this.props.action, formData)
       .then(resp => {
         this.setState({
           submitted: true
         });
-        // this.formEl.submit();
       })
       .catch(error => {
         this.setState({
@@ -93,7 +88,7 @@ class Form extends React.Component<null, FormState> {
   }
 
   render() {
-    const { inputs } = this.state;
+    const { inputs } = this.props;
     const { submitted, submitting, errorMessage } = this.state;
 
     if (!inputs || inputs.length === 0) {
@@ -129,17 +124,44 @@ class Form extends React.Component<null, FormState> {
           </svg>
         </div>
       );
+    } else if (submitted) {
+      return (
+        <svg
+          width="511pt"
+          height="511pt"
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 512 512"
+          xmlSpace="preserve"
+        >
+          <path
+            style="fill:#C3E678;"
+            d="M256,512C114.844,512,0,397.156,0,256S114.844,0,256,0s256,114.844,256,256S397.156,512,256,512z"
+          />
+          <path
+            style="fill:#A5D76E;"
+            d="M375.467,426.667c-141.156,0-256-114.844-256-256c0-59.087,20.318-113.41,54.071-156.783
+    C72.768,48.311,0,143.72,0,256c0,141.156,114.844,256,256,256c82.069,0,155.049-38.974,201.929-99.217
+    C432.012,421.638,404.342,426.667,375.467,426.667z"
+          />
+          <path
+            style="fill:#FFFFFF;"
+            d="M203.034,388.414c-4.518,0-9.038-1.725-12.483-5.173L84.62,277.31
+    c-6.897-6.892-6.897-18.073,0-24.966c6.888-6.897,18.078-6.897,24.966,0l93.449,93.444l181.724-181.72
+    c6.888-6.897,18.078-6.897,24.966,0c6.897,6.892,6.897,18.073,0,24.966L215.517,383.241
+    C212.073,386.689,207.552,388.414,203.034,388.414z"
+          />
+        </svg>
+      );
     }
+    
     return (
       <div className="custom-form">
-        <form
-          ref={this.getFormRef}
-          onSubmit={this.handleSubmit}
-          action="https://kcp--GBQAbox.cs14.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8"
-          method="POST"
-        >
-          <input type="hidden" name="retURL" value={`${window.location.origin}/success.html`} />
-          <input type="hidden" name="orgid" value="00Dc0000003odkb" />
+        <form ref={this.getFormRef} onSubmit={this._handleSubmitButtonClick}>
           {errorMessage && <p className="error">{errorMessage}</p>}
           {inputs &&
             inputs.map(item => (
@@ -178,10 +200,10 @@ class Form extends React.Component<null, FormState> {
                     onInvalid={e => this.handleInvalid(e, item)}
                   />
                 )}
-                {item.type === 'checkbox' && <label>{item.label}</label>}
+                {item.type === 'checkbox' && <label>{Form.renderDisclaimer(item.label)}</label>}
               </div>
             ))}
-          <button type="submit" className="submit-btn" onClick={this._handleSubmitButtonClick}>
+          <button type="submit" className="submit-btn">
             Submit
           </button>
         </form>
@@ -255,5 +277,3 @@ class Form extends React.Component<null, FormState> {
 //   ]
 // };
 export default Form;
-
-ReactDOM.render(<Form />, document.getElementById('app'));

@@ -5,7 +5,7 @@ import { Carousel } from './Carousel';
 import { FormattedText } from './FormattedText';
 import { FormatState, SizeState } from './Store';
 import { IDoCardAction } from './Chat';
-import FormRender from './FormRender';
+import Form from './Form';
 
 const Attachments = (props: {
   attachments: Attachment[];
@@ -17,7 +17,7 @@ const Attachments = (props: {
 }) => {
   const { channelData, attachments, attachmentLayout, ...otherProps } = props;
   if (channelData && channelData.form) {
-    return <FormRender {...channelData.form} />;
+    return <Form {...channelData.form} />;
   }
 
   if (!attachments || attachments.length === 0) return null;
