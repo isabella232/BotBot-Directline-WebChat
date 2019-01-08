@@ -87,9 +87,65 @@ class Form extends React.Component<null, FormState> {
     }
   }
 
+  renderInput(item) {
+    const { submitting } = this.state;
+
+    switch (item.type) {
+      case 'select':
+        return (
+          <select
+            disabled={submitting}
+            placeholder={item.placeholder}
+            name={item.id}
+            value={item.value}
+            required={item.required}
+            onInvalid={e => this.handleInvalid(e, item)}
+            onChange={e => this.handleInvalid(e, item)}
+          >
+            {item.optionSelections.map(o => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
+          </select>
+        );
+
+      case 'textarea':
+        return (
+          <textarea
+            name={item.id}
+            placeholder={item.placeholder}
+            onChange={e => this.handleInvalid(e, item)}
+            disabled={submitting}
+            value={item.value}
+            autoComplete="off"
+            multiple={item.multiple}
+            required={item.required}
+            onInvalid={e => this.handleInvalid(e, item)}
+            rows="4"
+          />
+        );
+      default:
+        return (
+          <input
+            name={item.id}
+            type={item.type}
+            placeholder={item.placeholder}
+            onChange={e => this.handleInvalid(e, item)}
+            disabled={submitting}
+            value={item.value}
+            autoComplete="off"
+            multiple={item.multiple}
+            required={item.required}
+            onInvalid={e => this.handleInvalid(e, item)}
+          />
+        );
+    }
+  }
+
   render() {
     const { inputs } = this.props;
-    const { submitted, submitting, errorMessage } = this.state;
+    const { submitted, errorMessage } = this.state;
 
     if (!inputs || inputs.length === 0) {
       return (
@@ -126,39 +182,25 @@ class Form extends React.Component<null, FormState> {
       );
     } else if (submitted) {
       return (
-        <svg
-          width="511pt"
-          height="511pt"
-          version="1.1"
-          id="Layer_1"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          x="0px"
-          y="0px"
-          viewBox="0 0 512 512"
-          xmlSpace="preserve"
-        >
-          <path
-            style="fill:#C3E678;"
-            d="M256,512C114.844,512,0,397.156,0,256S114.844,0,256,0s256,114.844,256,256S397.156,512,256,512z"
-          />
-          <path
-            style="fill:#A5D76E;"
-            d="M375.467,426.667c-141.156,0-256-114.844-256-256c0-59.087,20.318-113.41,54.071-156.783
-    C72.768,48.311,0,143.72,0,256c0,141.156,114.844,256,256,256c82.069,0,155.049-38.974,201.929-99.217
-    C432.012,421.638,404.342,426.667,375.467,426.667z"
-          />
-          <path
-            style="fill:#FFFFFF;"
-            d="M203.034,388.414c-4.518,0-9.038-1.725-12.483-5.173L84.62,277.31
-    c-6.897-6.892-6.897-18.073,0-24.966c6.888-6.897,18.078-6.897,24.966,0l93.449,93.444l181.724-181.72
-    c6.888-6.897,18.078-6.897,24.966,0c6.897,6.892,6.897,18.073,0,24.966L215.517,383.241
-    C212.073,386.689,207.552,388.414,203.034,388.414z"
-          />
-        </svg>
+        <div>
+          <svg width="511" height="511" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              style={{ fill: '#C3E678' }}
+              d="M256,512C114.844,512,0,397.156,0,256S114.844,0,256,0s256,114.844,256,256S397.156,512,256,512z"
+            />
+            <path
+              style={{ fill: '#A5D76E' }}
+              d="M375.467,426.667c-141.156,0-256-114.844-256-256c0-59.087,20.318-113.41,54.071-156.783C72.768,48.311,0,143.72,0,256c0,141.156,114.844,256,256,256c82.069,0,155.049-38.974,201.929-99.217C432.012,421.638,404.342,426.667,375.467,426.667z"
+            />
+            <path
+              style={{ fill: '#FFFFFF' }}
+              d="M203.034,388.414c-4.518,0-9.038-1.725-12.483-5.173L84.62,277.31c-6.897-6.892-6.897-18.073,0-24.966c6.888-6.897,18.078-6.897,24.966,0l93.449,93.444l181.724-181.72c6.888-6.897,18.078-6.897,24.966,0c6.897,6.892,6.897,18.073,0,24.966L215.517,383.241C212.073,386.689,207.552,388.414,203.034,388.414z"
+            />
+          </svg>
+        </div>
       );
     }
-    
+
     return (
       <div className="custom-form">
         <form ref={this.getFormRef} onSubmit={this._handleSubmitButtonClick}>
@@ -170,42 +212,10 @@ class Form extends React.Component<null, FormState> {
                 className={item.type === 'checkbox' ? 'checkbox-group' : 'form-group'}
               >
                 {item.type !== 'checkbox' && <label>{item.label}</label>}
-                {item.type === 'select' ? (
-                  <select
-                    disabled={submitting || submitted}
-                    placeholder={item.placeholder}
-                    name={item.id}
-                    value={item.value}
-                    required={item.required}
-                    onInvalid={e => this.handleInvalid(e, item)}
-                    onChange={e => this.handleInvalid(e, item)}
-                  >
-                    {item.optionSelections.map(o => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    name={item.id}
-                    type={item.type}
-                    placeholder={item.placeholder}
-                    onChange={e => this.handleInvalid(e, item)}
-                    disabled={submitting || submitted}
-                    value={item.value}
-                    autoComplete="off"
-                    multiple={item.multiple}
-                    required={item.required}
-                    onInvalid={e => this.handleInvalid(e, item)}
-                  />
-                )}
+                {this.renderInput(item)}
                 {item.type === 'checkbox' && <label>{Form.renderDisclaimer(item.label)}</label>}
               </div>
             ))}
-          <button type="submit" className="submit-btn">
-            Submit
-          </button>
         </form>
       </div>
     );

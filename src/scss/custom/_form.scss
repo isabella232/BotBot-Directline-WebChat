@@ -1,6 +1,6 @@
 @import '../includes/settings';
 @import '../includes/colors';
-@import './fonts';
+// @import './fonts';
 @import './functions';
 
 body {
@@ -72,6 +72,8 @@ svg {
     padding: 0;
     border: 0;
   }
+
+  input[type="submit"],
   .submit-btn {
     padding: 10px;
     color: white;
@@ -82,13 +84,14 @@ svg {
     margin-top: 10px;
     background-color: $c_brand;
     line-height: 1;
-  }
-  .submit-btn.disabled {
-    opacity: 0.4;
-    cursor: not-allowed !important;
-  }
-  .submit-btn:not([disabled]):hover {
-    opacity: 0.8;
+  
+    &.disabled {
+      opacity: 0.4;
+      cursor: not-allowed !important;
+    }
+    &:not([disabled]):hover {
+      opacity: 0.8;
+    }
   }
 
   textarea {
