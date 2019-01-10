@@ -1,12 +1,7 @@
 import * as React from 'react';
-import { Attachment } from 'botframework-directlinejs';
+import { User } from 'botframework-directlinejs';
 import { connect } from 'react-redux';
-
-import { AttachmentView } from './Attachment';
-import { FormatState, SizeState } from './Store';
-import { HScroll } from './HScroll';
-import { IDoCardAction } from './Chat';
-import * as konsole from './Konsole';
+import { ChatState } from './Store'
 
 export const getLanguageCode = (botName = '') => {
   if (botName.indexOf('-') > -1) {
@@ -31,12 +26,11 @@ export const getLanguageTitle = (botName = '') => {
 export interface BotSelectionProps {
   bots: Array<string>;
   selectedBotName: string;
-  onChange: () => void;
+  onChange: (botName: string, from: User) => void;
+  user: User;
 }
 
-interface BotSelectionState {}
-
-const FONTS = {
+const FONTS: {[language: string] : { fontFamily: string, url?: string }} = {
   nl: { fontFamily: 'Museo' },
   de: { fontFamily: 'Museo' },
   en: { fontFamily: 'Museo' },
@@ -46,9 +40,7 @@ const FONTS = {
   ru: { fontFamily: 'Museo Cyrl' }
 };
 
-class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionState> {
-  private _handleBotChange = this.handleBotChange.bind(this);
-
+class BotSelection extends React.PureComponent<BotSelectionProps, {}> {
   constructor(props: BotSelectionProps) {
     super(props);
 
@@ -61,12 +53,12 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
     const config = FONTS[code];
     const style = config
       ? `
-    ${config.ur ? `@import url(${config.url});` : ''}
+    ${config.url ? `@import url(${config.url});` : ''}
     body .wc-app {
       font-family: "${config.fontFamily}", sans-serif;
     }
     `
-      : '';
+    : '';
 
     let styleTag = document.getElementById('custom-font');
     if (!styleTag) {
@@ -83,12 +75,12 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
     this.updateFont(lang);
 
     if (lang !== this.props.selectedBotName) {
-      this.props.onChange(lang);
+      this.props.onChange(lang, this.props.user);
     }
   }
 
   render() {
-    const { bots, selectedBotName, onChange } = this.props;
+    const { bots, selectedBotName } = this.props;
 
     return (
       <div className="bot-selection">
@@ -115,9 +107,10 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
 }
 
 export default connect(
-  (state: BotSelectionState) => ({
+  (state: ChatState) => ({
     selectedBotName: state.history.selectedBotName,
-    bots: state.format.bots
+    bots: state.format.bots,
+    user: state.connection.user,
   }),
   {
     onChange: (botName: string) => ({
@@ -128,12 +121,13 @@ export default connect(
   (stateProps: any, dispatchProps: any, ownProps: any): BotSelectionProps => ({
     selectedBotName: stateProps.selectedBotName,
     bots: stateProps.bots,
-    onChange: botName => {
-      dispatchProps.onChange(botName);
+    onChange: (botName: string, user: User) => {
+      dispatchProps.onChange(botName, user);
 
       if (typeof ownProps.onChange === 'function') {
-        ownProps.onChange(botName);
+        ownProps.onChange(botName, user);
       }
-    }
+    },
+    user: stateProps.user,
   })
 )(BotSelection);

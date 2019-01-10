@@ -65,6 +65,8 @@ export interface IConfig {
   textProfileColor: string;
   logo: string;
   displayName: string;
+  userResponseBg: string;
+  botResponseBg: string;
 }
 
 const compileStyle = (config: IConfig) => {
@@ -99,8 +101,8 @@ const compileStyle = (config: IConfig) => {
   document.head.appendChild(styleTag);
 
   // change logo
-  const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
-  const titleEL = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header h1');
+  const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img') as HTMLElement;
+  const titleEL = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header h1') as HTMLElement;
 
   if (logoEl && config.logo) {
     logoEl.setAttribute('src', config.logo);

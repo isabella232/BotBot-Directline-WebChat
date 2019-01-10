@@ -12,6 +12,7 @@ const Attachments = (props: {
   attachmentLayout: AttachmentLayout;
   format: FormatState;
   size: SizeState;
+  channelData?: any;
   onCardAction: IDoCardAction;
   onImageLoad: () => void;
 }) => {

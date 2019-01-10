@@ -3,15 +3,25 @@ import * as ReactDOM from 'react-dom';
 import axios from 'axios';
 
 interface FormState {
-  action: string;
-  inputs: Array<object>;
+  data: any;
+  action?: string;
+  inputs?: Array<object>;
+  submitting: boolean;
+  submitted: boolean;
+  errorMessage: string;
 }
 
-class Form extends React.Component<null, FormState> {
+interface FormProps {
+  inputs: any[];
+  action: string;
+}
+
+class Form extends React.Component<FormProps, FormState> {
   static POLICY_LINK = 'https://www.kcprofessional.co.uk/privacy-policy';
   static TERM_LINK = 'https://www.kcprofessional.co.uk/terms-of-use';
+  private formEl: HTMLFormElement
 
-  static renderDisclaimer(str) {
+  static renderDisclaimer(str: string) {
     var reg = /\{\{((\w+\s?)*)\}\}/;
     str = str.replace(reg, '<a href="' + Form.POLICY_LINK + '" target="_blank">$1</a>');
     str = str.replace(reg, '<a href="' + Form.TERM_LINK + '" target="_blank">$1</a>');
@@ -19,10 +29,10 @@ class Form extends React.Component<null, FormState> {
     return <span dangerouslySetInnerHTML={{ __html: str }} />;
   }
 
-  constructor(props) {
+  constructor(props: FormProps) {
     super(props);
 
-    let data = {};
+    let data: any = {};
     if (props.inputs && props.inputs.length > 0) {
       props.inputs.forEach(item => {
         if (item.type === 'checkbox') {
@@ -45,11 +55,11 @@ class Form extends React.Component<null, FormState> {
 
   private _handleSubmitButtonClick = this.handleSubmitButtonClick.bind(this);
 
-  getFormRef = ref => {
+  getFormRef = (ref: HTMLFormElement) => {
     this.formEl = ref;
   };
 
-  handleSubmitButtonClick(e) {
+  handleSubmitButtonClick(e: React.SyntheticEvent<EventTarget>) {
     e.preventDefault();
 
     const formData = new FormData(this.formEl);
@@ -75,9 +85,9 @@ class Form extends React.Component<null, FormState> {
       });
   }
 
-  handleInvalid(e, item) {
-    const el = e.target;
-    const value = e.target.value;
+  handleInvalid(e: React.SyntheticEvent<EventTarget>, item: any) {
+    const el = e.target as (HTMLSelectElement | HTMLTextAreaElement);
+    // const value = el.value;
     if (el.validity.valueMissing && item.requiredMessage) {
       el.setCustomValidity(item.requiredMessage);
     } else if (el.validity.typeMismatch && item.typeMismatchMessage) {
@@ -87,7 +97,7 @@ class Form extends React.Component<null, FormState> {
     }
   }
 
-  renderInput(item) {
+  renderInput(item: any) {
     const { submitting } = this.state;
 
     switch (item.type) {
@@ -95,14 +105,14 @@ class Form extends React.Component<null, FormState> {
         return (
           <select
             disabled={submitting}
-            placeholder={item.placeholder}
+            // placeholder={item.placeholder}
             name={item.id}
             value={item.value}
             required={item.required}
             onInvalid={e => this.handleInvalid(e, item)}
             onChange={e => this.handleInvalid(e, item)}
           >
-            {item.optionSelections.map(o => (
+            {item.optionSelections.map((o: any) => (
               <option key={o.value} value={o.value}>
                 {o.label}
               </option>
@@ -118,11 +128,11 @@ class Form extends React.Component<null, FormState> {
             onChange={e => this.handleInvalid(e, item)}
             disabled={submitting}
             value={item.value}
-            autoComplete="off"
-            multiple={item.multiple}
+            // autoComplete="off"
+            // multiple={item.multiple}
             required={item.required}
             onInvalid={e => this.handleInvalid(e, item)}
-            rows="4"
+            rows={4}
           />
         );
       default:

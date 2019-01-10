@@ -1,5 +1,6 @@
 import {
-  Activity,
+  IActivity,
+  Activity as BotFrameworkActivity,
   ConnectionStatus,
   IBotConnection,
   Media,
@@ -16,6 +17,14 @@ import * as konsole from './Konsole';
 // Reducers - perform state transformations
 
 import { Reducer } from 'redux';
+
+export interface BotChangeActivity extends IActivity {
+  type: 'botName'
+  botName: string
+  hide?: boolean
+}
+
+export declare type Activity = BotFrameworkActivity |  BotChangeActivity
 
 export const sendMessage = (text: string, from: User, locale: string) =>
   ({
@@ -328,6 +337,7 @@ export type HistoryAction =
   | {
       type: 'Set_Selected_Bot';
       selectedBotName: string;
+      from: User;
     };
 
 const copyArrayWithUpdatedItem = <T>(array: Array<T>, i: number, item: T) => [
@@ -366,7 +376,8 @@ export const history: Reducer<HistoryState> = (
       activities.push({
         botName: action.selectedBotName,
         type: 'botName',
-        from: new Date()
+        from: action.from,
+        timestamp: new Date().getTime().toString()
       });
 
       return {
@@ -530,6 +541,7 @@ export interface ChatState {
   size: SizeState;
   connection: ConnectionState;
   history: HistoryState;
+  selectedBotName: string;
 }
 
 const speakFromMsg = (msg: Message, fallbackLocale: string) => {
@@ -617,9 +629,9 @@ const trySendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
     }
 
     return state.connection.botConnection
-      .postActivity(activity)
+      .postActivity(activity as BotFrameworkActivity)
       .map(id => ({ type: 'Send_Message_Succeed', clientActivityId, id } as HistoryAction))
-      .catch(error =>
+      .catch(_ =>
         Observable.of({ type: 'Send_Message_Fail', clientActivityId } as HistoryAction)
       );
   });
@@ -725,7 +737,7 @@ const updateSelectedActivityEpic: Epic<ChatActions, ChatState> = (action$, store
     .map(action => {
       const state = store.getState();
       if (state.connection.selectedActivity)
-        state.connection.selectedActivity.next({ activity: state.history.selectedActivity });
+        state.connection.selectedActivity.next({ activity: state.history.selectedActivity as BotFrameworkActivity });
       return nullAction;
     });
 
