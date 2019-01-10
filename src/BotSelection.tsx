@@ -31,7 +31,7 @@ export const getLanguageTitle = (botName = '') => {
 export interface BotSelectionProps {
   bots: Array<string>;
   selectedBotName: string;
-  onChange: () => void;
+  onChange: (botName: string) => void;
 }
 
 interface BotSelectionState {}
@@ -56,7 +56,8 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
     const config = FONTS[code];
     const style = config
       ? `
-    @import url(${config.url});
+    ${config.url ? `@import url(${config.url});` : ''}
+    
     body .wc-app {
       font-family: "${config.fontdFamily}", sans-serif;
     }
@@ -119,7 +120,7 @@ export default connect(
   (stateProps: any, dispatchProps: any, ownProps: any): BotSelectionProps => ({
     selectedBotName: stateProps.selectedBotName,
     bots: stateProps.bots,
-    onChange: botName => {
+    onChange: (botName: string) => {
       dispatchProps.onChange(botName);
 
       if (typeof ownProps.onChange === 'function') {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Activity, Message, User, CardActionTypes } from 'botframework-directlinejs';
+import { Message, User, CardActionTypes } from 'botframework-directlinejs';
 import { ChatState, FormatState, SizeState } from './Store';
 import { Dispatch, connect } from 'react-redux';
 import { ActivityView } from './ActivityView';
@@ -7,6 +7,7 @@ import { classList, doCardAction, IDoCardAction } from './Chat';
 import * as konsole from './Konsole';
 import { sendMessage } from './Store';
 import { getLanguageTitle } from './BotSelection';
+import { MyActivity as Activity } from './Types';
 
 export interface HistoryProps {
   format: FormatState;
@@ -238,7 +239,8 @@ export const History = connect(
       stateProps.botConnection,
       stateProps.user,
       stateProps.format.locale,
-      dispatchProps.sendMessage
+      dispatchProps.sendMessage,
+      stateProps.selectedBotName
     ),
     isFromMe: (activity: Activity) => activity.from.id === stateProps.user.id,
     isSelected: (activity: Activity) => activity === stateProps.selectedActivity

@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { Activity, Attachment, AttachmentLayout } from 'botframework-directlinejs';
+import { Attachment, AttachmentLayout } from 'botframework-directlinejs';
 import { AttachmentView } from './Attachment';
 import { Carousel } from './Carousel';
 import { FormattedText } from './FormattedText';
 import { FormatState, SizeState } from './Store';
 import { IDoCardAction } from './Chat';
-import Form from './Form';
+import Form, { FormProps } from './Form';
+import { MyActivity as Activity } from './Types';
+
+export interface IChannelData {
+  form: FormProps;
+}
 
 const Attachments = (props: {
   attachments: Attachment[];
@@ -14,6 +19,7 @@ const Attachments = (props: {
   size: SizeState;
   onCardAction: IDoCardAction;
   onImageLoad: () => void;
+  channelData: IChannelData
 }) => {
   const { channelData, attachments, attachmentLayout, ...otherProps } = props;
   if (channelData && channelData.form) {

@@ -1,7 +1,5 @@
 import {
-  Activity,
   ConnectionStatus,
-  IBotConnection,
   Media,
   MediaType,
   Message,
@@ -10,7 +8,7 @@ import {
 import { strings, defaultStrings, Strings } from './Strings';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Speech } from './SpeechModule';
-import { ActivityOrID, FormatOptions } from './Types';
+import { ActivityOrID, FormatOptions, MyActivity as Activity, IMyBotConnection  } from './Types';
 import * as konsole from './Konsole';
 
 // Reducers - perform state transformations
@@ -243,7 +241,7 @@ export const size: Reducer<SizeState> = (
 
 export interface ConnectionState {
   connectionStatus: ConnectionStatus;
-  botConnection: IBotConnection;
+  botConnection: IMyBotConnection;
   selectedActivity: BehaviorSubject<ActivityOrID>;
   user: User;
   bot: User;
@@ -252,7 +250,7 @@ export interface ConnectionState {
 export type ConnectionAction =
   | {
       type: 'Start_Connection';
-      botConnection: IBotConnection;
+      botConnection: IMyBotConnection;
       user: User;
       bot: User;
       selectedActivity: BehaviorSubject<ActivityOrID>;
@@ -359,7 +357,7 @@ export const history: Reducer<HistoryState> = (
         botName: action.selectedBotName,
         type: 'botName',
         from: {
-          id: new Date()
+          id: new Date().toString()
         }
       });
 
@@ -494,9 +492,9 @@ export const history: Reducer<HistoryState> = (
     case 'Take_SuggestedAction':
       const i = state.activities.findIndex(activity => activity === action.message);
       const activity = state.activities[i];
-      const newActivity = {
+      const newActivity: Activity = {
         ...activity,
-        suggestedActions: undefined
+        // suggestedActions: undefined
       };
       return {
         ...state,
@@ -577,7 +575,7 @@ import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
 
 const sendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
-  action$.ofType('Send_Message').map(action => {
+  action$.ofType('Send_Message').map(() => {
     const state = store.getState();
     const clientActivityId =
       state.history.clientActivityBase + (state.history.clientActivityCounter - 1);
@@ -585,7 +583,7 @@ const sendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
   });
 
 const trySendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
-  action$.ofType('Send_Message_Try').flatMap(action => {
+  action$.ofType('Send_Message_Try').flatMap((action: HistoryAction) => {
     const state = store.getState();
     const clientActivityId = action.clientActivityId;
     const activity = state.history.activities.find(
@@ -612,8 +610,8 @@ const trySendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
 
     return state.connection.botConnection
       .postActivity(activity)
-      .map(id => ({ type: 'Send_Message_Succeed', clientActivityId, id } as HistoryAction))
-      .catch(error =>
+      .map((id: string) => ({ type: 'Send_Message_Succeed', clientActivityId, id } as HistoryAction))
+      .catch(() =>
         Observable.of({ type: 'Send_Message_Fail', clientActivityId } as HistoryAction)
       );
   });
@@ -625,8 +623,8 @@ const speakObservable = Observable.bindCallback<string, string, {}, {}>(
 const speakSSMLEpic: Epic<ChatActions, ChatState> = (action$, store) =>
   action$
     .ofType('Speak_SSML')
-    .filter(action => action.ssml)
-    .mergeMap(action => {
+    .filter((action: ShellAction) => action.ssml)
+    .mergeMap((action: ShellAction) => {
       var onSpeakingStarted = null;
       var onSpeakingFinished = () => nullAction;
       if (action.autoListenAfterSpeak) {

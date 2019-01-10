@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import {
   Activity,
-  IBotConnection,
+  
   User,
   DirectLine,
   DirectLineOptions,
@@ -17,7 +17,7 @@ import { createStore, ChatActions, sendMessage, HistoryAction } from './Store';
 import { Provider } from 'react-redux';
 import { SpeechOptions } from './SpeechOptions';
 import { Speech } from './SpeechModule';
-import { ActivityOrID, FormatOptions } from './Types';
+import { ActivityOrID, FormatOptions, IMyBotConnection } from './Types';
 import * as konsole from './Konsole';
 import { getTabIndex } from './getTabIndex';
 import BotSelection from './BotSelection';
@@ -25,7 +25,7 @@ import BotSelection from './BotSelection';
 export interface ChatProps {
   user: User;
   bot: User;
-  botConnection?: IBotConnection;
+  botConnection?: IMyBotConnection;
   directLine?: DirectLineOptions;
   speechOptions?: SpeechOptions;
   locale?: string;
@@ -43,7 +43,7 @@ import { Shell, ShellFunctions } from './Shell';
 export class Chat extends React.Component<ChatProps, {}> {
   private store = createStore();
 
-  private botConnection: IBotConnection;
+  private botConnection: IMyBotConnection;
 
   private activitySubscription: any;
   private connectionStatusSubscription: any;
@@ -286,10 +286,11 @@ export interface IDoCardAction {
 }
 
 export const doCardAction = (
-  botConnection: IBotConnection,
+  botConnection: IMyBotConnection,
   from: User,
   locale: string,
-  sendMessage: (value: string, user: User, locale: string) => void
+  sendMessage: (value: string, user: User, locale: string) => void,
+  botName: string
 ): IDoCardAction => (type, actionValue) => {
   const text = typeof actionValue === 'string' ? (actionValue as string) : undefined;
   const value = typeof actionValue === 'object' ? (actionValue as object) : undefined;
@@ -300,7 +301,7 @@ export const doCardAction = (
       break;
 
     case 'postBack':
-      sendPostBack(botConnection, text, value, from, locale);
+      sendPostBack(botConnection, text, value, from, locale, botName);
       break;
 
     case 'call':
@@ -319,7 +320,7 @@ export const doCardAction = (
 };
 
 export const sendPostBack = (
-  botConnection: IBotConnection,
+  botConnection: IMyBotConnection,
   text: string,
   value: object,
   from: User,

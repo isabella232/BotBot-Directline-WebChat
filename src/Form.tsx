@@ -1,18 +1,36 @@
 import * as React from 'react';
 import axios from 'axios';
 
-interface FormProps {
+export interface IInputItem {
+  label: string;
+  value: string;
+  type: string;
+  required: boolean;
+  placeholder: string;
+  id: string;
+  checked: boolean;
+}
+export interface FormProps {
   action: string;
-  inputs: Array<object>;
+  inputs: Array<IInputItem>;
 }
 
-class Form extends React.Component<FormProps> {
-  constructor(props) {
+export interface InputData {
+  [key: string]: any;
+}
+
+export interface FormState {
+  data: InputData;
+  submitted: boolean;
+}
+
+class Form extends React.Component<FormProps, FormState> {
+  constructor(props: FormProps) {
     super(props);
 
-    let data = {};
+    let data: InputData = {};
     if (props.inputs && props.inputs.length > 0) {
-      props.inputs.forEach(item => {
+      props.inputs.forEach((item: IInputItem) => {
         if (item.type === 'checkbox') {
           data[item.id] = item.checked;
         } else {
@@ -20,105 +38,74 @@ class Form extends React.Component<FormProps> {
         }
       });
     }
-
-    this.state = {
-      data,
-      submitted: false,
-      submitting: false,
-      errorMessage: ''
-    };
+    this.state = { data, submitted: false };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.formEl = null;
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  getFormRef = ref => {
-    this.formEl = ref;
-  };
+  isValid() {
+    let isValid: number = this.props.inputs.findIndex(
+      (item: IInputItem) => !this.state.data[item.id]
+    );
 
-  handleSubmit(e) {
+    return isValid === -1;
+  }
+
+  handleSubmit(e: any) {
     e.preventDefault();
-    const formData = new FormData(this.formEl);
-
-    this.setState({ submitting: true, errorMessage: '' });
-    
-    axios
-      .post(this.props.action, formData)
-      .then(resp => {
-        this.setState({
-          submitted: true
-        });
-      })
-      .catch(error => {
-        this.setState({
-          errorMessage: error.response.data.message
-        });
-      })
-      .then(() => {
-        this.setState({ submitting: false });
+    let formData = new FormData();
+    const keys = Object.keys(this.state.data);
+    keys.forEach(k => {
+      formData.append(k, this.state.data[k]);
+    });
+    axios.post(this.props.action, formData).then(resp => {
+      this.setState({
+        submitted: true
       });
+    });
   }
 
-  handleInvalid(e, item) {
-    const el = e.target;
-    const value = e.target.value;
-    if (el.validity.valueMissing && item.requiredMessage) {
-      el.setCustomValidity(item.requiredMessage);
-    } else if (el.validity.typeMismatch && item.typeMismatchMessage) {
-      el.setCustomValidity(item.typeMismatchMessage);
-    } else {
-      el.setCustomValidity('');
+  handleChange(e: any) {
+    let value = e.target.value;
+    if (e.target.type === 'file') {
+      value = e.target.files[0];
     }
+
+    this.setState({
+      data: {
+        ...this.state.data,
+        [e.target.name]: value
+      }
+    });
   }
 
   render() {
     const { inputs } = this.props;
-    const { submitted, submitting, errorMessage } = this.state;
 
     return (
       <div className="custom-form">
-        <form ref={this.getFormRef} onSubmit={this.handleSubmit}>
-          {errorMessage && <p className="error">{errorMessage}</p>}
+        <form onSubmit={this.handleSubmit}>
           {inputs &&
-            inputs.map(item => (
+            inputs.map((item: IInputItem) => (
               <div
                 key={item.id}
                 className={item.type === 'checkbox' ? 'checkbox-group' : 'form-group'}
               >
                 {item.type !== 'checkbox' && <label>{item.label}</label>}
-                {item.type === 'select' ? (
-                  <select
-                    disabled={submitting || submitted}
-                    placeholder={item.placeholder}
-                    name={item.id}
-                    defaultValue={item.value}
-                    required={item.required}
-                    onInvalid={e => this.handleInvalid(e, item)}
-                    onChange={e => this.handleInvalid(e, item)}
-                  >
-                    {item.optionSelections.map(o => (
-                      <option key={o.value} value={o.value}>
-                        {o.label}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    name={item.id}
-                    type={item.type}
-                    placeholder={item.placeholder}
-                    onChange={e => this.handleInvalid(e, item)}
-                    disabled={submitting || submitted}
-                    defaultValue={item.value}
-                    autoComplete="off"
-                    multiple={item.multiple}
-                    required={item.required}
-                    onInvalid={e => this.handleInvalid(e, item)}
-                  />
-                )}
+                <input
+                  name={item.id}
+                  type={item.type}
+                  placeholder={item.placeholder}
+                  onChange={this.handleChange}
+                  disabled={this.state.submitted}
+                />
                 {item.type === 'checkbox' && <label>{item.label}</label>}
               </div>
             ))}
+          <button type="submit" disabled={this.isValid() || this.state.submitted}>
+            Submit
+          </button>
         </form>
       </div>
     );
