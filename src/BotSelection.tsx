@@ -113,19 +113,20 @@ export default connect(
     user: state.connection.user,
   }),
   {
-    onChange: (botName: string) => ({
+    onChange: (botName: string, from: User) => ({
       type: 'Set_Selected_Bot',
-      selectedBotName: botName
+      selectedBotName: botName,
+      from,
     })
   },
   (stateProps: any, dispatchProps: any, ownProps: any): BotSelectionProps => ({
     selectedBotName: stateProps.selectedBotName,
     bots: stateProps.bots,
-    onChange: (botName: string, user: User) => {
-      dispatchProps.onChange(botName, user);
+    onChange: (botName: string, from: User) => {
+      dispatchProps.onChange(botName, from);
 
       if (typeof ownProps.onChange === 'function') {
-        ownProps.onChange(botName, user);
+        ownProps.onChange(botName, from);
       }
     },
     user: stateProps.user,

@@ -705,8 +705,14 @@
 
 /* text formats */
 
-    .format-markdown>p {
-        margin-bottom: 0px;
+    .format-markdown {
+        p {
+            margin-bottom: 12px;
+        }
+
+        p:last-child {
+            margin-bottom: 0px;
+        }
     }
 
     .format-markdown code {

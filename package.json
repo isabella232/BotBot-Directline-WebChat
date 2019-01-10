@@ -18,7 +18,7 @@
     "webpack-watch": "webpack --progress --watch --color",
     "clean": "rimraf built",
     "prepublish": "tsc && npm run build-css && webpack --progress --config webpack.production.config.js",
-    "build-js": "webpack --progress --config webpack.production.config.js",
+    "build-js": "webpack --progress --config webpack.config.js",
     "start": "http-server -p 8080",
     "test": "concurrently  \"node test/mock_dl/index.js\" \"mocha test\" ",
     "mock": "node test/mock_dl/index.js",

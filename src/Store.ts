@@ -576,7 +576,7 @@ const speakFromMsg = (msg: Message, fallbackLocale: string) => {
 
 // Epics - chain actions together with async operations
 
-import { applyMiddleware } from 'redux';
+import { applyMiddleware, compose } from 'redux';
 import { Epic } from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
 
@@ -769,6 +769,8 @@ const sendTypingEpic: Epic<ChatActions, ChatState> = (action$, store) =>
 import { Store, createStore as reduxCreateStore, combineReducers } from 'redux';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
 export const createStore = () =>
   reduxCreateStore(
     combineReducers<ChatState>({
@@ -778,7 +780,7 @@ export const createStore = () =>
       connection,
       history
     }),
-    applyMiddleware(
+    composeEnhancers(applyMiddleware(
       createEpicMiddleware(
         combineEpics(
           updateSelectedActivityEpic,
@@ -795,7 +797,7 @@ export const createStore = () =>
           listeningSilenceTimeoutEpic
         )
       )
-    )
+    ))
   );
 
 export type ChatStore = Store<ChatState>;

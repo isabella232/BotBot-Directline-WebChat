@@ -2,7 +2,6 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import {
@@ -13,7 +12,7 @@ import {
   DirectLineOptions,
   CardActionTypes
 } from 'botframework-directlinejs';
-import { createStore, ChatActions, sendMessage, HistoryAction } from './Store';
+import { ChatState, createStore, ChatActions, sendMessage, HistoryAction } from './Store';
 import { Provider } from 'react-redux';
 import { SpeechOptions } from './SpeechOptions';
 import { Speech } from './SpeechModule';
@@ -85,8 +84,6 @@ export class Chat extends React.Component<ChatProps, {}> {
       Speech.SpeechRecognizer.setSpeechRecognizer(props.speechOptions.speechRecognizer);
       Speech.SpeechSynthesizer.setSpeechSynthesizer(props.speechOptions.speechSynthesizer);
     }
-
-    this.setActiveBot();
   }
 
   private setActiveBot() {
@@ -163,7 +160,15 @@ export class Chat extends React.Component<ChatProps, {}> {
   }
 
   private handleChangeBot(botName: string) {
-    sendPostBack(this.botConnection, 'Hi', undefined, this.props.user, undefined, botName);
+    const state: ChatState = this.store.getState();
+    sendPostBack(
+      this.botConnection, 
+      'Hi',
+      null, 
+      this.props.user, 
+      state.format.locale, 
+      botName
+    );
   }
 
   componentDidMount() {
@@ -208,11 +213,12 @@ export class Chat extends React.Component<ChatProps, {}> {
             activityOrID.activity ||
             this.store
               .getState()
-              .history.activities.find(activity => activity.id === activityOrID.id)
+              .history.activities.find((activity: Activity) => activity.id === activityOrID.id)
         });
       });
     }
 
+    this.setActiveBot();
     sendPostBack(
       this.botConnection,
       'Hi',
