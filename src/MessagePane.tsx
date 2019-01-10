@@ -84,7 +84,8 @@ export const MessagePane = connect(
         // only used to create helper functions below
         botConnection: state.connection.botConnection,
         user: state.connection.user,
-        locale: state.format.locale
+        locale: state.format.locale,
+        selectedBotName: state.selectedBotName,
     }), {
         takeSuggestedAction: (message: Message) => ({ type: 'Take_SuggestedAction', message } as ChatActions),
         // only used to create helper functions below
@@ -97,6 +98,12 @@ export const MessagePane = connect(
         // from ownProps
         children: ownProps.children,
         // helper functions
-        doCardAction: doCardAction(stateProps.botConnection, stateProps.user, stateProps.locale, dispatchProps.sendMessage),
+        doCardAction: doCardAction(
+            stateProps.botConnection, 
+            stateProps.user, 
+            stateProps.locale, 
+            dispatchProps.sendMessage,
+            stateProps.selectedBotName
+        ),
     })
 )(MessagePaneView);
