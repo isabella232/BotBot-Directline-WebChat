@@ -8,6 +8,7 @@ import { IDoCardAction } from './Chat';
 import FormRender from './FormRender';
 
 const Attachments = (props: {
+  channelData?: any,
   attachments: Attachment[];
   attachmentLayout: AttachmentLayout;
   format: FormatState;

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Activity, Message, User, CardActionTypes } from 'botframework-directlinejs';
-import { ChatState, FormatState, SizeState } from './Store';
+import { Message, User, CardActionTypes } from 'botframework-directlinejs';
+import { ChatState, FormatState, SizeState, Activity } from './Store';
 import { Dispatch, connect } from 'react-redux';
 import { ActivityView } from './ActivityView';
 import { classList, doCardAction, IDoCardAction } from './Chat';

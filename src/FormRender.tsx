@@ -1,14 +1,21 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-class FormRender extends React.Component {
-  shouldComponentUpdate(nextProps) {
+export interface FormProps {
+  selectedBotName: string
+  action: string
+}
+
+class FormRender extends React.Component<FormProps, {}> {
+  formEl?: HTMLIFrameElement = null
+  
+  shouldComponentUpdate(nextProps: FormProps) {
     if (this.props.selectedBotName && nextProps.selectedBotName !== this.props.selectedBotName) {
       return false;
     }
   }
 
-  handleLoad = (e) => {
+  handleLoad = () => {
     const form = this.formEl; // e.target;
     if (form.contentDocument) {
       form.style.height = '';

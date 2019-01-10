@@ -90,6 +90,7 @@ export class Chat extends React.Component<ChatProps, {}> {
   }
 
   private setActiveBot() {
+    const state = this.store.getState();
     // get active bot
     const bots = this.props.bots;
     const localLanguage = window.navigator.language;
@@ -100,12 +101,13 @@ export class Chat extends React.Component<ChatProps, {}> {
 
     this.store.dispatch<HistoryAction>({
       type: 'Set_Selected_Bot',
-      selectedBotName: activeBot
+      selectedBotName: activeBot,
+      from: state.connection.user
     });
   }
 
   private handleIncomingActivity(activity: Activity) {
-    let state = this.store.getState();
+    const state = this.store.getState();
     switch (activity.type) {
       case 'message':
         this.store.dispatch<ChatActions>({
@@ -317,7 +319,7 @@ export const sendPostBack = (
   value: object,
   from: User,
   locale: string,
-  botName: string
+  botName?: string
 ) => {
   botConnection
     .postActivity({

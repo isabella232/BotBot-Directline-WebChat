@@ -1,14 +1,9 @@
 import * as React from 'react';
-import { Attachment } from 'botframework-directlinejs';
+import { User } from 'botframework-directlinejs';
 import { connect } from 'react-redux';
+import { ChatState } from './Store'
 
-import { AttachmentView } from './Attachment';
-import { FormatState, SizeState } from './Store';
-import { HScroll } from './HScroll';
-import { IDoCardAction } from './Chat';
-import * as konsole from './Konsole';
-
-export const getLanguageCode = (botName = '') => {
+export const getLanguageCode: (botName: string) => string = (botName = '') => {
   if (botName.indexOf('-') > -1) {
     const arr = botName.split('-');
 
@@ -31,12 +26,13 @@ export const getLanguageTitle = (botName = '') => {
 export interface BotSelectionProps {
   bots: Array<string>;
   selectedBotName: string;
-  onChange: () => void;
+  user: User,
+  onChange: (botName: string, user: User) => void;
 }
 
-interface BotSelectionState {}
-
-const FONTS = {
+const FONTS: {
+  [locale: string] : { fontFamily: string, url?: string }
+} = {
   nl: { fontFamily: 'Museo' },
   de: { fontFamily: 'Museo' },
   en: { fontFamily: 'Museo' },
@@ -46,8 +42,8 @@ const FONTS = {
   ru: { fontFamily: 'Museo Cyrl' }
 };
 
-class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionState> {
-  private _handleBotChange = this.handleBotChange.bind(this);
+class BotSelection extends React.PureComponent<BotSelectionProps, ChatState> {
+  // private _handleBotChange = this.handleBotChange.bind(this);
 
   constructor(props: BotSelectionProps) {
     super(props);
@@ -61,7 +57,7 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
     const config = FONTS[code];
     const style = config
       ? `
-    ${config.ur ? `@import url(${config.url});` : ''}
+    ${config.url ? `@import url(${config.url});` : ''}
     body .wc-app {
       font-family: "${config.fontFamily}", sans-serif;
     }
@@ -83,12 +79,12 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
     this.updateFont(lang);
 
     if (lang !== this.props.selectedBotName) {
-      this.props.onChange(lang);
+      this.props.onChange(lang, this.props.user);
     }
   }
 
   render() {
-    const { bots, selectedBotName, onChange } = this.props;
+    const { bots, selectedBotName } = this.props;
 
     return (
       <div className="bot-selection">
@@ -115,14 +111,16 @@ class BotSelection extends React.PureComponent<BotSelectionProps, BotSelectionSt
 }
 
 export default connect(
-  (state: BotSelectionState) => ({
+  (state: ChatState) => ({
     selectedBotName: state.history.selectedBotName,
-    bots: state.format.bots
+    bots: state.format.bots,
+    user: state.connection.user,
   }),
   {
-    onChange: (botName: string) => ({
+    onChange: (botName: string, from: User) => ({
       type: 'Set_Selected_Bot',
-      selectedBotName: botName
+      selectedBotName: botName,
+      from: from,
     })
   },
   (stateProps: any, dispatchProps: any, ownProps: any): BotSelectionProps => ({
@@ -134,6 +132,7 @@ export default connect(
       if (typeof ownProps.onChange === 'function') {
         ownProps.onChange(botName);
       }
-    }
+    },
+    user: stateProps.user,
   })
 )(BotSelection);

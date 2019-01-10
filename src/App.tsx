@@ -57,14 +57,16 @@ function getAppProps(): Object {
 }
 
 export interface IConfig {
-  fontUrl: string;
-  fontFamily: string;
-  textColor: string;
-  brandColor: string;
-  headerBg: string;
-  textProfileColor: string;
-  logo: string;
-  displayName: string;
+  fontUrl: string
+  fontFamily: string
+  textColor: string
+  brandColor: string
+  headerBg: string
+  textProfileColor: string
+  logo: string
+  displayName: string
+  userResponseBg: string
+  botResponseBg: string
 }
 
 const compileStyle = (config: IConfig) => {
@@ -100,7 +102,7 @@ const compileStyle = (config: IConfig) => {
 
   // change logo
   const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img');
-  const titleEL = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header h1');
+  const titleEL = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header h1') as HTMLElement;
 
   if (logoEl && config.logo) {
     logoEl.setAttribute('src', config.logo);
