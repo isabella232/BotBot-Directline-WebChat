@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import axios from 'axios';
 
-interface FormState {
+export interface FormState {
   data: any;
   action?: string;
   inputs?: Array<object>;
@@ -11,7 +11,7 @@ interface FormState {
   errorMessage: string;
 }
 
-interface FormProps {
+export interface FormProps {
   inputs: any[];
   action: string;
 }
