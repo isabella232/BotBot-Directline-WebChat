@@ -733,19 +733,22 @@
         background-color: $c_brand;
         border-right: 49px solid $c_brand_light;
         transition: border-color .2s ease;
+        overflow: visible;
 
         &:hover, &:active {
             // background-color: #eee;
             border-right: 49px solid $c_brand;
         }
 
-        &::after {
+        &:after {
+            display: block;
             position: absolute;
             width: 49px;
             right: -64px;
             top: 10px;
             bottom: 0px;
-            background: url("data:image/svg+xml;utf8,<svg width='15' height='18' viewBox='0 0 15 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 9L15 0.339746L15 17.6603L0 9Z' fill='#F2F2F2'/></svg>");
+            // background: url("data:image/svg+xml;utf8,<svg width='15px' height='18px' viewBox='0 0 15 18' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M0 9L15 0.339746L15 17.6603L0 9Z' fill='#F2F2F2'/></svg>");
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTVweCcgaGVpZ2h0PScxOHB4JyB2aWV3Qm94PScwIDAgMTUgMTgnIGZpbGw9J25vbmUnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTAgOUwxNSAwLjMzOTc0NkwxNSAxNy42NjAzTDAgOVonIGZpbGw9JyNGMkYyRjInLz48L3N2Zz4=);
             background-repeat: no-repeat;
             content: '';
             z-index: 10;
