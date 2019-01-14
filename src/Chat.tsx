@@ -6,18 +6,16 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import {
-  Activity,
-  
   User,
   DirectLine,
   DirectLineOptions,
   CardActionTypes
 } from 'botframework-directlinejs';
-import { createStore, ChatActions, sendMessage, HistoryAction } from './Store';
+import { createStore, ChatActions, sendMessage, HistoryAction, ConnectionAction } from './Store';
 import { Provider } from 'react-redux';
 import { SpeechOptions } from './SpeechOptions';
 import { Speech } from './SpeechModule';
-import { ActivityOrID, FormatOptions, IMyBotConnection } from './Types';
+import { ActivityOrID, FormatOptions, IMyBotConnection, MyActivity } from './Types';
 import * as konsole from './Konsole';
 import { getTabIndex } from './getTabIndex';
 import BotSelection from './BotSelection';
@@ -108,7 +106,7 @@ export class Chat extends React.Component<ChatProps, {}> {
     });
   }
 
-  private handleIncomingActivity(activity: Activity) {
+  private handleIncomingActivity(activity: MyActivity) {
     let state = this.store.getState();
     switch (activity.type) {
       case 'message':
@@ -178,7 +176,7 @@ export class Chat extends React.Component<ChatProps, {}> {
 
     if (this.props.resize === 'window') window.addEventListener('resize', this.resizeListener);
 
-    this.store.dispatch<ChatActions>({
+    this.store.dispatch<ConnectionAction>({
       type: 'Start_Connection',
       user: this.props.user,
       bot: this.props.bot,
@@ -193,17 +191,17 @@ export class Chat extends React.Component<ChatProps, {}> {
           if (refGrammarId)
             this.props.speechOptions.speechRecognizer.referenceGrammarId = refGrammarId;
         }
-        this.store.dispatch<ChatActions>({ type: 'Connection_Change', connectionStatus });
+        this.store.dispatch<ConnectionAction>({ type: 'Connection_Change', connectionStatus });
       }
     );
 
     this.activitySubscription = botConnection.activity$.subscribe(
-      activity => this.handleIncomingActivity(activity),
-      error => konsole.log('activity$ error', error)
+      (activity: MyActivity) => this.handleIncomingActivity(activity),
+      (error: any) => konsole.log('activity$ error', error)
     );
 
     if (this.props.selectedActivity) {
-      this.selectedActivitySubscription = this.props.selectedActivity.subscribe(activityOrID => {
+      this.selectedActivitySubscription = this.props.selectedActivity.subscribe((activityOrID: ActivityOrID) => {
         this.store.dispatch<ChatActions>({
           type: 'Select_Activity',
           selectedActivity:

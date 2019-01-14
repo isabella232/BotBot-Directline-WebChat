@@ -284,7 +284,7 @@ export interface WrappedActivityProps {
   onClickRetry: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
-interface WrappedActivityState {
+export interface WrappedActivityState {
   mounted: boolean;
 }
 

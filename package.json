@@ -15,7 +15,7 @@
     "scss-watch": "node-sass ./src/scss/ -w -o . && rimraf ./includes/ && rimraf ./custom/",
     "tsc-watch": "tsc -w",
     "webpack": "webpack",
-    "webpack-watch": "webpack --progress --watch",
+    "webpack-watch": "webpack --progress --watch --color",
     "clean": "rimraf built",
     "prepublish": "tsc && npm run build-css && webpack --progress --config webpack.production.config.js",
     "build-js": "webpack --progress --config webpack.production.config.js",

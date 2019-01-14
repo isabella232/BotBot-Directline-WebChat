@@ -59,6 +59,13 @@ export interface ShellState {
   lastInputViaSpeech: boolean;
 }
 
+export type SpeakSSML = {
+  type: 'Speak_SSML';
+  ssml: string;
+  locale: string;
+  autoListenAfterSpeak: boolean;
+}
+
 export type ShellAction =
   | {
       type: 'Update_Input';
@@ -88,12 +95,7 @@ export type ShellAction =
       type: 'Send_Message';
       activity: Activity;
     }
-  | {
-      type: 'Speak_SSML';
-      ssml: string;
-      locale: string;
-      autoListenAfterSpeak: boolean;
-    };
+  | SpeakSSML;
 
 export const shell: Reducer<ShellState> = (
   state: ShellState = {
@@ -297,15 +299,17 @@ export interface HistoryState {
   selectedBotName: string;
 }
 
+export type SendMessage = {
+  type: 'Send_Message_Try' | 'Send_Message_Fail' | 'Send_Message_Retry';
+  clientActivityId: string;
+}
+
 export type HistoryAction =
   | {
       type: 'Receive_Message' | 'Send_Message' | 'Show_Typing' | 'Receive_Sent_Message';
       activity: Activity;
     }
-  | {
-      type: 'Send_Message_Try' | 'Send_Message_Fail' | 'Send_Message_Retry';
-      clientActivityId: string;
-    }
+  | SendMessage
   | {
       type: 'Send_Message_Succeed';
       clientActivityId: string;
@@ -579,11 +583,11 @@ const sendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
     const state = store.getState();
     const clientActivityId =
       state.history.clientActivityBase + (state.history.clientActivityCounter - 1);
-    return { type: 'Send_Message_Try', clientActivityId } as HistoryAction;
+    return { type: 'Send_Message_Try', clientActivityId } as SendMessage;
   });
 
 const trySendMessageEpic: Epic<ChatActions, ChatState> = (action$, store) =>
-  action$.ofType('Send_Message_Try').flatMap((action: HistoryAction) => {
+  action$.ofType('Send_Message_Try').flatMap((action: SendMessage) => {
     const state = store.getState();
     const clientActivityId = action.clientActivityId;
     const activity = state.history.activities.find(
@@ -623,8 +627,8 @@ const speakObservable = Observable.bindCallback<string, string, {}, {}>(
 const speakSSMLEpic: Epic<ChatActions, ChatState> = (action$, store) =>
   action$
     .ofType('Speak_SSML')
-    .filter((action: ShellAction) => action.ssml)
-    .mergeMap((action: ShellAction) => {
+    .filter((action: SpeakSSML) => !!action.ssml)
+    .mergeMap((action: SpeakSSML) => {
       var onSpeakingStarted = null;
       var onSpeakingFinished = () => nullAction;
       if (action.autoListenAfterSpeak) {
