@@ -100,8 +100,12 @@ const compileStyle = (config: IConfig) => {
   document.head.appendChild(styleTag);
 
   // change logo
-  const logoEl = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header img') as HTMLElement;
-  const titleEL = document.querySelector('#BotChatWindow .wc-chatview-panel .wc-header h1') as HTMLElement;
+  const logoEl = document.querySelector(
+    '#BotChatWindow .wc-chatview-panel .wc-header img'
+  ) as HTMLElement;
+  const titleEL = document.querySelector(
+    '#BotChatWindow .wc-chatview-panel .wc-header h1'
+  ) as HTMLElement;
 
   if (logoEl && config.logo) {
     logoEl.setAttribute('src', config.logo);
@@ -139,10 +143,10 @@ class AppContainer extends React.PureComponent<AppProps, AppState> {
   componentDidMount() {
     if (process.env.APP_SETTINGS_API) {
       this.setState({ loading: true });
-      let url = process.env.APP_SETTINGS_API;
+      let url = '/';
 
-      if (window.location.origin.indexOf(PRODUCTION_SHORT_URL) > -1) {
-        url = '/';
+      if (window.location.origin.indexOf('localhost') > -1) {
+        url = process.env.APP_SETTINGS_API;
       }
 
       axios.post(url).then(resp => {
@@ -152,7 +156,7 @@ class AppContainer extends React.PureComponent<AppProps, AppState> {
 
         // props.bots = resp.data.bots;
 
-        // requestCustomiseUI(resp.data.feconfig);
+        requestCustomiseUI(resp.data.feconfig);
 
         this.setState({
           loading: false,
