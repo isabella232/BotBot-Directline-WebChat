@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { connect } from 'react-redux';
 import { Activity, Media, IBotConnection, User, MediaType, DirectLine, DirectLineOptions, CardActionTypes } from 'botframework-directlinejs';
-import { createStore, ChatActions, HistoryAction } from './Store';
+import { createStore, ChatActions, HistoryAction, ChatState } from './Store';
 import { Provider } from 'react-redux';
 import { SpeechOptions } from './SpeechOptions';
 import { Speech } from './SpeechModule';
@@ -193,6 +193,19 @@ export class Chat extends React.Component<ChatProps, {}> {
         ))
     }
 
+    private postChangeBotMessage = () => {
+        const state = this.store.getState() as ChatState;
+        sendPostBack(
+            this.botConnection,
+            'Hi',
+            undefined,
+            state.connection.user,
+            state.format.locale,
+            state.history.selectedBotName,
+        )
+        console.log('posted')
+    }
+
     render() {
         const state = this.store.getState();
         konsole.log("BotChat.Chat state", state);
@@ -220,7 +233,7 @@ export class Chat extends React.Component<ChatProps, {}> {
                     <MessagePane setFocus={ () => this.setFocus() }>
                         <History setFocus={ () => this.setFocus() }/>
                     </MessagePane>
-                    <Shell bots={this.props.bots} />
+                    <Shell bots={this.props.bots} postChangeBotMessage={this.postChangeBotMessage} />
                     { resize }
                 </div>
             </Provider>
@@ -237,9 +250,10 @@ export const doCardAction = (
     from: User,
     locale: string,
     sendMessage: (value: string, user: User, locale: string) => void,
+    botName: string,
 ): IDoCardAction => (
     type,
-    actionValue
+    actionValue,
 ) => {
 
     const text = (typeof actionValue === 'string') ? actionValue as string : undefined;
@@ -252,7 +266,7 @@ export const doCardAction = (
             break;
 
         case "postBack":
-            sendPostBack(botConnection, text, value, from, locale);
+            sendPostBack(botConnection, text, value, from, locale, botName);
             break;
 
         case "call":
@@ -270,13 +284,16 @@ export const doCardAction = (
         }
 }
 
-export const sendPostBack = (botConnection: IBotConnection, text: string, value: object, from: User, locale: string) => {
+export const sendPostBack = (botConnection: IBotConnection, text: string, value: object, from: User, locale: string, botName: string) => {
     botConnection.postActivity({
         type: "message",
         text,
         value,
         from,
-        locale
+        locale,
+        channelData: {
+            botName,
+        }
     })
     .subscribe(id => {
         konsole.log("success sending postBack", id)

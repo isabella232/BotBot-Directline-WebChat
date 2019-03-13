@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ChatActions, ChatState } from './Store';
 import { Portal } from './Portal'
-import { sendMessage, sendFiles, classList } from './Chat';
+import { sendMessage, sendPostBack, sendFiles, classList } from './Chat';
 import { connect } from 'react-redux';
 import { Strings } from './Strings';
 import { Speech } from './SpeechModule'
@@ -75,10 +75,6 @@ class ShellContainer extends React.Component<Props, State> {
 
     private onClickBotName() {
         this.setState({isMenuOpened: !this.state.isMenuOpened})
-    }
-
-    private onSetBotName() {
-
     }
 
     render() {
@@ -188,6 +184,9 @@ export const Shell = connect(
         sendFiles: (files: FileList) => dispatchProps.sendFiles(files, stateProps.user, stateProps.locale),
         startListening: () => dispatchProps.startListening(),
         stopListening: () => dispatchProps.stopListening(),
-        setBotName: (selectedBotName: string) => dispatchProps.setBotName(selectedBotName),
+        setBotName: (selectedBotName: string) => {
+            dispatchProps.setBotName(selectedBotName);
+            ownProps.postChangeBotMessage();
+        },
     })
 )(ShellContainer);

@@ -203,6 +203,7 @@ export const History = connect(
         selectedActivity: state.history.selectedActivity,
         botConnection: state.connection.botConnection,
         user: state.connection.user,
+        botName: state.history.selectedBotName,
     }), {
         setMeasurements: (carouselMargin: number) => ({ type: 'Set_Measurements', carouselMargin }),
         onClickRetry: (activity: Activity) => ({ type: 'Send_Message_Retry', clientActivityId: activity.channelData.clientActivityId }),
@@ -221,7 +222,7 @@ export const History = connect(
         // from ownProps
         setFocus: ownProps.setFocus,
         // helper functions
-        doCardAction: doCardAction(stateProps.botConnection, stateProps.user, stateProps.format.locale, dispatchProps.sendMessage),
+        doCardAction: doCardAction(stateProps.botConnection, stateProps.user, stateProps.format.locale, dispatchProps.sendMessage, stateProps.botName),
         isFromMe: (activity: Activity) => activity.from && activity.from.id === stateProps.user.id,
         isSelected: (activity: Activity) => activity === stateProps.selectedActivity,
         onClickActivity: (activity: Activity) => stateProps.connectionSelectedActivity && (() => stateProps.connectionSelectedActivity.next({ activity }))
