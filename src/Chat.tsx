@@ -149,7 +149,6 @@ export class Chat extends React.Component<ChatProps, {}> {
 
     componentDidMount() {
         // Now that we're mounted, we know our dimensions. Put them in the store (this will force a re-render)
-        // this.setSize();
         // This flag is to indicate - if mounted, we can safely setSize when store is rehydrated
         this.setSize();
 
