@@ -23,6 +23,8 @@ export interface ShellFunctions {
     focus: (appendKey?: string) => void
 }
 
+const MAX_CHARACTER = 256;
+
 class ShellContainer extends React.Component<Props> implements ShellFunctions {
     private textInput: HTMLInputElement;
     private fileInput: HTMLInputElement;
@@ -142,7 +144,11 @@ class ShellContainer extends React.Component<Props> implements ShellFunctions {
                         placeholder={ placeholder }
                         aria-label={ this.props.inputText ? null : placeholder }
                         aria-live="polite"
+                        maxLength={MAX_CHARACTER}
                     />
+                    <span className="wc-counter" style={{
+                        color: this.props.inputText.length === MAX_CHARACTER ? 'red' : ''
+                    }}>{`${this.props.inputText.length}/${MAX_CHARACTER} characters ${this.props.inputText.length === MAX_CHARACTER ? ' - character limit reached' : ''}`}</span>
                 </div>
                 <button
                     className={ sendButtonClassName }
